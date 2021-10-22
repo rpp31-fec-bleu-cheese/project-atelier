@@ -4,10 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server-dev": "node server/index.js"
   },
   "dependencies": {
-    "react":"^17.0.2"
+    "react":"^17.0.2",
+    "axios":"^0.23.0"
+  },
+  "devDependencies": {
+    "webpack":"^5.59.1",
+    "@babel/preset-react":"^7.14.5",
+    "@babel/preset-env": "7.15.8",
+    "@babel/core":"^7.15.8"
   },
   "author": "",
   "license": "ISC"
