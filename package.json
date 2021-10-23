@@ -4,17 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server-dev": "node server/index.js"
+    "start": "nodemon server/index.js",
+    "build": "webpack --mode development -w",
+    "test": "jest"
   },
   "dependencies": {
-    "react":"^17.0.2",
-    "axios":"^0.23.0"
+    "axios": "^0.23.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jquery": "^3.6.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "webpack":"^5.59.1",
-    "@babel/preset-react":"^7.14.5",
+    "@babel/core": "^7.15.8",
     "@babel/preset-env": "7.15.8",
-    "@babel/core":"^7.15.8"
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.3",
+    "enzyme": "^3.11.0",
+    "jest": "^27.3.1",
+    "nodemon": "^2.0.14",
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1"
   },
   "author": "",
   "license": "ISC"
