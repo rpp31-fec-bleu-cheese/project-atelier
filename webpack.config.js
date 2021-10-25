@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const entry_dir = path.join(__dirname, 'client/src/index.js');
 const output_dir = path.join(__dirname, 'client/dist');
@@ -14,6 +15,19 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
+        enforce: 'pre',
+        use: [
+          {
+            options: {
+              eslintPath: require.resolve('eslint'),
+            },
+            loader: require.resolve('eslint-loader'),
+          },
+        ],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -23,5 +37,6 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [new ESLintPlugin()]
 };
