@@ -97,10 +97,17 @@ div#QandA {
 div#Reviews {
   grid-column: 2;
   grid-row: 6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 5% auto;
   border: 1px solid black;
   width: 100%;
   height: 100%;
+}
+
+div#Reviews #Header {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  margin-left: 5px;
 }
