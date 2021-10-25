@@ -4,7 +4,6 @@ const app = express();
 const axios = require('axios').default;
 
 app.use(express.json());
-console.log(__dirname);
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // app.get('/', (req, res) => {
