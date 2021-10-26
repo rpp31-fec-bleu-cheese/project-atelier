@@ -1,5 +1,6 @@
 import React from 'React';
 
+import Search from './Search.jsx';
 import Question from './Question.jsx';
 
 class QandA extends React.Component {
@@ -14,6 +15,7 @@ class QandA extends React.Component {
   render() {
     return(
       <div id='QandA'>
+        <Search />
         <Question />
       </div>
     )
