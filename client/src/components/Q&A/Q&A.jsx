@@ -17,6 +17,7 @@ class QandA extends React.Component {
   render() {
     return(
       <div id='QandA'>
+        <h2>QUESTIONS & ANSWERS</h2>
         <Search />
         {mockData.results
           .map(question => <Question key={question.question_id} question={question.question_body}/>)}
