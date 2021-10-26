@@ -3,7 +3,10 @@ import Answer from './Answer.jsx';
 
 const Question = () => {
   return (
-    <div>Question</div>
+    <div>
+      Question
+      <Answer />
+    </div>
   )
 };
 

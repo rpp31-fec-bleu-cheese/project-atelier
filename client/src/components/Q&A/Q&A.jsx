@@ -14,7 +14,7 @@ class QandA extends React.Component {
   render() {
     return(
       <div id='QandA'>
-        {'Q&A'}
+        <Question />
       </div>
     )
   }
