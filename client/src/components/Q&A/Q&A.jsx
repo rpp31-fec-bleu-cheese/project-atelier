@@ -1,7 +1,8 @@
 import React from 'React';
 
 import Search from './Search.jsx';
-import Question from './Question.jsx';
+import FooterButtons from './FooterButtons.jsx';
+import Question from './questionComponents/Question.jsx';
 import mockData from './mockData.js';
 
 class QandA extends React.Component {
@@ -19,6 +20,7 @@ class QandA extends React.Component {
         <Search />
         {mockData.results
           .map(question => <Question key={question.question_id} question={question.question_body}/>)}
+        <FooterButtons />
       </div>
     )
   }
