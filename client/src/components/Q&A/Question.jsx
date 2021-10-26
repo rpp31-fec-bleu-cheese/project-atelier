@@ -4,8 +4,8 @@ import Answer from './Answer.jsx';
 
 const Question = ({ question }) => {
   return (
-    <div>
-      <div>{question}</div>
+    <div className="question">
+      <div>Q: {question}</div>
       <Answer />
     </div>
   )
