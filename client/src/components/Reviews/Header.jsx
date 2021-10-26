@@ -1,11 +1,11 @@
 import React from 'React';
 
-const Logo = props => {
+const Header = props => {
   return (
-    <div id='Header'>
+    <h1 id='Header'>
       {'RATINGS & REVIEWS'}
-    </div>
+    </h1>
   );
 };
 
-export default Logo;
+export default Header;

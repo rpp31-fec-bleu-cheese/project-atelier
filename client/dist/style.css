@@ -98,16 +98,53 @@ div#Reviews {
   grid-column: 2;
   grid-row: 6;
   display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 5% auto;
+  grid-template-columns: 30% auto;
+  grid-template-rows: 5% 300px auto;
   border: 1px solid black;
   width: 100%;
   height: 100%;
 }
 
-div#Reviews #Header {
+div#Reviews h1#Header {
   grid-column: 1;
   grid-row: 1;
+  box-sizing: border-box;
   align-self: center;
-  margin-left: 5px;
+  padding-left: 5px;
+}
+
+div#StarsContainer {
+  grid-column: 1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 90px auto;
+}
+
+div#StarsContainer div#Rating {
+  font-size: 50px;
+  justify-self: center;
+  align-self: start;
+}
+
+div#StarsContainer div#StarBars {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: start;
+  align-self: start;
+  display: grid;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+  width: 100%
+}
+
+div#StarsContainer div.StarBar {
+  display: grid;
+  grid-template-columns: 27px auto;
+  width: 100%
+}
+
+div#StarsContainer div.StarBar  div#bar {
+  grid-column: 2;
+  height: 10px;
+  background-color: gray;
+  align-self: center;
 }
