@@ -1,5 +1,7 @@
 import React from 'React';
 
+import Question from './Question.jsx';
+
 class QandA extends React.Component {
 
   constructor(props) {
