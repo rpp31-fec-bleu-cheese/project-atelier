@@ -1,13 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Answer from './Answer.jsx';
 
-const Question = () => {
+const Question = ({ question }) => {
   return (
     <div>
-      Question
+      <div>{question}</div>
       <Answer />
     </div>
   )
 };
+
+Question.propTypes = {
+  question: PropTypes.string
+}
 
 export default Question;
