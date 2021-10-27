@@ -11,7 +11,7 @@ class Reviews extends React.Component {
     super(props);
     this.state = {
       currentRatings: {
-        "1": "0",
+        "1": "1",
         "2": "1",
         "3": "1",
         "4": "2",
