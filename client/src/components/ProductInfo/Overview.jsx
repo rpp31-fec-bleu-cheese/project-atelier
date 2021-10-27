@@ -9,6 +9,7 @@ let Overview = ({products}) => {
       <div id='Overview'>
         <ProductInformation products={products} />
         <StyleSelector products={products} />
+        <AddToCart products={products} />
       </div>
     );
 
@@ -63,6 +64,35 @@ let Overview = ({products}) => {
     );
   }
 
+  let AddToCart = ({products}) => {
+    return (
+      <div className="AddToCart">
+        <div className="SizeSelector">
+          <form>
+            <select value="SELECT SIZE" onChange={() => console.log('Size clicked!')}>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
+            </select>
+          </form>
+        </div>
+        <div className="QuanititySelector">
+          <form>
+            <select value="1" onChange={() => console.log('Size clicked!')}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+
+  AddToCart.propTypes = {
+    products: PropTypes.array
+  }
 
 StyleSelector.propTypes = {
   products: PropTypes.array
