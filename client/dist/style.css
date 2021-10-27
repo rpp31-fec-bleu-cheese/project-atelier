@@ -64,16 +64,81 @@ div#SiteMessage {
 div#Overview {
   grid-column: 2;
   grid-row: 3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 25% 25% 25% 25%;
   border: 1px solid black;
   width: 100%;
   height: 100%;
 }
 
-div.ProductInformation {
+div#Overview div.ProductInformation {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   border: 1px solid black;
+  padding: 5px;
+}
+
+div#Overview div.ProductCategory,
+div#Overview div.SelectedStyle {
+  text-transform: uppercase;
+}
+
+div#Overview div.ProductName {
+  font-size: 200%;
+}
+
+div#Overview div.StarsAndReviews {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  gap: 15px;
+}
+
+div#Overview div.StyleSelector {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+div#Overview div.SelectedStyle {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  gap: 15px;
+}
+
+div#Overview div.SelectedStyleHeader {
+  font-weight: bold;
+}
+
+div#Overview div.StyleSelectorIcons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 10px;
+  width: 250px;
+  height: auto;
+}
+
+div#Overview div.StyleIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid black;
+  border-radius: 100%;
+  height: 50px;
+  width: 50px;
+  flex-grow: 1;
+  flex-basis: 20%;
+  max-width: 100%;
 }
 
 div#Related_Outfit {
