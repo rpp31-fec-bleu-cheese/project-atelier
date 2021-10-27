@@ -3,7 +3,7 @@ import $ from 'jquery';
 import PropTypes from 'prop-types';
 
 import Header from './Header.jsx';
-import StarsContainer from './StarsContainer.jsx';
+import RatingsContainer from './RatingsContainer.jsx';
 
 class Reviews extends React.Component {
 
@@ -109,7 +109,7 @@ class Reviews extends React.Component {
     return(
       <div id='Reviews'>
         <Header />
-        <StarsContainer ratings={this.state.currentRatings}/>
+        <RatingsContainer ratings={this.state.currentRatings}/>
       </div>
     )
   }

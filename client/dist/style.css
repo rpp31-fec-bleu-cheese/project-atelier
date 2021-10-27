@@ -117,8 +117,7 @@ div#Reviews h1#Header {
   height: 100%;
 }
 
-div#StarsContainer {
-  border: 1px solid black;
+div#RatingsContainer {
   grid-column: 1;
   grid-row: 2;
   display: grid;
@@ -126,14 +125,14 @@ div#StarsContainer {
   grid-template-rows: 60px 30px auto;
 }
 
-div#StarsContainer div#Rating {
+div#RatingsContainer div#Rating {
   display: flex;
   font-size: 50px;
   justify-content: center;
   align-items: center;
 }
 
-div#StarsContainer div#StarBars {
+div#RatingsContainer div#StarBars {
   grid-column: 1/-1;
   grid-row: 3;
   justify-self: start;
@@ -145,29 +144,32 @@ div#StarsContainer div#StarBars {
   padding-right: 5px;
 }
 
-div#StarsContainer div.StarBar {
+div#RatingsContainer div.StarBar {
   display: grid;
   grid-template-columns: 47px auto;
   width: 100%;
   text-decoration-line: underline;
 }
 
-div#StarsContainer div.StarBar div#bar {
+div#RatingsContainer div.StarBar div#bar {
   grid-column: 2;
   height: 7px;
   background-color: gray;
   align-self: center;
 }
 
+div#StarsContainer {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
 /***** Stars ******/
 
 div.Stars {
-  grid-column: 2;
-  grid-row: 1;
   position: relative;
-  align-self: center;
-  justify-self: start;
-  align-items: start;
   display: inline-block;
   color: #b1b1b1;
   overflow: hidden;
@@ -176,12 +178,9 @@ div.Stars {
   top: 0;
   left: 0;
   position: absolute;
-  justify-self: start;
-  align-self: start;
   white-space: nowrap;
   overflow: hidden;
   color: #fde16d;
-  width: 50%;
 }
 .empty-stars:before, .full-stars:before {
   content:"\2605\2605\2605\2605\2605";

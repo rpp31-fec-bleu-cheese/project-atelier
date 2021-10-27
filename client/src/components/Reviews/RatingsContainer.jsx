@@ -5,7 +5,7 @@ import Rating from './StarsComponents/Rating.jsx';
 import StarBar from './StarsComponents/StarBar.jsx';
 import Stars from './StarsComponents/Stars.jsx';
 
-const StarsContainer = props => {
+const RatingsContainer = props => {
   let ratingSum = 0; // This value will represent the sum of all ratings
   let rateQuantity = 0; // This value will represent only the total number of rates
 
@@ -19,18 +19,18 @@ const StarsContainer = props => {
   let finalRating = ratingSum / rateQuantity; // This value will be the actual rating displayed on the page /// Number between 1 - 5
 
   return (
-    <div id='StarsContainer'>
+    <div id='RatingsContainer'>
       <Rating rating={finalRating} />
-      <Stars />
+      <Stars rating={finalRating}/>
       <div id='StarBars'>
-        {ratingArray.map((item, i) => <StarBar key={i} rating={item} sum={finalRating}/>).reverse()}
+        {ratingArray.map((item, i) => <StarBar key={i} rating={item} quantity={rateQuantity}/>).reverse()}
       </div>
     </div>
   );
 };
 
-StarsContainer.propTypes = {
+RatingsContainer.propTypes = {
   ratings: PropTypes.object.isRequired
 }
 
-export default StarsContainer;
+export default RatingsContainer;
