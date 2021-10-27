@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import Header from './Header/Header.jsx';
 import SiteMessage from './SiteMessage.jsx';
 import ProductInfo from './ProductInfo/ProductInfo.jsx';
@@ -15,12 +15,14 @@ class App extends React.Component {
     };
   }
 
+
+
   render() {
     return (
       <div id='App'>
         <Header />
         <SiteMessage />
-        <ProductInfo />
+        <ProductInfo products={this.props.products}/>
         <Related_Outfit />
         <QandA />
         <Reviews />
@@ -28,5 +30,9 @@ class App extends React.Component {
     )
   }
 };
+
+App.propTypes = {
+  products: PropTypes.array
+}
 
 export default App;

@@ -61,7 +61,7 @@ div#SiteMessage {
   justify-self: center;
 }
 
-div#ProductInfo {
+div#Overview {
   grid-column: 2;
   grid-row: 3;
   display: flex;

@@ -1,21 +1,21 @@
 import React from 'React';
+import PropTypes from 'prop-types';
 
-class ProductInfo extends React.Component {
+let Overview = ({products}) => {
 
-  constructor(props) {
-    super(props);
-    this.state = {
 
-    };
-  }
 
-  render() {
-    return(
-      <div id='ProductInfo'>
-        Product Info
+    return (
+      <div id='Overview'>
+        Product Info Here
       </div>
-    )
-  }
-};
+    );
 
-export default ProductInfo;
+  };
+
+
+  Overview.propTypes = {
+  products: PropTypes.array
+}
+
+export default Overview;
