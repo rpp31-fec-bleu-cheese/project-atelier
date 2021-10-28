@@ -229,6 +229,9 @@ div#RatingsReviews div.Breakdown div.Type {
   align-self: start;
   justify-self: start;
 }
+div#RatingsReviews div.Breakdown div.Marker {
+  text-align: end;
+}
 div#RatingsReviews div.Breakdown div.Slider {
   grid-column: 1/-1;
   grid-row: 2;

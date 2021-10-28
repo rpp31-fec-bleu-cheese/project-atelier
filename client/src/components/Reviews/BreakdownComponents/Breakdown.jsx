@@ -3,20 +3,23 @@ import PropTypes from 'prop-types';
 
 const Breakdown = props => {
   let type = {
-    Quality: ['Poor', 'Great']
+    Quality: ['Poor', 'Great'],
+    Size: ['Too Small', 'Perfect', 'Too Large'],
+    Comfort: ['Poor', 'Perfect']
   };
   let currentType = type[props.char[0]];
-  let col = 0;
+  let col = 0; // This value is used to help div.Trait determine where to place the its child text
+  let typeRating = (props.char[1].value * 20) + '%'; // This value will create a percentage out of the type value to be used for the location of the marker
 
   return (
     <div className='Breakdown'>
       <div className='Type'>Quality</div>
       <div className='Slider'></div>
+      <div className='Marker' id={`${props.char[0]}Marker`} style={{gridColumn: '1/-1', gridRow: 2, width: typeRating}}>{'▼'}</div>
       <div className='TraitContainer'>
         {
           currentType.map((trait, i) => {
             col += 1;
-
             return (
               <div className='Trait' key={i} style={{
                   gridColumn: col,
