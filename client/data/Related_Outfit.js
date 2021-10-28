@@ -6,7 +6,9 @@ var relatedProductIds = [
   59554,
   59557,
   59555,
-  59554
+  59554,
+  59557
+
 ];
 //for productid - 59558
 var products = [
@@ -187,8 +189,178 @@ var products = [
     "updated_at": "2021-10-18T22:50:41.954Z"
 }
 ]
-
+var productDetails = [
+    {
+        "id": 59557,
+        "campus": "hr-rpp",
+        "name": "Heir Force Ones",
+        "slogan": "A sneaker dynasty",
+        "description": "Now where da boxes where I keep mine? You should peep mine, maybe once or twice but never three times. I'm just a sneaker pro, I love Pumas and shell toes, but can't nothin compare to a fresh crispy white pearl",
+        "category": "Kicks",
+        "default_price": "99.00",
+        "created_at": "2021-10-18T22:50:41.839Z",
+        "updated_at": "2021-10-18T22:50:41.839Z",
+        "features": [
+            {
+                "feature": "Sole",
+                "value": "Rubber"
+            },
+            {
+                "feature": "Material",
+                "value": "FullControlSkin"
+            },
+            {
+                "feature": "Mid-Sole",
+                "value": "ControlSupport Arch Bridge"
+            },
+            {
+                "feature": "Stitching",
+                "value": "Double Stitch"
+            }
+        ],
+        "image":"https://images.unsplash.com/photo-1477420143023-6a0e0b04b69a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+    },
+    {
+        "id": 59555,
+        "campus": "hr-rpp",
+        "name": "Morning Joggers",
+        "slogan": "Make yourself a morning person",
+        "description": "Whether you're a morning person or not.  Whether you're gym bound or not.  Everyone looks good in joggers.",
+        "category": "Pants",
+        "default_price": "40.00",
+        "created_at": "2021-10-18T22:50:41.839Z",
+        "updated_at": "2021-10-18T22:50:41.839Z",
+        "features": [
+            {
+                "feature": "Fabric",
+                "value": "100% Cotton"
+            },
+            {
+                "feature": "Cut",
+                "value": "Skinny"
+            }
+        ],
+        "image":"https://images.unsplash.com/photo-1477420143023-6a0e0b04b69a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+    },
+    {
+        "id": 59554,
+        "campus": "hr-rpp",
+        "name": "Bright Future Sunglasses",
+        "slogan": "You've got to wear shades",
+        "description": "Where you're going you might not need roads, but you definitely need some shades. Give those baby blues a rest and let the future shine bright on these timeless lenses.",
+        "category": "Accessories",
+        "default_price": "69.00",
+        "created_at": "2021-10-18T22:50:41.839Z",
+        "updated_at": "2021-10-18T22:50:41.839Z",
+        "features": [
+            {
+                "feature": "Lenses",
+                "value": "Ultrasheen"
+            },
+            {
+                "feature": "UV Protection",
+                "value": null
+            },
+            {
+                "feature": "Frames",
+                "value": "LightCompose"
+            }
+        ],
+        "image":"https://images.unsplash.com/photo-1477420143023-6a0e0b04b69a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+    },
+    {
+        "id": 59558,
+        "campus": "hr-rpp",
+        "name": "Pumped Up Kicks",
+        "slogan": "Faster than a just about anything",
+        "description": "The Pumped Up serves up crisp court style with a modern look. These shoes show off tennis-whites shades and are constructed with a supple leather upper and a classic rubber cupsole.",
+        "category": "Kicks",
+        "default_price": "89.00",
+        "created_at": "2021-10-18T22:50:41.839Z",
+        "updated_at": "2021-10-18T22:50:41.839Z",
+        "features": [
+            {
+                "feature": "Sole",
+                "value": "Rubber"
+            },
+            {
+                "feature": "Material",
+                "value": "FullControlSkin"
+            },
+            {
+                "feature": "Mid-Sole",
+                "value": "ControlSupport Arch Bridge"
+            },
+            {
+                "feature": "Stitching",
+                "value": "Double Stitch"
+            }
+        ],
+        "image":"https://images.unsplash.com/photo-1477420143023-6a0e0b04b69a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+    },
+    {
+        "id": 59567,
+        "campus": "hr-rpp",
+        "name": "Pumped Up Kicks",
+        "slogan": "Faster than a just about anything",
+        "description": "The Pumped Up serves up crisp court style with a modern look. These shoes show off tennis-whites shades and are constructed with a supple leather upper and a classic rubber cupsole.",
+        "category": "Kicks",
+        "default_price": "89.00",
+        "created_at": "2021-10-18T22:50:41.839Z",
+        "updated_at": "2021-10-18T22:50:41.839Z",
+        "features": [
+            {
+                "feature": "Sole",
+                "value": "Rubber"
+            },
+            {
+                "feature": "Material",
+                "value": "FullControlSkin"
+            },
+            {
+                "feature": "Mid-Sole",
+                "value": "ControlSupport Arch Bridge"
+            },
+            {
+                "feature": "Stitching",
+                "value": "Double Stitch"
+            }
+        ],
+        "image":"https://images.unsplash.com/photo-1477420143023-6a0e0b04b69a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+    },
+    {
+        "id": 59566,
+        "campus": "hr-rpp",
+        "name": "Pumped Up Kicks",
+        "slogan": "Faster than a just about anything",
+        "description": "The Pumped Up serves up crisp court style with a modern look. These shoes show off tennis-whites shades and are constructed with a supple leather upper and a classic rubber cupsole.",
+        "category": "Kicks",
+        "default_price": "89.00",
+        "created_at": "2021-10-18T22:50:41.839Z",
+        "updated_at": "2021-10-18T22:50:41.839Z",
+        "features": [
+            {
+                "feature": "Sole",
+                "value": "Rubber"
+            },
+            {
+                "feature": "Material",
+                "value": "FullControlSkin"
+            },
+            {
+                "feature": "Mid-Sole",
+                "value": "ControlSupport Arch Bridge"
+            },
+            {
+                "feature": "Stitching",
+                "value": "Double Stitch"
+            }
+        ],
+        "image":"https://images.unsplash.com/photo-1477420143023-6a0e0b04b69a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+    }
+]
 module.exports = {
   relatedProductIds,
-  products
+  products,
+  productDetails
 }

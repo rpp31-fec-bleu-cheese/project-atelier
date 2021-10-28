@@ -6,6 +6,7 @@ var Outfit = (props) => {
   return(
     <div id="Outfit">
       Your Outfit
+
     </div>
   )
 }
