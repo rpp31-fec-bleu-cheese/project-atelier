@@ -11,7 +11,7 @@ class Reviews extends React.Component {
     super(props);
     this.state = {
       currentRatings: {
-        "1": "1",
+        "1": "",
         "2": "1",
         "3": "1",
         "4": "2",
@@ -109,7 +109,7 @@ class Reviews extends React.Component {
     return(
       <div id='Reviews'>
         <Header />
-        <RatingsContainer ratings={this.state.currentRatings}/>
+        <RatingsContainer ratings={this.state.currentRatings} reviews={this.state.currentReviews}/>
       </div>
     )
   }
