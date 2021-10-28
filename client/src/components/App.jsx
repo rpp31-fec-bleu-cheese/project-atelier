@@ -5,7 +5,7 @@ import SiteMessage from './SiteMessage.jsx';
 import ProductInfo from './ProductInfo/ProductInfo.jsx';
 import Related_Outfit from './Related_Outfit/Related_Outfit.jsx';
 import QandA from './Q&A/Q&A.jsx';
-import Reviews from './Reviews/Reviews.jsx';
+import RatingsReviews from './Reviews/Index.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class App extends React.Component {
         <ProductInfo />
         <Related_Outfit />
         <QandA />
-        <Reviews product_id={this.state.currentProduct}/>
+        <RatingsReviews product_id={this.state.currentProduct}/>
       </div>
     )
   }

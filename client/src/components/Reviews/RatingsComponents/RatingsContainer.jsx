@@ -1,9 +1,9 @@
 import React from 'React';
 import PropTypes from 'prop-types';
 
-import Rating from './StarsComponents/Rating.jsx';
-import StarBar from './StarsComponents/StarBar.jsx';
-import Stars from './StarsComponents/Stars.jsx';
+import Rating from './Rating.jsx';
+import StarBar from './StarBar.jsx';
+import Stars from './Stars.jsx';
 
 const RatingsContainer = props => {
   /*

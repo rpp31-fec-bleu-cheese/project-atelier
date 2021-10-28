@@ -98,17 +98,16 @@ div#QandA {
 /***** Ratings and Reviews ******/
 /********************************/
 
-div#Reviews {
+div#RatingsReviews {
   grid-column: 2;
   grid-row: 6;
   display: grid;
-  grid-template-columns: 300px auto;
-  grid-template-rows: 5% 300px auto;
-  border: 1px solid black;
+  grid-template-columns: 270px auto;
+  grid-template-rows: 30px 180px auto;
   width: 100%;
   height: 100%;
 }
-div#Reviews h1#Header {
+div#RatingsReviews h1#Header {
   grid-column: 1/-1;
   grid-row: 1;
   display: flex;
@@ -121,14 +120,14 @@ div#Reviews h1#Header {
 }
 
 /***** Rating ******/
-div#RatingsContainer {
+div#RatingsReviews div#RatingsContainer {
   grid-column: 1;
   grid-row: 2;
   display: grid;
   grid-template-columns: 90px auto;
   grid-template-rows: 60px 25px auto;
 }
-div#RatingsContainer div#Rating {
+div#RatingsReviews div#RatingsContainer div#Rating {
   display: flex;
   font-size: 50px;
   justify-content: center;
@@ -169,14 +168,14 @@ div.Stars {
 }
 
 /***** Recommended ******/
-div#RatingsContainer div#recommended {
+div#RatingsReviews div#recommended {
   grid-column: 1/-1;
   grid-row: 2;
   text-align: center;
 }
 
 /***** StarBars ******/
-div#RatingsContainer div#StarBars {
+div#RatingsReviews div#StarBars {
   grid-column: 1/-1;
   grid-row: 3;
   justify-self: start;
@@ -188,13 +187,13 @@ div#RatingsContainer div#StarBars {
   padding-left: 5px;
   padding-right: 5px;
 }
-div#RatingsContainer div.StarBar {
+div#RatingsReviews div.StarBar {
   display: grid;
   grid-template-columns: 47px auto;
   width: 100%;
   text-decoration-line: underline;
 }
-div#RatingsContainer div.StarBar div.barContainer {
+div#RatingsReviews div.barContainer {
   grid-column: 2;
   align-self: center;
   justify-self: start;
@@ -204,10 +203,27 @@ div#RatingsContainer div.StarBar div.barContainer {
   height: 9px;
   width: 100%;
 }
-div#RatingsContainer div.StarBar div.greenBar {
+div#RatingsReviews div.greenBar {
   grid-row: 1;
   border: 1px solid black;
   align-self: center;
   background-color: #07a047;
   height: 9px
+}
+
+/***** Breakdown ******/
+div#RatingsReviews div#BreakdownContainer {
+  grid-column: 1;
+  grid-row: 3;
+  border: 1px solid black;
+  align-self: start;
+  height: 200px;
+  text-align: center;
+}
+
+/***** Reviews ******/
+div#RatingsReviews div#ReviewsContainer {
+  grid-column: 2;
+  grid-row: 2 / 4;
+  border: 1px solid black;
 }

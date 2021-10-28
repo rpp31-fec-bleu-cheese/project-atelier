@@ -2,8 +2,10 @@ import React from 'React';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 
-import Header from './Header.jsx';
-import RatingsContainer from './RatingsContainer.jsx';
+import Header from './Header/Header.jsx';
+import RatingsContainer from './RatingsComponents/RatingsContainer.jsx';
+import BreakdownContainer from './BreakdownComponents/BreakdownContainer.jsx';
+import ReviewsContainer from './ReviewsComponents/ReviewsContainer.jsx';
 
 class Reviews extends React.Component {
 
@@ -107,9 +109,11 @@ class Reviews extends React.Component {
 
   render() {
     return(
-      <div id='Reviews'>
+      <div id='RatingsReviews'>
         <Header />
         <RatingsContainer ratings={this.state.currentRatings} reviews={this.state.currentReviews}/>
+        <BreakdownContainer />
+        <ReviewsContainer />
       </div>
     )
   }
