@@ -112,7 +112,7 @@ class Reviews extends React.Component {
       <div id='RatingsReviews'>
         <Header />
         <RatingsContainer ratings={this.state.currentRatings} reviews={this.state.currentReviews}/>
-        <BreakdownContainer />
+        <BreakdownContainer characteristics={this.state.characteristics}/>
         <ReviewsContainer />
       </div>
     )

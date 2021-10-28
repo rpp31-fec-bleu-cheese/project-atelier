@@ -215,11 +215,37 @@ div#RatingsReviews div.greenBar {
 div#RatingsReviews div#BreakdownContainer {
   grid-column: 1;
   grid-row: 3;
-  border: 1px solid black;
   align-self: start;
-  height: 200px;
   text-align: center;
 }
+div#RatingsReviews div.Breakdown {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(3, 20px);
+}
+div#RatingsReviews div.Breakdown div.Type {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  justify-self: start;
+}
+div#RatingsReviews div.Breakdown div.Slider {
+  grid-column: 1/-1;
+  grid-row: 2;
+  height: 7px;
+  width: 100%;
+  align-self: center;
+  background-color: #d8d8d8;
+}
+div#RatingsReviews div.Breakdown div.TraitContainer {
+  grid-column: 1/-1;
+  grid-row: 3;
+  display: grid;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+
 
 /***** Reviews ******/
 div#RatingsReviews div#ReviewsContainer {
