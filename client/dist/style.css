@@ -79,7 +79,7 @@ div#Overview div.ImageGallery {
   grid-row-end: 4;
   border: 1px solid black;
   display: grid;
-  grid-template-columns: 20% 5% auto 10%;
+  grid-template-columns: 15% 5% auto 10%;
   grid-template-rows: 10% auto 10% auto;
   position: relative;
 }
@@ -105,7 +105,7 @@ div#Overview div.ImageGalleryThumbnails {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  /* position: absolute; */
 }
 
 div#Overview div.GalleryThumbnail {
@@ -265,6 +265,7 @@ div#Overview div.ProductFeatures {
   grid-row: 4;
   display: flex;
   align-items: center;
+  border: 1px solid black;
   padding-left: 40px;
 }
 
