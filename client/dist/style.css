@@ -186,17 +186,46 @@ div#Overview button.AddToBagButton {
   font-size: 90%;
   height: 50px;
   width: 220px;
-  padding: 10px;
+  padding: 15px;
 }
 
 div#Overview div.ProductSloganAndDescription {
   grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column-end: 2;
   grid-row: 4;
   display: flex;
+  gap: 15px;
   flex-direction: column;
+  align-items: flex-end;
   border: 1px solid black;
-  padding: 10px;
+  padding: 30px 30px 10px 10px;
+}
+
+div#Overview div.ProductSlogan {
+  font-weight: bold;
+  height: auto;
+  width: 500px;
+  /* padding: 15px 25px 10px 10px; */
+}
+
+div#Overview div.ProductDescription {
+  height: auto;
+  width: 500px;
+  /* padding: 15px 25px 10px 10px; */
+}
+
+div#Overview div.ProductFeatures {
+  grid-column: 2;
+  grid-row: 4;
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+}
+
+div#Overview div.ProductFeaturesList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /******* END OF OVERVIEW STYLING *******/

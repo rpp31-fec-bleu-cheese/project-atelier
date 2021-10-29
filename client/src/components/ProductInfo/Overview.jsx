@@ -11,6 +11,7 @@ let Overview = ({products}) => {
         <StyleSelector products={products} />
         <AddToCart products={products} />
         <ProductSloganAndDescription products={products} />
+        <ProductFeatures products={products} />
       </div>
     );
 
@@ -70,7 +71,8 @@ let Overview = ({products}) => {
       <div className="AddToCart">
         <div className="SizeSelector">
           <form>
-            <select className="SizeSelectorDropdown" value={`Select Size`} onChange={() => console.log('Size clicked!')}>
+            <select className="SizeSelectorDropdown" onChange={() => console.log('Size clicked!')}>
+              <option value="">Select Size</option>
               <option value="Small">Small</option>
               <option value="Medium">Medium</option>
               <option value="Large">Large</option>
@@ -79,7 +81,8 @@ let Overview = ({products}) => {
         </div>
         <div className="QuanititySelector">
           <form>
-            <select className="QuanititySelectorDropdown" value="1" onChange={() => console.log('Quantity clicked!')}>
+            <select className="QuanititySelectorDropdown" onChange={() => console.log('Quantity clicked!')}>
+              <option value="">QTY</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -87,10 +90,10 @@ let Overview = ({products}) => {
           </form>
         </div>
         <div className="AddToBag">
-          <button className="AddToBagButton">Add to Bag</button>
+          <button className="AddToBagButton" onClick={() => console.log('Add to Bag clicked!')}>Add to Bag</button>
         </div>
         <div className="AddToFavorite">
-          <button className="AddToFavoriteButton">*</button>
+          <button className="AddToFavoriteButton" onClick={() => console.log('Add to My Outfit clicked!')}>☆</button>
         </div>
       </div>
     );
@@ -99,29 +102,43 @@ let Overview = ({products}) => {
   let ProductSloganAndDescription = ({products}) => {
     return (
       <div className="ProductSloganAndDescription">
-        <div className="ProductSlogan">
-          {products[0].slogan}
-        </div>
-        <div className="ProductDescription">
-          {products[0].description}
-        </div>
-
+          <div className="ProductSlogan">
+            {products[0].slogan}
+          </div>
+          <div className="ProductDescription">
+            {products[0].description}
+          </div>
       </div>
     );
   }
 
-  ProductSloganAndDescription.propTypes = {
-    products: PropTypes.array
+  let ProductFeatures = ({products}) => {
+    return (
+      <div className="ProductFeatures">
+        <div className="ProductFeaturesList">
+          <div>✔ Product Feature 1</div>
+          <div>✔ Product Feature 2</div>
+          <div>✔ Product Feature 3</div>
+          <div>✔ Product Feature 4</div>
+        </div>
+      </div>
+    );
   }
 
+
+
+ProductFeatures.propTypes = {
+  products: PropTypes.array
+}
+ProductSloganAndDescription.propTypes = {
+  products: PropTypes.array
+}
 AddToCart.propTypes = {
   products: PropTypes.array
 }
-
 StyleSelector.propTypes = {
   products: PropTypes.array
 }
-
 Overview.propTypes = {
   products: PropTypes.array
 }
