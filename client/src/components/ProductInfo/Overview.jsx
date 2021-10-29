@@ -23,9 +23,14 @@ let Overview = ({products}) => {
     return (
       <div className="ImageGallery">
         <div className="MainImage">
-          <div>
-            Main image here
-          </div>
+          Main image here
+        </div>
+        <div className="ImageGalleryThumbnails">
+          <div className="GalleryThumbnail">Test</div>
+          <div className="GalleryThumbnail">Test</div>
+          <div className="GalleryThumbnail">Test</div>
+          <div className="GalleryThumbnail">Test</div>
+          <div className="GalleryThumbnail">Test</div>
         </div>
       </div>
     );
