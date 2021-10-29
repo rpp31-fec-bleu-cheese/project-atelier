@@ -10,6 +10,7 @@ let Overview = ({products}) => {
         <ProductInformation products={products} />
         <StyleSelector products={products} />
         <AddToCart products={products} />
+        <ProductSloganAndDescription products={products} />
       </div>
     );
 
@@ -95,6 +96,23 @@ let Overview = ({products}) => {
     );
   }
 
+  let ProductSloganAndDescription = ({products}) => {
+    return (
+      <div className="ProductSloganAndDescription">
+        <div className="ProductSlogan">
+          {products[0].slogan}
+        </div>
+        <div className="ProductDescription">
+          {products[0].description}
+        </div>
+
+      </div>
+    );
+  }
+
+  ProductSloganAndDescription.propTypes = {
+    products: PropTypes.array
+  }
 
 AddToCart.propTypes = {
   products: PropTypes.array

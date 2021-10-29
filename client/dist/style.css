@@ -80,7 +80,7 @@ div#Overview div.ProductInformation {
   flex-direction: column;
   justify-content: space-evenly;
   border: 1px solid black;
-  padding: 5px;
+  padding: 10px;
 }
 
 div#Overview div.ProductCategory,
@@ -110,18 +110,7 @@ div#Overview div.StyleSelector {
   flex-direction: column;
   justify-content: space-evenly;
   border: 1px solid black;
-  padding: 5px;
-}
-
-div#Overview div.AddToCart {
-  grid-column: 2;
-  grid-row: 3;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 15px;
-  border: 1px solid black;
-  padding: 5px;
+  padding: 10px;
 }
 
 div#Overview div.SelectedStyle {
@@ -157,15 +146,26 @@ div#Overview div.StyleIcon {
   max-width: 100%;
 }
 
+div#Overview div.AddToCart {
+  grid-column: 2;
+  grid-row: 3;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+  border: 1px solid black;
+  padding: 10px;
+}
+
 div#Overview select.SizeSelectorDropdown {
-  font-size: 110%;
+  font-size: 90%;
   height: 50px;
   width: 175px;
   padding: 10px;
 }
 
 div#Overview select.QuanititySelectorDropdown {
-  font-size: 110%;
+  font-size: 90%;
   height: 50px;
   width: 115px;
   padding: 10px;
@@ -173,7 +173,7 @@ div#Overview select.QuanititySelectorDropdown {
 
 div#Overview button.AddToFavoriteButton {
   background-color: white;
-  font-size: 110%;
+  font-size: 90%;
   height: 50px;
   width: 75px;
   padding: 10px;
@@ -183,9 +183,19 @@ div#Overview button.AddToBagButton {
   display: flex;
   justify-content: flex-start;
   background-color: white;
-  font-size: 110%;
+  font-size: 90%;
   height: 50px;
   width: 220px;
+  padding: 10px;
+}
+
+div#Overview div.ProductSloganAndDescription {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row: 4;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
   padding: 10px;
 }
 
