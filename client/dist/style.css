@@ -61,6 +61,7 @@ div#SiteMessage {
   justify-self: center;
 }
 
+/******* START OF OVERVIEW STYLING *******/
 div#Overview {
   grid-column: 2;
   grid-row: 3;
@@ -83,7 +84,11 @@ div#Overview div.ProductInformation {
 }
 
 div#Overview div.ProductCategory,
-div#Overview div.SelectedStyle {
+div#Overview div.SelectedStyle,
+div#Overview select.SizeSelectorDropdown,
+div#Overview select.QuantitySelectorDropdown,
+div#Overview button.AddToFavoriteButton,
+div#Overview button.AddToBagButton {
   text-transform: uppercase;
 }
 
@@ -111,9 +116,10 @@ div#Overview div.StyleSelector {
 div#Overview div.AddToCart {
   grid-column: 2;
   grid-row: 3;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-evenly; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
   border: 1px solid black;
   padding: 5px;
 }
@@ -150,6 +156,40 @@ div#Overview div.StyleIcon {
   flex-basis: 20%;
   max-width: 100%;
 }
+
+div#Overview select.SizeSelectorDropdown {
+  font-size: 110%;
+  height: 50px;
+  width: 175px;
+  padding: 10px;
+}
+
+div#Overview select.QuanititySelectorDropdown {
+  font-size: 110%;
+  height: 50px;
+  width: 115px;
+  padding: 10px;
+}
+
+div#Overview button.AddToFavoriteButton {
+  background-color: white;
+  font-size: 110%;
+  height: 50px;
+  width: 75px;
+  padding: 10px;
+}
+
+div#Overview button.AddToBagButton {
+  display: flex;
+  justify-content: flex-start;
+  background-color: white;
+  font-size: 110%;
+  height: 50px;
+  width: 220px;
+  padding: 10px;
+}
+
+/******* END OF OVERVIEW STYLING *******/
 
 div#Related_Outfit {
   grid-column: 2;

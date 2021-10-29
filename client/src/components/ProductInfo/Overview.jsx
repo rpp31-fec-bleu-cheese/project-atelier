@@ -69,7 +69,7 @@ let Overview = ({products}) => {
       <div className="AddToCart">
         <div className="SizeSelector">
           <form>
-            <select value="SELECT SIZE" onChange={() => console.log('Size clicked!')}>
+            <select className="SizeSelectorDropdown" value={`Select Size`} onChange={() => console.log('Size clicked!')}>
               <option value="Small">Small</option>
               <option value="Medium">Medium</option>
               <option value="Large">Large</option>
@@ -78,21 +78,27 @@ let Overview = ({products}) => {
         </div>
         <div className="QuanititySelector">
           <form>
-            <select value="1" onChange={() => console.log('Size clicked!')}>
+            <select className="QuanititySelectorDropdown" value="1" onChange={() => console.log('Quantity clicked!')}>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
             </select>
           </form>
         </div>
+        <div className="AddToBag">
+          <button className="AddToBagButton">Add to Bag</button>
+        </div>
+        <div className="AddToFavorite">
+          <button className="AddToFavoriteButton">*</button>
+        </div>
       </div>
     );
   }
 
 
-  AddToCart.propTypes = {
-    products: PropTypes.array
-  }
+AddToCart.propTypes = {
+  products: PropTypes.array
+}
 
 StyleSelector.propTypes = {
   products: PropTypes.array
