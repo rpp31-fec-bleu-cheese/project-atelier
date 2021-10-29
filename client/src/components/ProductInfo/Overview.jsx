@@ -7,6 +7,7 @@ let Overview = ({products}) => {
 
     return (
       <div id='Overview'>
+        <ImageGallery products={products} />
         <ProductInformation products={products} />
         <StyleSelector products={products} />
         <AddToCart products={products} />
@@ -17,6 +18,20 @@ let Overview = ({products}) => {
 
   };
 
+  // Image Gallery Component
+  let ImageGallery = ({products}) => {
+    return (
+      <div className="ImageGallery">
+        <div className="MainImage">
+          <div>
+            Main image here
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Product Information Component (split with Slogan, Description, and Features)
   let ProductInformation = ({products}) => {
     return (
       <div className="ProductInformation">
@@ -41,6 +56,7 @@ let Overview = ({products}) => {
     );
   }
 
+  // Style Selector Component
   let StyleSelector = ({products}) => {
     return (
       <div className="StyleSelector">
@@ -66,6 +82,7 @@ let Overview = ({products}) => {
     );
   }
 
+  // Add to Cart Component
   let AddToCart = ({products}) => {
     return (
       <div className="AddToCart">
@@ -82,7 +99,6 @@ let Overview = ({products}) => {
         <div className="QuanititySelector">
           <form>
             <select className="QuanititySelectorDropdown" onChange={() => console.log('Quantity clicked!')}>
-              <option value="">QTY</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -99,6 +115,7 @@ let Overview = ({products}) => {
     );
   }
 
+  // Product Slogan and Description Component
   let ProductSloganAndDescription = ({products}) => {
     return (
       <div className="ProductSloganAndDescription">
@@ -112,6 +129,7 @@ let Overview = ({products}) => {
     );
   }
 
+  // Product Features Component
   let ProductFeatures = ({products}) => {
     return (
       <div className="ProductFeatures">
@@ -126,7 +144,9 @@ let Overview = ({products}) => {
   }
 
 
-
+ImageGallery.propTypes = {
+  products: PropTypes.array
+}
 ProductFeatures.propTypes = {
   products: PropTypes.array
 }
