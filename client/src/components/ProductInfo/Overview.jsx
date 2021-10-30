@@ -32,6 +32,15 @@ let Overview = ({products}) => {
           <div className="GalleryThumbnail">Test</div>
           <div className="GalleryThumbnail">Test</div>
         </div>
+        <div className="SlideGalleryLeft">
+          <div className="SlideGalleryLeftButton">←</div>
+        </div>
+        <div className="SlideGalleryRight">
+          <div className="SlideGalleryRightButton">→</div>
+        </div>
+        <div className="OpenGalleryModal">
+          <div className="OpenGalleryModalButton">⧠</div>
+        </div>
       </div>
     );
   }
