@@ -107,19 +107,57 @@ div#Reviews {
 }
 
 /* Question & Answers Module Styling*/
+#QandA h2 {
+  margin-right: auto;
+  margin-left: 25px;
+}
+
 .q-a-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 90%;
+  height: 60%;
   width: 100%;
+  margin-top: -55px;
   margin-left: 50px;
+}
+
+/* QuestionEntry styling */
+.question-container {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 50px;
+}
+
+.question {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.helpful-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 14px;
+}
+
+.helpful-buttons p {
+  margin-top: 3px;
+}
+
+.helpful-buttons button {
+  cursor: pointer;
+  border: none;
+  font-size: 13px;
+  text-decoration: underline;
+  background-color: white;
 }
 
 /* Search component styling */
 .search {
   width: 100%;
   margin: 0 auto;
+  margin-top: -90px;
+  margin-left: 25px;
 }
 
 .search-bar {
@@ -134,30 +172,24 @@ div#Reviews {
   padding: 15px 40px;
 }
 
-/* QuestionEntry component styling */
-.question {
-  font-weight: bold;
-}
-
-
 /* FooterButtons component styling */
 .footer-buttons {
   display: flex;
 }
 
-.additional-answers-button {
+.footer-buttons button {
   height: 60px;
-  width: 250px;
-  background-color: white;
   padding: 10px;
-  margin-right: 20px;
+  cursor: pointer;
+  background-color: white;
   font-weight: bold;
 }
 
+.additional-answers-button {
+  width: 250px;
+  margin-right: 20px;
+}
+
 .add-question-button {
-  height: 60px;
   width: 160px;
-  background-color: white;
-  padding: 10px;
-  font-weight: bold;
 }

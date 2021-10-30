@@ -17,9 +17,9 @@ class QandA extends React.Component {
   render() {
     return(
       <div id='QandA'>
-        <div className="q-a-content">
           <h2>QUESTIONS & ANSWERS</h2>
           <Search />
+        <div className="q-a-content">
           {mockData.results
             .map(question => <QuestionEntry key={question.question_id} question={question.question_body}/>)}
           <FooterButtons />
