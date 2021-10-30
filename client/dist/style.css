@@ -88,8 +88,8 @@ div#QandA {
   grid-row: 5;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  /* align-items: center; */
+  justify-content: space-around;
+  align-items: center;
   border: 1px solid black;
   width: 100%;
   height: 100%;
@@ -98,16 +98,49 @@ div#QandA {
 div#Reviews {
   grid-column: 2;
   grid-row: 6;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   border: 1px solid black;
   width: 100%;
   height: 100%;
 }
 
-/* Question & Answers */
+/* Question & Answers Module Styling*/
+.q-a-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90%;
+  width: 100%;
+  margin-left: 50px;
+}
 
+/* Search component styling */
+.search {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.search-bar {
+  display: flex;
+  margin-right: 50px;
+}
+
+.search input {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 15px 40px;
+}
+
+/* QuestionEntry component styling */
+.question {
+  font-weight: bold;
+}
+
+
+/* FooterButtons component styling */
 .footer-buttons {
   display: flex;
 }
@@ -118,11 +151,13 @@ div#Reviews {
   background-color: white;
   padding: 10px;
   margin-right: 20px;
+  font-weight: bold;
 }
 
 .add-question-button {
   height: 60px;
-  width: 150px;
+  width: 160px;
   background-color: white;
   padding: 10px;
+  font-weight: bold;
 }

@@ -2,7 +2,7 @@ import React from 'React';
 
 import Search from './Search.jsx';
 import FooterButtons from './FooterButtons.jsx';
-import Question from './questionComponents/Question.jsx';
+import QuestionEntry from './questionComponents/QuestionEntry.jsx';
 import mockData from './mockData.js';
 
 class QandA extends React.Component {
@@ -17,11 +17,13 @@ class QandA extends React.Component {
   render() {
     return(
       <div id='QandA'>
-        <h2>QUESTIONS & ANSWERS</h2>
-        <Search />
-        {mockData.results
-          .map(question => <Question key={question.question_id} question={question.question_body}/>)}
-        <FooterButtons />
+        <div className="q-a-content">
+          <h2>QUESTIONS & ANSWERS</h2>
+          <Search />
+          {mockData.results
+            .map(question => <QuestionEntry key={question.question_id} question={question.question_body}/>)}
+          <FooterButtons />
+        </div>
       </div>
     )
   }

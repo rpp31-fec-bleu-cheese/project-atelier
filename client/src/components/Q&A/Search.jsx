@@ -2,12 +2,14 @@ import React from 'react';
 
 const Search = () => {
   return (
-    <form>
-      <div>
-        <input placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."></input>
-        <button>Search</button>
-      </div>
-    </form>
+    <div className="search">
+      <form>
+        <div className="search-bar">
+          <input placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."></input>
+          <button><i className="fa fa-search"></i></button>
+        </div>
+      </form>
+    </div>
   )
 };
 
