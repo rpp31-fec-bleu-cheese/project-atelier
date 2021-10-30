@@ -13,7 +13,7 @@ const Breakdown = props => {
 
   return (
     <div className='Breakdown'>
-      <div className='Type'>Quality</div>
+      <div className='Type'>{props.char[0]}</div>
       <div className='Slider'></div>
       <div className='Marker' id={`${props.char[0]}Marker`} style={{gridColumn: '1/-1', gridRow: 2, width: typeRating}}>{'▼'}</div>
       <div className='TraitContainer'>

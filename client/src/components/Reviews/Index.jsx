@@ -94,10 +94,6 @@ class Reviews extends React.Component {
             "photos": []
         }
     ],
-    recommended: {
-      "false": "2",
-      "true": "3"
-    },
     characteristics: {
       "Quality": {
           "id": 199849,

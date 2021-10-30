@@ -21,8 +21,8 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
-/*  */
-/*  */
+/******/
+/******/
 
 div#App {
   display: grid;
@@ -247,8 +247,6 @@ div#RatingsReviews div.Breakdown div.TraitContainer {
   margin-left: 5px;
   margin-right: 5px;
 }
-
-
 
 /***** Reviews ******/
 div#RatingsReviews div#ReviewsContainer {

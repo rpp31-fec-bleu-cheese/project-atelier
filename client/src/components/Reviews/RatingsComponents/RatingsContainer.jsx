@@ -1,9 +1,7 @@
 import React from 'React';
 import PropTypes from 'prop-types';
 
-import Rating from './Rating.jsx';
 import StarBar from './StarBar.jsx';
-import Stars from './Stars.jsx';
 
 const RatingsContainer = props => {
   /*
@@ -31,13 +29,20 @@ const RatingsContainer = props => {
     if (props.reviews[i].recommend === true) recommended ++;
   }
 
-  recommended = recommended / rateQuantity * 100
+  recommended = Math.round(recommended / rateQuantity * 100)
   /////////////////
 
   return (
     <div id='RatingsContainer'>
-      <Rating rating={finalRating} />
-      <Stars rating={finalRating}/>
+      <div id='Rating'>
+        {finalRating.toFixed(1)}
+      </div>
+      <div id='StarsContainer'>
+        <div className='Stars'>
+          <div className='empty-stars'></div>
+          <div className='full-stars' style={{width: ((finalRating / 5) * 100) + '%' }}></div>
+        </div>
+      </div>
       <div id='recommended'>{recommended + '%'} of reviews recommend this product</div>
       <div id='StarBars'>
         {ratingArray.map((item, i) => <StarBar key={i} rating={item} quantity={rateQuantity}/>).reverse()}
