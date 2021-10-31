@@ -7,7 +7,9 @@ var relatedProductIds = [
   59557,
   59555,
   59554,
-  59557
+  59557,
+  59566,
+  59567
 
 ];
 //for productid - 59558

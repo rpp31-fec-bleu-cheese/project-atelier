@@ -1,8 +1,9 @@
 import React from 'React';
-import Related_Products from './Related_Products.jsx';
-import Outfit from './Outfit.jsx';
+import Related_ProductInfo from './Related_ProductInfo.jsx';
+import Comparison from './Comparison.jsx';
 import data from '../../../data/Related_Outfit.js';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
 class Related_Outfit extends React.Component {
 
   constructor(props) {
@@ -12,7 +13,27 @@ class Related_Outfit extends React.Component {
       productInfo:{},
       relatedProductIds:[],
       relatedProducts:[],
+      outfit:[],
+      popup: false,
+      popup_style:{"display":"none"}
     };
+    this.starButtonClick = this.starButtonClick.bind(this);
+  }
+  starButtonClick(event){
+    console.log('event on click');
+    var popup = !(this.state.popup);
+    var style = {};
+    if(popup) {
+      style = {"display":"block"}
+    }else {
+      style = {"display":"none"}
+    }
+
+    this.setState({
+      popup: popup,
+      popup_style:style
+    });
+
   }
   fetchrelatedProductIds(productId){
     return new Promise((resolve,reject) => {
@@ -48,8 +69,11 @@ class Related_Outfit extends React.Component {
       //console.log('related ProductIds in Related_Outfit Component:',productIds);
 
       var relatedProductIds = productIds.slice(0);
+
       this.setState({
-        relatedProductIds: relatedProductIds
+
+        relatedProductIds: relatedProductIds,
+
       });
       return relatedProductIds;
     })
@@ -61,7 +85,8 @@ class Related_Outfit extends React.Component {
     .then((relatedProductsArray) => {
       //console.log('related products in the component:', relatedProducts);
       this.setState({
-        relatedProducts: relatedProductsArray
+        relatedProducts: relatedProductsArray,
+        outfit: relatedProductsArray
       })
     })
     .catch((error) => {
@@ -72,14 +97,18 @@ class Related_Outfit extends React.Component {
   scroll(event, scrollOffset){
 
     var element = event;
+    var element1 = $('div#Related_Outfit div.Related_products');
+    console.log('element1:', element1)
     console.log('event:',event);
-    if(event.target.className === 'PreviousProd') {
-      element = event.target.nextSibling;
+    if(event.target.className === 'PreviousProd Related' || event.target.className ==='PreviousProd Outfit') {
+      element = event.target.nextElementSibling;
     }else{
-      element = event.target.previousSibling;
+      element = event.target.previousElementSibling;
     }
     console.log('element:',element);
-    element.scrollLeft+=scrollOffset;
+    console.log('scrollleft before:',element.scrollLeft);
+    element.scrollLeft= element.scrollLeft + scrollOffset;
+    console.log('scrollleft:',element.scrollLeft);
   }
   render() {
    console.log("this.state", this.state.relatedProducts);
@@ -94,23 +123,32 @@ class Related_Outfit extends React.Component {
     return(
 
       <div id='Related_Outfit'>
-          <button className="PreviousProd"  onClick={(event)=>this.scroll(event,-50)}><i className="fa fa-angle-left"></i></button>
-            <div id="Related_products">
-              <Related_Products productId = {this.state.productId} relatedProducts = {this.state.relatedProducts}/>
+        <h1 id="Related_Header">Related Products</h1>
+          <button className="PreviousProd Related"  onClick={(event)=>this.scroll(event,-250)}><i className="fa fa-angle-left"></i></button>
+            <div className="Related_products">
+              {this.state.relatedProducts.map((product) => (
+                <Related_ProductInfo key={product.id} product={product} component={'Related'} starButtonClick={this.starButtonClick}/>
+              ))}
+
             </div>
-            <button className="NextProd" onClick={(event)=>this.scroll(event,+50)}><i className="fa fa-angle-right"></i></button>
+
+            <button className="NextProd Related" onClick={(event)=>this.scroll(event,+250)}><i className="fa fa-angle-right"></i></button>
 
 
 
-
-          <button className="PreviousProd" onClick={(event)=>this.scroll(event,-50)}><i className="fa fa-angle-left"></i></button>
+          <h1 id="Outfit_Header">Your Outfit</h1>
+          <button className="PreviousProd Outfit" onClick={(event)=>this.scroll(event,-250)}><i className="fa fa-angle-left"></i></button>
 
             <div id="Outfit">
-            <button id="Plus">+</button>
-            <Outfit productId = {this.state.productId} productInfo={this.state.productInfo}/>
+              <button id="Related_Plus"><i className="fa fa-plus"></i><div>Add to Outfit</div></button>
+              {this.state.outfit.map((product) => (
+                <Related_ProductInfo key={product.id} product={product} component={'Outfit'}/>
+              ))}
             </div>
-            <button className="NextProd" onClick={(event)=>this.scroll(event,+50)}><i className="fa fa-angle-right"></i></button>
-
+            <button className="NextProd Outfit" onClick={(event)=>this.scroll(event,+250)}><i className="fa fa-angle-right"></i></button>
+          <div id="Comparison">
+             <Comparison popup={this.state.popup} style={this.state.popup_style} />
+            </div>
       </div>
     )
   }
@@ -132,3 +170,4 @@ export default Related_Outfit;
         /*<div className="outfit">
            <Outfit productId = {this.state.productId} productInfo={this.state.productInfo}/>
         </div>*/
+       // <Outfit productId = {this.state.productId} productInfo={this.state.productInfo}/>
