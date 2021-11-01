@@ -107,12 +107,12 @@ div#Reviews {
 }
 
 /* Question & Answers Module Styling*/
-#QandA h2 {
+div#QandA h2 {
   margin-right: auto;
   margin-left: 25px;
 }
 
-.q-a-content {
+div#QandA div.q-a-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -123,28 +123,28 @@ div#Reviews {
 }
 
 /* QuestionEntry styling */
-.question-container {
+div#QandA div.question-entry div.question-container {
   display: flex;
   justify-content: space-between;
   margin-right: 50px;
 }
 
-.question {
+div#QandA div.question-entry div.question-container div.question {
   font-size: 20px;
   font-weight: bold;
 }
 
-.helpful-buttons {
+div#QandA div.question-entry div.question-container div.helpful-buttons {
   display: flex;
   justify-content: space-evenly;
   font-size: 14px;
 }
 
-.helpful-buttons p {
+div#QandA div.question-entry div.question-container div.helpful-buttons p {
   margin-top: 3px;
 }
 
-.helpful-buttons button {
+div#QandA div.question-entry div.question-container div.helpful-buttons button {
   cursor: pointer;
   border: none;
   font-size: 13px;
@@ -153,19 +153,19 @@ div#Reviews {
 }
 
 /* Search component styling */
-.search {
+div#QandA div.search {
   width: 100%;
   margin: 0 auto;
   margin-top: -90px;
   margin-left: 25px;
 }
 
-.search-bar {
+div#QandA div.search div.search-bar {
   display: flex;
   margin-right: 50px;
 }
 
-.search input {
+div#QandA div.search input {
   width: 100%;
   box-sizing: border-box;
   font-size: 16px;
@@ -173,11 +173,11 @@ div#Reviews {
 }
 
 /* FooterButtons component styling */
-.footer-buttons {
+div#QandA div.footer-buttons {
   display: flex;
 }
 
-.footer-buttons button {
+div#QandA div.footer-buttons button {
   height: 60px;
   padding: 10px;
   cursor: pointer;
@@ -185,11 +185,82 @@ div#Reviews {
   font-weight: bold;
 }
 
-.additional-answers-button {
+div#QandA div.footer-buttons .additional-answers-button {
   width: 250px;
   margin-right: 20px;
 }
 
-.add-question-button {
+div#QandA div.footer-buttons .add-question-button {
   width: 160px;
+}
+
+/* Question Modal Styling */
+
+div#QandA div.modal div.modal-content form {
+  font-family: sans-serif;
+  background-color: white;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 30px 50px;
+}
+
+div#QandA div.modal div.modal-content h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #3d3d3d;
+  padding: 10px;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+div#QandA div.modal div.modal-content label {
+  color: #3d3d3d;
+  font-weight: 550;
+  margin-bottom: 5px;
+}
+
+div#QandA div.modal div.modal-content input {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+div#QandA div.modal div.modal-content p {
+  font-family: serif;
+  font-size: 15.5px;
+  margin-bottom: 20px;
+}
+
+div#QandA div.modal div.modal-content button.submit-button {
+  background-color: rgb(65, 111, 128);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-family: sans-serif;
+  font-size: 17px;
+  padding: 12px 10px;
+  margin-top: 15px;
+  margin-bottom: 8px;
+}
+
+div#QandA div.modal div.modal-content button.submit-button:hover {
+  background-color: rgb(46, 67, 75);
+}
+
+div#QandA div.modal div.modal-content span {
+  cursor: pointer;
+  text-align: end;
+  font-size: 22px;
+  margin-top: -17px;
+  margin-bottom: 17px;
+  margin-right: -20px;
 }
