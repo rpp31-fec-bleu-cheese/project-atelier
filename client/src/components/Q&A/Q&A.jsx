@@ -12,22 +12,31 @@ class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions: mockData.results
+      questions: []
     };
+
+    this.getQuestions = this.getQuestions.bind(this);
   }
+
+  getQuestions() {
+    this.setState({ questions: mockData.results });
+  }
+
+  componentDidMount() {
+    this.getQuestions();
+  }
+
 
   render() {
     return(
       <div id='QandA'>
           <h2>QUESTIONS & ANSWERS</h2>
           <Search />
-        {/* <div className="q-a-content">
+         <div className="q-a-content">
           {mockData.results
             .map(question => <QuestionEntry key={question.question_id} question={question.question_body}/>)}
           <FooterButtons />
-        </div> */}
-        <QuestionModal />
-        <AnswerModal />
+         </div>
       </div>
     )
   }
