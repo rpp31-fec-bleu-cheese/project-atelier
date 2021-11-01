@@ -4,6 +4,7 @@ import Search from './Search.jsx';
 import FooterButtons from './FooterButtons.jsx';
 import QuestionEntry from './questionComponents/QuestionEntry.jsx';
 import QuestionModal from './modalComponents/QuestionModal.jsx';
+import AnswerModal from './modalComponents/AnswerModal.jsx'
 import mockData from './mockData.js';
 
 class QandA extends React.Component {
@@ -26,6 +27,7 @@ class QandA extends React.Component {
           <FooterButtons />
         </div> */}
         <QuestionModal />
+        <AnswerModal />
       </div>
     )
   }
