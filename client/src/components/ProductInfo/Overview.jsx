@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect }  from 'react';
 // import { useState } from 'React';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -18,26 +18,33 @@ let Overview = ({cam_token}) => {
     "updated_at": "2021-10-18T22:50:41.839Z"
 }];
   const [products, setProducts] = useState(mockData);
+  const [index, setIndex] = useState(0);
 
   console.log('PRODUCTS:', products);
 
 
-  // let productOptions = {
-  //   url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products',
-  //   method: 'get',
-  //   headers: {'Content-Type': 'application/json',
-  //   'Authorization': cam_token.cam_token}
-  // };
-  // let productList = axios(productOptions)
-  //   .then(response => {
-  //     console.log('response:', response)
-  //     products = response;
-  //     isLoading = true
-  //   })
-  //     .catch(error => {
-  //       console.log(error)});
+  let productOptions = {
+    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products',
+    method: 'get',
+    headers: {'Content-Type': 'application/json',
+    'Authorization': cam_token.cam_token}
+  };
 
 
+  useEffect(() => {
+    axios(productOptions)
+      .then(response => {
+        console.log('response:', response)
+        setProducts(response.data);
+      })
+        .catch(error => {
+          console.log(error)});
+      }, [])
+
+
+
+  let currentProduct = products[index];
+  console.log('CURRENT PRODUCT:', currentProduct);
 
     return (
       <div id='Overview'>
