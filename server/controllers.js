@@ -1,17 +1,35 @@
+const products = require('./apiHelpers/productsAPI.js');
+const cart = require('./apiHelpers/cartAPI.js');
+const qanda = require('./apiHelpers/qandaAPI.js');
+const reviews = require('./apiHelpers/reviewsAPI.js');
+
+
 module.exports = {
   products: {
     get: function(req, res) {
-      //use api helpers to get products
+      res.status(200).send('products');
     }
   },
   reviews: {
+    get: function(req, res) {
 
+    }
   },
-  QandA: {
+  questions_answers: {
+    get: function(req, res) {
 
+    },
+    post: function(req, res) {
+
+    }
   },
   cart: {
+    get: function(req, res) {
 
+    },
+    post: function(req, res) {
+
+    }
   },
   interactions: {
 

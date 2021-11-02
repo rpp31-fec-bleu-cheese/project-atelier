@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const axios = require('axios').default;
+const router = require('./routes.js');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
