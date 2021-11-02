@@ -7,7 +7,7 @@ const reviews = require('./apiHelpers/reviewsAPI.js');
 module.exports = {
   products: {
     get: function(req, res) {
-      res.status(200).send('products');
+      // use api helpers;
     }
   },
   reviews: {
