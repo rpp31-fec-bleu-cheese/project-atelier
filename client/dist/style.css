@@ -206,10 +206,6 @@ div#QandA div.modal-background {
   bottom: 0;
 }
 
-div#QandA div.answer-modal div.modal-background {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
 div#QandA div.modal-background div.modal-content form {
   font-family: sans-serif;
   background-color: white;

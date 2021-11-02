@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Answer from './Answer.jsx';
 import AnswerModal from '../modalComponents/AnswerModal.jsx';
 
-const QuestionEntry = ({ question, showAnswerModal, toggleAnswerModal }) => {
+const QuestionEntry = ({ question }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  }
+
   return (
     <div className="question-entry">
       <div className="question-container">
@@ -12,10 +18,10 @@ const QuestionEntry = ({ question, showAnswerModal, toggleAnswerModal }) => {
           <p>Helpful?</p>
           <button>Yes</button>
           <p>|</p>
-          <button onClick={toggleAnswerModal}>Add Answer</button>
+          <button onClick={openModal}>Add Answer</button>
         </div>
       </div>
-      <AnswerModal showAnswerModal={showAnswerModal} toggleAnswerModal={toggleAnswerModal}/>
+      <AnswerModal showModal={showModal} setShowModal={setShowModal}/>
       <Answer/>
     </div>
   )
@@ -23,8 +29,6 @@ const QuestionEntry = ({ question, showAnswerModal, toggleAnswerModal }) => {
 
 QuestionEntry.propTypes = {
   question: PropTypes.string.isRequired,
-  showAnswerModal: PropTypes.bool,
-  toggleAnswerModal: PropTypes.func
 }
 
 export default QuestionEntry;

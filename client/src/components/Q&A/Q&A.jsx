@@ -12,25 +12,14 @@ class QandA extends React.Component {
     super(props);
     this.state = {
       questions: [],
-      showModal: false,
       showAnswerModal: false
     };
 
     this.getQuestions = this.getQuestions.bind(this);
-    this.toggleModalStatus = this.toggleModalStatus.bind(this);
-    this.toggleAnswerModal = this.toggleAnswerModal.bind(this);
   }
 
   getQuestions() {
     this.setState({ questions: mockData.results });
-  }
-
-  toggleModalStatus() {
-    this.setState({ showModal: !this.state.showModal });
-  }
-
-  toggleAnswerModal() {
-    this.setState({ showAnswerModal: !this.state.showAnswerModal });
   }
 
   componentDidMount() {
@@ -54,10 +43,7 @@ class QandA extends React.Component {
                   />
               )
             }
-            <FooterButtons
-              toggleModalStatus={this.toggleModalStatus}
-              showModal={this.state.showModal}
-            />
+            <FooterButtons />
          </div>
       </div>
     )

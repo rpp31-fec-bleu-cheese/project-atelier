@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // will display when the user clicks on the 'Add Answer' link provided on each question
-const QuestionModal = ({ toggleModalStatus, showModal }) => {
+const QuestionModal = ({ showModal, setShowModal }) => {
   return (
     <div className="modal">
       {showModal ? (
         <div className="modal-background">
           <div className="modal-content">
             <form className="question-form">
-              <span onClick={toggleModalStatus}>&times;</span>
+              <span onClick={() => setShowModal(false)}>&times;</span>
               <h2>Ask Your Question About [Product Name Here]</h2>
               <label>What is your nickname</label>
               <input placeholder="Example: jackson11!" type="text" maxLength="60" required/>
@@ -29,8 +29,8 @@ const QuestionModal = ({ toggleModalStatus, showModal }) => {
 };
 
 QuestionModal.propTypes = {
-  toggleModalStatus: PropTypes.func,
-  showModal: PropTypes.bool
+  showModal: PropTypes.bool,
+  setShowModal: PropTypes.func
 }
 
 export default QuestionModal;

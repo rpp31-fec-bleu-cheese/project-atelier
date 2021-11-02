@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // modal will display when the user clicks on the ADD A QUESTION button
-const AnswerModal = ({ showAnswerModal, toggleAnswerModal }) => {
+const AnswerModal = ({ showModal, setShowModal }) => {
   return (
     <div className="answer-modal">
-      { showAnswerModal ? (
+      { showModal ? (
         <div className="modal-background">
           <div className="modal-content">
             <form className="answer-form">
-              <span onClick={toggleAnswerModal}>&times;</span>
+              <span onClick={() => setShowModal(false)}>&times;</span>
               <h2>Submit your Answer</h2>
               <h3>[Product Name]: [Question Body]</h3>
               <label>What is your nickname</label>
@@ -31,8 +31,8 @@ const AnswerModal = ({ showAnswerModal, toggleAnswerModal }) => {
 };
 
 AnswerModal.propTypes = {
-  showAnswerModal: PropTypes.bool,
-  toggleAnswerModal: PropTypes.func
+  showModal: PropTypes.bool,
+  setShowModal: PropTypes.func
 }
 
 export default AnswerModal;
