@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Answer from './Answer.jsx';
+import AnswerModal from '../modalComponents/AnswerModal.jsx';
 
-const QuestionEntry = ({ question }) => {
+const QuestionEntry = ({ question, showAnswerModal, toggleAnswerModal }) => {
   return (
     <div className="question-entry">
       <div className="question-container">
@@ -11,16 +12,19 @@ const QuestionEntry = ({ question }) => {
           <p>Helpful?</p>
           <button>Yes</button>
           <p>|</p>
-          <button>Add Answer</button>
+          <button onClick={toggleAnswerModal}>Add Answer</button>
         </div>
       </div>
-      <Answer />
+      <AnswerModal showAnswerModal={showAnswerModal} toggleAnswerModal={toggleAnswerModal}/>
+      <Answer/>
     </div>
   )
 };
 
 QuestionEntry.propTypes = {
-  question: PropTypes.string.isRequired
+  question: PropTypes.string.isRequired,
+  showAnswerModal: PropTypes.bool,
+  toggleAnswerModal: PropTypes.func
 }
 
 export default QuestionEntry;
