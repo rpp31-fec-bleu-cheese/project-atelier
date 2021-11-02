@@ -22,7 +22,7 @@ class App extends React.Component {
       <div id='App'>
         <Header />
         <SiteMessage />
-        <Overview products={this.props.products} />
+        <Overview products={this.props.products} cam_token={this.props.cam_token} />
         <Related_Outfit />
         <QandA />
         <Reviews />
@@ -31,6 +31,9 @@ class App extends React.Component {
   }
 };
 
+App.propTypes = {
+  cam_token: PropTypes.string
+}
 App.propTypes = {
   products: PropTypes.array
 }

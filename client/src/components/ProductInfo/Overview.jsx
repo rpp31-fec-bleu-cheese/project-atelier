@@ -1,7 +1,41 @@
-import React from 'React';
+import React, { useState }  from 'react';
+// import { useState } from 'React';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
-let Overview = ({products}) => {
+
+// removed products from props
+let Overview = ({cam_token}) => {
+  let mockData = [{
+    "id": 59553,
+    "campus": "hr-rpp",
+    "name": "Camo Onesie",
+    "slogan": "Blend in to your crowd",
+    "description": "The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.",
+    "category": "Jackets",
+    "default_price": "140.00",
+    "created_at": "2021-10-18T22:50:41.839Z",
+    "updated_at": "2021-10-18T22:50:41.839Z"
+}];
+  const [products, setProducts] = useState(mockData);
+
+  console.log('PRODUCTS:', products);
+
+
+  // let productOptions = {
+  //   url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products',
+  //   method: 'get',
+  //   headers: {'Content-Type': 'application/json',
+  //   'Authorization': cam_token.cam_token}
+  // };
+  // let productList = axios(productOptions)
+  //   .then(response => {
+  //     console.log('response:', response)
+  //     products = response;
+  //     isLoading = true
+  //   })
+  //     .catch(error => {
+  //       console.log(error)});
 
 
 
@@ -157,7 +191,9 @@ let Overview = ({products}) => {
     );
   }
 
-
+Overview.propTypes = {
+  cam_token: PropTypes.string
+}
 ImageGallery.propTypes = {
   products: PropTypes.array
 }

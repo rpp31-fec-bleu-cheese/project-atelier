@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
+import cam_token from '../../config.js';
 
 const products = [
   {
@@ -60,4 +61,4 @@ const products = [
   }
 ];
 
-ReactDOM.render(<App products={products} />, document.getElementById('appContainer'));
+ReactDOM.render(<App products={products} cam_token={cam_token} />, document.getElementById('appContainer'));
