@@ -12,7 +12,7 @@ module.exports = {
   },
   reviews: {
     get: function(req, res) {
-
+      // use api helpers
     }
   },
   questions_answers: {
