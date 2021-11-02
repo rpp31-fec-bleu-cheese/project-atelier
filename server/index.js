@@ -5,11 +5,7 @@ const axios = require('axios').default;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
-
-// app.get('/', (req, res) => {
-//   res.status(200).send();
-//   res.end();
-// });
+app.use(router);
 
 let port = 3000;
 app.listen(port, () => {
