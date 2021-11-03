@@ -54,8 +54,42 @@ module.exports = {
   },
   // REVIEWS CONTROLLERS
   reviews: {
-    get: function(req, res) {
-      // use api helpers
+    getAllReviews: function(req, res) {
+      let productID = req.query.product_id;
+      let sort = req.query.sort;
+
+      reviews.getReviews(productID, sort, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+
+        res.status(200).send(data);
+      })
+    },
+    getReviewsMeta: function(req, res) {
+      let productID = req.query.product_id;
+
+      reviews.getMetaReviews(productID, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+
+        res.status(200).send(data);
+      })
+    },
+    postReviews: function(req, res) {
+      let reviewData = req.body;
+
+      reviews.postReviewData(reviewData, (err, data) => {
+        if (err) {
+          res.status(400).send();
+          return;
+        }
+
+        res.status(201).send(data);
+      })
     }
   },
   // QUESTION & ANSWER CONTROLLERS
@@ -99,8 +133,15 @@ module.exports = {
   },
   // CART CONTROLLERS
   cart: {
-    get: function(req, res) {
+    getProductsInCart: function(req, res) {
+      cart.getProductsFromCart((err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
 
+        res.status(200).send(data);
+      })
     },
     post: function(req, res) {
 

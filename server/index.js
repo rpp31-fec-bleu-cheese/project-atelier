@@ -17,6 +17,12 @@ app.get('/products/:product_id/related', controllers.products.getRelatedProducts
 
 app.get('/qa/questions/', controllers.questions_answers.getAllQuestions);
 
+app.get('/reviews', controllers.reviews.getAllReviews);
+app.get('/reviews/meta', controllers.reviews.getReviewsMeta);
+app.post('/reviews', controllers.reviews.postReviews);
+
+app.get('/cart', controllers.cart.getProductsInCart);
+
 let port = 3000;
 app.listen(port, () => {
   console.log(`Server is listening on port: ${port}`);
