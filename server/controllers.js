@@ -63,11 +63,41 @@ module.exports = {
     }
   },
   questions_answers: {
-    get: function(req, res) {
+    getAllQuestions: function(req, res) {
+      console.log('inside getAllQuestions');
+      console.log(req.params);
+      console.log(req.query);
+      let productID = req.query.product_id;
+      qanda.getQuestions(productID, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
 
+        res.status(200).send(data);
+      })
     },
-    post: function(req, res) {
+    getAnswers: function(req, res) {
+      let questionID = req.params.question_id;
+      qanda.getAnswersByID(questionID, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
 
+        res.status(200).send(data);
+      })
+    },
+    postQuestion: function(req, res) {
+      let questionData = req.body;
+      qanda.postQuestions(questionData, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+
+        res.status(201).send(data);
+      })
     }
   },
   cart: {

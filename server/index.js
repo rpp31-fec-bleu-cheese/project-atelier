@@ -15,6 +15,8 @@ app.get('/products/:product_id', controllers.products.getProductByID);
 app.get('/products/:product_id/styles', controllers.products.getProductStyleByID);
 app.get('/products/:product_id/related', controllers.products.getRelatedProductsByID);
 
+app.get('/qa/questions/', controllers.questions_answers.getAllQuestions);
+
 let port = 3000;
 app.listen(port, () => {
   console.log(`Server is listening on port: ${port}`);
