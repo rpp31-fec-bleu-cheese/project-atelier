@@ -4,12 +4,9 @@ const qanda = require('./apiHelpers/qandaAPI.js');
 const reviews = require('./apiHelpers/reviewsAPI.js');
 
 module.exports = {
+  // PRODUCT CONTROLLERS
   products: {
     getAllProducts: function(req, res) {
-      console.log(req.params);
-      console.log(req.query);
-      console.log(req.body);
-
       products.getAllProducts((err, data) => {
         if (err) {
           res.status(404).send();
@@ -21,7 +18,6 @@ module.exports = {
       });
     },
     getProductByID: function(req, res) {
-      console.log('inside getProduct');
       products.getProduct(req.params.product_id, (err, data) => {
         if (err) {
           res.status(404).send();
@@ -32,7 +28,6 @@ module.exports = {
       });
     },
     getProductStyleByID: function(req, res) {
-      console.log('inside getProductsStyleByID');
       let productID = req.params.product_id;
 
       products.getProductStyle(productID, (err, data) => {
@@ -57,11 +52,13 @@ module.exports = {
       });
     }
   },
+  // REVIEWS CONTROLLERS
   reviews: {
     get: function(req, res) {
       // use api helpers
     }
   },
+  // QUESTION & ANSWER CONTROLLERS
   questions_answers: {
     getAllQuestions: function(req, res) {
       console.log('inside getAllQuestions');
@@ -100,6 +97,7 @@ module.exports = {
       })
     }
   },
+  // CART CONTROLLERS
   cart: {
     get: function(req, res) {
 
