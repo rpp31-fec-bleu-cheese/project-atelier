@@ -637,6 +637,9 @@ div#Related_Outfit .Outfit #Overlay_Circle{
   height:100%;
 
 }*/
+div#Related_Outfit button {
+  border:"none";
+}
 div#Related_Outfit div#Comparison div#PopupTrue{
   position:  fixed;
   font-size:small;

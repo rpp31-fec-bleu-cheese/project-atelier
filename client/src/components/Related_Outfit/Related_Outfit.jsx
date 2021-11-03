@@ -9,7 +9,7 @@ class Related_Outfit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: 59558,
+      productId: 0,
       productInfo:{},
       relatedProductIds:[],
       relatedProducts:[],
@@ -64,6 +64,9 @@ class Related_Outfit extends React.Component {
     })
   }
   componentDidMount(){
+    this.setState({
+      productId:this.props.productId
+    })
     this.fetchrelatedProductIds(this.state.productId)
     .then((productIds) => {
       //console.log('related ProductIds in Related_Outfit Component:',productIds);
@@ -153,6 +156,10 @@ class Related_Outfit extends React.Component {
     )
   }
 };
+Related_Outfit.propTypes = {
+  productId:PropTypes.number
+
+}
 
 export default Related_Outfit;
 

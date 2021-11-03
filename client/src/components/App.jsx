@@ -11,7 +11,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      productId: 59558
     };
   }
 
@@ -21,7 +21,7 @@ class App extends React.Component {
         <Header />
         <SiteMessage />
         <ProductInfo />
-        <Related_Outfit />
+        <Related_Outfit productId={this.state.productId}/>
         <QandA />
         <Reviews />
       </div>
