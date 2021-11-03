@@ -6,7 +6,7 @@ import axios from 'axios';
 
 // removed products from props
 let Overview = ({cam_token}) => {
-  let mockData = [{
+  let mockData = {
     "id": 59553,
     "campus": "hr-rpp",
     "name": "Camo Onesie",
@@ -16,8 +16,8 @@ let Overview = ({cam_token}) => {
     "default_price": "140.00",
     "created_at": "2021-10-18T22:50:41.839Z",
     "updated_at": "2021-10-18T22:50:41.839Z"
-}];
-  const [products, setProducts] = useState(mockData);
+};
+  const [products, setProducts] = useState([mockData]);
   const [index, setIndex] = useState(0);
 
   console.log('PRODUCTS:', products);
@@ -30,7 +30,6 @@ let Overview = ({cam_token}) => {
     'Authorization': cam_token.cam_token}
   };
 
-
   useEffect(() => {
     axios(productOptions)
       .then(response => {
@@ -39,21 +38,22 @@ let Overview = ({cam_token}) => {
       })
         .catch(error => {
           console.log(error)});
-      }, [])
+      }, []);
 
 
 
   let currentProduct = products[index];
+  let currentProductId = currentProduct.id;
   console.log('CURRENT PRODUCT:', currentProduct);
 
     return (
       <div id='Overview'>
         <ImageGallery products={products} />
-        <ProductInformation products={products} />
+        <ProductInformation currentProduct={currentProduct} />
         <StyleSelector products={products} />
         <AddToCart products={products} />
-        <ProductSloganAndDescription products={products} />
-        <ProductFeatures products={products} />
+        <ProductSloganAndDescription currentProduct={currentProduct} />
+        <ProductFeatures cam_token={cam_token} currentProduct={currentProduct} />
       </div>
     );
 
@@ -87,7 +87,7 @@ let Overview = ({cam_token}) => {
   }
 
   // Product Information Component (split with Slogan, Description, and Features)
-  let ProductInformation = ({products}) => {
+  let ProductInformation = ({currentProduct}) => {
     return (
       <div className="ProductInformation">
         <div className="StarsAndReviews">
@@ -99,13 +99,13 @@ let Overview = ({cam_token}) => {
           </div>
         </div>
         <div className="ProductCategory">
-          {products[0].category}
+          {currentProduct.category}
         </div>
         <div className="ProductName">
-          {products[0].name}
+          {currentProduct.name}
         </div>
         <div>
-          {`$${products[0].default_price}`}
+          {`$${currentProduct.default_price}`}
         </div>
       </div>
     );
@@ -171,29 +171,49 @@ let Overview = ({cam_token}) => {
   }
 
   // Product Slogan and Description Component
-  let ProductSloganAndDescription = ({products}) => {
+  let ProductSloganAndDescription = ({currentProduct}) => {
     return (
       <div className="ProductSloganAndDescription">
           <div className="ProductSlogan">
-            {products[0].slogan}
+            {currentProduct.slogan}
           </div>
           <div className="ProductDescription">
-            {products[0].description}
+            {currentProduct.description}
           </div>
       </div>
     );
   }
 
   // Product Features Component
-  let ProductFeatures = ({products}) => {
+  let ProductFeatures = ({currentProduct, cam_token}) => {
+    const [productById, setProductById] = useState();
+    const [hasLoaded, setHasLoaded] = useState(false);
+
+    let productIdOptions = {
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${currentProduct.id}`,
+      method: 'get',
+      headers: {'Content-Type': 'application/json',
+      'Authorization': cam_token.cam_token}
+    };
+
+    useEffect(() => {
+      axios(productIdOptions)
+        .then(response => {
+          console.log('RESPONSE IN FEATURES:', response)
+          setProductById(response.data);
+          setHasLoaded(true);
+        })
+          .catch(error => {
+            console.log(error)});
+        }, []);
+
     return (
       <div className="ProductFeatures">
-        <div className="ProductFeaturesList">
-          <div>✔ Product Feature 1</div>
-          <div>✔ Product Feature 2</div>
-          <div>✔ Product Feature 3</div>
-          <div>✔ Product Feature 4</div>
-        </div>
+        {hasLoaded && <div className="ProductFeaturesList">
+          {productById.features.map((productFeature, i) => (
+            <div key={i}>✔ {productFeature.feature}: {productFeature.value}</div>
+          ))}
+        </div>}
       </div>
     );
   }
@@ -205,10 +225,11 @@ ImageGallery.propTypes = {
   products: PropTypes.array
 }
 ProductFeatures.propTypes = {
-  products: PropTypes.array
+  currentProduct: PropTypes.object,
+  cam_token: PropTypes.object
 }
 ProductSloganAndDescription.propTypes = {
-  products: PropTypes.array
+  currentProduct: PropTypes.object
 }
 AddToCart.propTypes = {
   products: PropTypes.array
@@ -220,7 +241,7 @@ Overview.propTypes = {
   products: PropTypes.array
 }
 ProductInformation.propTypes = {
-  products: PropTypes.array
+  currentProduct: PropTypes.object
 }
 
 export default Overview;
