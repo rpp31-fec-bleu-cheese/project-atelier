@@ -22,29 +22,62 @@ let Overview = ({cam_token}) => {
 
   console.log('PRODUCTS:', products);
 
-
-  let productOptions = {
-    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products',
-    method: 'get',
-    headers: {'Content-Type': 'application/json',
-    'Authorization': cam_token.cam_token}
-  };
-
   useEffect(() => {
+    let productOptions = {
+      url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products',
+      method: 'get',
+      headers: {'Content-Type': 'application/json',
+      'Authorization': cam_token.cam_token}
+    };
     axios(productOptions)
       .then(response => {
-        console.log('response:', response)
+        console.log('ALL PRODUCTS API RESPONSE:', response)
         setProducts(response.data);
       })
         .catch(error => {
           console.log(error)});
       }, []);
 
-
-
   let currentProduct = products[index];
-  let currentProductId = currentProduct.id;
   console.log('CURRENT PRODUCT:', currentProduct);
+  const [productById, setProductById] = useState({
+    "id": 59553,
+    "campus": "hr-rpp",
+    "name": "Camo Onesie",
+    "slogan": "Blend in to your crowd",
+    "description": "The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.",
+    "category": "Jackets",
+    "default_price": "140.00",
+    "created_at": "2021-10-18T22:50:41.839Z",
+    "updated_at": "2021-10-18T22:50:41.839Z",
+    "features": [
+        {
+            "feature": "Fabric",
+            "value": "Canvas"
+        },
+        {
+            "feature": "Buttons",
+            "value": "Brass"
+        }
+    ]
+});
+  console.log('CURRENT PRODUCT BY ID:', productById);
+
+  useEffect(() => {
+    let productIdOptions = {
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${currentProduct.id}`,
+      method: 'get',
+      headers: {'Content-Type': 'application/json',
+      'Authorization': cam_token.cam_token}
+    };
+    axios(productIdOptions)
+      .then(response => {
+        console.log('PRODUCT ID API RESPONSE:', response)
+        setProductById(response.data);
+      })
+        .catch(error => {
+          console.log(error)});
+      }, []);
 
     return (
       <div id='Overview'>
@@ -53,7 +86,7 @@ let Overview = ({cam_token}) => {
         <StyleSelector products={products} />
         <AddToCart products={products} />
         <ProductSloganAndDescription currentProduct={currentProduct} />
-        <ProductFeatures cam_token={cam_token} currentProduct={currentProduct} />
+        <ProductFeatures productById={productById} cam_token={cam_token} />
       </div>
     );
 
@@ -185,27 +218,31 @@ let Overview = ({cam_token}) => {
   }
 
   // Product Features Component
-  let ProductFeatures = ({currentProduct, cam_token}) => {
-    const [productById, setProductById] = useState();
-    const [hasLoaded, setHasLoaded] = useState(false);
+  let ProductFeatures = ({productById, cam_token}) => {
+    // const [productById, setProductById] = useState();
+    const [hasLoaded, setHasLoaded] = useState(true);
 
-    let productIdOptions = {
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${currentProduct.id}`,
-      method: 'get',
-      headers: {'Content-Type': 'application/json',
-      'Authorization': cam_token.cam_token}
-    };
+    // let productIdOptions = {
+    //   url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${currentProduct.id}`,
+    //   method: 'get',
+    //   headers: {'Content-Type': 'application/json',
+    //   'Authorization': cam_token.cam_token}
+    // };
 
-    useEffect(() => {
-      axios(productIdOptions)
-        .then(response => {
-          console.log('RESPONSE IN FEATURES:', response)
-          setProductById(response.data);
-          setHasLoaded(true);
-        })
-          .catch(error => {
-            console.log(error)});
-        }, []);
+    // useEffect(() => {
+    //   axios(productIdOptions)
+    //     .then(response => {
+    //       console.log('RESPONSE IN FEATURES:', response)
+    //       setProductById(response.data);
+    //       setHasLoaded(true);
+    //     })
+    //       .catch(error => {
+    //         console.log(error)});
+    //     }, []);
+
+    // if (productById) {
+    //   setHasLoaded(true);
+    // }
 
     return (
       <div className="ProductFeatures">
@@ -225,7 +262,7 @@ ImageGallery.propTypes = {
   products: PropTypes.array
 }
 ProductFeatures.propTypes = {
-  currentProduct: PropTypes.object,
+  productById: PropTypes.object,
   cam_token: PropTypes.object
 }
 ProductSloganAndDescription.propTypes = {
