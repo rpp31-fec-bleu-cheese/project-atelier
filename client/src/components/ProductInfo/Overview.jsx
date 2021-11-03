@@ -6,21 +6,16 @@ import axios from 'axios';
 
 // removed products from props
 let Overview = ({cam_token}) => {
-  let mockData = {
-    "id": 59553,
-    "campus": "hr-rpp",
-    "name": "Camo Onesie",
-    "slogan": "Blend in to your crowd",
-    "description": "The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.",
-    "category": "Jackets",
-    "default_price": "140.00",
-    "created_at": "2021-10-18T22:50:41.839Z",
-    "updated_at": "2021-10-18T22:50:41.839Z"
-};
-  const [products, setProducts] = useState([mockData]);
-  const [index, setIndex] = useState(0);
 
+  const [products, setProducts] = useState([]);
   console.log('PRODUCTS:', products);
+  const [index, setIndex] = useState(0);
+  let currentProduct = products.length > 0 ? products[index] : {'id': 59553};
+  console.log('CURRENT PRODUCT:', currentProduct);
+  const [productById, setProductById] = useState({});
+  console.log('CURRENT PRODUCT BY ID:', productById);
+  const [productStyles, setProductStyles] = useState({});
+  console.log('CURRENT PRODUCT STYLE:', productStyles);
 
   useEffect(() => {
     let productOptions = {
@@ -33,60 +28,52 @@ let Overview = ({cam_token}) => {
       .then(response => {
         console.log('ALL PRODUCTS API RESPONSE:', response)
         setProducts(response.data);
-      })
+          axios(productIdOptions)
+            .then(response => {
+            console.log('PRODUCT ID API RESPONSE:', response)
+            setProductById(response.data);
+          })
+        })
         .catch(error => {
           console.log(error)});
-      }, []);
 
-  let currentProduct = products[index];
-  console.log('CURRENT PRODUCT:', currentProduct);
-  const [productById, setProductById] = useState({
-    "id": 59553,
-    "campus": "hr-rpp",
-    "name": "Camo Onesie",
-    "slogan": "Blend in to your crowd",
-    "description": "The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.",
-    "category": "Jackets",
-    "default_price": "140.00",
-    "created_at": "2021-10-18T22:50:41.839Z",
-    "updated_at": "2021-10-18T22:50:41.839Z",
-    "features": [
-        {
-            "feature": "Fabric",
-            "value": "Canvas"
-        },
-        {
-            "feature": "Buttons",
-            "value": "Brass"
-        }
-    ]
-});
-  console.log('CURRENT PRODUCT BY ID:', productById);
+          let productIdOptions = {
+            url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${currentProduct.id}`,
+            method: 'get',
+            headers: {'Content-Type': 'application/json',
+            'Authorization': cam_token.cam_token}
+          };
+          axios(productIdOptions)
+            .then(response => {
+              console.log('PRODUCT ID API RESPONSE:', response)
+              setProductById(response.data);
+            })
+              .catch(error => {
+                console.log(error)});
 
-  useEffect(() => {
-    let productIdOptions = {
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${currentProduct.id}`,
-      method: 'get',
-      headers: {'Content-Type': 'application/json',
-      'Authorization': cam_token.cam_token}
-    };
-    axios(productIdOptions)
-      .then(response => {
-        console.log('PRODUCT ID API RESPONSE:', response)
-        setProductById(response.data);
-      })
-        .catch(error => {
-          console.log(error)});
+                let productStylesOptions = {
+                  url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${currentProduct.id}/styles`,
+                  method: 'get',
+                  headers: {'Content-Type': 'application/json',
+                  'Authorization': cam_token.cam_token}
+                };
+                axios(productStylesOptions)
+                  .then(response => {
+                    console.log('PRODUCT ID API RESPONSE:', response)
+                    setProductStyles(response.data.results);
+                  })
+                    .catch(error => {
+                      console.log(error)});
       }, []);
 
     return (
       <div id='Overview'>
-        <ImageGallery products={products} />
+        {products.length > 0 && <><ImageGallery products={products} />
         <ProductInformation currentProduct={currentProduct} />
         <StyleSelector products={products} />
         <AddToCart products={products} />
         <ProductSloganAndDescription currentProduct={currentProduct} />
-        <ProductFeatures productById={productById} cam_token={cam_token} />
+        <ProductFeatures productById={productById} cam_token={cam_token} /></>}
       </div>
     );
 
@@ -125,7 +112,7 @@ let Overview = ({cam_token}) => {
       <div className="ProductInformation">
         <div className="StarsAndReviews">
           <div>
-          Stars here (*****)
+          ☆☆☆☆☆
           </div>
           <div>
           <a href="">Read all (#) reviews</a>
@@ -220,33 +207,18 @@ let Overview = ({cam_token}) => {
   // Product Features Component
   let ProductFeatures = ({productById, cam_token}) => {
     // const [productById, setProductById] = useState();
-    const [hasLoaded, setHasLoaded] = useState(true);
-
-    // let productIdOptions = {
-    //   url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${currentProduct.id}`,
-    //   method: 'get',
-    //   headers: {'Content-Type': 'application/json',
-    //   'Authorization': cam_token.cam_token}
-    // };
+    // const [hasLoaded, setHasLoaded] = useState(false);
 
     // useEffect(() => {
-    //   axios(productIdOptions)
-    //     .then(response => {
-    //       console.log('RESPONSE IN FEATURES:', response)
-    //       setProductById(response.data);
-    //       setHasLoaded(true);
-    //     })
-    //       .catch(error => {
-    //         console.log(error)});
+    //   if (Object.keys(productById).length) {
+    //     setHasLoaded(true);
+    //   }
     //     }, []);
 
-    // if (productById) {
-    //   setHasLoaded(true);
-    // }
 
     return (
       <div className="ProductFeatures">
-        {hasLoaded && <div className="ProductFeaturesList">
+        {(Object.keys(productById).length) && <div className="ProductFeaturesList">
           {productById.features.map((productFeature, i) => (
             <div key={i}>✔ {productFeature.feature}: {productFeature.value}</div>
           ))}
