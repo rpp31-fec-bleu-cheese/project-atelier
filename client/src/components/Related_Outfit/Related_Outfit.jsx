@@ -16,19 +16,40 @@ class Related_Outfit extends React.Component {
       relatedProducts:[],
       outfitIds:[],
       outfits:[],
+      productIdToCompare: 0,
+      productToCompare:{},
       popup: false,
       popup_style:{"display":"none"}
     };
     this.starButtonClick = this.starButtonClick.bind(this);
+    this.crossButtonClick = this.crossButtonClick.bind(this);
   }
-  starButtonClick(event){
-    console.log('event on click');
+  starButtonClick(event, productId){
+    //console.log('INSIDE STAR BUTTON CLICK');
     var popup = !(this.state.popup);
     var style = {};
     if(popup) {
-      style = {"display":"block"}
+      style = {"display":"block"};
+      var productToCompare = {};
+      for(var product of this.state.relatedProducts) {
+        //console.log('product.id ',product.id );
+        //console.log(productId);
+        if(product.id == productId) {
+          productToCompare = product;
+        }
+      }
+      //console.log('PRODUCT TO COMPARE', productToCompare);
+      this.setState({
+        productIdToCompare: productId,
+        productToCompare: productToCompare
+      })
+
     } else {
-      style = {"display":"none"}
+      style = {"display":"none"};
+      this.setState({
+        productIdToCompare: 0,
+        productToCompare: {}
+      })
     }
 
     this.setState({
@@ -36,6 +57,23 @@ class Related_Outfit extends React.Component {
       popup_style:style
     });
 
+  }
+  crossButtonClick(event, productId) {
+    //console.log('INSIDE cross button click');
+    var outfitIds = this.state.outfitIds.slice(0);
+    var index = outfitIds.indexOf(productId);
+    outfitIds.splice(index, 1);
+    var outfits = this.state.outfits.slice(0);
+    for(var i=0; i<outfits.length; i++) {
+      if(outfits[i].id=== productId) {
+        outfits.splice(i,1);
+        break;
+      }
+    }
+    this.setState({
+      outfitIds: outfitIds,
+      outfits: outfits
+    })
   }
   //fetch related product ids and their details for a particular productId
   fetchRelatedInfo(productId) {
@@ -182,12 +220,12 @@ class Related_Outfit extends React.Component {
             <div id="Outfit">
               <button id="Related_Plus" onClick={()=>this.addToOutfit()}><i className="fa fa-plus"></i><div>Add to Outfit</div></button>
               {this.state.outfits.map((product) => (
-                <Related_ProductInfo key={product.id} product={product} component={'Outfit'} productClick={this.props.productClick}/>
+                <Related_ProductInfo key={product.id} product={product} component={'Outfit'} productClick={this.props.productClick} crossButtonClick={this.crossButtonClick}/>
               ))}
             </div>
             <button className="NextProd Outfit" onClick={(event)=>this.scroll(event,+250)}><i className="fa fa-angle-right"></i></button>
           <div id="Comparison">
-             <Comparison popup={this.state.popup} style={this.state.popup_style} />
+             <Comparison popup={this.state.popup} style={this.state.popup_style} currentProduct={this.state.productInfo} toCompare={this.state.productToCompare}/>
             </div>
       </div>
     )

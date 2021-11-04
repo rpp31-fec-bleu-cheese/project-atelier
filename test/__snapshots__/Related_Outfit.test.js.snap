@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Related_Outfit should render correctly 1`] = `ReactWrapper {}`;
+
+exports[`Related_Outfit should render correctly in "debug" mode 1`] = `ShallowWrapper {}`;

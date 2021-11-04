@@ -1,131 +1,55 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ComparisonRow from './ComparisonRow.jsx';
 
 var Comparison = (props) => {
   if(props.popup) {
+
+     var featuresOfClickedProduct = props.toCompare.features;
+     var featuresOfCurrentProduct = props.currentProduct.features
+     var features = {};
+     console.log(featuresOfClickedProduct);
+     for(var featureOfClicked of featuresOfClickedProduct) {
+      //var obj = {};
+      var nameOfFeature = featureOfClicked.feature;
+      features[nameOfFeature] = {};
+      features[nameOfFeature].valueForClicked = featureOfClicked.value;
+      features[nameOfFeature].valueForCurrent = null;
+      //features.push(obj);
+     }
+     for(var featureOfCurrent of featuresOfCurrentProduct) {
+
+      var nameOfFeature = featureOfCurrent.feature;
+      if(features[nameOfFeature] === undefined) {
+        features[nameOfFeature] = {};
+        features[nameOfFeature].valueForCurrent = featureOfCurrent.value;
+        features[nameOfFeature].valueForClicked = null;
+      }else {
+        features[nameOfFeature].valueForCurrent = featureOfCurrent.value;
+      }
+
+     }
+     console.log('features obj:', features);
+     var allFeatures = Object.keys(features);
+     console.log('allFeatures:',allFeatures);
     return(
       <div  id="PopupTrue" style={props.popup_style}>
       Comparing
         <table id="ComparingTable">
+
           <thead>
           <tr>
-            <td><em>Product Short Name</em></td>
-             <td> </td>
-             <td><em>Product Short Name</em></td>
+            <th><b>{props.toCompare.name}</b></th>
+             <th> </th>
+             <th><b>{props.currentProduct.name}</b></th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-           <td>
-              GMO and Pesticide-free
-           </td>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-          </tr>
-           <tr>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-           <td>
-              GMO and Pesticide-free
-           </td>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-          </tr>
-           <tr>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-           <td>
-              GMO and Pesticide-free
-           </td>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-          </tr>
-           <tr>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-           <td>
-              Made with 100% Genetic-modification
-           </td>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-          </tr>
-           <tr>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-           <td>
-              This is made up
-           </td>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-          </tr>
-          <tr>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-           <td>
-              it doesnt matter
-           </td>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-          </tr>
-          <tr>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-           <td>
-              Feature Description
-           </td>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-          </tr>
-          <tr>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-           <td>
-              Uses React Hooks and Redux
-           </td>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-          </tr>
-          <tr>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-           <td>
-              Angular
-           </td>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-          </tr>
-          <tr>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-           <td>
-              Some other product comparison metric
-           </td>
-           <td>
-            <i className="fas fa-check"></i>
-           </td>
-          </tr>
-          </tbody>
+          {allFeatures.map((feature) => (
+            <ComparisonRow key={feature} featureObj = {features[feature]} featureName={feature}/>
+          ))}
+
+         </tbody>
         </table>
 
       </div>
@@ -139,7 +63,9 @@ var Comparison = (props) => {
 }
 Comparison.propTypes = {
   popup:PropTypes.bool,
-  popup_style:PropTypes.object
+  popup_style:PropTypes.object,
+  toCompare: PropTypes.object,
+  currentProduct: PropTypes.object
 
 }
 export default Comparison;

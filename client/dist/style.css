@@ -641,10 +641,11 @@ div#Related_Outfit button {
   border:"none";
 }
 div#Related_Outfit div#Comparison div#PopupTrue{
+
   position:  fixed;
-  font-size:small;
-   width: 500px;
-   height:300px;
+  font-size: small;
+   width: 400px;
+   height:200px;
    top: calc(50% - 50px);
    padding:30px;
    background-color:aliceblue;
@@ -653,6 +654,11 @@ div#Related_Outfit div#Comparison div#PopupTrue{
    bottom: 40px;
    z-index: 100;
 }
+div#Related_Outfit  div#Comparison div#PopupTrue th{
+  font-size: small;
+  font-weight:bold;
+}
+
 /*
 width: 100%; /* Full width */
 /*height: 100%; /* Full height */

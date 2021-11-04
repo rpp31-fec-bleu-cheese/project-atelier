@@ -37,7 +37,7 @@ var Related_ProductInfo = (props) => {
 
           <div className="Related" style={{ backgroundImage: `url(${image})`,backgroundSize: "cover"}}>
 
-              <i id="Overlay_Star" onClick={props.starButtonClick} className="far fa-star"></i>
+              <i id="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} className="far fa-star"></i>
           </div>
 
         <div>
@@ -59,7 +59,7 @@ var Related_ProductInfo = (props) => {
       <div className="Related_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
         <div className="Outfit" style={{ backgroundImage: `url(${image})`,backgroundSize: "cover"}}>
 
-              <i id="Overlay_Circle"  className="far fa-times-circle"></i>
+              <i id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} className="far fa-times-circle" ></i>
           </div>
         <div>
           {props.product.category}
@@ -82,7 +82,8 @@ Related_ProductInfo.propTypes = {
   product:PropTypes.object,
   component:PropTypes.string,
   starButtonClick:PropTypes.func,
-  productClick:PropTypes.func
+  productClick:PropTypes.func,
+  crossButtonClick:PropTypes.func
 }
 export default Related_ProductInfo;
 
