@@ -19,7 +19,7 @@ let Overview = ({cam_token}) => {
 
   useEffect(() => {
     let productOptions = {
-      url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products',
+      url: '/products',
       method: 'get',
       headers: {'Content-Type': 'application/json',
       'Authorization': cam_token.cam_token}
@@ -28,17 +28,12 @@ let Overview = ({cam_token}) => {
       .then(response => {
         console.log('ALL PRODUCTS API RESPONSE:', response)
         setProducts(response.data);
-          axios(productIdOptions)
-            .then(response => {
-            console.log('PRODUCT ID API RESPONSE:', response)
-            setProductById(response.data);
-          })
         })
         .catch(error => {
           console.log(error)});
 
           let productIdOptions = {
-            url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${currentProduct.id}`,
+            url: `/products/${currentProduct.id}`,
             method: 'get',
             headers: {'Content-Type': 'application/json',
             'Authorization': cam_token.cam_token}
@@ -52,14 +47,14 @@ let Overview = ({cam_token}) => {
                 console.log(error)});
 
                 let productStylesOptions = {
-                  url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${currentProduct.id}/styles`,
+                  url: `products/${currentProduct.id}/styles`,
                   method: 'get',
                   headers: {'Content-Type': 'application/json',
                   'Authorization': cam_token.cam_token}
                 };
                 axios(productStylesOptions)
                   .then(response => {
-                    console.log('PRODUCT ID API RESPONSE:', response)
+                    console.log('PRODUCT STYLES API RESPONSE:', response)
                     setProductStyles(response.data.results);
                   })
                     .catch(error => {

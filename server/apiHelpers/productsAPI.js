@@ -9,7 +9,7 @@ const getAllProducts = (callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.cam_token
     },
     params: {
       page: 1,
@@ -32,7 +32,7 @@ const getProduct = (productID, callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.cam_token
     },
   }
 
@@ -51,7 +51,7 @@ const getProductStyle = (productID, callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.cam_token
     }
   };
 
@@ -60,6 +60,7 @@ const getProductStyle = (productID, callback) => {
       callback(null, response.data);
     })
     .catch((err) => {
+      console.log('RESPONSE ERR:', err)
       callback(err);
     })
 };
