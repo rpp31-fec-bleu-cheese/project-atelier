@@ -1,6 +1,6 @@
 
 import React from 'react';
-import StarIcon from './StarIcon.jsx';
+//import StarIcon from './StarIcon.jsx';
 /*var Rating = (props) => {
   return(
     <div className="rating">
@@ -13,7 +13,7 @@ import StarIcon from './StarIcon.jsx';
 
   )
 }*/
-var Rating = (props) => {
+/*var Rating = (props) => {
   var starCount = [1,2,3,4,5];
   return(
     <div className="rating">
@@ -21,8 +21,14 @@ var Rating = (props) => {
       <div className="full-stars" style={{"width":"50%"}}></div>
     </div>
   )
+}*/
+var Rating = (props) => {
+  return (
+    <div>
+     <i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i>
+    </div>
+  )
 }
-
 export default Rating;
 
 /*{starCount.map((count) => (

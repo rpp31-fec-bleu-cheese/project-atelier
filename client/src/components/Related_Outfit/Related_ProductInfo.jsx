@@ -15,11 +15,27 @@ var Related_ProductInfo = (props) => {
       style = {"display": "block"};
     }
   }*/
+  var image = '';
+  var imageFound = false;
+  console.log('type of props.product.styles ', typeof (props.product.styles));
+  if(Array.isArray(props.product.styles) && props.product.styles.length > 0) {
+    for(var productStyle of props.product.styles) {
+      if(productStyle[ "default?"] === true) {
+        image = productStyle["photos"][0]["url"];
+        imageFound = true;
+      }
+    }
+    if(!imageFound) {
+      image = props.product.styles[0]["photos"][0]["url"];
+    }
+  }
+
+
   if(props.component === 'Related') {
     return(
-      <div className="Related_ProductInfo">
+      <div className="Related_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
 
-          <div className="Related" style={{ backgroundImage: `url(${props.product.image})`,backgroundSize: "cover"}}>
+          <div className="Related" style={{ backgroundImage: `url(${image})`,backgroundSize: "cover"}}>
 
               <i id="Overlay_Star" onClick={props.starButtonClick} className="far fa-star"></i>
           </div>
@@ -40,8 +56,8 @@ var Related_ProductInfo = (props) => {
     )
   } else {
     return (
-      <div className="Related_ProductInfo">
-        <div className="Outfit" style={{ backgroundImage: `url(${props.product.image})`,backgroundSize: "cover"}}>
+      <div className="Related_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
+        <div className="Outfit" style={{ backgroundImage: `url(${image})`,backgroundSize: "cover"}}>
 
               <i id="Overlay_Circle"  className="far fa-times-circle"></i>
           </div>
@@ -65,7 +81,8 @@ var Related_ProductInfo = (props) => {
 Related_ProductInfo.propTypes = {
   product:PropTypes.object,
   component:PropTypes.string,
-  starButtonClick:PropTypes.function
+  starButtonClick:PropTypes.func,
+  productClick:PropTypes.func
 }
 export default Related_ProductInfo;
 

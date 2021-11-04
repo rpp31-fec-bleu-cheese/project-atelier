@@ -2,6 +2,7 @@ const products = require('./apiHelpers/productsAPI.js');
 const cart = require('./apiHelpers/cartAPI.js');
 const qanda = require('./apiHelpers/qandaAPI.js');
 const reviews = require('./apiHelpers/reviewsAPI.js');
+const Promise = require('bluebird');
 
 module.exports = {
   // PRODUCT CONTROLLERS
@@ -50,8 +51,55 @@ module.exports = {
 
         res.status(200).send(data);
       });
+    },
+    //to fetch all the details including styles for an array of related/outfit products
+    getDetailsForProducts: function(req, res) {
+      console.log('inside get details')
+
+      console.log(req.query);
+      let relatedProducts = JSON.parse(req.query.productIds);
+      let fetchFunctions = [];
+      var promisedFetchProduct = Promise.promisify(products.getProduct);
+      var promisedFetchStyles = Promise.promisify(products.getProductStyle);
+      for(var product of relatedProducts) {
+
+
+        fetchFunctions.push(promisedFetchProduct(product));
+      }
+      //console.log(fetchFunctions)
+      Promise.all(fetchFunctions)
+      .then((products) => {
+        //console.log('products:',products);
+        fetchStyles = [];
+        for(var product of products) {
+          fetchStyles.push(promisedFetchStyles(product.id));
+        }
+        return Promise.all(fetchStyles)
+        .then((productStylesArray)=>{
+
+          for(var product of products) {
+
+              for(var productStyle of productStylesArray) {
+
+                if(productStyle.product_id == product.id){
+
+                  product.styles = productStyle.results;
+                }
+              }
+
+          }
+
+          res.status(200).send(products);
+        })
+      })
+
+      .catch((error) => {
+        console.log(error);
+        res.status(404).send();
+      })
     }
   },
+
   // REVIEWS CONTROLLERS
   reviews: {
     getAllReviews: function(req, res) {

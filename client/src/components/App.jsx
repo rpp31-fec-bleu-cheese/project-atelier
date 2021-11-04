@@ -13,15 +13,28 @@ class App extends React.Component {
     this.state = {
       productId: 59558
     };
-  }
+    this.relatedOutfitProductClick = this.relatedOutfitProductClick.bind(this);
 
+  }
+  relatedOutfitProductClick(event, productId){
+    console.log('event.target.id:',event.target.id)
+  if(event.target.id !== 'Overlay_Star' && event.target.id !== 'Overlay_Circle') {
+    console.log('inside click function productId:', productId);
+    //update the productId
+
+    this.setState({
+      productId:productId
+    });
+   }
+
+  }
   render() {
     return (
       <div id='App'>
         <Header />
         <SiteMessage />
         <ProductInfo />
-        <Related_Outfit productId={this.state.productId}/>
+        <Related_Outfit productId={this.state.productId} productClick={this.relatedOutfitProductClick}/>
         <QandA />
         <Reviews />
       </div>

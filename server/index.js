@@ -14,6 +14,8 @@ app.get('/products', controllers.products.getAllProducts);
 app.get('/products/:product_id', controllers.products.getProductByID);
 app.get('/products/:product_id/styles', controllers.products.getProductStyleByID);
 app.get('/products/:product_id/related', controllers.products.getRelatedProductsByID);
+app.get('/products/related/details', controllers.products.getDetailsForProducts);
+app.get('/products/outfit/details', controllers.products.getDetailsForProducts);
 
 app.get('/qa/questions/', controllers.questions_answers.getAllQuestions);
 

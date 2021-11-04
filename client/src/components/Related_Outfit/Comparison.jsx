@@ -138,7 +138,7 @@ var Comparison = (props) => {
 
 }
 Comparison.propTypes = {
-  popup:PropTypes.boolean,
+  popup:PropTypes.bool,
   popup_style:PropTypes.object
 
 }
