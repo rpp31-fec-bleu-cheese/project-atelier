@@ -1,4 +1,4 @@
-const mockData = {
+const questions = {
   "product_id": "59556",
   "results": [
       {
@@ -82,4 +82,47 @@ const mockData = {
   ]
 }
 
-export default mockData;
+const answers = {
+    "question": "513738",
+    "page": 1,
+    "count": 5,
+    "results": [
+        {
+            "answer_id": 4811993,
+            "body": "Some kind of recycled rubber, works great!",
+            "date": "2018-10-12T00:00:00.000Z",
+            "answerer_name": "iluvdogz",
+            "helpfulness": 7,
+            "photos": []
+        },
+        {
+            "answer_id": 4811992,
+            "body": "Its a rubber sole",
+            "date": "2018-10-12T00:00:00.000Z",
+            "answerer_name": "iluvdogz",
+            "helpfulness": 6,
+            "photos": []
+        },
+        {
+            "answer_id": 4811943,
+            "body": "The rubber on the bottom wears thin quickly",
+            "date": "2018-10-12T00:00:00.000Z",
+            "answerer_name": "iluvbirds",
+            "helpfulness": 4,
+            "photos": []
+        },
+        {
+            "answer_id": 4811944,
+            "body": "Rubber",
+            "date": "2018-10-12T00:00:00.000Z",
+            "answerer_name": "iluvbirds",
+            "helpfulness": 1,
+            "photos": []
+        }
+    ]
+}
+
+export default {
+    questions,
+    answers
+}

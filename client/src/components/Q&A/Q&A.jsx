@@ -1,5 +1,5 @@
 import React from 'React';
-
+import axios from 'axios';
 import Search from './Search.jsx';
 import FooterButtons from './FooterButtons.jsx';
 import QuestionEntry from './questionComponents/QuestionEntry.jsx';
@@ -11,15 +11,19 @@ class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentProduct: '',
       questions: [],
-      showAnswerModal: false
+      productID: '59556', // default productID
     };
 
     this.getQuestions = this.getQuestions.bind(this);
   }
 
   getQuestions() {
-    this.setState({ questions: mockData.results });
+    axios.get(`/qa/questions/?product_id=${this.state.productID}`)
+      .then(response => {
+        this.setState({ questions: response.data.results.sort((a, b) => b.question_helpfulness - a.question_helpfulness) });
+      })
   }
 
   componentDidMount() {
@@ -33,13 +37,13 @@ class QandA extends React.Component {
           <h2>QUESTIONS & ANSWERS</h2>
           <Search />
          <div className="q-a-content">
-            {mockData.results
+            {this.state.questions
               .map(
                 question => <QuestionEntry
                   key={question.question_id}
                   question={question.question_body}
-                  toggleAnswerModal={this.toggleAnswerModal}
-                  showAnswerModal={this.state.showAnswerModal}
+                  answers={question.answers}
+                  helpfulness={question.question_helpfulness}
                   />
               )
             }

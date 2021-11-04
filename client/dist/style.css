@@ -110,22 +110,30 @@ div#Reviews {
 div#QandA h2 {
   margin-right: auto;
   margin-left: 25px;
+  padding-left: 90px;
 }
 
 div#QandA div.q-a-content {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 60%;
-  width: 100%;
-  margin-top: -55px;
-  margin-left: 50px;
+  /* height: 70%; */
+  width: 90%;
+  padding: 0 50px;
+  margin-top: -125px;
+  /* margin-left: 50px; */
 }
 
 /* QuestionEntry styling */
+div#QandA div.question-entry {
+  /* margin-top: -25px; */
+}
+
 div#QandA div.question-entry div.question-container {
   display: flex;
   justify-content: space-between;
+  margin-top: 15px;
   margin-right: 50px;
 }
 
@@ -134,17 +142,34 @@ div#QandA div.question-entry div.question-container div.question {
   font-weight: bold;
 }
 
-div#QandA div.question-entry div.question-container div.helpful-buttons {
+div#QandA div.helpful-buttons {
+  color: #3d3d3d;
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   font-size: 14px;
 }
 
-div#QandA div.question-entry div.question-container div.helpful-buttons p {
+div#QandA div.helpful-buttons.user-info {
+  padding-left: 31px;
+}
+
+div#QandA div.helpful-buttons div.user {
+  margin-top: 5px;
+}
+
+div#QandA div.helpful-buttons p {
+  color: #3d3d3d;
+  margin-top: 5px;
+}
+
+div#QandA div.helpful-buttons p.divider {
+  font-size: 20px;
+  margin: 0 10px;
   margin-top: 3px;
 }
 
-div#QandA div.question-entry div.question-container div.helpful-buttons button {
+div#QandA div.helpful-buttons button {
+  color: #3d3d3d;
   cursor: pointer;
   border: none;
   font-size: 13px;
@@ -156,25 +181,28 @@ div#QandA div.question-entry div.question-container div.helpful-buttons button {
 div#QandA div.search {
   width: 100%;
   margin: 0 auto;
-  margin-top: -90px;
+  margin-top: -110px;
   margin-left: 25px;
 }
 
 div#QandA div.search div.search-bar {
   display: flex;
-  margin-right: 50px;
+  padding-left: 90px;
+  width: 77.7%;
+  /* margin-right: 50px; */
 }
 
 div#QandA div.search input {
   width: 100%;
   box-sizing: border-box;
   font-size: 16px;
-  padding: 15px 40px;
+  padding: 20px 40px;
 }
 
 /* FooterButtons component styling */
 div#QandA div.footer-buttons {
   display: flex;
+  margin-top: 25px;
 }
 
 div#QandA div.footer-buttons button {
@@ -285,4 +313,26 @@ div#QandA div.modal-background div.modal-content span {
 
 div#QandA div.modal-background div.modal-content span:hover {
   color: #858585
+}
+
+/* Answer Styling */
+div#QandA div.answer {
+  margin-top: 15px;
+}
+
+div#QandA div.answer div.answer-content {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+div#QandA div.answer div.answer-content span {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+div#QandA div.answer div.answer-content div.answer-body {
+  color: #3d3d3d;
+  font-size: 17px;
 }
