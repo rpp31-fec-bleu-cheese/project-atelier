@@ -33,7 +33,7 @@ class QandA extends React.Component {
 
   render() {
     return(
-      <div id='QandA'>
+      <div data-testid='question-answers' id='QandA'>
           <h2>QUESTIONS & ANSWERS</h2>
           <Search />
          <div className="q-a-content">
