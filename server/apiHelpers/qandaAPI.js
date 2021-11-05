@@ -21,7 +21,6 @@ const getQuestions = (productID, callback) => {
   axios(options)
     .then((response) => {
       callback(null, response.data);
-      console.log(response)
     })
     .catch((err) => {
       callback(err);
@@ -71,9 +70,30 @@ const postQuestions = (questionData, callback) => {
     })
 };
 
+const putQuestions = (questionID, callback) => {
+  let options = {
+    url: server + '/' + questionID + '/helpful',
+    method: 'put',
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': config.API_KEY
+    }
+  };
+
+  console.log(options.url);
+  axios(options)
+    .then((response) => {
+      callback(null, response.data)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
 
 module.exports = {
   getQuestions,
   getAnswersByID,
-  postQuestions
+  postQuestions,
+  putQuestions
 };
