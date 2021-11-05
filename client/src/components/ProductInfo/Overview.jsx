@@ -102,10 +102,11 @@ let Overview = ({cam_token}) => {
   // Image Gallery Component
   let ImageGallery = ({products, handleLeftArrowClick, handleRightArrowClick, productStyles}) => {
     console.log('PRODUCT STYLES IN GALLERY:', productStyles);
+    let imageComingSoon = __dirname + '../../stock_media/image-coming-soon.png';
     return (
       <div className="ImageGallery">
-        {(Object.keys(productStyles).length) && <><div style={{backgroundImage: `url(${productStyles.results[0].photos[0].url})`, background: 'cover'}} className="MainImage">
-          {/* <img src={productStyles.results[0].photos[0].url} /> */}
+        {(Object.keys(productStyles).length) && <><div style={{background: `center / contain no-repeat url(${productStyles.results[0].photos[0].url || imageComingSoon})`}} className="MainImage" alt="Main Product Image">
+          {/* <img src={productStyles.results[0].photos[0].url || imageComingSoon} /> */}
         </div>
         <div className="ImageGalleryThumbnails">
           <div className="GalleryThumbnail">Test</div>
