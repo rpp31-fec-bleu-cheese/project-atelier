@@ -90,6 +90,7 @@ let Overview = ({cam_token}) => {
     setIndex(nextIndex);
     resetPhotoIndex();
   }
+
   let handleThumbnailClick = (event) => {
     event.persist();
     let indexValue = Number(event.target.attributes.index.nodeValue);
@@ -105,7 +106,7 @@ let Overview = ({cam_token}) => {
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
       <ProductInformation currentProduct={currentProduct} />
       <StyleSelector products={products} />
-      <AddToCart products={products} productStyles={productStyles} productStyleIndex={productStyleIndex} />
+      <AddToCart products={products} productStyles={productStyles} productStyleIndex={productStyleIndex} productPhotoIndex={productPhotoIndex} />
       <ProductSloganAndDescription currentProduct={currentProduct} />
       <ProductFeatures productById={productById} cam_token={cam_token} /></>}
       {/* </ErrorBoundary> */}
@@ -218,11 +219,12 @@ let Overview = ({cam_token}) => {
   }
 
   // Add to Cart Component
-  let AddToCart = ({productStyles, productStyleIndex}) => {
+  let AddToCart = ({productStyles, productStyleIndex, productPhotoIndex}) => {
 
     const [currentSize, setCurrentSize] = useState('');
     console.log('CURRENT SIZE:', currentSize);
-    const [currentQuantity, setCurrentQuantity] = useState([]);
+    const [qtyInStock, setQtyInStock] = useState([]);
+    const [currentQtyAndSize, setCurrentQtyAndSize] = useState({size: '', qty: []});
     const [isMyOutfit, setIsMyOutfit] = useState();
     const [myOutfitIcon, setMyOutfitIcon] = useState('⭐');
     // const [defaultQty, setDefaultQty] = useState('-');
@@ -235,6 +237,9 @@ let Overview = ({cam_token}) => {
     if(Object.keys(productStyles).length) {
       let skusArray = [];
       let currentSku = productStyles.results[productStyleIndex].skus
+      let currentProductStyleData = {productId: productStyles.product_id,
+        styleId: productStyles.results[productStyleIndex].style_id}
+      console.log('CURRENT PRODUCT STYLE ID:', currentProductStyleData);
 
       for (let key in currentSku) {
         skusArray.push(currentSku[key]);
@@ -270,8 +275,7 @@ let Overview = ({cam_token}) => {
             }
             console.log('AVAIL QUANTITY:', availableQuantity);
             console.log('QTY ARRAY:', quantityArray);
-            setCurrentQuantity(quantityArray);
-            setCurrentSize(selectedSize);
+            setQtyInStock(quantityArray);
           }
         }
 
@@ -295,7 +299,7 @@ let Overview = ({cam_token}) => {
             <form>
               <select className="QuanititySelectorDropdown" onChange={() => console.log('Quantity clicked!')}>
               <option value="">-</option>
-                {currentQuantity.length && currentQuantity.map((qty, i) => (
+                {qtyInStock.length && qtyInStock.map((qty, i) => (
                   <option key={i} value={qty}>{qty}</option>
                 ))}
               </select>
@@ -378,7 +382,8 @@ ProductSloganAndDescription.propTypes = {
 }
 AddToCart.propTypes = {
   productStyles: PropTypes.object,
-  productStyleIndex: PropTypes.number
+  productStyleIndex: PropTypes.number,
+  productPhotoIndex: PropTypes.number
 }
 StyleSelector.propTypes = {
   products: PropTypes.array
