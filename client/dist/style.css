@@ -265,6 +265,8 @@ div#Overview select.QuanititySelectorDropdown {
 
 div#Overview button.AddToFavoriteButton {
   background-color: white;
+  display: flex;
+  justify-content: center;
   font-size: 150%;
   align-items: center;
   height: 50px;
