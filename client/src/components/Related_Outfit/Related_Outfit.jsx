@@ -60,20 +60,8 @@ class Related_Outfit extends React.Component {
   }
   crossButtonClick(event, productId) {
     //console.log('INSIDE cross button click');
-    var outfitIds = this.state.outfitIds.slice(0);
-    var index = outfitIds.indexOf(productId);
-    outfitIds.splice(index, 1);
-    var outfits = this.state.outfits.slice(0);
-    for(var i=0; i<outfits.length; i++) {
-      if(outfits[i].id=== productId) {
-        outfits.splice(i,1);
-        break;
-      }
-    }
-    this.setState({
-      outfitIds: outfitIds,
-      outfits: outfits
-    })
+    this.props.changeInOutfit(event, productId, "Delete");
+
   }
   //fetch outfit product details for an array of outfits
   fetchOufitInfo(outfitIds) {
@@ -128,17 +116,15 @@ class Related_Outfit extends React.Component {
   }
   addToOutfit(){
     var outfitIds = this.state.outfitIds.slice(0);
-    var outfits = this.state.outfits.slice(0);
+
+
     if(outfitIds.indexOf(this.props.productId) === -1) {
-      outfitIds.push(this.props.productId);
-      outfits.push(this.state.productInfo);
+      console.log('THIS IN ADDTOOUTFIT', this);
+      this.props.changeInOutfit(event, this.props.productId, "Add");
     }
 
-    this.setState({
-      outfitIds: outfitIds,
-      outfits: outfits
-    })
-    console.log('outfits', outfits);
+
+    //console.log('outfits', outfits);
   }
   //fetching the current product info
   fetchProductInfo(productId) {
@@ -186,6 +172,9 @@ class Related_Outfit extends React.Component {
       this.fetchRelatedInfo(this.props.productId);
       this.fetchProductInfo(this.props.productId);
       this.fetchProductStyles(this.props.productId);
+    }
+    if(JSON.stringify(prevProps.outfitIds) !== JSON.stringify(this.props.outfitIds)) {
+      this.fetchOufitInfo(this.props.outfitIds);
     }
   }
   scroll(event, scrollOffset){
@@ -250,7 +239,8 @@ class Related_Outfit extends React.Component {
 Related_Outfit.propTypes = {
   productId:PropTypes.number,
   productClick:PropTypes.func,
-  outfitIds:PropTypes.array
+  outfitIds:PropTypes.array,
+  changeInOutfit:PropTypes.func
 
 
 }
