@@ -35,7 +35,7 @@ var Related_ProductInfo = (props) => {
     return(
       <div className="Related_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
 
-          <div className="Related" style={{ backgroundImage: `url(${image})`,backgroundSize: "cover"}}>
+          <div className="Related" style={{ background: `center / contain no-repeat  url(${image}) `,backgroundSize:"cover"}}>
 
               <i id="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} className="far fa-star"></i>
           </div>

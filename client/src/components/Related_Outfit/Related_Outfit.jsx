@@ -198,7 +198,7 @@ class Related_Outfit extends React.Component {
    if(this.state.relatedProducts.length === 0) {
      return (
        <div id='Related_Outfit'>
-         Related Products and your outfits here
+         Loading...
        </div>
      )
    }
