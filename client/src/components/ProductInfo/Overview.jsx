@@ -18,7 +18,9 @@ let Overview = ({cam_token}) => {
   const [productStyles, setProductStyles] = useState({});
   console.log('CURRENT PRODUCT STYLE:', productStyles);
   const [productPhotoIndex, setProductPhotoIndex] = useState(0);
+  console.log('CURRENT PHOTO INDEX:', productPhotoIndex);
   const [productStyleIndex, setProductStyleIndex] = useState(0);
+  console.log('CURRENT STYLE INDEX:', productStyleIndex);
 
 
   useEffect(() => {
@@ -73,29 +75,24 @@ let Overview = ({cam_token}) => {
   }
 
   let handleLeftArrowClick = () => {
-    console.log('Left arrow clicked!');
     if (index === 0) {
       let nextIndex = products.length - 1;
       setIndex(nextIndex);
       resetPhotoIndex();
     } else {
-      console.log('INDEX IN LEFT CLICK:', index - 1);
       setIndex(index - 1);
       resetPhotoIndex();
     }
   }
 
   let handleRightArrowClick = () => {
-    console.log('Right arrow clicked!');
     let nextIndex = (index + 1) % products.length;
-    console.log('NEXT INDEX:', nextIndex);
     setIndex(nextIndex);
     resetPhotoIndex();
   }
   let handleThumbnailClick = (event) => {
     event.persist();
     let indexValue = Number(event.target.attributes.index.nodeValue);
-    console.log('INDEX VALUE CLICKED:', indexValue);
     setProductPhotoIndex(indexValue);
     event.preventDefault();
   }
@@ -123,7 +120,7 @@ let Overview = ({cam_token}) => {
     // const [productPhotoIndex, setProductPhotoIndex] = useState(0);
     console.log('PRODUCT STYLES IN GALLERY:', productStyles);
     let imageComingSoon = '/media';
-    console.log('DIRNAME:', imageComingSoon);
+
     let productImage;
     // let productThumbnail;
     // let handleThumbnailClick = (event) => {
@@ -223,10 +220,17 @@ let Overview = ({cam_token}) => {
   // Add to Cart Component
   let AddToCart = ({productStyles, productStyleIndex}) => {
 
-    const [currentSize, setCurrentSize] = useState();
-    const [currentQuanitity, setCurrentQuantity] = useState();
+    const [currentSize, setCurrentSize] = useState('');
+    console.log('CURRENT SIZE:', currentSize);
+    const [currentQuantity, setCurrentQuantity] = useState([]);
     const [isMyOutfit, setIsMyOutfit] = useState();
     const [myOutfitIcon, setMyOutfitIcon] = useState('⭐');
+    // const [defaultQty, setDefaultQty] = useState('-');
+
+    // useEffect(() => {
+    //   let standardDefault = 1;
+    //   setDefaultQty(standardDefault);
+    // }, [currentQuantity])
 
     if(Object.keys(productStyles).length) {
       let skusArray = [];
@@ -239,22 +243,47 @@ let Overview = ({cam_token}) => {
 
       let handleMyOutfitClick = (event) => {
         event.persist();
-        console.log('My Outfit Clicked!');
         if (myOutfitIcon === '⭐') {
           setMyOutfitIcon('❤️');
         }
         if (myOutfitIcon === '❤️') {
           setMyOutfitIcon('⭐');
         }
-        console.log('My Outfit Icon:', myOutfitIcon)
         event.preventDefault();
       }
+
+      let handleSizeClick = (event) => {
+        event.persist();
+        let selectedSize = event.target.value;
+        for (var i = 0; i < skusArray.length; i++) {
+          if (skusArray[i].size === selectedSize) {
+            let availableQuantity = skusArray[i].quantity;
+            let quantityArray = [];
+            if (availableQuantity <= 15) {
+              for (let q = 1; q <= availableQuantity; q++) {
+                quantityArray.push(q);
+              }
+            } else {
+              for (let q = 1; q <= 15; q++) {
+                quantityArray.push(q);
+              }
+            }
+            console.log('AVAIL QUANTITY:', availableQuantity);
+            console.log('QTY ARRAY:', quantityArray);
+            setCurrentQuantity(quantityArray);
+            setCurrentSize(selectedSize);
+          }
+        }
+
+        event.preventDefault();
+      }
+
 
       return (
         <div className="AddToCart">
           <div className="SizeSelector">
             <form>
-              <select className="SizeSelectorDropdown" onChange={() => console.log('Size clicked!')}>
+              <select className="SizeSelectorDropdown" onChange={handleSizeClick}>
                 <option value="">Select Size</option>
                 {skusArray.map((skuData, i) => (
                   <option key={i} value={skuData.size}>{skuData.size}</option>
@@ -266,9 +295,9 @@ let Overview = ({cam_token}) => {
             <form>
               <select className="QuanititySelectorDropdown" onChange={() => console.log('Quantity clicked!')}>
               <option value="">-</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+                {currentQuantity.length && currentQuantity.map((qty, i) => (
+                  <option key={i} value={qty}>{qty}</option>
+                ))}
               </select>
             </form>
           </div>
