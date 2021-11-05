@@ -31,51 +31,76 @@ let Overview = ({cam_token}) => {
         })
         .catch(error => {
           console.log(error)});
+      }, []);
 
-          let productIdOptions = {
-            url: `/products/${currentProduct.id}`,
+  useEffect (() => {
+    let productIdOptions = {
+      url: `/products/${currentProduct.id}`,
+      method: 'get',
+      headers: {'Content-Type': 'application/json',
+      'Authorization': cam_token.cam_token}
+    };
+    axios(productIdOptions)
+      .then(response => {
+        console.log('PRODUCT ID API RESPONSE:', response)
+        setProductById(response.data);
+      })
+        .catch(error => {
+          console.log(error)});
+
+          let productStylesOptions = {
+            url: `products/${currentProduct.id}/styles`,
             method: 'get',
             headers: {'Content-Type': 'application/json',
             'Authorization': cam_token.cam_token}
           };
-          axios(productIdOptions)
+          axios(productStylesOptions)
             .then(response => {
-              console.log('PRODUCT ID API RESPONSE:', response)
-              setProductById(response.data);
+              console.log('PRODUCT STYLES API RESPONSE:', response)
+              setProductStyles(response.data.results);
             })
               .catch(error => {
                 console.log(error)});
+  }, []);
 
-                let productStylesOptions = {
-                  url: `products/${currentProduct.id}/styles`,
-                  method: 'get',
-                  headers: {'Content-Type': 'application/json',
-                  'Authorization': cam_token.cam_token}
-                };
-                axios(productStylesOptions)
-                  .then(response => {
-                    console.log('PRODUCT STYLES API RESPONSE:', response)
-                    setProductStyles(response.data.results);
-                  })
-                    .catch(error => {
-                      console.log(error)});
-      }, []);
 
-    return (
-      <div id='Overview'>
-        {products.length > 0 && <><ImageGallery products={products} />
-        <ProductInformation currentProduct={currentProduct} />
-        <StyleSelector products={products} />
-        <AddToCart products={products} />
-        <ProductSloganAndDescription currentProduct={currentProduct} />
-        <ProductFeatures productById={productById} cam_token={cam_token} /></>}
-      </div>
-    );
+  let handleLeftArrowClick = () => {
+    console.log('Left arrow clicked!');
+    if (index === 0) {
+      let nextIndex = products.length - 1;
+      setIndex(nextIndex);
+    } else {
+      console.log('INDEX IN LEFT CLICK:', index - 1);
+      setIndex(index - 1);
+    }
+  }
+
+  let handleRightArrowClick = () => {
+    console.log('Right arrow clicked!');
+    let nextIndex = (index + 1) % products.length;
+    console.log('NEXT INDEX:', nextIndex);
+    setIndex(nextIndex);
+  }
+
+
+  return (
+    <div data-testid="Overview" id='Overview'>
+      {/* <ErrorBoundary arr={[]}> */}
+      {products.length > 0 && <><ImageGallery products={products} handleLeftArrowClick={handleLeftArrowClick}
+       handleRightArrowClick={handleRightArrowClick} />
+      <ProductInformation currentProduct={currentProduct} />
+      <StyleSelector products={products} />
+      <AddToCart products={products} />
+      <ProductSloganAndDescription currentProduct={currentProduct} />
+      <ProductFeatures productById={productById} cam_token={cam_token} /></>}
+      {/* </ErrorBoundary> */}
+    </div>
+  );
 
   };
 
   // Image Gallery Component
-  let ImageGallery = ({products}) => {
+  let ImageGallery = ({products, handleLeftArrowClick, handleRightArrowClick}) => {
     return (
       <div className="ImageGallery">
         <div className="MainImage">
@@ -89,10 +114,10 @@ let Overview = ({cam_token}) => {
           <div className="GalleryThumbnail">Test</div>
         </div>
         <div className="SlideGalleryLeft">
-          <div className="SlideGalleryLeftButton">←</div>
+          <div className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}>←</div>
         </div>
         <div className="SlideGalleryRight">
-          <div className="SlideGalleryRightButton">→</div>
+          <div className="SlideGalleryRightButton" onClick={handleRightArrowClick}>→</div>
         </div>
         <div className="OpenGalleryModal">
           <div className="OpenGalleryModalButton">⧠</div>
@@ -200,7 +225,7 @@ let Overview = ({cam_token}) => {
   }
 
   // Product Features Component
-  let ProductFeatures = ({productById, cam_token}) => {
+  let ProductFeatures = ({productById}) => {
     // const [productById, setProductById] = useState();
     // const [hasLoaded, setHasLoaded] = useState(false);
 
@@ -222,11 +247,42 @@ let Overview = ({cam_token}) => {
     );
   }
 
+  class ErrorBoundary extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError(error) {
+      // Update state so the next render will show the fallback UI.
+      return { hasError: true };
+    }
+
+    componentDidCatch(error, errorInfo) {
+      // You can also log the error to an error reporting service
+      logErrorToMyService(error, errorInfo);
+    }
+
+    render() {
+      if (this.state.hasError) {
+        // You can render any custom fallback UI
+        return <h1>Something went wrong.</h1>;
+      }
+
+      return this.props.children;
+    }
+  }
+
+ErrorBoundary.propTypes = {
+  children: PropTypes.object
+}
 Overview.propTypes = {
   cam_token: PropTypes.string
 }
 ImageGallery.propTypes = {
-  products: PropTypes.array
+  products: PropTypes.array,
+  handleLeftArrowClick: PropTypes.func,
+  handleRightArrowClick: PropTypes.func
 }
 ProductFeatures.propTypes = {
   productById: PropTypes.object,
