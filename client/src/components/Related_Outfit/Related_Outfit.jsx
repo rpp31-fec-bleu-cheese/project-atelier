@@ -14,7 +14,7 @@ class Related_Outfit extends React.Component {
       productInfo:{},
       relatedProductIds:[],
       relatedProducts:[],
-      outfitIds:[],
+      outfitIds:this.props.outfitIds,
       outfits:[],
       productIdToCompare: 0,
       productToCompare:{},
