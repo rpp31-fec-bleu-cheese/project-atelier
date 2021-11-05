@@ -57,11 +57,11 @@ let Overview = ({cam_token}) => {
           axios(productStylesOptions)
             .then(response => {
               console.log('PRODUCT STYLES API RESPONSE:', response)
-              setProductStyles(response.data.results);
+              setProductStyles(response.data);
             })
               .catch(error => {
                 console.log(error)});
-  }, []);
+  }, [currentProduct]);
 
 
   let handleLeftArrowClick = () => {
@@ -87,7 +87,7 @@ let Overview = ({cam_token}) => {
     <div data-testid="Overview" id='Overview'>
       {/* <ErrorBoundary arr={[]}> */}
       {products.length > 0 && <><ImageGallery products={products} handleLeftArrowClick={handleLeftArrowClick}
-       handleRightArrowClick={handleRightArrowClick} />
+       handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
       <ProductInformation currentProduct={currentProduct} />
       <StyleSelector products={products} />
       <AddToCart products={products} />
@@ -100,11 +100,12 @@ let Overview = ({cam_token}) => {
   };
 
   // Image Gallery Component
-  let ImageGallery = ({products, handleLeftArrowClick, handleRightArrowClick}) => {
+  let ImageGallery = ({products, handleLeftArrowClick, handleRightArrowClick, productStyles}) => {
+    console.log('PRODUCT STYLES IN GALLERY:', productStyles);
     return (
       <div className="ImageGallery">
-        <div className="MainImage">
-          Main image here
+        {(Object.keys(productStyles).length) && <><div style={{backgroundImage: `url(${productStyles.results[0].photos[0].url})`, background: 'cover'}} className="MainImage">
+          {/* <img src={productStyles.results[0].photos[0].url} /> */}
         </div>
         <div className="ImageGalleryThumbnails">
           <div className="GalleryThumbnail">Test</div>
@@ -121,7 +122,7 @@ let Overview = ({cam_token}) => {
         </div>
         <div className="OpenGalleryModal">
           <div className="OpenGalleryModalButton">⧠</div>
-        </div>
+        </div></>}
       </div>
     );
   }
@@ -178,16 +179,15 @@ let Overview = ({cam_token}) => {
   }
 
   // Add to Cart Component
-  let AddToCart = ({products}) => {
+  let AddToCart = ({productStyles}) => {
+
     return (
       <div className="AddToCart">
         <div className="SizeSelector">
           <form>
             <select className="SizeSelectorDropdown" onChange={() => console.log('Size clicked!')}>
               <option value="">Select Size</option>
-              <option value="Small">Small</option>
-              <option value="Medium">Medium</option>
-              <option value="Large">Large</option>
+
             </select>
           </form>
         </div>
@@ -282,7 +282,8 @@ Overview.propTypes = {
 ImageGallery.propTypes = {
   products: PropTypes.array,
   handleLeftArrowClick: PropTypes.func,
-  handleRightArrowClick: PropTypes.func
+  handleRightArrowClick: PropTypes.func,
+  productStyles: PropTypes.object
 }
 ProductFeatures.propTypes = {
   productById: PropTypes.object,
@@ -292,7 +293,7 @@ ProductSloganAndDescription.propTypes = {
   currentProduct: PropTypes.object
 }
 AddToCart.propTypes = {
-  products: PropTypes.array
+  productStyles: PropTypes.object
 }
 StyleSelector.propTypes = {
   products: PropTypes.array
