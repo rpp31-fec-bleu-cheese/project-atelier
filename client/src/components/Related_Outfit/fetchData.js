@@ -110,6 +110,8 @@ module.exports = {
   relatedProductIDs:relatedProductIDs,
   relatedProductDetails:relatedProductDetails,
   productInfo: productInfo,
-  productStyles:productStyles
+  productStyles:productStyles,
+  outfitProductDetails: outfitProductDetails
+
 
 }

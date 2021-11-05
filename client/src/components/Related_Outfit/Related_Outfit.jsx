@@ -75,6 +75,21 @@ class Related_Outfit extends React.Component {
       outfits: outfits
     })
   }
+  //fetch outfit product details for an array of outfits
+  fetchOufitInfo(outfitIds) {
+    fetch.outfitProductDetails(outfitIds)
+    .then((outfitProductDetails) => {
+      console.log('result from server the OUTFIT DETAILS:', outfitProductDetails);
+      this.setState({
+        outfits: outfitProductDetails
+      })
+    })
+    .catch((error) => {
+      console.log((error) => {
+        console.log("error ",error);
+      })
+    })
+  }
   //fetch related product ids and their details for a particular productId
   fetchRelatedInfo(productId) {
      // fetch related product ids
@@ -164,6 +179,7 @@ class Related_Outfit extends React.Component {
     this.fetchRelatedInfo(this.props.productId);
     this.fetchProductInfo(this.props.productId);
     this.fetchProductStyles(this.props.productId);
+    this.fetchOufitInfo(this.props.outfitIds);
   }
   componentDidUpdate(prevProps) {
     if (prevProps.productId !== this.props.productId) {
@@ -233,7 +249,9 @@ class Related_Outfit extends React.Component {
 };
 Related_Outfit.propTypes = {
   productId:PropTypes.number,
-  productClick:PropTypes.func
+  productClick:PropTypes.func,
+  outfitIds:PropTypes.array
+
 
 }
 
@@ -254,3 +272,5 @@ export default Related_Outfit;
            <Outfit productId = {this.state.productId} productInfo={this.state.productInfo}/>
         </div>*/
        // <Outfit productId = {this.state.productId} productInfo={this.state.productInfo}/>
+
+
