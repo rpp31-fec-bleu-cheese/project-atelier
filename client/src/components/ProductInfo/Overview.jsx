@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 
 
+
 // removed products from props
 let Overview = ({cam_token}) => {
 
@@ -16,6 +17,9 @@ let Overview = ({cam_token}) => {
   console.log('CURRENT PRODUCT BY ID:', productById);
   const [productStyles, setProductStyles] = useState({});
   console.log('CURRENT PRODUCT STYLE:', productStyles);
+  const [productPhotoIndex, setProductPhotoIndex] = useState(0);
+  const [productStyleIndex, setProductStyleIndex] = useState(0);
+
 
   useEffect(() => {
     let productOptions = {
@@ -64,14 +68,20 @@ let Overview = ({cam_token}) => {
   }, [currentProduct]);
 
 
+  let resetPhotoIndex = () => {
+    setProductPhotoIndex(0);
+  }
+
   let handleLeftArrowClick = () => {
     console.log('Left arrow clicked!');
     if (index === 0) {
       let nextIndex = products.length - 1;
       setIndex(nextIndex);
+      resetPhotoIndex();
     } else {
       console.log('INDEX IN LEFT CLICK:', index - 1);
       setIndex(index - 1);
+      resetPhotoIndex();
     }
   }
 
@@ -80,17 +90,25 @@ let Overview = ({cam_token}) => {
     let nextIndex = (index + 1) % products.length;
     console.log('NEXT INDEX:', nextIndex);
     setIndex(nextIndex);
+    resetPhotoIndex();
+  }
+  let handleThumbnailClick = (event) => {
+    event.persist();
+    let indexValue = Number(event.target.attributes.index.nodeValue);
+    console.log('INDEX VALUE CLICKED:', indexValue);
+    setProductPhotoIndex(indexValue);
+    event.preventDefault();
   }
 
 
   return (
     <div data-testid="Overview" id='Overview'>
       {/* <ErrorBoundary arr={[]}> */}
-      {products.length > 0 && <><ImageGallery products={products} handleLeftArrowClick={handleLeftArrowClick}
+      {products.length > 0 && <><ImageGallery products={products} productStyleIndex={productStyleIndex} productPhotoIndex={productPhotoIndex} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
       <ProductInformation currentProduct={currentProduct} />
       <StyleSelector products={products} />
-      <AddToCart products={products} />
+      <AddToCart products={products} productStyles={productStyles} productStyleIndex={productStyleIndex} />
       <ProductSloganAndDescription currentProduct={currentProduct} />
       <ProductFeatures productById={productById} cam_token={cam_token} /></>}
       {/* </ErrorBoundary> */}
@@ -100,32 +118,55 @@ let Overview = ({cam_token}) => {
   };
 
   // Image Gallery Component
-  let ImageGallery = ({products, handleLeftArrowClick, handleRightArrowClick, productStyles}) => {
+  let ImageGallery = ({products, handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, productStyleIndex, productPhotoIndex, productStyles}) => {
+    // const [productStyleIndex, setProductStyleIndex] = useState(0);
+    // const [productPhotoIndex, setProductPhotoIndex] = useState(0);
     console.log('PRODUCT STYLES IN GALLERY:', productStyles);
-    let imageComingSoon = __dirname + '../../stock_media/image-coming-soon.png';
-    return (
-      <div className="ImageGallery">
-        {(Object.keys(productStyles).length) && <><div style={{background: `center / contain no-repeat url(${productStyles.results[0].photos[0].url || imageComingSoon})`}} className="MainImage" alt="Main Product Image">
-          {/* <img src={productStyles.results[0].photos[0].url || imageComingSoon} /> */}
+    let imageComingSoon = '/media';
+    console.log('DIRNAME:', imageComingSoon);
+    let productImage;
+    // let productThumbnail;
+    // let handleThumbnailClick = (event) => {
+    //   event.persist();
+    //   let indexValue = event.target.attributes.index.nodeValue;
+    //   console.log('INDEX VALUE CLICKED:', indexValue);
+    //   setProductPhotoIndex(indexValue);
+    //   event.preventDefault();
+    // }
+
+
+    if (Object.keys(productStyles).length) {
+          productImage = productStyles.results[productStyleIndex].photos[productPhotoIndex].url ? productStyles.results[productStyleIndex].photos[productPhotoIndex].url : imageComingSoon;
+          // productThumbnail = productStyles.results[productStyleIndex].photos[0].thumbnail_url ? productStyles.results[productStyleIndex].photos[0].thumbnail_url : imageComingSoon;
+      return (
+        <div className="ImageGallery">
+          <div style={{background: `center / contain no-repeat url(${productImage})`}} className="MainImage" alt="Main Product Image">
+            {/* <img src={productStyles.results[0].photos[0].url || imageComingSoon} /> */}
+          </div>
+          <div className="ImageGalleryThumbnails">
+            {productStyles.results[productStyleIndex].photos.map((currentStyle, i) => (
+              <div key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick}></div>
+            ))}
+            {/* <div style={{background: `center / contain no-repeat url(${productThumbnail})`}} className="GalleryThumbnail"></div>*/}
+          </div>
+          <div className="SlideGalleryLeft">
+            <div className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}>←</div>
+          </div>
+          <div className="SlideGalleryRight">
+            <div className="SlideGalleryRightButton" onClick={handleRightArrowClick}>→</div>
+          </div>
+          <div className="OpenGalleryModal">
+            <div className="OpenGalleryModalButton">⧠</div>
+          </div>
         </div>
-        <div className="ImageGalleryThumbnails">
-          <div className="GalleryThumbnail">Test</div>
-          <div className="GalleryThumbnail">Test</div>
-          <div className="GalleryThumbnail">Test</div>
-          <div className="GalleryThumbnail">Test</div>
-          <div className="GalleryThumbnail">Test</div>
+      );
+    } else {
+      return (
+        <div className="ImageGallery">
+          <h3>Loading...</h3>
         </div>
-        <div className="SlideGalleryLeft">
-          <div className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}>←</div>
-        </div>
-        <div className="SlideGalleryRight">
-          <div className="SlideGalleryRightButton" onClick={handleRightArrowClick}>→</div>
-        </div>
-        <div className="OpenGalleryModal">
-          <div className="OpenGalleryModalButton">⧠</div>
-        </div></>}
-      </div>
-    );
+      )
+    }
   }
 
   // Product Information Component (split with Slogan, Description, and Features)
@@ -180,35 +221,72 @@ let Overview = ({cam_token}) => {
   }
 
   // Add to Cart Component
-  let AddToCart = ({productStyles}) => {
+  let AddToCart = ({productStyles, productStyleIndex}) => {
 
-    return (
-      <div className="AddToCart">
-        <div className="SizeSelector">
-          <form>
-            <select className="SizeSelectorDropdown" onChange={() => console.log('Size clicked!')}>
-              <option value="">Select Size</option>
+    const [currentSize, setCurrentSize] = useState();
+    const [currentQuanitity, setCurrentQuantity] = useState();
+    const [isMyOutfit, setIsMyOutfit] = useState();
+    const [myOutfitIcon, setMyOutfitIcon] = useState('⭐');
 
-            </select>
-          </form>
+    if(Object.keys(productStyles).length) {
+      let skusArray = [];
+      let currentSku = productStyles.results[productStyleIndex].skus
+
+      for (let key in currentSku) {
+        skusArray.push(currentSku[key]);
+      }
+      console.log('Skus Array:', skusArray);
+
+      let handleMyOutfitClick = (event) => {
+        event.persist();
+        console.log('My Outfit Clicked!');
+        if (myOutfitIcon === '⭐') {
+          setMyOutfitIcon('❤️');
+        }
+        if (myOutfitIcon === '❤️') {
+          setMyOutfitIcon('⭐');
+        }
+        console.log('My Outfit Icon:', myOutfitIcon)
+        event.preventDefault();
+      }
+
+      return (
+        <div className="AddToCart">
+          <div className="SizeSelector">
+            <form>
+              <select className="SizeSelectorDropdown" onChange={() => console.log('Size clicked!')}>
+                <option value="">Select Size</option>
+                {skusArray.map((skuData, i) => (
+                  <option key={i} value={skuData.size}>{skuData.size}</option>
+                ))}
+              </select>
+            </form>
+          </div>
+          <div className="QuanititySelector">
+            <form>
+              <select className="QuanititySelectorDropdown" onChange={() => console.log('Quantity clicked!')}>
+              <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </form>
+          </div>
+          <div className="AddToBag">
+            <button className="AddToBagButton" onClick={() => console.log('Add to Bag clicked!')}>Add to Bag</button>
+          </div>
+          <div className="AddToFavorite">
+            <button className="AddToFavoriteButton" onClick={handleMyOutfitClick}>{myOutfitIcon}</button>
+          </div>
         </div>
-        <div className="QuanititySelector">
-          <form>
-            <select className="QuanititySelectorDropdown" onChange={() => console.log('Quantity clicked!')}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </form>
+      );
+    } else {
+      return (
+        <div className="AddToCart">
+          <h3>Loading...</h3>
         </div>
-        <div className="AddToBag">
-          <button className="AddToBagButton" onClick={() => console.log('Add to Bag clicked!')}>Add to Bag</button>
-        </div>
-        <div className="AddToFavorite">
-          <button className="AddToFavoriteButton" onClick={() => console.log('Add to My Outfit clicked!')}>☆</button>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 
   // Product Slogan and Description Component
@@ -248,35 +326,8 @@ let Overview = ({cam_token}) => {
     );
   }
 
-  class ErrorBoundary extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = { hasError: false };
-    }
 
-    static getDerivedStateFromError(error) {
-      // Update state so the next render will show the fallback UI.
-      return { hasError: true };
-    }
 
-    componentDidCatch(error, errorInfo) {
-      // You can also log the error to an error reporting service
-      logErrorToMyService(error, errorInfo);
-    }
-
-    render() {
-      if (this.state.hasError) {
-        // You can render any custom fallback UI
-        return <h1>Something went wrong.</h1>;
-      }
-
-      return this.props.children;
-    }
-  }
-
-ErrorBoundary.propTypes = {
-  children: PropTypes.object
-}
 Overview.propTypes = {
   cam_token: PropTypes.string
 }
@@ -284,6 +335,9 @@ ImageGallery.propTypes = {
   products: PropTypes.array,
   handleLeftArrowClick: PropTypes.func,
   handleRightArrowClick: PropTypes.func,
+  handleThumbnailClick: PropTypes.func,
+  productStyleIndex: PropTypes.number,
+  productPhotoIndex: PropTypes.number,
   productStyles: PropTypes.object
 }
 ProductFeatures.propTypes = {
@@ -294,7 +348,8 @@ ProductSloganAndDescription.propTypes = {
   currentProduct: PropTypes.object
 }
 AddToCart.propTypes = {
-  productStyles: PropTypes.object
+  productStyles: PropTypes.object,
+  productStyleIndex: PropTypes.number
 }
 StyleSelector.propTypes = {
   products: PropTypes.array
