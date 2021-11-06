@@ -197,5 +197,12 @@ module.exports = {
   },
   interactions: {
 
+  },
+  //added for Related Component
+  cookies:{
+    getCookies: function(req,res) {
+      console.log('req.cookies in getcookies function', req.cookies);
+      res.status(200).send(JSON.stringify(req.cookies));
+    }
   }
 };

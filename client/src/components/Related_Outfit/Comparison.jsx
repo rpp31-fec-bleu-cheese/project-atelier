@@ -8,7 +8,7 @@ var Comparison = (props) => {
      var featuresOfClickedProduct = props.toCompare.features;
      var featuresOfCurrentProduct = props.currentProduct.features
      var features = {};
-     console.log(featuresOfClickedProduct);
+     //console.log(featuresOfClickedProduct);
      for(var featureOfClicked of featuresOfClickedProduct) {
       //var obj = {};
       var nameOfFeature = featureOfClicked.feature;
@@ -29,9 +29,9 @@ var Comparison = (props) => {
       }
 
      }
-     console.log('features obj:', features);
+     //console.log('features obj:', features);
      var allFeatures = Object.keys(features);
-     console.log('allFeatures:',allFeatures);
+     //console.log('allFeatures:',allFeatures);
     return(
       <div  id="PopupTrue" style={props.popup_style}>
       Comparing

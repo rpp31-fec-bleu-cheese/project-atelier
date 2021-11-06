@@ -559,7 +559,7 @@ div#Related_Outfit button#Related_Plus {
   max-height:90%;
 
   padding: 8px;
-  border-radius: 10px;
+
   margin: 4px 4px;
 
 }
@@ -598,18 +598,7 @@ div#Related_Outfit .Related_ProductInfo .ratings {
   overflow: hidden;
 }
 
-div#Related_Outfit .full-stars:after{
-  position: absolute;
 
-  white-space: nowrap;
-  overflow: hidden;
-  color: #fde16d;
-}
-
-div#Related_Outfit .empty-stars:before {
-  content: "\2605\2605\2605\2605\2605";
-  font-size: 14pt;
-}
 
 
 div#Related_Outfit .Related,

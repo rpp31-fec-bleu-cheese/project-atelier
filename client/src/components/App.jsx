@@ -6,14 +6,15 @@ import ProductInfo from './ProductInfo/ProductInfo.jsx';
 import Related_Outfit from './Related_Outfit/Related_Outfit.jsx';
 import QandA from './Q&A/Q&A.jsx';
 import Reviews from './Reviews/Reviews.jsx';
-import data from '../../data/Related_Outfit.js';
+//import data from '../../data/Related_Outfit.js';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       productId: 59558,
-      outfitIds: data.outfitIds
+      outfitIds: []
     };
     this.relatedOutfitProductClick = this.relatedOutfitProductClick.bind(this);
     this.changeInOutfit = this.changeInOutfit.bind(this);
@@ -47,6 +48,26 @@ class App extends React.Component {
     this.setState({
       outfitIds: outfitIds
     })
+  }
+  componentDidMount(){
+    var server = 'http://localhost:3000/cookies';
+    var options = {
+      method: "get",
+      url:server
+    }
+    axios(options)
+    .then((response) => {
+      console.log('response in APP:', response.data);
+      var outfitIds = JSON.parse(response.data.outfitData);
+      console.log('outfitIds',outfitIds );
+      this.setState({
+        outfitIds:outfitIds
+      })
+
+    })
+    .catch((error) => {
+      console.log('error: in APP', error);
+    });
   }
   render() {
     return (

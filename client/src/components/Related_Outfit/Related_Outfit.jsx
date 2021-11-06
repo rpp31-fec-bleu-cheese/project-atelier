@@ -115,7 +115,7 @@ class Related_Outfit extends React.Component {
      })
   }
   addToOutfit(){
-    var outfitIds = this.state.outfitIds.slice(0);
+    var outfitIds = this.props.outfitIds.slice(0);
 
 
     if(outfitIds.indexOf(this.props.productId) === -1) {

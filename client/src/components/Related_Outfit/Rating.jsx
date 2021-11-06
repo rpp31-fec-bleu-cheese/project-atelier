@@ -22,11 +22,23 @@ import React from 'react';
     </div>
   )
 }*/
+/*
+<div id='Related_Rating'>
+  <div className='Stars'>
+    <div className='empty-stars'></div>
+    <div className='full-stars' style={{width: ((finalRating / 5) * 100) + '%' }}></div>
+  </div>
+</div>
+*/
 var Rating = (props) => {
+  var finalRating = 3.5;
   return (
-    <div>
-     <i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i>
-    </div>
+    <div id='Related_Rating'>
+  <div className='Stars'>
+    <div className='empty-stars'></div>
+    <div className='full-stars' style={{width: ((finalRating / 5) * 100) + '%' }}></div>
+  </div>
+</div>
   )
 }
 export default Rating;
