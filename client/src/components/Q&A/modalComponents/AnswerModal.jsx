@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // modal will display when the user clicks on the ADD A QUESTION button
-const AnswerModal = ({ showModal, setShowModal }) => {
+const AnswerModal = ({ showModal, setShowModal, questionBody }) => {
   return (
     <div className="answer-modal">
       { showModal ? (
@@ -11,7 +11,7 @@ const AnswerModal = ({ showModal, setShowModal }) => {
             <form className="answer-form">
               <span onClick={() => setShowModal(false)}>&times;</span>
               <h2>Submit your Answer</h2>
-              <h3>[Product Name]: [Question Body]</h3>
+              <h3>[Product Name]: {questionBody}</h3>
               <label>What is your nickname</label>
               <input placeholder="Example: jack543!" type="text" maxLength="60" required/>
               <p>For privacy reasons, do not use your full name</p>
@@ -32,6 +32,7 @@ const AnswerModal = ({ showModal, setShowModal }) => {
 
 AnswerModal.propTypes = {
   showModal: PropTypes.bool,
+  questionBody: PropTypes.string,
   setShowModal: PropTypes.func
 }
 

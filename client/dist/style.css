@@ -121,8 +121,13 @@ div#QandA div.q-a-content {
   /* height: 70%; */
   width: 90%;
   padding: 0 50px;
-  margin-top: -125px;
+  margin-top: -110px;
   /* margin-left: 50px; */
+}
+
+div#QandA div.q-a-content div.rendered-questions.active{
+  max-height: 360px;
+  overflow-y: scroll;
 }
 
 /* QuestionEntry styling */
@@ -335,4 +340,9 @@ div#QandA div.answer div.answer-content span {
 div#QandA div.answer div.answer-content div.answer-body {
   color: #3d3d3d;
   font-size: 17px;
+}
+
+div#QandA div.answer-date {
+  margin-top: 5px;
+  /* margin-left: 4px; */
 }

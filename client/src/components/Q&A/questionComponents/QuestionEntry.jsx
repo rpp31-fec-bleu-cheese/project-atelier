@@ -11,7 +11,8 @@ class QuestionEntry extends React.Component {
     this.state = {
       showModal: false,
       helpful: this.props.helpfulness,
-      clicked: false
+      clicked: false,
+      answersToShow: 2
     }
 
     this.openModal = this.openModal.bind(this);
@@ -39,7 +40,9 @@ class QuestionEntry extends React.Component {
 
 
   render() {
-    const { question, questionID, answers, helpfulness } = this.props;
+    const { question, questionID, questionAsker, answers, helpfulness } = this.props;
+    const { answersToShow } = this.state;
+    console.log(answers);
     const questionAnswers = Object.values(answers).sort((a, b) => b.helpfulness - a.helpfulness);
 
     return (
@@ -53,17 +56,9 @@ class QuestionEntry extends React.Component {
             <button onClick={this.openModal}>Add Answer</button>
           </div>
         </div>
-        <AnswerModal showModal={this.state.showModal} setShowModal={this.closeModal}/>
-        {questionAnswers.slice(0, 1)
-          .map(
-            answer => <Answer
-              key={answer.id}
-              answerBody={answer.body}
-              photos={answer.photos}
-              user={answer.answerer_name}
-              helpfulness={answer.helpfulness}
-              />
-          )
+        <AnswerModal showModal={this.state.showModal} setShowModal={this.closeModal} questionBody={question}/>
+        {questionAnswers.slice(0, answersToShow)
+          .map(answer => <Answer key={answer.id} answer={answer} />)
         }
       </div>
     );
@@ -123,6 +118,7 @@ class QuestionEntry extends React.Component {
 
 QuestionEntry.propTypes = {
   question: PropTypes.string,
+  questionAsker: PropTypes.string,
   answers: PropTypes.object,
   helpfulness: PropTypes.number,
   questionID: PropTypes.number

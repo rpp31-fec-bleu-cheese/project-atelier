@@ -11,12 +11,14 @@ class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productID: '59556', // default productID
+      productID: '59554', // default productID
       currentProduct: '',
-      questions: []
+      questions: [],
+      questionsToShow: 2
     };
 
     this.getQuestions = this.getQuestions.bind(this);
+    this.handleMoreAnsweredQuestionsClick = this.handleMoreAnsweredQuestionsClick.bind(this);
   }
 
   getQuestions() {
@@ -27,29 +29,43 @@ class QandA extends React.Component {
       })
   }
 
+  handleMoreAnsweredQuestionsClick() {
+    const questionContainer = document.getElementsByClassName('rendered-questions')[0];
+    questionContainer.classList.add('active');
+
+     this.setState({
+       questionsToShow: this.state.questions.length
+     })
+  }
+
   componentDidMount() {
     this.getQuestions();
   }
 
 
   render() {
+    const { questions, questionsToShow } = this.state;
+
     return(
       <div data-testid='question-answers' id='QandA'>
           <h2>QUESTIONS & ANSWERS</h2>
           <Search />
-         <div className="q-a-content">
-            {this.state.questions
+         <div className='q-a-content'>
+           <div className='rendered-questions'>
+            {questions.slice(0, questionsToShow)
               .map(
                 question => <QuestionEntry
                   key={question.question_id}
                   question={question.question_body}
                   questionID={question.question_id}
+                  questionAsker={question.asker_name}
                   answers={question.answers}
                   helpfulness={question.question_helpfulness}
                   />
               )
             }
-            <FooterButtons />
+           </div>
+            <FooterButtons handleClick={this.handleMoreAnsweredQuestionsClick}/>
          </div>
       </div>
     )
