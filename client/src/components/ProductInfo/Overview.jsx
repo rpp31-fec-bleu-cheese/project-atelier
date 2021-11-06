@@ -396,3 +396,4 @@ ProductInformation.propTypes = {
 }
 
 export default Overview;
+export {ImageGallery, ProductInformation, ProductFeatures, ProductSloganAndDescription, AddToCart, StyleSelector};
