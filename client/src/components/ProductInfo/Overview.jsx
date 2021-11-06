@@ -22,7 +22,6 @@ let Overview = ({cam_token}) => {
   const [productStyleIndex, setProductStyleIndex] = useState(0);
   console.log('CURRENT STYLE INDEX:', productStyleIndex);
 
-
   useEffect(() => {
     let productOptions = {
       url: '/products',
@@ -70,25 +69,32 @@ let Overview = ({cam_token}) => {
   }, [currentProduct]);
 
 
-  let resetPhotoIndex = () => {
-    setProductPhotoIndex(0);
-  }
+  useEffect(() => {
+
+      setProductPhotoIndex(0);
+
+
+  }, [index]);
+
+  // let resetPhotoIndex = () => {
+  //   setProductPhotoIndex(0);
+  // }
 
   let handleLeftArrowClick = () => {
     if (index === 0) {
       let nextIndex = products.length - 1;
       setIndex(nextIndex);
-      resetPhotoIndex();
+      // resetPhotoIndex();
     } else {
       setIndex(index - 1);
-      resetPhotoIndex();
+      // resetPhotoIndex();
     }
   }
 
   let handleRightArrowClick = () => {
     let nextIndex = (index + 1) % products.length;
     setIndex(nextIndex);
-    resetPhotoIndex();
+    // resetPhotoIndex();
   }
 
   let handleThumbnailClick = (event) => {
@@ -101,15 +107,13 @@ let Overview = ({cam_token}) => {
 
   return (
     <div data-testid="Overview" id='Overview'>
-      {/* <ErrorBoundary arr={[]}> */}
       {products.length > 0 && <><ImageGallery products={products} productStyleIndex={productStyleIndex} productPhotoIndex={productPhotoIndex} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
       <ProductInformation currentProduct={currentProduct} />
-      <StyleSelector products={products} />
+      <StyleSelector productStyles={productStyles} productStyleIndex={productStyleIndex} productPhotoIndex={productPhotoIndex} />
       <AddToCart products={products} productStyles={productStyles} productStyleIndex={productStyleIndex} productPhotoIndex={productPhotoIndex} />
       <ProductSloganAndDescription currentProduct={currentProduct} />
       <ProductFeatures productById={productById} cam_token={cam_token} /></>}
-      {/* </ErrorBoundary> */}
     </div>
   );
 
@@ -134,6 +138,9 @@ let Overview = ({cam_token}) => {
 
 
     if (Object.keys(productStyles).length) {
+      // if (productStyles.results[productStyleIndex].photos[productPhotoIndex] === undefined) {
+      //   productPhotoIndex = 0;
+      // }
           productImage = productStyles.results[productStyleIndex].photos[productPhotoIndex].url ? productStyles.results[productStyleIndex].photos[productPhotoIndex].url : imageComingSoon;
           // productThumbnail = productStyles.results[productStyleIndex].photos[0].thumbnail_url ? productStyles.results[productStyleIndex].photos[0].thumbnail_url : imageComingSoon;
       return (
@@ -193,29 +200,33 @@ let Overview = ({cam_token}) => {
   }
 
   // Style Selector Component
-  let StyleSelector = ({products}) => {
-    return (
+  let StyleSelector = ({productStyles, productStyleIndex, productPhotoIndex}) => {
+
+    if (Object.keys(productStyles).length) {
+      return (
+        <div className="StyleSelector">
+          <div className="SelectedStyle">
+            <div className="SelectedStyleHeader">
+            Style:
+            </div>
+            <div className="SelectedStyleDescription">
+            Selected Style
+            </div>
+          </div>
+          <div className="StyleSelectorIcons">
+            {productStyles.results.map((style, i) => (
+              <div key={i} index={i} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon"></div>
+            ))}
+          </div>
+        </div>
+      );
+    } else {
+      return (
       <div className="StyleSelector">
-        <div className="SelectedStyle">
-          <div className="SelectedStyleHeader">
-          Style:
-          </div>
-          <div className="SelectedStyleDescription">
-          Selected Style
-          </div>
-        </div>
-        <div className="StyleSelectorIcons">
-          <div className="StyleIcon">Test</div>
-          <div className="StyleIcon">Test</div>
-          <div className="StyleIcon">Test</div>
-          <div className="StyleIcon">Test</div>
-          <div className="StyleIcon">Test</div>
-          <div className="StyleIcon">Test</div>
-          <div className="StyleIcon">Test</div>
-          <div className="StyleIcon">Test</div>
-        </div>
+        <h3>Loading...</h3>
       </div>
-    );
+      );
+    }
   }
 
   // Add to Cart Component
@@ -386,7 +397,9 @@ AddToCart.propTypes = {
   productPhotoIndex: PropTypes.number
 }
 StyleSelector.propTypes = {
-  products: PropTypes.array
+  productStyles: PropTypes.object,
+  productStyleIndex: PropTypes.number,
+  productPhotoIndex: PropTypes.number
 }
 Overview.propTypes = {
   products: PropTypes.array

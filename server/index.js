@@ -27,7 +27,7 @@ app.get('/cart', controllers.cart.getProductsInCart);
 app.get('/media', (req, res) => {
 
   let imageComingSoon = path.join(__dirname, '../stock_media/image-coming-soon.png')
-  console.log(imageComingSoon)
+
 
   res.sendFile(imageComingSoon, (err) => {
     if (err) {
