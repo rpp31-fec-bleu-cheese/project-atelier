@@ -9,18 +9,18 @@ import axios from 'axios';
 let Overview = ({cam_token}) => {
 
   const [products, setProducts] = useState([]);
-  console.log('PRODUCTS:', products);
+  // console.log('PRODUCTS:', products);
   const [index, setIndex] = useState(0);
   let currentProduct = products.length > 0 ? products[index] : {'id': 59553};
-  console.log('CURRENT PRODUCT:', currentProduct);
+  // console.log('CURRENT PRODUCT:', currentProduct);
   const [productById, setProductById] = useState({});
-  console.log('CURRENT PRODUCT BY ID:', productById);
+  // console.log('CURRENT PRODUCT BY ID:', productById);
   const [productStyles, setProductStyles] = useState({});
-  console.log('CURRENT PRODUCT STYLE:', productStyles);
+  // console.log('CURRENT PRODUCT STYLE:', productStyles);
   const [productPhotoIndex, setProductPhotoIndex] = useState(0);
-  console.log('CURRENT PHOTO INDEX:', productPhotoIndex);
+  // console.log('CURRENT PHOTO INDEX:', productPhotoIndex);
   const [productStyleIndex, setProductStyleIndex] = useState(0);
-  console.log('CURRENT STYLE INDEX:', productStyleIndex);
+  // console.log('CURRENT STYLE INDEX:', productStyleIndex);
 
   useEffect(() => {
     let productOptions = {
@@ -31,7 +31,7 @@ let Overview = ({cam_token}) => {
     };
     axios(productOptions)
       .then(response => {
-        console.log('ALL PRODUCTS API RESPONSE:', response)
+        // console.log('ALL PRODUCTS API RESPONSE:', response)
         setProducts(response.data);
         })
         .catch(error => {
@@ -47,7 +47,7 @@ let Overview = ({cam_token}) => {
     };
     axios(productIdOptions)
       .then(response => {
-        console.log('PRODUCT ID API RESPONSE:', response)
+        // console.log('PRODUCT ID API RESPONSE:', response)
         setProductById(response.data);
       })
         .catch(error => {
@@ -61,7 +61,7 @@ let Overview = ({cam_token}) => {
           };
           axios(productStylesOptions)
             .then(response => {
-              console.log('PRODUCT STYLES API RESPONSE:', response)
+              // console.log('PRODUCT STYLES API RESPONSE:', response)
               setProductStyles(response.data);
             })
               .catch(error => {
@@ -123,7 +123,7 @@ let Overview = ({cam_token}) => {
   let ImageGallery = ({products, handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, productStyleIndex, productPhotoIndex, productStyles}) => {
     // const [productStyleIndex, setProductStyleIndex] = useState(0);
     // const [productPhotoIndex, setProductPhotoIndex] = useState(0);
-    console.log('PRODUCT STYLES IN GALLERY:', productStyles);
+    // console.log('PRODUCT STYLES IN GALLERY:', productStyles);
     let imageComingSoon = '/media';
 
     let productImage;
@@ -233,7 +233,7 @@ let Overview = ({cam_token}) => {
   let AddToCart = ({productStyles, productStyleIndex, productPhotoIndex}) => {
 
     const [currentSize, setCurrentSize] = useState('');
-    console.log('CURRENT SIZE:', currentSize);
+    // console.log('CURRENT SIZE:', currentSize);
     const [qtyInStock, setQtyInStock] = useState([]);
     const [currentQtyAndSize, setCurrentQtyAndSize] = useState({size: '', qty: []});
     const [isMyOutfit, setIsMyOutfit] = useState();
@@ -250,12 +250,12 @@ let Overview = ({cam_token}) => {
       let currentSku = productStyles.results[productStyleIndex].skus
       let currentProductStyleData = {productId: productStyles.product_id,
         styleId: productStyles.results[productStyleIndex].style_id}
-      console.log('CURRENT PRODUCT STYLE ID:', currentProductStyleData);
+      // console.log('CURRENT PRODUCT STYLE ID:', currentProductStyleData);
 
       for (let key in currentSku) {
         skusArray.push(currentSku[key]);
       }
-      console.log('Skus Array:', skusArray);
+      // console.log('Skus Array:', skusArray);
 
       let handleMyOutfitClick = (event) => {
         event.persist();
@@ -284,8 +284,8 @@ let Overview = ({cam_token}) => {
                 quantityArray.push(q);
               }
             }
-            console.log('AVAIL QUANTITY:', availableQuantity);
-            console.log('QTY ARRAY:', quantityArray);
+            // console.log('AVAIL QUANTITY:', availableQuantity);
+            // console.log('QTY ARRAY:', quantityArray);
             setQtyInStock(quantityArray);
           }
         }
