@@ -8,7 +8,7 @@ const axios = require('axios').default;
 const controllers = require('./controllers.js');
 
 
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 // app.use(router);
 
@@ -18,6 +18,7 @@ app.get('/products/:product_id/styles', controllers.products.getProductStyleByID
 app.get('/products/:product_id/related', controllers.products.getRelatedProductsByID);
 
 app.get('/qa/questions/', controllers.questions_answers.getAllQuestions);
+app.post('/qa/questions/', controllers.questions_answers.postQuestion);
 app.put('/qa/questions/:question_id/helpful', controllers.questions_answers.updateQuestionHelpfulness);
 
 app.get('/reviews', controllers.reviews.getAllReviews);

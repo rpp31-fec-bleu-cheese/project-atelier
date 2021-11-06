@@ -11,8 +11,8 @@ class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productID: '59554', // default productID
-      currentProduct: '',
+      productID: 59555, // default productID
+      currentProduct: 'Morning Joggers',
       questions: [],
       questionsToShow: 2
     };
@@ -44,7 +44,7 @@ class QandA extends React.Component {
 
 
   render() {
-    const { questions, questionsToShow } = this.state;
+    const { questions, questionsToShow, productID } = this.state;
 
     return(
       <div data-testid='question-answers' id='QandA'>
@@ -65,7 +65,10 @@ class QandA extends React.Component {
               )
             }
            </div>
-            <FooterButtons handleClick={this.handleMoreAnsweredQuestionsClick}/>
+            <FooterButtons
+              handleClick={this.handleMoreAnsweredQuestionsClick}
+              productID={productID}
+              currentProduct={this.state.currentProduct}/>
          </div>
       </div>
     )

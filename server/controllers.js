@@ -118,6 +118,7 @@ module.exports = {
     },
     postQuestion: function(req, res) {
       let questionData = req.body;
+
       qanda.postQuestions(questionData, (err, data) => {
         if (err) {
           res.status(404).send();

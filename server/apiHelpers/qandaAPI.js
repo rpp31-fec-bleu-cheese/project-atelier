@@ -14,7 +14,7 @@ const getQuestions = (productID, callback) => {
     params: {
       product_id: productID,
       page: 1,
-      count: 5
+      count: 100
     }
   };
 
@@ -58,17 +58,21 @@ const postQuestions = (questionData, callback) => {
     headers: {
       'User-Agent': 'request',
       'Authorization': config.API_KEY
-    }
+    },
+    data: questionData
   };
 
   axios(options)
     .then((response) => {
+      console.log(response);
       callback(null, response.data);
     })
     .catch((err) => {
+      console.log(err);
       callback(err);
     })
 };
+
 
 const putQuestions = (questionID, callback) => {
   let options = {
@@ -89,7 +93,6 @@ const putQuestions = (questionID, callback) => {
       console.log(err);
     })
 }
-
 
 module.exports = {
   getQuestions,

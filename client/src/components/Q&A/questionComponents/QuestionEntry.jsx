@@ -42,8 +42,8 @@ class QuestionEntry extends React.Component {
   render() {
     const { question, questionID, questionAsker, answers, helpfulness } = this.props;
     const { answersToShow } = this.state;
-    console.log(answers);
     const questionAnswers = Object.values(answers).sort((a, b) => b.helpfulness - a.helpfulness);
+
 
     return (
       <div className="question-entry">
