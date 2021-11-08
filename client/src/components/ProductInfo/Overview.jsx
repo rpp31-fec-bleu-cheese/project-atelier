@@ -10,17 +10,17 @@ let Overview = ({cam_token}) => {
 
   const [products, setProducts] = useState([]);
   // console.log('PRODUCTS:', products);
-  const [index, setIndex] = useState(0);
-  let currentProduct = products.length > 0 ? products[index] : {'id': 59553};
+  const [indexes, setIndexes] = useState({product: 0, style: 0, photo: 0});
+  let currentProduct = products.length > 0 ? products[indexes.product] : {'id': 59553};
   // console.log('CURRENT PRODUCT:', currentProduct);
   const [productById, setProductById] = useState({});
   // console.log('CURRENT PRODUCT BY ID:', productById);
   const [productStyles, setProductStyles] = useState({});
-  // console.log('CURRENT PRODUCT STYLE:', productStyles);
-  const [productPhotoIndex, setProductPhotoIndex] = useState(0);
-  // console.log('CURRENT PHOTO INDEX:', productPhotoIndex);
-  const [productStyleIndex, setProductStyleIndex] = useState(0);
-  // console.log('CURRENT STYLE INDEX:', productStyleIndex);
+  // // console.log('CURRENT PRODUCT STYLE:', productStyles);
+  // const [productPhotoIndex, setProductPhotoIndex] = useState(0);
+  // // console.log('CURRENT PHOTO INDEX:', productPhotoIndex);
+  // const [productStyleIndex, setProductStyleIndex] = useState(0);
+  // // console.log('CURRENT STYLE INDEX:', productStyleIndex);
 
   useEffect(() => {
     let productOptions = {
@@ -69,57 +69,60 @@ let Overview = ({cam_token}) => {
   }, [currentProduct]);
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-      setProductPhotoIndex(0);
+  //     setProductPhotoIndex(0);
 
 
-  }, [index]);
+  // }, [indexes]);
 
   // let resetPhotoIndex = () => {
   //   setProductPhotoIndex(0);
   // }
 
   let handleLeftArrowClick = () => {
-    if (index === 0) {
+    if (indexes.product === 0) {
       let nextIndex = products.length - 1;
-      setIndex(nextIndex);
+      setIndexes({style: 0, product: nextIndex, photo: 0});
       // resetPhotoIndex();
     } else {
-      setIndex(index - 1);
+      setIndexes({style: 0, product: indexes.product - 1, photo: 0});
       // resetPhotoIndex();
     }
   }
 
   let handleRightArrowClick = () => {
-    let nextIndex = (index + 1) % products.length;
-    setIndex(nextIndex);
+    let nextIndex = (indexes.product + 1) % products.length;
+    setIndexes({style: 0, photo: 0, product: nextIndex});
     // resetPhotoIndex();
   }
 
   let handleThumbnailClick = (event) => {
     event.persist();
     let indexValue = Number(event.target.attributes.index.nodeValue);
-    setProductPhotoIndex(indexValue);
+    setIndexes({...indexes, photo: indexValue});
     event.preventDefault();
   }
 
   let handleStyleClick = (event) => {
     event.persist();
     let styleIndex = Number(event.target.attributes.index.nodeValue);
+    if (indexes.style === styleIndex) {
+      return;
+    }
     console.log('Style Index:', styleIndex);
-    setProductStyleIndex(styleIndex);
+    setIndexes({...indexes, style: styleIndex, photo: 0});
     event.preventDefault();
   }
 
 
   return (
     <div data-testid="Overview" id='Overview'>
-      {products.length > 0 && <><ImageGallery products={products} productStyleIndex={productStyleIndex} productPhotoIndex={productPhotoIndex} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
+      {products.length > 0 && <><ImageGallery products={products} indexes={indexes} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
-      <ProductInformation currentProduct={currentProduct} />
-      <StyleSelector productStyles={productStyles} productStyleIndex={productStyleIndex} productPhotoIndex={productPhotoIndex} handleStyleClick={handleStyleClick}  />
-      <AddToCart products={products} productStyles={productStyles} productStyleIndex={productStyleIndex} productPhotoIndex={productPhotoIndex} />
+      <ProductInformation currentProduct={currentProduct} productStyles={productStyles} indexes={indexes} />
+      <StyleSelector productStyles={productStyles} indexes={indexes} handleStyleClick={handleStyleClick}  />
+      <AddToCart products={products} productStyles={productStyles} indexes={indexes} />
       <ProductSloganAndDescription currentProduct={currentProduct} />
       <ProductFeatures productById={productById} cam_token={cam_token} /></>}
     </div>
@@ -128,39 +131,25 @@ let Overview = ({cam_token}) => {
   };
 
   // Image Gallery Component
-  let ImageGallery = ({products, handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, productStyleIndex, productPhotoIndex, productStyles}) => {
-    // const [productStyleIndex, setProductStyleIndex] = useState(0);
-    // const [productPhotoIndex, setProductPhotoIndex] = useState(0);
-    // console.log('PRODUCT STYLES IN GALLERY:', productStyles);
+  let ImageGallery = ({products, handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, indexes, productStyles}) => {
+
     let imageComingSoon = '/media';
 
-    let productImage;
-    // let productThumbnail;
-    // let handleThumbnailClick = (event) => {
-    //   event.persist();
-    //   let indexValue = event.target.attributes.index.nodeValue;
-    //   console.log('INDEX VALUE CLICKED:', indexValue);
-    //   setProductPhotoIndex(indexValue);
-    //   event.preventDefault();
-    // }
+      if (Object.keys(productStyles).length) {
+        // if (productStyles.results[productStyleIndex].photos[productPhotoIndex] === undefined) {
+          //   productPhotoIndex = 0;
+          // }
+          let productImage = productStyles.results[indexes.style].photos[indexes.photo].url ? productStyles.results[indexes.style].photos[indexes.photo].url : imageComingSoon;
 
-
-    if (Object.keys(productStyles).length) {
-      // if (productStyles.results[productStyleIndex].photos[productPhotoIndex] === undefined) {
-      //   productPhotoIndex = 0;
-      // }
-          productImage = productStyles.results[productStyleIndex].photos[productPhotoIndex].url ? productStyles.results[productStyleIndex].photos[productPhotoIndex].url : imageComingSoon;
-          // productThumbnail = productStyles.results[productStyleIndex].photos[0].thumbnail_url ? productStyles.results[productStyleIndex].photos[0].thumbnail_url : imageComingSoon;
       return (
         <div className="ImageGallery">
           <div style={{background: `center / contain no-repeat url(${productImage})`}} className="MainImage" alt="Main Product Image">
             {/* <img src={productStyles.results[0].photos[0].url || imageComingSoon} /> */}
           </div>
           <div className="ImageGalleryThumbnails">
-            {productStyles.results[productStyleIndex].photos.map((currentStyle, i) => (
+            {productStyles.results[indexes.style].photos.map((currentStyle, i) => (
               <div key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick}></div>
             ))}
-            {/* <div style={{background: `center / contain no-repeat url(${productThumbnail})`}} className="GalleryThumbnail"></div>*/}
           </div>
           <div className="SlideGalleryLeft">
             <div className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}>←</div>
@@ -183,32 +172,42 @@ let Overview = ({cam_token}) => {
   }
 
   // Product Information Component (split with Slogan, Description, and Features)
-  let ProductInformation = ({currentProduct}) => {
-    return (
-      <div className="ProductInformation">
-        <div className="StarsAndReviews">
-          <div>
-          ☆☆☆☆☆
+  let ProductInformation = ({currentProduct, productStyles, indexes}) => {
+
+    if (Object.keys(productStyles).length) {
+      return (
+        <div className="ProductInformation">
+          <div className="StarsAndReviews">
+            <div>
+            ☆☆☆☆☆
+            </div>
+            <div>
+            <a href="">Read all (#) reviews</a>
+            </div>
+          </div>
+          <div className="ProductCategory">
+            {currentProduct.category}
+          </div>
+          <div className="ProductName">
+            {currentProduct.name}
           </div>
           <div>
-          <a href="">Read all (#) reviews</a>
+            {!productStyles.results[indexes.style].sale_price && <div>{`$${productStyles.results[indexes.style].original_price}`}</div>}
+            {productStyles.results[indexes.style].sale_price && <div><div style={{textDecoration: 'line-through'}}>{`$${productStyles.results[indexes.style].original_price}`}</div><div style={{color: 'red'}}>{`$${productStyles.results[indexes.style].sale_price}`}</div></div>}
           </div>
         </div>
-        <div className="ProductCategory">
-          {currentProduct.category}
+      );
+    } else {
+      return (
+        <div className="ProductInformation">
+          <h3>Loading...</h3>
         </div>
-        <div className="ProductName">
-          {currentProduct.name}
-        </div>
-        <div>
-          {`$${currentProduct.default_price}`}
-        </div>
-      </div>
-    );
+      );
+    }
   }
 
   // Style Selector Component
-  let StyleSelector = ({productStyles, productStyleIndex, productPhotoIndex, handleStyleClick}) => {
+  let StyleSelector = ({productStyles, indexes, handleStyleClick}) => {
 
     if (Object.keys(productStyles).length) {
       return (
@@ -218,7 +217,7 @@ let Overview = ({cam_token}) => {
             Style:
             </div>
             <div className="SelectedStyleDescription">
-            {productStyles.results[productStyleIndex].name}
+            {productStyles.results[indexes.style].name}
             </div>
           </div>
           <div className="StyleSelectorIcons">
@@ -238,26 +237,28 @@ let Overview = ({cam_token}) => {
   }
 
   // Add to Cart Component
-  let AddToCart = ({productStyles, productStyleIndex, productPhotoIndex}) => {
+  let AddToCart = ({productStyles, indexes}) => {
 
     const [currentSize, setCurrentSize] = useState('');
-    // console.log('CURRENT SIZE:', currentSize);
     const [qtyInStock, setQtyInStock] = useState([]);
     const [currentQtyAndSize, setCurrentQtyAndSize] = useState({size: '', qty: []});
     const [isMyOutfit, setIsMyOutfit] = useState();
     const [myOutfitIcon, setMyOutfitIcon] = useState('⭐');
-    // const [defaultQty, setDefaultQty] = useState('-');
+    const [defaultQty, setDefaultQty] = useState('-');
 
-    // useEffect(() => {
-    //   let standardDefault = 1;
-    //   setDefaultQty(standardDefault);
-    // }, [currentQuantity])
+
+
+    useEffect(() => {
+      if (qtyInStock.length) {
+        setDefaultQty(qtyInStock[0]);
+      }
+    }, [qtyInStock]);
 
     if(Object.keys(productStyles).length) {
       let skusArray = [];
-      let currentSku = productStyles.results[productStyleIndex].skus
+      let currentSku = productStyles.results[indexes.style].skus
       let currentProductStyleData = {productId: productStyles.product_id,
-        styleId: productStyles.results[productStyleIndex].style_id}
+        styleId: productStyles.results[indexes.style].style_id}
       // console.log('CURRENT PRODUCT STYLE ID:', currentProductStyleData);
 
       for (let key in currentSku) {
@@ -317,9 +318,10 @@ let Overview = ({cam_token}) => {
           <div className="QuanititySelector">
             <form>
               <select className="QuanititySelectorDropdown" onChange={() => console.log('Quantity clicked!')}>
-              <option value="">-</option>
+              <option value="">{defaultQty}</option>
                 {qtyInStock.length && qtyInStock.map((qty, i) => (
                   <option key={i} value={qty}>{qty}</option>
+
                 ))}
               </select>
             </form>
@@ -388,8 +390,9 @@ ImageGallery.propTypes = {
   handleLeftArrowClick: PropTypes.func,
   handleRightArrowClick: PropTypes.func,
   handleThumbnailClick: PropTypes.func,
-  productStyleIndex: PropTypes.number,
-  productPhotoIndex: PropTypes.number,
+  indexes: PropTypes.object,
+  // productStyleIndex: PropTypes.number,
+  // productPhotoIndex: PropTypes.number,
   productStyles: PropTypes.object
 }
 ProductFeatures.propTypes = {
@@ -401,21 +404,25 @@ ProductSloganAndDescription.propTypes = {
 }
 AddToCart.propTypes = {
   productStyles: PropTypes.object,
-  productStyleIndex: PropTypes.number,
-  productPhotoIndex: PropTypes.number
+  // productStyleIndex: PropTypes.number,
+  // productPhotoIndex: PropTypes.number
+  indexes: PropTypes.object
 }
 StyleSelector.propTypes = {
   productStyles: PropTypes.object,
-  productStyleIndex: PropTypes.number,
-  productPhotoIndex: PropTypes.number,
-  handleStyleClick: PropTypes.func
+  // productStyleIndex: PropTypes.number,
+  // productPhotoIndex: PropTypes.number,
+  handleStyleClick: PropTypes.func,
+  indexes: PropTypes.object
 }
 Overview.propTypes = {
   products: PropTypes.array
 }
 ProductInformation.propTypes = {
-  currentProduct: PropTypes.object
+  currentProduct: PropTypes.object,
+  productStyles: PropTypes.object,
+  indexes: PropTypes.object
 }
 
 export default Overview;
-export {ImageGallery, ProductInformation, ProductFeatures, ProductSloganAndDescription, AddToCart, StyleSelector};
+// export {ImageGallery, ProductInformation, ProductFeatures, ProductSloganAndDescription, AddToCart, StyleSelector};
