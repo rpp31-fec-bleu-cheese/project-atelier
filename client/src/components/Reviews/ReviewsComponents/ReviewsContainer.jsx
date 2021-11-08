@@ -13,7 +13,6 @@ class ReviewsContainer extends React.Component {
     this.state = {
       sortedReviews: [],
       visibleReviews: 2,
-      sort: 'Relevant'
     };
   }
 
@@ -21,10 +20,10 @@ class ReviewsContainer extends React.Component {
     this.changeFilterSort();
   }
   componentDidUpdate(prevProps) {
-    let oldProps = Object.keys(prevProps.reviewsStarsFilter);
-    let newProps = Object.keys(this.props.reviewsStarsFilter);
+    let oldProps = Object.keys(prevProps.reviewsStarsFilter) + prevProps.currentSort;
+    let newProps = Object.keys(this.props.reviewsStarsFilter) + this.props.currentSort;
 
-    if (oldProps.toString() !== newProps.toString()) this.changeFilterSort();
+    if (oldProps !== newProps) this.changeFilterSort();
   }
 
   changeFilterSort() {
@@ -52,10 +51,10 @@ class ReviewsContainer extends React.Component {
       <div id='ReviewsContainer'>
         <div id='ReviewCount'>
           <span>{this.state.sortedReviews.length} reviews, sorted by </span>
-          <select onChange={console.log}>
-            <option value='Relevant' defaultValue>Relevant</option>
-            <option value='Newest'>Newest</option>
-            <option value='Helpful'>Helpful</option>
+          <select onChange={this.props.onchange}>
+            <option value='relevant' defaultValue>Relevant</option>
+            <option value='newest'>Newest</option>
+            <option value='helpful'>Helpful</option>
           </select>
         </div>
         {
@@ -84,7 +83,9 @@ class ReviewsContainer extends React.Component {
 
 ReviewsContainer.propTypes = {
   reviews: PropTypes.array.isRequired,
-  reviewsStarsFilter: PropTypes.object.isRequired
+  reviewsStarsFilter: PropTypes.object.isRequired,
+  onchange: PropTypes.func.isRequired,
+  currentSort: PropTypes.string.isRequired
 };
 
 export default ReviewsContainer;

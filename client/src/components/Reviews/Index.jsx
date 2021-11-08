@@ -13,6 +13,7 @@ class Reviews extends React.Component {
     super(props);
     this.state = {
       reviewsStarsFilter: {},
+      currentSort: 'Relevant',
       currentRatings: {},
       currentReviews: [],
       characteristics: {}
@@ -61,6 +62,22 @@ class Reviews extends React.Component {
     })
   }
 
+  changeSort(e) {
+    $.ajax({
+      url: 'http://localhost:3000/reviews',
+      method: 'GET',
+      data: {
+        product_id: this.props.product_id,
+        sort: e.target.value
+      },
+      success: data => this.setState({
+        currentSort: e.target.value,
+        currentReviews: data.results
+      }),
+      error: (_, __, errString) => console.log(errString)
+    })
+  }
+
   addStarFilter(rating) {
     let state = {...this.state.reviewsStarsFilter};
 
@@ -89,7 +106,9 @@ class Reviews extends React.Component {
           <BreakdownContainer characteristics={this.state.characteristics}/>
           <ReviewsContainer
             reviews={this.state.currentReviews}
-            reviewsStarsFilter={this.state.reviewsStarsFilter}/>
+            reviewsStarsFilter={this.state.reviewsStarsFilter}
+            currentSort={this.state.currentSort}
+            onchange={this.changeSort.bind(this)}/>
         </div>
       )
     } else {
