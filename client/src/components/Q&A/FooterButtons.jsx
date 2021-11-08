@@ -2,9 +2,8 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import QuestionModal from './modalComponents/QuestionModal.jsx';
 
-const FooterButtons = ({ handleClick, productID, currentProduct }) => {
+const FooterButtons = ({ questionsLength, handleClick, productID, currentProduct }) => {
   const [showModal, setShowModal] = useState(false);
-
   const openModal = () => {
     setShowModal(true);
   }
@@ -15,7 +14,9 @@ const FooterButtons = ({ handleClick, productID, currentProduct }) => {
 
   return (
     <div className="footer-buttons">
-      <button className="additional-answers-button" onClick={handleClick}>MORE ANSWERED QUESTIONS</button>
+      { questionsLength > 2 ?
+        (<button className="additional-answers-button" onClick={handleClick}>MORE ANSWERED QUESTIONS</button>) : null
+      }
       <button className="add-question-button" onClick={openModal}>ADD A QUESTION +</button>
       <QuestionModal
         showModal={showModal}
@@ -28,6 +29,7 @@ const FooterButtons = ({ handleClick, productID, currentProduct }) => {
 };
 
 FooterButtons.propTypes = {
+  questionsLength: PropTypes.number,
   handleClick: PropTypes.func,
   productID: PropTypes.number,
   currentProduct: PropTypes.string

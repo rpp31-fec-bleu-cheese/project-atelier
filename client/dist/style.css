@@ -353,6 +353,15 @@ div#QandA div.q-answers.active{
 }
 
 div#QandA .load-answers {
+  margin-top: 15px;
+  padding-left: 31px;
+  font-size: 12px;
+  font-weight: bold;
+  color: rgb(117, 116, 116);
   border: none;
   background: white;
+}
+
+div#QandA .load-answers:hover {
+  color: rgb(63, 62, 62);
 }

@@ -12,6 +12,7 @@ class QuestionEntry extends React.Component {
       showModal: false,
       helpful: this.props.question.question_helpfulness,
       clicked: false,
+      expanded: false,
       answersToShow: 2
     }
 
@@ -41,13 +42,28 @@ class QuestionEntry extends React.Component {
     }
   }
 
-  showMoreAnswers() {
+  showMoreAnswers(event) {
     const { answers } = this.props.question;
+    const { expanded } = this.state;
 
-    const questionContainer = document.getElementsByClassName('rendered-questions')[0];
-    questionContainer.classList.add('active');
+    if (!expanded) {
+      event.target.innerHTML = 'COLLAPSE ANSWERS';
+      const questionContainer = document.getElementsByClassName('rendered-questions')[0];
+      questionContainer.classList.add('active');
 
-    this.setState({ answersToShow: answers.length});
+      this.setState({
+        answersToShow: answers.length,
+        expanded: true
+      });
+    } else {
+      event.target.innerHTML = 'LOAD ANSWERS';
+      this.setState({
+        answersToShow: 2,
+        expanded: false
+      });
+
+    }
+
   }
 
 

@@ -14,7 +14,8 @@ class QandA extends React.Component {
       productID: 59556, // default productID
       currentProduct: "Slacker's Slacks",
       questions: [],
-      questionsToShow: 2
+      questionsToShow: 2,
+      expanded: false
     };
 
     this.getQuestions = this.getQuestions.bind(this);
@@ -28,13 +29,26 @@ class QandA extends React.Component {
       })
   }
 
-  handleMoreAnsweredQuestionsClick() {
-    const questionContainer = document.getElementsByClassName('rendered-questions')[0];
-    questionContainer.classList.add('active');
+  handleMoreAnsweredQuestionsClick(event) {
+    const { questions, expanded } = this.state;
 
-     this.setState({
-       questionsToShow: this.state.questions.length
-     })
+    if (!expanded) {
+      event.target.innerHTML = 'COLLAPSE QUESTIONS';
+      const questionContainer = document.getElementsByClassName('rendered-questions')[0];
+      questionContainer.classList.add('active');
+
+      this.setState({
+        questionsToShow: questions.length,
+        expanded: true
+      })
+    } else {
+      event.target.innerHTML = 'MORE ANSWERED QUESTIONS';
+      this.setState({
+        questionsToShow: 2,
+        expanded: false
+      })
+    }
+
   }
 
   componentDidMount() {
@@ -52,20 +66,11 @@ class QandA extends React.Component {
          <div className='q-a-content'>
            <div className='rendered-questions'>
             {questions.slice(0, questionsToShow)
-              .map(
-                question => <QuestionEntry
-                  key={question.question_id}
-                  question={question}
-                  // question={question.question_body}
-                  // questionID={question.question_id}
-                  // questionAsker={question.asker_name}
-                  // answers={question.answers}
-                  // helpfulness={question.question_helpfulness}
-                  />
-              )
+              .map(question => <QuestionEntry key={question.question_id} question={question}/>)
             }
            </div>
             <FooterButtons
+              questionsLength={questions.length}
               handleClick={this.handleMoreAnsweredQuestionsClick}
               productID={productID}
               currentProduct={this.state.currentProduct}/>
