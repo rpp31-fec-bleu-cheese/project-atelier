@@ -104,13 +104,21 @@ let Overview = ({cam_token}) => {
     event.preventDefault();
   }
 
+  let handleStyleClick = (event) => {
+    event.persist();
+    let styleIndex = Number(event.target.attributes.index.nodeValue);
+    console.log('Style Index:', styleIndex);
+    setProductStyleIndex(styleIndex);
+    event.preventDefault();
+  }
+
 
   return (
     <div data-testid="Overview" id='Overview'>
       {products.length > 0 && <><ImageGallery products={products} productStyleIndex={productStyleIndex} productPhotoIndex={productPhotoIndex} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
       <ProductInformation currentProduct={currentProduct} />
-      <StyleSelector productStyles={productStyles} productStyleIndex={productStyleIndex} productPhotoIndex={productPhotoIndex} />
+      <StyleSelector productStyles={productStyles} productStyleIndex={productStyleIndex} productPhotoIndex={productPhotoIndex} handleStyleClick={handleStyleClick}  />
       <AddToCart products={products} productStyles={productStyles} productStyleIndex={productStyleIndex} productPhotoIndex={productPhotoIndex} />
       <ProductSloganAndDescription currentProduct={currentProduct} />
       <ProductFeatures productById={productById} cam_token={cam_token} /></>}
@@ -200,7 +208,7 @@ let Overview = ({cam_token}) => {
   }
 
   // Style Selector Component
-  let StyleSelector = ({productStyles, productStyleIndex, productPhotoIndex}) => {
+  let StyleSelector = ({productStyles, productStyleIndex, productPhotoIndex, handleStyleClick}) => {
 
     if (Object.keys(productStyles).length) {
       return (
@@ -210,12 +218,12 @@ let Overview = ({cam_token}) => {
             Style:
             </div>
             <div className="SelectedStyleDescription">
-            Selected Style
+            {productStyles.results[productStyleIndex].name}
             </div>
           </div>
           <div className="StyleSelectorIcons">
             {productStyles.results.map((style, i) => (
-              <div key={i} index={i} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon"></div>
+              <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon"></div>
             ))}
           </div>
         </div>
@@ -399,7 +407,8 @@ AddToCart.propTypes = {
 StyleSelector.propTypes = {
   productStyles: PropTypes.object,
   productStyleIndex: PropTypes.number,
-  productPhotoIndex: PropTypes.number
+  productPhotoIndex: PropTypes.number,
+  handleStyleClick: PropTypes.func
 }
 Overview.propTypes = {
   products: PropTypes.array
