@@ -346,3 +346,13 @@ div#QandA div.answer-date {
   margin-top: 5px;
   /* margin-left: 4px; */
 }
+
+div#QandA div.q-answers.active{
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+div#QandA .load-answers {
+  border: none;
+  background: white;
+}

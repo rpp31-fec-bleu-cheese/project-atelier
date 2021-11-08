@@ -11,8 +11,8 @@ class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productID: 59555, // default productID
-      currentProduct: 'Morning Joggers',
+      productID: 59556, // default productID
+      currentProduct: "Slacker's Slacks",
       questions: [],
       questionsToShow: 2
     };
@@ -25,7 +25,6 @@ class QandA extends React.Component {
     axios.get(`/qa/questions/?product_id=${this.state.productID}`)
       .then(response => {
         this.setState({ questions: response.data.results.sort((a, b) => b.question_helpfulness - a.question_helpfulness) });
-        this.setState()
       })
   }
 
@@ -56,11 +55,12 @@ class QandA extends React.Component {
               .map(
                 question => <QuestionEntry
                   key={question.question_id}
-                  question={question.question_body}
-                  questionID={question.question_id}
-                  questionAsker={question.asker_name}
-                  answers={question.answers}
-                  helpfulness={question.question_helpfulness}
+                  question={question}
+                  // question={question.question_body}
+                  // questionID={question.question_id}
+                  // questionAsker={question.asker_name}
+                  // answers={question.answers}
+                  // helpfulness={question.question_helpfulness}
                   />
               )
             }

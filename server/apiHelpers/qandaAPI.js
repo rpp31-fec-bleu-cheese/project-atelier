@@ -84,7 +84,26 @@ const putQuestions = (questionID, callback) => {
     }
   };
 
-  console.log(options.url);
+  axios(options)
+    .then((response) => {
+      callback(null, response.data)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+const addAnswer = (answer, questionID, callback) => {
+  let options = {
+    url: server + '/' + questionID + '/answers',
+    method: 'post',
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': config.API_KEY
+    },
+    data: answer
+  };
+
   axios(options)
     .then((response) => {
       callback(null, response.data)
@@ -98,5 +117,6 @@ module.exports = {
   getQuestions,
   getAnswersByID,
   postQuestions,
-  putQuestions
+  putQuestions,
+  addAnswer
 };

@@ -7,6 +7,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [question, setQuestion] = useState('');
+  const [expanded, setExpanded] = useState(false);
 
   const handleInputChange = (event) => {
     let value = event.target.value;
@@ -20,7 +21,6 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
     }
   }
 
-
   const postQuestion = (event) => {
     event.preventDefault();
     console.log('posted');
@@ -33,6 +33,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
     })
       .then((response) => {
         console.log('successful post!', response.data);
+        setExpanded(true)
         closeModal()
       })
   }

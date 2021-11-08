@@ -20,6 +20,7 @@ app.get('/products/:product_id/related', controllers.products.getRelatedProducts
 app.get('/qa/questions/', controllers.questions_answers.getAllQuestions);
 app.post('/qa/questions/', controllers.questions_answers.postQuestion);
 app.put('/qa/questions/:question_id/helpful', controllers.questions_answers.updateQuestionHelpfulness);
+app.post('/qa/questions/:question_id/answers', controllers.questions_answers.postAnswer);
 
 app.get('/reviews', controllers.reviews.getAllReviews);
 app.get('/reviews/meta', controllers.reviews.getReviewsMeta);

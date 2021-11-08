@@ -138,6 +138,18 @@ module.exports = {
 
         res.status(201).send(data);
       })
+    },
+    postAnswer: function(req, res) {
+      let answer = req.body;
+      let questionID = req.params.question_id;
+      qanda.addAnswer(answer, questionID, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+        console.log(data);
+        res.status(201).send(data);
+      })
     }
   },
   // CART CONTROLLERS

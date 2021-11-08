@@ -10,7 +10,7 @@ class QuestionEntry extends React.Component {
 
     this.state = {
       showModal: false,
-      helpful: this.props.helpfulness,
+      helpful: this.props.question.question_helpfulness,
       clicked: false,
       answersToShow: 2
     }
@@ -18,6 +18,7 @@ class QuestionEntry extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleHelpfulClick = this.handleHelpfulClick.bind(this);
+    this.showMoreAnswers = this.showMoreAnswers.bind(this);
   }
 
   openModal() {
@@ -29,8 +30,10 @@ class QuestionEntry extends React.Component {
   }
 
   handleHelpfulClick() {
+    const { question_id } = this.props.question;
+
     if (!this.state.clicked) {
-      axios.put(`qa/questions/${this.props.questionID}/helpful`)
+      axios.put(`qa/questions/${question_id}/helpful`)
         .then((response) => {
             this.setState({ helpful: this.state.helpful + 1});
             this.setState({ clicked: true });
@@ -38,17 +41,26 @@ class QuestionEntry extends React.Component {
     }
   }
 
+  showMoreAnswers() {
+    const { answers } = this.props.question;
+
+    const questionContainer = document.getElementsByClassName('rendered-questions')[0];
+    questionContainer.classList.add('active');
+
+    this.setState({ answersToShow: answers.length});
+  }
+
 
   render() {
-    const { question, questionID, questionAsker, answers, helpfulness } = this.props;
+    const { question_body, question_id, questionAsker, answers, question_helpfulness } = this.props.question;
     const { answersToShow } = this.state;
-    const questionAnswers = Object.values(answers).sort((a, b) => b.helpfulness - a.helpfulness);
+    const questionAnswers = Object.values(answers).sort((a, b) => b.question_helpfulness - a.question_helpfulness);
 
 
     return (
       <div className="question-entry">
         <div className="question-container">
-          <div className="question">Q: {question}</div>
+          <div className="question">Q: {question_body}</div>
           <div className="helpful-buttons">
             <p>Helpful?</p>
             <button onClick={this.handleHelpfulClick}>Yes ({this.state.helpful})</button>
@@ -56,72 +68,28 @@ class QuestionEntry extends React.Component {
             <button onClick={this.openModal}>Add Answer</button>
           </div>
         </div>
-        <AnswerModal showModal={this.state.showModal} setShowModal={this.closeModal} questionBody={question}/>
-        {questionAnswers.slice(0, answersToShow)
-          .map(answer => <Answer key={answer.id} answer={answer} />)
-        }
+        <AnswerModal
+          showModal={this.state.showModal}
+          setShowModal={this.closeModal}
+          questionBody={question_body}
+          questionID={question_id}
+          />
+        <div className="q-answers">
+          {questionAnswers.slice(0, answersToShow)
+            .map(answer => <Answer key={answer.id} answer={answer} />)
+          }
+          {questionAnswers.length > 2 ?
+          (<button className="load-answers" onClick={this.showMoreAnswers}>LOAD MORE ANSWERS</button>) : null
+          }
+        </div>
       </div>
     );
   }
 
 }
 
-// const QuestionEntry = ({ question, questionID, answers, helpfulness }) => {
-//   const [showModal, setShowModal] = useState(false);
-//   const [helpful, setHelpful] = useState(helpfulness);
-//   const [clicked, setClicked] = useState(false);
-
-//   const openModal = () => {
-//     setShowModal(true);
-//   }
-
-//   const handleHelpfulClick = (event) => {
-//     console.log(clicked)
-//     if (!clicked) {
-//       axios.put(`qa/questions/${questionID}/helpful`)
-//         .then((response) => {
-//             setHelpful(helpfulness + 1);
-//             setClicked(true);
-//         })
-//     }
-//   }
-
-
-//   const questionAnswers = Object.values(answers).sort((a, b) => b.helpfulness - a.helpfulness);
-
-//   return (
-//     <div className="question-entry">
-//       <div className="question-container">
-//         <div className="question">Q: {question}</div>
-//         <div className="helpful-buttons">
-//           <p>Helpful?</p>
-//           <button onClick={handleHelpfulClick}>Yes ({helpfulness})</button>
-//           <p className="divider">|</p>
-//           <button onClick={openModal}>Add Answer</button>
-//         </div>
-//       </div>
-//       <AnswerModal showModal={showModal} setShowModal={setShowModal}/>
-//       {questionAnswers.slice(0, 1)
-//         .map(
-//           answer => <Answer
-//             key={answer.id}
-//             answerBody={answer.body}
-//             photos={answer.photos}
-//             user={answer.answerer_name}
-//             helpfulness={answer.helpfulness}
-//             />
-//         )
-//       }
-//     </div>
-//   )
-// };
-
 QuestionEntry.propTypes = {
-  question: PropTypes.string,
-  questionAsker: PropTypes.string,
-  answers: PropTypes.object,
-  helpfulness: PropTypes.number,
-  questionID: PropTypes.number
+  question: PropTypes.object,
 }
 
 export default QuestionEntry;
