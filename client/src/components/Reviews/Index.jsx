@@ -12,6 +12,7 @@ class Reviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      reviewsStarsFilter: {},
       currentRatings: {},
       currentReviews: [],
       characteristics: {}
@@ -60,14 +61,35 @@ class Reviews extends React.Component {
     })
   }
 
+  addStarFilter(rating) {
+    let state = {...this.state.reviewsStarsFilter};
+
+    if (rating in state) { // Checks if rating filter exists within state, and removes it if it does
+      delete state[rating];
+      this.setState({
+        reviewsStarsFilter: state
+      })
+    } else { // Adds it if it doesn't
+      state[rating] = rating;
+      this.setState({
+        reviewsStarsFilter: state
+      })
+    }
+  }
+
   render() {
     if (this.state.currentReviews.length > 0) {
       return (
         <div id='RatingsReviews'>
           <Header />
-          <RatingsContainer ratings={this.state.currentRatings} reviews={this.state.currentReviews}/>
+          <RatingsContainer
+            ratings={this.state.currentRatings}
+            reviews={this.state.currentReviews}
+            onclick={this.addStarFilter.bind(this)}/>
           <BreakdownContainer characteristics={this.state.characteristics}/>
-          <ReviewsContainer />
+          <ReviewsContainer
+            reviews={this.state.currentReviews}
+            reviewsStarsFilter={this.state.reviewsStarsFilter}/>
         </div>
       )
     } else {

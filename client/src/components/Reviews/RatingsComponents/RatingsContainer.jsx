@@ -45,7 +45,7 @@ const RatingsContainer = props => {
       </div>
       <div id='recommended'>{recommended + '%'} of reviews recommend this product</div>
       <div id='StarBars'>
-        {ratingArray.map((item, i) => <StarBar key={i} rating={item} quantity={rateQuantity}/>).reverse()}
+        {ratingArray.map((item, i) => <StarBar key={i} rating={item} quantity={rateQuantity} onclick={props.onclick}/>).reverse()}
       </div>
     </div>
   );
@@ -53,7 +53,8 @@ const RatingsContainer = props => {
 
 RatingsContainer.propTypes = {
   ratings: PropTypes.object.isRequired,
-  reviews: PropTypes.array.isRequired
+  reviews: PropTypes.array.isRequired,
+  onclick: PropTypes.func.isRequired
 }
 
 export default RatingsContainer;

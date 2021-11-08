@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 const Breakdown = props => {
   let type = {
     Quality: ['Poor', 'Great'],
-    Size: ['Too Small', 'Perfect', 'Too Large'],
-    Comfort: ['Poor', 'Perfect']
+    Size: ['Too Small', 'Just Right', 'Too Large'],
+    Comfort: ['Poor', 'Perfect'],
+    Length: ['Too Short', 'Just Right', 'Too Long'],
+    Width: ['Too Narrow', 'Just Right', 'Too Wide'],
+    Fit: ['Too Tight', 'Just Right', 'Too Baggy']
   };
   let currentType = type[props.char[0]];
   let col = 0; // This value is used to help div.Trait determine where to place the its child text

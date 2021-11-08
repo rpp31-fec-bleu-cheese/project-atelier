@@ -15,7 +15,7 @@ const getReviews = (productID, sort, callback) => {
       product_id: productID,
       sort: sort,
       page: 1,
-      count: 5
+      count: 1000
     }
   };
 
@@ -41,7 +41,7 @@ const getMetaReviews = (productID, callback) => {
     params: {
       product_id: productID,
       page: 1,
-      count: 5
+      count: 1000
     }
   };
 
