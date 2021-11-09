@@ -498,9 +498,15 @@ div#Reviews {
 
 
 
+/*
 div#Related_Outfit div.Related_ProductInfo + div#Related_Outfit div.Related_ProductInfo,
 div#Related_Outfit button#Related_Plus + div#Related_Outfit div.Related_ProductInfo{
   margin-left: 15px;
+}
+*/
+
+div#Related_Outfit div.RelatedOutfit_ProductInfo {
+  column-gap: 15px;
 }
 
 div#Related_Outfit div.Related_products {
@@ -546,7 +552,7 @@ div#Related_Outfit button#Related_Plus{
   font-size:larger;
 
 }
-div#Related_Outfit div.Related_ProductInfo,
+div#Related_Outfit div.RelatedOutfit_ProductInfo,
 div#Related_Outfit button#Related_Plus {
 
   border: 1px solid black;
@@ -590,7 +596,7 @@ div#Related_Outfit button.Related{
 }
 
 
-div#Related_Outfit .Related_ProductInfo .ratings {
+div#Related_Outfit .RelatedOutfit_ProductInfo .ratings {
   position: relative;
   vertical-align: middle;
   display: inline-block;
@@ -603,6 +609,7 @@ div#Related_Outfit .Related_ProductInfo .ratings {
 
 div#Related_Outfit .Related,
 div#Related_Outfit .Outfit {
+
   height: 150px;
   width:100%;
   position:relative;
@@ -610,12 +617,22 @@ div#Related_Outfit .Outfit {
 
 div#Related_Outfit .Related #Overlay_Star,
 div#Related_Outfit .Outfit #Overlay_Circle{
-
+  color:cadetblue;
   position: absolute;
   top: 0%;
   right: 0%;
 }
 
+div#Related_Outfit i#Overlay_Star:hover,
+div#Related_Outfit .Outfit #Overlay_Circle:hover {
+  color:red;
+
+}
+
+div#Related_Outfit div.RelatedOutfit_ProductInfo div.RelatedInfo,
+div#Related_Outfit div.RelatedOutfit_ProductInfo div.OutfitInfo{
+  padding:5px;
+}
 /*div#Related_Outfit div#Comparison{
   display: none; /* Hidden by default */
   /*position: absolute; /* Stay in place */
@@ -633,8 +650,8 @@ div#Related_Outfit div#Comparison div#PopupTrue{
 
   position:  fixed;
   font-size: small;
-   width: 400px;
-   height:200px;
+   max-width: 400px;
+   max-height:200px;
    top: calc(50% - 50px);
    padding:30px;
    background-color:aliceblue;
@@ -642,6 +659,12 @@ div#Related_Outfit div#Comparison div#PopupTrue{
    border: 1px solid black;
    bottom: 40px;
    z-index: 100;
+}
+
+div#Related_Outfit table#ComparingTable th,
+div#Related_Outfit table#ComparingTable td  {
+  width: 200px;
+  height: 10px;
 }
 div#Related_Outfit  div#Comparison div#PopupTrue th{
   font-size: small;

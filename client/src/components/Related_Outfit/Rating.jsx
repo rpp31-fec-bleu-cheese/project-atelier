@@ -1,6 +1,6 @@
 
 import React from 'react';
-//import StarIcon from './StarIcon.jsx';
+import StarIcon from './StarIcon.jsx';
 /*var Rating = (props) => {
   return(
     <div className="rating">
@@ -31,7 +31,15 @@ import React from 'react';
 </div>
 */
 var Rating = (props) => {
-  var finalRating = 3.5;
+  var finalRating = 6;
+  var countArray = [1,2,3,4,5];
+  if(finalRating === 6) {
+    return (
+      <div>
+        <i className="far fa-star" ></i> <i className="far fa-star" ></i> <i className="far fa-star" ></i> <i className="far fa-star" ></i> <i className="far fa-star" ></i>
+      </div>
+    )
+  }
   return (
     <div id='Related_Rating'>
   <div className='Stars'>

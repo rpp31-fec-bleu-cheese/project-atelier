@@ -1,5 +1,5 @@
 import React from 'React';
-import Related_ProductInfo from './Related_ProductInfo.jsx';
+import RelatedOutfit_ProductInfo from './RelatedOutfit_ProductInfo.jsx';
 import Comparison from './Comparison.jsx';
 import data from '../../../data/Related_Outfit.js';
 import PropTypes from 'prop-types';
@@ -210,7 +210,7 @@ class Related_Outfit extends React.Component {
           <button className="PreviousProd Related"  onClick={(event)=>this.scroll(event,-250)}><i className="fa fa-angle-left"></i></button>
             <div className="Related_products">
               {this.state.relatedProducts.map((product) => (
-                <Related_ProductInfo key={product.id} product={product} component={'Related'} starButtonClick={this.starButtonClick} productClick={this.props.productClick}/>
+                <RelatedOutfit_ProductInfo key={product.id} product={product} component={'Related'} starButtonClick={this.starButtonClick} productClick={this.props.productClick}/>
               ))}
 
             </div>
@@ -225,7 +225,7 @@ class Related_Outfit extends React.Component {
             <div id="Outfit">
               <button id="Related_Plus" onClick={()=>this.addToOutfit()}><i className="fa fa-plus"></i><div>Add to Outfit</div></button>
               {this.state.outfits.map((product) => (
-                <Related_ProductInfo key={product.id} product={product} component={'Outfit'} productClick={this.props.productClick} crossButtonClick={this.crossButtonClick}/>
+                <RelatedOutfit_ProductInfo key={product.id} product={product} component={'Outfit'} productClick={this.props.productClick} crossButtonClick={this.crossButtonClick}/>
               ))}
             </div>
             <button className="NextProd Outfit" onClick={(event)=>this.scroll(event,+250)}><i className="fa fa-angle-right"></i></button>

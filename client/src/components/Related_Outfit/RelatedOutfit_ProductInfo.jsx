@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Rating from './Rating.jsx';
 
 
-var Related_ProductInfo = (props) => {
+var RelatedOutfit_ProductInfo = (props) => {
   console.log("props in Related_ProductInfo", props);
   /*var popup = false;
   var style = {"display": "none"};
@@ -15,62 +15,70 @@ var Related_ProductInfo = (props) => {
       style = {"display": "block"};
     }
   }*/
+
   var image = '';
   var imageFound = false;
-  console.log('type of props.product.styles ', typeof (props.product.styles));
+  var salePrice = null;
+ //console.log('type of props.product.styles ', typeof (props.product.styles));
   if(Array.isArray(props.product.styles) && props.product.styles.length > 0) {
     for(var productStyle of props.product.styles) {
       if(productStyle[ "default?"] === true) {
         image = productStyle["photos"][0]["url"];
         imageFound = true;
+        salePrice = productStyle["sale_price"];
       }
     }
     if(!imageFound) {
       image = props.product.styles[0]["photos"][0]["url"];
+      salePrice =  props.product.styles["sale_price"];
     }
   }
-
+  if(salePrice){
+    console.log('THIS PRODUCT HAS A SALE PRICE:', salePrice);
+  }
 
   if(props.component === 'Related') {
     return(
-      <div className="Related_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
+      <div className="RelatedOutfit_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
 
           <div className="Related" style={{ background: `center / contain no-repeat  url(${image}) `,backgroundSize:"cover"}}>
 
               <i id="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} className="far fa-star"></i>
           </div>
 
-        <div>
+        <div className="RelatedInfo">
           {props.product.category}
         </div>
-        <div>
-          {props.product.name}
+        <div className="RelatedInfo">
+          <em>{props.product.name}</em>
         </div>
-        <div>
-          {props.product.default_price}
+        <div className="RelatedInfo">
+         ${props.product.default_price}
         </div>
-        <div>
+        <div className="OutfitInfo">
           <Rating />
         </div>
       </div>
     )
   } else {
     return (
-      <div className="Related_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
-        <div className="Outfit" style={{ backgroundImage: `url(${image})`,backgroundSize: "cover"}}>
+      <div className="RelatedOutfit_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
+
+        <div className="Outfit" style={{ background: `center / contain no-repeat  url(${image}) `,backgroundSize:"cover"}}>
 
               <i id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} className="far fa-times-circle" ></i>
           </div>
-        <div>
+
+        <div className="OutfitInfo">
           {props.product.category}
         </div>
-        <div>
+        <div className="OutfitInfo">
           {props.product.name}
         </div>
-        <div>
-          {props.product.default_price}
+        <div className="OutfitInfo">
+          ${props.product.default_price}
         </div>
-        <div>
+        <div className="OutfitInfo">
           <Rating />
         </div>
       </div>
@@ -78,14 +86,14 @@ var Related_ProductInfo = (props) => {
   }
 
 }
-Related_ProductInfo.propTypes = {
+RelatedOutfit_ProductInfo.propTypes = {
   product:PropTypes.object,
   component:PropTypes.string,
   starButtonClick:PropTypes.func,
   productClick:PropTypes.func,
   crossButtonClick:PropTypes.func
 }
-export default Related_ProductInfo;
+export default RelatedOutfit_ProductInfo;
 
 // <img  className="RelatedImage" src={props.product.image}/>
 
