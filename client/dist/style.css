@@ -108,9 +108,10 @@ div#Reviews {
 
 /* Question & Answers Module Styling*/
 div#QandA h2 {
+  margin-top: -50px;
   margin-right: auto;
   margin-left: 25px;
-  padding-left: 90px;
+  padding-left: 100px;
 }
 
 div#QandA div.q-a-content {
@@ -118,9 +119,9 @@ div#QandA div.q-a-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* height: 70%; */
+  height: 420px;
   width: 90%;
-  padding: 0 50px;
+  padding: 0 55px;
   margin-top: -110px;
   /* margin-left: 50px; */
 }
@@ -192,8 +193,9 @@ div#QandA div.search {
 
 div#QandA div.search div.search-bar {
   display: flex;
-  padding-left: 90px;
-  width: 77.7%;
+  margin-top: -30px;
+  padding-left: 100px;
+  width: 78.5%;
   /* margin-right: 50px; */
 }
 
@@ -207,7 +209,8 @@ div#QandA div.search input {
 /* FooterButtons component styling */
 div#QandA div.footer-buttons {
   display: flex;
-  margin-top: 25px;
+  margin-top: 50px;
+  margin-bottom: -45px;
 }
 
 div#QandA div.footer-buttons button {
@@ -225,6 +228,12 @@ div#QandA div.footer-buttons .additional-answers-button {
 
 div#QandA div.footer-buttons .add-question-button {
   width: 160px;
+}
+
+div#QandA div.footer-buttons button:hover {
+  color: rgb(255, 255, 255);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
 }
 
 /* Modal Styling */

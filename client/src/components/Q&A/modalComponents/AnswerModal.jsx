@@ -53,7 +53,7 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID }) => {
               <input placeholder="Example: jack543@email.com" type="email" maxLength="60" required/>
               <p>For authentication reasons, you will not be emailed</p>
               <label>Your Answer</label>
-              <input placeholder="Type your question" type="text" maxLength="1000" required/>
+              <input placeholder="Type your answer" type="text" maxLength="1000" required/>
               <button className="submit-button" onClick={postAnswer}>Submit Answer</button>
             </form>
           </div>

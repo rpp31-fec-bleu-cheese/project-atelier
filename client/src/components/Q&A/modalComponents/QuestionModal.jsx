@@ -3,11 +3,11 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 // will display when the user clicks on the 'Add Answer' link provided on each question
-const QuestionModal = ({ showModal, setShowModal, closeModal, productID, currentProduct }) => {
+const QuestionModal = ({ showModal, setShowModal, closeModal, productID, currentProduct, getQuestions }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [question, setQuestion] = useState('');
-  const [expanded, setExpanded] = useState(false);
+  // const [expanded, setExpanded] = useState(false);
 
   const handleInputChange = (event) => {
     let value = event.target.value;
@@ -33,11 +33,10 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
     })
       .then((response) => {
         console.log('successful post!', response.data);
-        setExpanded(true)
+        getQuestions();
         closeModal()
       })
   }
-
 
   return (
     <div className="modal">
@@ -45,7 +44,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
         <div className="modal-background">
           <div className="modal-content">
             <form className="question-form" onChange={handleInputChange}>
-              <span onClick={() => setShowModal(false)}>&times;</span>
+              <span onClick={closeModal}>&times;</span>
               <h2>Ask Your Question About: {currentProduct}</h2>
               <label className="name">What is your nickname</label>
               <input
@@ -63,7 +62,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
               <p>For authentication reasons, you will not be emailed</p>
               <label className="question">Your Question</label>
               <input
-                placeholder="Type your answer"
+                placeholder="Type your question"
                 type="text"
                 maxLength="1000"
                 required/>
@@ -81,7 +80,8 @@ QuestionModal.propTypes = {
   setShowModal: PropTypes.func,
   closeModal: PropTypes.func,
   productID: PropTypes.number,
-  currentProduct: PropTypes.string
+  currentProduct: PropTypes.string,
+  getQuestions: PropTypes.func
 }
 
 export default QuestionModal;

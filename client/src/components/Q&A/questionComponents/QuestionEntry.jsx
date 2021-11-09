@@ -16,15 +16,15 @@ class QuestionEntry extends React.Component {
       answersToShow: 2
     }
 
-    this.openModal = this.openModal.bind(this);
+    //this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleHelpfulClick = this.handleHelpfulClick.bind(this);
     this.showMoreAnswers = this.showMoreAnswers.bind(this);
   }
 
-  openModal() {
-    this.setState({ showModal: true });
-  }
+  // openModal() {
+  //   this.setState({ showModal: true });
+  // }
 
   closeModal() {
     this.setState({ showModal: false });
@@ -56,7 +56,7 @@ class QuestionEntry extends React.Component {
         expanded: true
       });
     } else {
-      event.target.innerHTML = 'LOAD ANSWERS';
+      event.target.innerHTML = 'LOAD MORE ANSWERS';
       this.setState({
         answersToShow: 2,
         expanded: false
@@ -81,7 +81,7 @@ class QuestionEntry extends React.Component {
             <p>Helpful?</p>
             <button onClick={this.handleHelpfulClick}>Yes ({this.state.helpful})</button>
             <p className="divider">|</p>
-            <button onClick={this.openModal}>Add Answer</button>
+            <button className="add-answer" onClick={() => this.setState({ showModal: true })}>Add Answer</button>
           </div>
         </div>
         <AnswerModal
