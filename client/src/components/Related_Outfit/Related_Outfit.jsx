@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 
 class Related_Outfit extends React.Component {
 
