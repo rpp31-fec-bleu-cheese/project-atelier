@@ -2,7 +2,9 @@ import React, { useState, useEffect }  from 'react';
 // import { useState } from 'React';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+// const imagePath = '/../../dist/stock_media/'
 // import imageComingSoonPhoto from '/Users/cameroncolaco/Documents/HR/SEI/sprints/project-atelier/client/dist/stock_media/image-coming-soon.png';
+
 
 
 
@@ -57,7 +59,7 @@ let Overview = ({cam_token}) => {
       .then(response => {
         // console.log('PRODUCT ID API RESPONSE:', response)
         setProductById(response.data);
-        setIndexes({...indexes, style: 0, photo: 0})
+        // setIndexes({...indexes, style: 0, photo: 0})
         axios(productStylesOptions)
         .then(response => {
           // console.log('PRODUCT STYLES API RESPONSE:', response)
@@ -79,9 +81,9 @@ let Overview = ({cam_token}) => {
           //       // })
   }, [currentProduct]);
 
-  // useEffect(() => {
-  //   setIndexes({...indexes, style: 0, photo: 0})
-  // }, [indexes.product]);
+  useEffect(() => {
+    setIndexes({...indexes, style: 0, photo: 0})
+  }, [indexes.product]);
 
 
   // useEffect(() => {
@@ -148,7 +150,7 @@ let Overview = ({cam_token}) => {
   // Image Gallery Component
   let ImageGallery = ({products, handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, indexes, productStyles}) => {
 
-    let imageComingSoon = '/media';
+    let imageComingSoon = '/media'
 
       if (Object.keys(productStyles).length) {
         // if (productStyles.results[productStyleIndex].photos[productPhotoIndex] === undefined) {
@@ -257,7 +259,10 @@ let Overview = ({cam_token}) => {
     console.log('INDEXES IN CART:', indexes);
     let stylesIndex = indexes.style;
     let productsIndex = indexes.product;
-    const [currentSize, setCurrentSize] = useState('');
+    const [currentSize, setCurrentSize] = useState(null);
+    console.log('CURRENT SIZE:', currentSize);
+    const [currentQuantity, setCurrentQuantity] = useState(null);
+    console.log('CURRENT QTY:', currentQuantity);
     const [qtyInStock, setQtyInStock] = useState([]);
     const [currentQtyAndSize, setCurrentQtyAndSize] = useState({size: '', qty: []});
     // const [isMyOutfit, setIsMyOutfit] = useState();
@@ -265,17 +270,18 @@ let Overview = ({cam_token}) => {
     // const [defaultQty, setDefaultQty] = useState('-');
     // const [defaultSize, setDefaultSize] = useState('SELECT SIZE');
     const [defaultSizeAndQty, setDefaultSizeAndQty] = useState({size: 'SELECT SIZE', qty: '-'});
-    console.log('DEFAULT SZ AND QTY:', defaultSizeAndQty);
-
-    useEffect(() => {
-      if (qtyInStock.length) {
-        setDefaultSizeAndQty({...defaultSizeAndQty, qty: qtyInStock[0]});
-      }
-    }, [qtyInStock]);
+    // console.log('DEFAULT SZ AND QTY:', defaultSizeAndQty);
 
     // useEffect(() => {
-    //   setDefaultSizeAndQty({size: 'SELECT SIZE', qty: '-'});
-    // }, [stylesIndex]);
+    //   if (qtyInStock.length) {
+    //     setDefaultSizeAndQty({...defaultSizeAndQty, qty: qtyInStock[0]});
+    //   }
+    // }, [qtyInStock]);
+
+    useEffect(() => {
+      setCurrentSize(null);
+      setCurrentQuantity(null);
+    }, [stylesIndex]);
 
     // useEffect(() => {
     //   setDefaultSizeAndQty({size: 'SELECT SIZE', qty: '-'});
@@ -284,16 +290,17 @@ let Overview = ({cam_token}) => {
     if(Object.keys(productStyles).length) {
 
       let skusArray = [];
-      let currentSku = productStyles.results[indexes.style].skus
+      let currentSkus = productStyles.results[indexes.style].skus
+
+      // this variable correctly tracks product and style id for AddToBag or MyOutfit
       let currentProductStyleData = {productId: productStyles.product_id,
         styleId: productStyles.results[indexes.style].style_id}
       // console.log('CURRENT PRODUCT STYLE ID:', currentProductStyleData);
 
-      for (let key in currentSku) {
-        // console.log('SKUS IN CART:', currentSku[key]);
-        skusArray.push(currentSku[key]);
+      for (let key in currentSkus) {
+        skusArray.push(currentSkus[key]);
       }
-      // console.log('Skus Array:', skusArray);
+
 
       let handleMyOutfitClick = (event) => {
         event.persist();
@@ -326,11 +333,19 @@ let Overview = ({cam_token}) => {
             }
             // console.log('AVAIL QUANTITY:', availableQuantity);
             // console.log('QTY ARRAY:', quantityArray);
-            setDefaultSizeAndQty({qty: quantityArray, size: selectedSize});
+            // setDefaultSizeAndQty({qty: quantityArray, size: selectedSize});
+            setCurrentSize(selectedSize);
             setQtyInStock(quantityArray);
           }
         }
 
+        event.preventDefault();
+      }
+
+      let handleQuantityClick = (event) => {
+        event.persist();
+        let selectedQty = event.target.value;
+        setCurrentQuantity(selectedQty);
         event.preventDefault();
       }
 
@@ -342,17 +357,17 @@ let Overview = ({cam_token}) => {
               <select className="SizeSelectorDropdown" onChange={handleSizeClick}>
                 <option value="">SELECT SIZE</option>
                 {skusArray.map((skuData, i) => (
-                  <option key={i} value={skuData.size} selected={defaultSizeAndQty.size === skuData.size ? true : false}>{skuData.size}</option>
+                  <option key={i} value={skuData.size} selected={currentSize ? true : false}>{skuData.size}</option>
                 ))}
               </select>
             </form>
           </div>
           <div className="QuanititySelector">
             <form>
-              <select className="QuanititySelectorDropdown" onChange={() => console.log('Quantity clicked!')}>
+              <select className="QuanititySelectorDropdown" onChange={handleQuantityClick}>
               <option value="">-</option>
                 {qtyInStock.length && qtyInStock.map((qty, i) => (
-                  <option key={i} value={qty} selected={defaultSizeAndQty.qty === qtyInStock ? true : false}>{qty}</option>
+                  <option key={i} value={qty} selected={currentQuantity ? true : false}>{qty}</option>
                 ))}
               </select>
             </form>
