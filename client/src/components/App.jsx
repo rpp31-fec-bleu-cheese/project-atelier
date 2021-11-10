@@ -5,15 +5,19 @@ import SiteMessage from './SiteMessage.jsx';
 import Overview from './ProductInfo/Overview.jsx';
 import Related_Outfit from './Related_Outfit/Related_Outfit.jsx';
 import QandA from './Q&A/Q&A.jsx';
-import Reviews from './Reviews/Reviews.jsx';
 import axios from 'axios';
+import RatingsReviews from './Reviews/Index.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
       productId: 59558,
       outfitIds: []
+=======
+      currentProduct: 59554
+>>>>>>> Reviews_Ratings
     };
     this.relatedOutfitProductClick = this.relatedOutfitProductClick.bind(this);
     this.changeInOutfit = this.changeInOutfit.bind(this);
@@ -74,7 +78,7 @@ class App extends React.Component {
         <Overview products={this.props.products} cam_token={this.props.cam_token} />
         <Related_Outfit productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} productClick={this.relatedOutfitProductClick}/>
         <QandA />
-        <Reviews />
+        <RatingsReviews product_id={this.state.currentProduct}/>
       </div>
     )
   }

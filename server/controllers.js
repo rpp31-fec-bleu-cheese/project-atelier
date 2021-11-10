@@ -140,8 +140,21 @@ module.exports = {
 
         res.status(201).send(data);
       })
+    },
+    markHelpful: function(req, res) {
+      let reviewID = req.body.review_id;
+
+      reviews.markReviewHelpful(reviewID, (err, data) => {
+        if (err) {
+          res.status(400).send();
+          return;
+        }
+
+        res.status(204).end()
+      })
     }
   },
+
   // QUESTION & ANSWER CONTROLLERS
   questions_answers: {
     getAllQuestions: function(req, res) {

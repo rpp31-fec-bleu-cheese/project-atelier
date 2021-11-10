@@ -21,17 +21,17 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
-/*  */
-/*  */
+/******/
+/******/
 
 div#App {
   display: grid;
   grid-template-columns: 10% auto 10%;
-  grid-template-rows: 70px 40px 650px 650px 650px 650px;
+  grid-template-rows: 70px 40px 650px 650px 650px auto;
   height: 100%;
 }
 
-div.Header {
+div#App div.Header {
   grid-column: 2;
   grid-row: 1;
   display: grid;
@@ -353,13 +353,154 @@ div#QandA {
   height: 100%;
 }
 
-div#Reviews {
+/********************************/
+/***** Ratings and Reviews ******/
+/********************************/
+
+div#RatingsReviews {
   grid-column: 2;
   grid-row: 6;
+  display: grid;
+  grid-template-columns: 270px auto;
+  grid-template-rows: 30px 180px auto;
+  width: 100%;
+  height: 100%;
+}
+div#RatingsReviews h1#Header {
+  grid-column: 1/-1;
+  grid-row: 1;
   display: flex;
-  justify-content: cent;
   align-items: center;
+  justify-content: start;
+  box-sizing: border-box;
+  padding-left: 5px;
+  width: 100%;
+  height: 100%;
+}
+
+/***** Rating ******/
+div#RatingsReviews div#RatingsContainer {
+  grid-column: 1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 90px auto;
+  grid-template-rows: 60px 25px auto;
+}
+div#RatingsReviews div#RatingsContainer div#Rating {
+  display: flex;
+  font-size: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+/***** Stars ******/
+div#StarsContainer {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+div.Stars {
+  position: relative;
+  display: inline-block;
+  color: #b1b1b1;
+  overflow: hidden;
+}
+.full-stars {
+  top: 0;
+  left: 0;
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #fde16d;
+}
+.empty-stars:before, .full-stars:before {
+  content:"\2605\2605\2605\2605\2605";
+  font-size: 14pt;
+}
+.empty-stars:before {
+  -webkit-text-stroke: 1px #848484;
+}
+.full-stars:before {
+  -webkit-text-stroke: 1px orange;
+}
+
+/***** Recommended ******/
+div#RatingsReviews div#recommended {
+  grid-column: 1/-1;
+  grid-row: 2;
+  text-align: center;
+}
+
+/***** StarBars ******/
+div#RatingsReviews div#StarBars {
+  grid-column: 1/-1;
+  grid-row: 3;
+  justify-self: start;
+  align-self: start;
+  display: grid;
+  box-sizing: border-box;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+  width: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div#RatingsReviews div.StarBar {
+  display: grid;
+  grid-template-columns: 47px auto;
+  width: 100%;
+  text-decoration-line: underline;
+}
+div#RatingsReviews div.StarBar:hover {
+  cursor: pointer;
+}
+div#RatingsReviews div.barContainer {
+  grid-column: 2;
+  align-self: center;
+  justify-self: start;
+  display: grid;
+  grid-template-rows: 100%;
+  background-color: #848484;
+  height: 9px;
+  width: 100%;
+}
+div#RatingsReviews div.greenBar {
+  grid-row: 1;
   border: 1px solid black;
+  align-self: center;
+  background-color: #07a047;
+  height: 9px
+}
+
+/***** Breakdown ******/
+div#RatingsReviews div#BreakdownContainer {
+  grid-column: 1;
+  grid-row: 3;
+  align-self: start;
+  text-align: center;
+}
+div#RatingsReviews div.Breakdown {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(3, 20px);
+  margin: 5px;
+  margin-top: 20px;
+}
+div#RatingsReviews div.Breakdown div.Type {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  justify-self: start;
+  font-weight: bold;
+}
+div#RatingsReviews div.Breakdown div.Marker {
+  text-align: end;
+}
+div#RatingsReviews div.Breakdown div.Slider {
+  grid-column: 1/-1;
+  grid-row: 2;
+  height: 7px;
   width: 100%;
   height: 100%;
 }
@@ -921,6 +1062,114 @@ div#Related_Outfit  div#Comparison div#PopupTrue th{
 }
 
 
+div#RatingsReviews div.Breakdown div.TraitContainer {
+  grid-column: 1/-1;
+  grid-row: 3;
+  display: grid;
+  margin-left: 5px;
+  margin-right: 5px;
+}
 
-
-
+/***** Reviews ******/
+div#RatingsReviews div#ReviewsContainer {
+  grid-column: 2;
+  grid-row: 2 / 4;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto 500px auto;
+}
+div#RatingsReviews div#ReviewsContainer div#ReviewCount {
+  grid-column: 1;
+  grid-row: 1;
+}
+div#RatingsReviews div#ReviewsContainer div#Reviews {
+  grid-column: 1;
+  overflow: scroll;
+}
+div#RatingsReviews div#ReviewsContainer div.Review {
+  display: grid;
+  grid-template-columns: 100px auto;
+  grid-template-rows: auto 50px auto;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid black;
+}
+div#RatingsReviews div#ReviewsContainer div.ReviewStars {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+div#RatingsReviews div#ReviewsContainer div.SubmittedBy {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+div#RatingsReviews div#ReviewsContainer div.Summary {
+  grid-column: 1/-1;
+  grid-row: 2;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-weight: bold;
+}
+div#RatingsReviews div#ReviewsContainer div.extendedSummary {
+  grid-column: 1/-1;
+  margin-bottom: 10px;
+}
+div#RatingsReviews div#ReviewsContainer div.Body {
+  grid-column: 1/-1;
+  margin-bottom: 10px;
+}
+div#RatingsReviews div#ReviewsContainer div.ReviewRecommend {
+  grid-column: 1/-1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+/*Helpful or Report*/
+div#RatingsReviews div#ReviewsContainer div.HelpfulorReport {
+  grid-column: 1/-1;
+  font-size: 12px;
+}
+span.VoteHelpful, span.ReportReview {
+  text-decoration: underline;
+}
+span.VoteHelpful:hover, span.ReportReview:hover {
+  cursor: pointer;
+}
+/*Seller Response*/
+div#RatingsReviews div#ReviewsContainer div.ResponseContainer {
+  grid-column: 1/-1;
+  display: grid;
+  justify-self: start;
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(199, 199, 199);
+}
+div#RatingsReviews div.ResponseContainer div.Header {
+  grid-column: 1;
+  grid-row: 1;
+  font-weight: bold;
+  display: initial;
+}
+/*Buttons*/
+div#RatingsReviews div#ReviewsContainer div#ButtonContainer {
+  grid-column: 1;
+  grid-row: 3;
+  display: flex;
+  justify-content: start;
+}
+div#RatingsReviews div#ButtonContainer div.Button {
+  border: 1px solid black;
+  padding: 10px;
+  margin-left: 5px;
+}
+div#RatingsReviews div#ButtonContainer div.Button:hover {
+  cursor: pointer;
+}

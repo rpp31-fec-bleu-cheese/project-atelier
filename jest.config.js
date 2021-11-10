@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Sync object
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
@@ -18,3 +19,10 @@ module.exports = async () => {
 //     "setupFilesAfterEnv": ["<rootDir>src/setupTests.js"]
 //   }
 // }
+=======
+module.exports = {
+  verbose: true,
+  testURL: "http://localhost/",
+  testEnvironment: 'jsdom'
+}
+>>>>>>> Reviews_Ratings
