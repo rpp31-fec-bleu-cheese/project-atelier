@@ -12,7 +12,7 @@ class Review extends React.Component {
     }
   }
 
-  markHelpful() {
+  markHelpful(e) {
     $.ajax({
       url: 'http://localhost:3000/reviews/helpful',
       method: 'PUT',
@@ -24,6 +24,7 @@ class Review extends React.Component {
         this.setState({
           markedHelpful: true
         })
+        e.target.innerHTML = `Yes(${this.props.review.helpfulness + 1})`;
       },
       error: (_, __, errString) => console.log(errString)
     })
