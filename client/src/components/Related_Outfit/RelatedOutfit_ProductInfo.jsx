@@ -2,6 +2,7 @@
 import React ,{ useState }from 'react';
 import PropTypes from 'prop-types';
 import Rating from './Rating.jsx';
+import Price from './Price.jsx';
 
 
 var RelatedOutfit_ProductInfo = (props) => {
@@ -22,9 +23,6 @@ var RelatedOutfit_ProductInfo = (props) => {
       salePrice =  props.product.styles["sale_price"];
     }
   }
-  if(salePrice){
-    console.log('THIS PRODUCT HAS A SALE PRICE:', salePrice);
-  }
 
   if(props.component === 'Related') {
     return(
@@ -38,11 +36,11 @@ var RelatedOutfit_ProductInfo = (props) => {
         <div className="RelatedInfo">
           {props.product.category}
         </div>
-        <div className="RelatedInfo">
+        <div className="RelatedInfo name">
           <em>{props.product.name}</em>
         </div>
         <div className="RelatedInfo">
-         ${props.product.default_price}
+        <Price salePrice={salePrice} defaultPrice={props.product.default_price}/>
         </div>
         <div className="OutfitInfo">
           <Rating />
@@ -65,7 +63,8 @@ var RelatedOutfit_ProductInfo = (props) => {
           {props.product.name}
         </div>
         <div className="OutfitInfo">
-          ${props.product.default_price}
+
+          <Price salePrice={salePrice} defaultPrice={props.product.default_price}/>
         </div>
         <div className="OutfitInfo">
           <Rating />
