@@ -57,6 +57,7 @@ class QuestionEntry extends React.Component {
       });
     } else {
       event.target.innerHTML = 'LOAD MORE ANSWERS';
+
       this.setState({
         answersToShow: 2,
         expanded: false
@@ -65,7 +66,6 @@ class QuestionEntry extends React.Component {
     }
 
   }
-
 
   render() {
     const { question_body, question_id, questionAsker, answers, question_helpfulness } = this.props.question;

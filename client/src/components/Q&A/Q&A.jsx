@@ -11,7 +11,7 @@ class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productID: 59556, // default productID
+      productID: 59568, // default productID
       currentProduct: "Slacker's Slacks",
       questions: [],
       filteredQuestions: [],
@@ -78,6 +78,9 @@ class QandA extends React.Component {
       })
     } else {
       event.target.innerHTML = 'MORE ANSWERED QUESTIONS';
+      const questionContainer = document.getElementsByClassName('rendered-questions')[0];
+      questionContainer.classList.remove('active');
+
       this.setState({
         questionsToShow: 2,
         expanded: false
@@ -109,8 +112,7 @@ class QandA extends React.Component {
               handleClick={this.handleMoreAnsweredQuestionsClick}
               productID={productID}
               currentProduct={this.state.currentProduct}
-              getQuestions={this.getQuestions}
-            />
+              getQuestions={this.getQuestions}/>
          </div>
       </div>
     )

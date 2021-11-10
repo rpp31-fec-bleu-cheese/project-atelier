@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Photo from './Photo.jsx';
 
 const Answer = ({ answer, questionAsker }) => {
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -10,6 +11,9 @@ const Answer = ({ answer, questionAsker }) => {
       <div className="answer-content">
         <span>A: </span>
         <div className="answer-body">{answer.body}</div>
+      </div>
+      <div className="photo-container">
+        { answer.photos.map((photo, i) => <Photo key={i} photo={photo}/>)}
       </div>
       <div className="helpful-buttons user-info">
         { answer.answerer_name === questionAsker

@@ -27,7 +27,7 @@ time, mark, audio, video {
 div#App {
   display: grid;
   grid-template-columns: 10% auto 10%;
-  grid-template-rows: 70px 40px 650px 650px 650px 650px;
+  grid-template-rows: 70px 40px 650px 650px 850px 650px;
   height: 100%;
 }
 
@@ -106,9 +106,504 @@ div#Reviews {
   height: 100%;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Question & Answers Module Styling*/
 div#QandA h2 {
-  margin-top: -50px;
+  margin-top: -75px;
   margin-right: auto;
   margin-left: 25px;
   padding-left: 100px;
@@ -119,15 +614,21 @@ div#QandA div.q-a-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 420px;
+  max-height: 550px;
   width: 90%;
   padding: 0 55px;
-  margin-top: -110px;
+  margin-top: -150px;
   /* margin-left: 50px; */
 }
 
+div#QandA div.q-a-content div.rendered-questions {
+  margin-top: -65px;
+  max-height: 556px;
+  /* overflow-y: scroll; */
+}
+
 div#QandA div.q-a-content div.rendered-questions.active{
-  max-height: 360px;
+  max-height: 600px;
   overflow-y: scroll;
 }
 
@@ -193,7 +694,7 @@ div#QandA div.search {
 
 div#QandA div.search div.search-bar {
   display: flex;
-  margin-top: -30px;
+  margin-top: -80px;
   padding-left: 100px;
   width: 78.5%;
   /* margin-right: 50px; */
@@ -209,7 +710,7 @@ div#QandA div.search input {
 /* FooterButtons component styling */
 div#QandA div.footer-buttons {
   display: flex;
-  margin-top: 50px;
+  margin-top: 80px;
   margin-bottom: -45px;
 }
 
@@ -374,3 +875,22 @@ div#QandA .load-answers {
 div#QandA .load-answers:hover {
   color: rgb(63, 62, 62);
 }
+
+div#QandA div.photo-container {
+  display: flex;
+  padding-left: 31px;
+}
+
+div#QandA div.photo {
+  border: 1.5px solid rgb(80, 80, 80);
+  height: 65px;
+  width: 65px;
+  margin-right: 15px;
+  align-items: center;
+}
+
+div#QandA div.photo-container img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
