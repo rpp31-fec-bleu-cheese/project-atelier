@@ -72,7 +72,7 @@ class ReviewsContainer extends React.Component {
           {
             // Once all reviews are present, the button will disappear from view.
             this.state.visibleReviews < this.state.sortedReviews.length &&
-            <MoreButton onclick={this.viewMoreReviews.bind(this)}/>
+              <MoreButton onclick={this.viewMoreReviews.bind(this)}/>
           }
           <WriteButton />
         </div>
