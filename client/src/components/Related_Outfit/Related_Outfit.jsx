@@ -189,11 +189,13 @@ class Related_Outfit extends React.Component {
   /***************************************/
   scroll(event, scrollOffset){
     var element = event;
-    if(event.target.className === 'PreviousProd Related' || event.target.className ==='PreviousProd Outfit') {
-      element = event.target.nextElementSibling;
+
+    if(event.target.className === 'fa fa-angle-left') {
+      element = event.target.parentElement.nextElementSibling;
     }else{
-      element = event.target.previousElementSibling;
+      element = event.target.parentElement.previousElementSibling;
     }
+
     element.scrollLeft= element.scrollLeft + scrollOffset;
   }
 
@@ -211,7 +213,7 @@ class Related_Outfit extends React.Component {
 
       <div id='Related_Outfit'>
         <h1 id="Related_Header">Related Products</h1>
-          <button className="PreviousProd Related"  onClick={(event)=>this.scroll(event,-250)}><i className="fa fa-angle-left"></i></button>
+          <button className="PreviousProd Related" ><i className="fa fa-angle-left" onClick={(event)=>this.scroll(event,-250)}></i></button>
             <div className="Related_products">
               {this.state.relatedProducts.map((product) => (
                 <RelatedOutfit_ProductInfo key={product.id} product={product} component={'Related'} starButtonClick={this.starButtonClick} productClick={this.props.productClick}/>
@@ -219,9 +221,9 @@ class Related_Outfit extends React.Component {
 
             </div>
 
-            <button className="NextProd Related" onClick={(event)=>this.scroll(event,+250)}><i className="fa fa-angle-right"></i></button>
+            <button className="NextProd Related" ><i className="fa fa-angle-right" onClick={(event)=>this.scroll(event,+250)}></i></button>
             <h1 id="Outfit_Header">Your Outfit</h1>
-          <button className="PreviousProd Outfit" onClick={(event)=>this.scroll(event,-250)}><i className="fa fa-angle-left"></i></button>
+          <button className="PreviousProd Outfit" ><i className="fa fa-angle-left" onClick={(event)=>this.scroll(event,-250)}></i></button>
 
             <div id="Outfit">
               <button id="Related_Plus" onClick={()=>this.addToOutfit()}><i className="fa fa-plus"></i><div>Add to Outfit</div></button>
@@ -229,7 +231,7 @@ class Related_Outfit extends React.Component {
                 <RelatedOutfit_ProductInfo key={product.id} product={product} component={'Outfit'} productClick={this.props.productClick} crossButtonClick={this.crossButtonClick}/>
               ))}
             </div>
-            <button className="NextProd Outfit" onClick={(event)=>this.scroll(event,+250)}><i className="fa fa-angle-right"></i></button>
+            <button className="NextProd Outfit" ><i className="fa fa-angle-right" onClick={(event)=>this.scroll(event,+250)}></i></button>
           <div id="Comparison">
              <Comparison popup={this.state.popup} style={this.state.popup_style} currentProduct={this.state.productInfo} toCompare={this.state.productToCompare}/>
             </div>

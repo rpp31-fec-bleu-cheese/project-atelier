@@ -587,7 +587,10 @@ div#Related_Outfit button {
 div#Related_Outfit button.PreviousProd {
   grid-column: 1;
   font-size: larger;
-  background-color:rgba(107, 107, 161, 0.377);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
   width:50%;
   height:15%;
   border-radius: 5px;
@@ -596,7 +599,10 @@ div#Related_Outfit button.PreviousProd {
 div#Related_Outfit button.NextProd {
   grid-column: 3;
   font-size: larger;
-  background-color:rgba(107, 107, 161, 0.377);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
   width:50%;
   height:15%;
   border-radius: 5px;
