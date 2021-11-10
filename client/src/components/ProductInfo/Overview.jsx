@@ -2,6 +2,7 @@ import React, { useState, useEffect }  from 'react';
 // import { useState } from 'React';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+// import imageComingSoonPhoto from '/Users/cameroncolaco/Documents/HR/SEI/sprints/project-atelier/client/dist/stock_media/image-coming-soon.png';
 
 
 
@@ -12,7 +13,8 @@ let Overview = ({cam_token}) => {
   // console.log('PRODUCTS:', products);
   const [indexes, setIndexes] = useState({product: 0, style: 0, photo: 0});
   let currentProduct = products.length > 0 ? products[indexes.product] : {'id': 59553};
-  // console.log('CURRENT PRODUCT:', currentProduct);
+  console.log('INDEXES:', indexes);
+  console.log('CURRENT PRODUCT:', currentProduct);
   const [productById, setProductById] = useState({});
   // console.log('CURRENT PRODUCT BY ID:', productById);
   const [productStyles, setProductStyles] = useState({});
@@ -45,28 +47,41 @@ let Overview = ({cam_token}) => {
       headers: {'Content-Type': 'application/json',
       'Authorization': cam_token.cam_token}
     };
+    let productStylesOptions = {
+      url: `products/${currentProduct.id}/styles`,
+      method: 'get',
+      headers: {'Content-Type': 'application/json',
+      'Authorization': cam_token.cam_token}
+    };
     axios(productIdOptions)
       .then(response => {
         // console.log('PRODUCT ID API RESPONSE:', response)
         setProductById(response.data);
-      })
-        .catch(error => {
-          console.log(error)});
-
-          let productStylesOptions = {
-            url: `products/${currentProduct.id}/styles`,
-            method: 'get',
-            headers: {'Content-Type': 'application/json',
-            'Authorization': cam_token.cam_token}
-          };
-          axios(productStylesOptions)
-            .then(response => {
-              // console.log('PRODUCT STYLES API RESPONSE:', response)
-              setProductStyles(response.data);
+        setIndexes({...indexes, style: 0, photo: 0})
+        axios(productStylesOptions)
+        .then(response => {
+          // console.log('PRODUCT STYLES API RESPONSE:', response)
+          setProductStyles(response.data);
             })
-              .catch(error => {
-                console.log(error)});
+          })
+            .catch(error => {
+              console.log(error)});
+
+          // axios(productStylesOptions)
+          //   .then(response => {
+          //     // console.log('PRODUCT STYLES API RESPONSE:', response)
+          //     setProductStyles(response.data);
+          //   })
+          //     .catch(error => {
+          //       console.log(error)})
+          //       // .then(() => {
+          //       //   setIndexes({...indexes, style: 0, photo: 0})
+          //       // })
   }, [currentProduct]);
+
+  // useEffect(() => {
+  //   setIndexes({...indexes, style: 0, photo: 0})
+  // }, [indexes.product]);
 
 
   // useEffect(() => {
@@ -83,17 +98,17 @@ let Overview = ({cam_token}) => {
   let handleLeftArrowClick = () => {
     if (indexes.product === 0) {
       let nextIndex = products.length - 1;
-      setIndexes({style: 0, product: nextIndex, photo: 0});
+      setIndexes({...indexes, product: nextIndex});
       // resetPhotoIndex();
     } else {
-      setIndexes({style: 0, product: indexes.product - 1, photo: 0});
+      setIndexes({...indexes, product: indexes.product - 1});
       // resetPhotoIndex();
     }
   }
 
   let handleRightArrowClick = () => {
     let nextIndex = (indexes.product + 1) % products.length;
-    setIndexes({style: 0, photo: 0, product: nextIndex});
+    setIndexes({...indexes, product: nextIndex});
     // resetPhotoIndex();
   }
 
@@ -111,7 +126,7 @@ let Overview = ({cam_token}) => {
       return;
     }
     console.log('Style Index:', styleIndex);
-    setIndexes({...indexes, style: styleIndex, photo: 0});
+    setIndexes({...indexes, style: styleIndex});
     event.preventDefault();
   }
 
@@ -122,7 +137,7 @@ let Overview = ({cam_token}) => {
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
       <ProductInformation currentProduct={currentProduct} productStyles={productStyles} indexes={indexes} />
       <StyleSelector productStyles={productStyles} indexes={indexes} handleStyleClick={handleStyleClick}  />
-      <AddToCart products={products} productStyles={productStyles} indexes={indexes} />
+      <AddToCart products={products} productStyles={productStyles} indexes={indexes} currentProduct={currentProduct} />
       <ProductSloganAndDescription currentProduct={currentProduct} />
       <ProductFeatures productById={productById} cam_token={cam_token} /></>}
     </div>
@@ -237,24 +252,37 @@ let Overview = ({cam_token}) => {
   }
 
   // Add to Cart Component
-  let AddToCart = ({productStyles, indexes}) => {
+  let AddToCart = ({productStyles, indexes, currentProduct}) => {
 
+    console.log('INDEXES IN CART:', indexes);
+    let stylesIndex = indexes.style;
+    let productsIndex = indexes.product;
     const [currentSize, setCurrentSize] = useState('');
     const [qtyInStock, setQtyInStock] = useState([]);
     const [currentQtyAndSize, setCurrentQtyAndSize] = useState({size: '', qty: []});
-    const [isMyOutfit, setIsMyOutfit] = useState();
+    // const [isMyOutfit, setIsMyOutfit] = useState();
     const [myOutfitIcon, setMyOutfitIcon] = useState('⭐');
-    const [defaultQty, setDefaultQty] = useState('-');
-
-
+    // const [defaultQty, setDefaultQty] = useState('-');
+    // const [defaultSize, setDefaultSize] = useState('SELECT SIZE');
+    const [defaultSizeAndQty, setDefaultSizeAndQty] = useState({size: 'SELECT SIZE', qty: '-'});
+    console.log('DEFAULT SZ AND QTY:', defaultSizeAndQty);
 
     useEffect(() => {
       if (qtyInStock.length) {
-        setDefaultQty(qtyInStock[0]);
+        setDefaultSizeAndQty({...defaultSizeAndQty, qty: qtyInStock[0]});
       }
     }, [qtyInStock]);
 
+    // useEffect(() => {
+    //   setDefaultSizeAndQty({size: 'SELECT SIZE', qty: '-'});
+    // }, [stylesIndex]);
+
+    // useEffect(() => {
+    //   setDefaultSizeAndQty({size: 'SELECT SIZE', qty: '-'});
+    // }, [indexes.product]);
+
     if(Object.keys(productStyles).length) {
+
       let skusArray = [];
       let currentSku = productStyles.results[indexes.style].skus
       let currentProductStyleData = {productId: productStyles.product_id,
@@ -262,6 +290,7 @@ let Overview = ({cam_token}) => {
       // console.log('CURRENT PRODUCT STYLE ID:', currentProductStyleData);
 
       for (let key in currentSku) {
+        // console.log('SKUS IN CART:', currentSku[key]);
         skusArray.push(currentSku[key]);
       }
       // console.log('Skus Array:', skusArray);
@@ -284,7 +313,9 @@ let Overview = ({cam_token}) => {
           if (skusArray[i].size === selectedSize) {
             let availableQuantity = skusArray[i].quantity;
             let quantityArray = [];
-            if (availableQuantity <= 15) {
+            if (!availableQuantity) {
+              setDefaultSizeAndQty({...defaultSizeAndQty, size: 'OUT OF STOCK'});
+            } else if (availableQuantity <= 15) {
               for (let q = 1; q <= availableQuantity; q++) {
                 quantityArray.push(q);
               }
@@ -295,6 +326,7 @@ let Overview = ({cam_token}) => {
             }
             // console.log('AVAIL QUANTITY:', availableQuantity);
             // console.log('QTY ARRAY:', quantityArray);
+            setDefaultSizeAndQty({qty: quantityArray, size: selectedSize});
             setQtyInStock(quantityArray);
           }
         }
@@ -308,9 +340,9 @@ let Overview = ({cam_token}) => {
           <div className="SizeSelector">
             <form>
               <select className="SizeSelectorDropdown" onChange={handleSizeClick}>
-                <option value="">Select Size</option>
+                <option value="">SELECT SIZE</option>
                 {skusArray.map((skuData, i) => (
-                  <option key={i} value={skuData.size}>{skuData.size}</option>
+                  <option key={i} value={skuData.size} selected={defaultSizeAndQty.size === skuData.size ? true : false}>{skuData.size}</option>
                 ))}
               </select>
             </form>
@@ -318,10 +350,9 @@ let Overview = ({cam_token}) => {
           <div className="QuanititySelector">
             <form>
               <select className="QuanititySelectorDropdown" onChange={() => console.log('Quantity clicked!')}>
-              <option value="">{defaultQty}</option>
+              <option value="">-</option>
                 {qtyInStock.length && qtyInStock.map((qty, i) => (
-                  <option key={i} value={qty}>{qty}</option>
-
+                  <option key={i} value={qty} selected={defaultSizeAndQty.qty === qtyInStock ? true : false}>{qty}</option>
                 ))}
               </select>
             </form>
@@ -406,7 +437,8 @@ AddToCart.propTypes = {
   productStyles: PropTypes.object,
   // productStyleIndex: PropTypes.number,
   // productPhotoIndex: PropTypes.number
-  indexes: PropTypes.object
+  indexes: PropTypes.object,
+  currentProduct: PropTypes.object
 }
 StyleSelector.propTypes = {
   productStyles: PropTypes.object,
