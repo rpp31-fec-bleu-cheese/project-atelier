@@ -1,8 +1,9 @@
-import React from 'React';
+
 import RelatedOutfit_ProductInfo from './RelatedOutfit_ProductInfo.jsx';
 import Comparison from './Comparison.jsx';
 import PropTypes from 'prop-types';
 import fetch from './fetchData';
+import React from 'react';
 
 class Related_Outfit extends React.Component {
 

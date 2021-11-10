@@ -61,20 +61,276 @@ div#SiteMessage {
   justify-self: center;
 }
 
-div#ProductInfo {
+/******* START OF OVERVIEW STYLING *******/
+div#Overview {
   grid-column: 2;
   grid-row: 3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 22% 38% 20% 20%;
+  border: 1px solid black;
   width: 100%;
   height: 100%;
 }
-/*changed the display of Related_Outfit component to grid*/
-/*grid-template-columns: 1300px;
-  grid-template-rows: 50% 50%;*/
-  /*100px 1000px 100px*/
+
+div#Overview div.ImageGallery {
+  grid-column: 1;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: 15% 5% auto 10%;
+  grid-template-rows: 10% auto 10% auto;
+  position: relative;
+}
+
+div#Overview div.MainImage {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(200, 200, 200);
+  /* background: center / contain no-repeat; */
+}
+
+div#Overview div.ImageGalleryThumbnails {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  /* display: flex; */
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* position: absolute; */
+  overflow: scroll;
+  height: 450px;
+  width: 100px;
+  margin: 15px 0px 0px 25px;
+}
+
+div#Overview div.GalleryThumbnail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 60px;
+  border: 1px solid black;
+  margin: 12px 0px 12px 0px;
+  background-color: rgb(0, 0, 0);
+}
+
+div#Overview div.SlideGalleryLeft {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7;
+  height: auto;
+  width: auto;
+  font-size: 150%;
+  cursor: pointer;
+}
+
+div#Overview div.SlideGalleryRight {
+  grid-column: 4;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7;
+  height: auto;
+  width: auto;
+  font-size: 150%;
+  cursor: pointer;
+}
+
+div#Overview div.OpenGalleryModal {
+  grid-column: 4;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  opacity: 0.7;
+  height: auto;
+  width: auto;
+  font-size: 150%;
+  cursor: pointer;
+}
+
+div#Overview div.ProductInformation {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: flex-start;
+  border: 1px solid black;
+  padding: 10px 0px 0px 25px;
+}
+
+div#Overview div.ProductCategory,
+div#Overview div.SelectedStyle,
+div#Overview select.SizeSelectorDropdown,
+div#Overview select.QuantitySelectorDropdown,
+div#Overview button.AddToFavoriteButton,
+div#Overview button.AddToBagButton {
+  text-transform: uppercase;
+}
+
+div#Overview div.ProductName {
+  font-size: 200%;
+}
+
+div#Overview div.StarsAndReviews {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  gap: 15px;
+}
+
+div#Overview div.StyleSelector {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 1px solid black;
+  padding: 20px 0px 0px 20px;
+}
+
+div#Overview div.SelectedStyle {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  gap: 15px;
+}
+
+div#Overview div.SelectedStyleHeader {
+  font-weight: bold;
+}
+
+div#Overview div.StyleSelectorIcons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px 10px;
+  width: 240px;
+  max-height: 150px;
+}
+
+div#Overview div.StyleIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid black;
+  border-radius: 100%;
+  height: 50px;
+  width: 50px;
+  flex-grow: 1;
+  flex-basis: 20%;
+  max-width: 50px;
+}
+
+div#Overview div.AddToCart {
+  grid-column: 2;
+  grid-row: 3;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+  border: 1px solid black;
+  padding: 10px 0px 0px 25px;
+}
+
+div#Overview select.SizeSelectorDropdown {
+  font-size: 90%;
+  height: 50px;
+  width: 175px;
+  padding: 10px;
+}
+
+div#Overview select.QuanititySelectorDropdown {
+  font-size: 90%;
+  height: 50px;
+  width: 115px;
+  padding: 10px;
+}
+
+div#Overview button.AddToFavoriteButton {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  font-size: 150%;
+  align-items: center;
+  height: 50px;
+  width: 75px;
+  padding: 10px;
+}
+
+div#Overview button.AddToBagButton {
+  display: flex;
+  justify-content: flex-start;
+  background-color: white;
+  font-size: 90%;
+  height: 50px;
+  width: 220px;
+  padding: 15px;
+}
+
+div#Overview div.ProductSloganAndDescription {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row: 4;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  align-items: flex-end;
+  border: 1px solid black;
+  padding: 30px 30px 10px 10px;
+}
+
+div#Overview div.ProductSlogan {
+  font-weight: bold;
+  height: auto;
+  width: 500px;
+  /* padding: 15px 25px 10px 10px; */
+}
+
+div#Overview div.ProductDescription {
+  height: auto;
+  width: 500px;
+  /* padding: 15px 25px 10px 10px; */
+}
+
+div#Overview div.ProductFeatures {
+  grid-column: 2;
+  grid-row: 4;
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  padding-left: 40px;
+}
+
+div#Overview div.ProductFeaturesList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/******* END OF OVERVIEW STYLING *******/
+
 div#Related_Outfit {
   grid-column: 2;
   grid-row: 4;
