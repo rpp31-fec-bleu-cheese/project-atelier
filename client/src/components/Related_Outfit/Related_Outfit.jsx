@@ -1,10 +1,9 @@
 import React from 'React';
 import RelatedOutfit_ProductInfo from './RelatedOutfit_ProductInfo.jsx';
 import Comparison from './Comparison.jsx';
-import data from '../../../data/Related_Outfit.js';
 import PropTypes from 'prop-types';
-import $ from 'jquery';
 import fetch from './fetchData';
+
 class Related_Outfit extends React.Component {
 
   constructor(props) {
@@ -24,21 +23,22 @@ class Related_Outfit extends React.Component {
     this.starButtonClick = this.starButtonClick.bind(this);
     this.crossButtonClick = this.crossButtonClick.bind(this);
   }
+   /**********************************/
+  /*displays the comparison table popup*/
+  /**********************************/
   starButtonClick(event, productId){
-    //console.log('INSIDE STAR BUTTON CLICK');
-    var popup = !(this.state.popup);
+   var popup = !(this.state.popup);
     var style = {};
     if(popup) {
       style = {"display":"block"};
       var productToCompare = {};
       for(var product of this.state.relatedProducts) {
-        //console.log('product.id ',product.id );
-        //console.log(productId);
+
         if(product.id == productId) {
           productToCompare = product;
         }
       }
-      //console.log('PRODUCT TO COMPARE', productToCompare);
+
       this.setState({
         productIdToCompare: productId,
         productToCompare: productToCompare
@@ -58,16 +58,28 @@ class Related_Outfit extends React.Component {
     });
 
   }
+  /**********************************/
+  /*removes the product from outfits*/
+  /**********************************/
   crossButtonClick(event, productId) {
-    //console.log('INSIDE cross button click');
     this.props.changeInOutfit(event, productId, "Delete");
-
   }
-  //fetch outfit product details for an array of outfits
+  /**********************************/
+  /*adds the product to outfits*/
+  /**********************************/
+  addToOutfit(){
+    var outfitIds = this.props.outfitIds.slice(0);
+    if(outfitIds.indexOf(this.props.productId) === -1) {
+      this.props.changeInOutfit(event, this.props.productId, "Add");
+    }
+  }
+  /*****************************************************************/
+  /**fetch outfit product details for an array of outfit products**/
+  /****************************************************************/
   fetchOufitInfo(outfitIds) {
     fetch.outfitProductDetails(outfitIds)
     .then((outfitProductDetails) => {
-      console.log('result from server the OUTFIT DETAILS:', outfitProductDetails);
+
       this.setState({
         outfits: outfitProductDetails
       })
@@ -78,30 +90,32 @@ class Related_Outfit extends React.Component {
       })
     })
   }
-  //fetch related product ids and their details for a particular productId
+  /***************************************************************************/
+  /**fetch related product ids and their details for a particular productId**/
+  /***************************************************************************/
   fetchRelatedInfo(productId) {
-     // fetch related product ids
+     /**fetch related product ids**/
      fetch.relatedProductIDs(this.props.productId)
      .then((relatedProductIds) => {
-       console.log('result from server:', relatedProductIds);
+
        var related = [];
-       //get unique product Ids
+       /**get unique product Ids**/
        relatedProductIds.forEach((productId, index) => {
           if(relatedProductIds.indexOf(productId) === index){
            related.push(productId);
           }
        })
-       //set the state
+
        this.setState({
          relatedProductIds: related
        })
        return related;
      })
      .then((related) => {
-       console.log('unique ids:', related);
+
        fetch.relatedProductDetails(related)
        .then((relatedProductDetails) => {
-         console.log('result from server the DETAILS:', relatedProductDetails);
+
          this.setState({
            relatedProducts: relatedProductDetails
          })
@@ -114,23 +128,14 @@ class Related_Outfit extends React.Component {
        console.log('error:',error);
      })
   }
-  addToOutfit(){
-    var outfitIds = this.props.outfitIds.slice(0);
 
-
-    if(outfitIds.indexOf(this.props.productId) === -1) {
-      console.log('THIS IN ADDTOOUTFIT', this);
-      this.props.changeInOutfit(event, this.props.productId, "Add");
-    }
-
-
-    //console.log('outfits', outfits);
-  }
-  //fetching the current product info
+  /**********************************/
+  /*fecth current product info*/
+  /**********************************/
   fetchProductInfo(productId) {
     fetch.productInfo(productId)
     .then((result) => {
-      console.log('result product Info:', result);
+
       this.setState({
         productInfo: result
       })
@@ -139,16 +144,18 @@ class Related_Outfit extends React.Component {
       console.log('error:',error);
     });
   }
-
+  /**********************************/
+  /*fecth current product styles*/
+  /**********************************/
   fetchProductStyles(productId) {
     fetch.productStyles(productId)
     .then((styles) => {
-      console.log('result product Styles:', styles);
+
       var productInfo = this.state.productInfo;
       if(productInfo.styles === undefined) {
         productInfo.styles = styles.results;
       }
-      console.log('after updating styles', productInfo);
+
       this.setState({
         productInfo: productInfo
       })
@@ -177,24 +184,21 @@ class Related_Outfit extends React.Component {
       this.fetchOufitInfo(this.props.outfitIds);
     }
   }
+  /**************************************/
+  /** Scrolling functionality          **/
+  /***************************************/
   scroll(event, scrollOffset){
-
     var element = event;
-    var element1 = $('div#Related_Outfit div.Related_products');
-    console.log('element1:', element1)
-    console.log('event:',event);
     if(event.target.className === 'PreviousProd Related' || event.target.className ==='PreviousProd Outfit') {
       element = event.target.nextElementSibling;
     }else{
       element = event.target.previousElementSibling;
     }
-    console.log('element:',element);
-    console.log('scrollleft before:',element.scrollLeft);
     element.scrollLeft= element.scrollLeft + scrollOffset;
-    console.log('scrollleft:',element.scrollLeft);
   }
+
   render() {
-   console.log("this.state", this.state.relatedProducts);
+
    if(this.state.relatedProducts.length === 0) {
      return (
        <div id='Related_Outfit'>
@@ -216,10 +220,7 @@ class Related_Outfit extends React.Component {
             </div>
 
             <button className="NextProd Related" onClick={(event)=>this.scroll(event,+250)}><i className="fa fa-angle-right"></i></button>
-
-
-
-          <h1 id="Outfit_Header">Your Outfit</h1>
+            <h1 id="Outfit_Header">Your Outfit</h1>
           <button className="PreviousProd Outfit" onClick={(event)=>this.scroll(event,-250)}><i className="fa fa-angle-left"></i></button>
 
             <div id="Outfit">
@@ -247,20 +248,5 @@ Related_Outfit.propTypes = {
 
 export default Related_Outfit;
 
-/*<div className="related">
-          <div>
-            <button>Prev</button>
-          </div>
-          <Related_Products productId = {this.state.productId} relatedProducts = {this.state.relatedProducts}/>
-          <div>
-            <button>Next</button>
-          </div>
-        </div>*/
-
-
-        /*<div className="outfit">
-           <Outfit productId = {this.state.productId} productInfo={this.state.productInfo}/>
-        </div>*/
-       // <Outfit productId = {this.state.productId} productInfo={this.state.productInfo}/>
 
 

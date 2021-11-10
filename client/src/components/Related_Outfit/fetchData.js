@@ -3,7 +3,7 @@
 var axios = require('axios');
 
 var relatedProductIDs = function(productId) {
-  console.log('inside the function relatedProductIDs');
+
   return new Promise((resolve, reject) => {
     var server = 'http://localhost:3000/products/'+productId+'/related';
     var options = {
@@ -13,7 +13,7 @@ var relatedProductIDs = function(productId) {
     axios(options)
     .then((response) => {
       var relatedIds = response.data
-      //console.log('response:',response.data);
+
       resolve(relatedIds);
     })
     .catch((error) => {
@@ -23,7 +23,7 @@ var relatedProductIDs = function(productId) {
 
 }
 var relatedProductDetails = function(relatedIds) {
-  console.log('fetching related Product Details');
+
   return new Promise((resolve, reject) => {
     var server = 'http://localhost:3000/products/related/details';
     var options = {
@@ -37,17 +37,17 @@ var relatedProductDetails = function(relatedIds) {
     axios(options)
     .then((response) => {
 
-      console.log('response:',response.data);
+
       resolve(response.data);
     })
     .catch((error) => {
-      console.log('error:',error)
+
       reject(error)
     });
   });
 }
 var outfitProductDetails = function(outfitIds) {
-  console.log('fetching outfit Product Details');
+
   return new Promise((resolve, reject) => {
     var server = 'http://localhost:3000/products/outfit/details';
     var options = {
@@ -61,11 +61,11 @@ var outfitProductDetails = function(outfitIds) {
     axios(options)
     .then((response) => {
 
-      console.log('response:',response.data);
+
       resolve(response.data);
     })
     .catch((error) => {
-      console.log('error:',error)
+
       reject(error)
     });
   });
@@ -80,7 +80,7 @@ var productInfo = function(productId) {
     axios(options)
     .then((response) => {
       var productInfo = response.data
-      //console.log('response:',response.data);
+
       resolve(productInfo);
     })
     .catch((error) => {
@@ -98,7 +98,7 @@ var productStyles = function(productId) {
     axios(options)
     .then((response) => {
       var styles = response.data
-      //console.log('response:',response.data);
+
       resolve(styles);
     })
     .catch((error) => {

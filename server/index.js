@@ -9,7 +9,6 @@ const controllers = require('./controllers.js');
 const cookieParser = require('cookie-parser');
 const middleware = require('./middle.js');
 app.use(cookieParser());
-app.use(middleware.setCookies);
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -22,10 +21,11 @@ app.get('/products/:product_id/related', controllers.products.getRelatedProducts
 
 // routes added for Related_Outfit component
 app.get('/products/related/details', controllers.products.getDetailsForProducts);
-app.get('/products/outfit/details', controllers.products.getDetailsForProducts);
-
+app.get('/products/outfit/details', middleware.setCookies, controllers.products.getDetailsForProducts);
 //route to get the cookies
+//app.use(middleware.setCookies);
 app.get('/cookies', controllers.cookies.getCookies);
+
 
 app.get('/qa/questions/', controllers.questions_answers.getAllQuestions);
 

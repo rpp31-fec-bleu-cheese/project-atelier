@@ -5,21 +5,10 @@ import Rating from './Rating.jsx';
 
 
 var RelatedOutfit_ProductInfo = (props) => {
-  console.log("props in Related_ProductInfo", props);
-  /*var popup = false;
-  var style = {"display": "none"};
-  var clickhandler = function(){
-    popup = !popup;
-    console.log('star clicked')
-    if(popup){
-      style = {"display": "block"};
-    }
-  }*/
-
   var image = '';
   var imageFound = false;
   var salePrice = null;
- //console.log('type of props.product.styles ', typeof (props.product.styles));
+
   if(Array.isArray(props.product.styles) && props.product.styles.length > 0) {
     for(var productStyle of props.product.styles) {
       if(productStyle[ "default?"] === true) {
@@ -72,7 +61,7 @@ var RelatedOutfit_ProductInfo = (props) => {
         <div className="OutfitInfo">
           {props.product.category}
         </div>
-        <div className="OutfitInfo">
+        <div className="OutfitInfo name" >
           {props.product.name}
         </div>
         <div className="OutfitInfo">

@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 var ComparisonRow = (props) => {
-  console.log('props in comparison row', props);
+
   var valueForClicked = props.featureObj.valueForClicked;
 
   var valueForCurrent = props.featureObj.valueForCurrent;

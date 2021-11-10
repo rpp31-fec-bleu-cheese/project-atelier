@@ -54,30 +54,25 @@ module.exports = {
     },
     //to fetch all the details including styles for an array of related/outfit products
     getDetailsForProducts: function(req, res) {
-      console.log('inside get details')
 
-      console.log(req.query);
       let relatedProducts = JSON.parse(req.query.productIds);
       let fetchFunctions = [];
       var promisedFetchProduct = Promise.promisify(products.getProduct);
       var promisedFetchStyles = Promise.promisify(products.getProductStyle);
       for(var product of relatedProducts) {
-
-
         fetchFunctions.push(promisedFetchProduct(product));
       }
-      //console.log(fetchFunctions)
       Promise.all(fetchFunctions)
       .then((products) => {
-        //console.log('products:',products);
-        fetchStyles = [];
+
+        var fetchStyles = [];
         for(var product of products) {
           fetchStyles.push(promisedFetchStyles(product.id));
         }
         return Promise.all(fetchStyles)
         .then((productStylesArray)=>{
 
-          for(var product of products) {
+          /*for(var product of products) {
 
               for(var productStyle of productStylesArray) {
 
@@ -86,6 +81,14 @@ module.exports = {
                   product.styles = productStyle.results;
                 }
               }
+
+          }*/
+          for(var i=0, j=0; i<products.length, j<productStylesArray.length; i++, j++) {
+            if(products[i].id == productStylesArray[j].product_id) {
+
+              products[i].styles = productStylesArray[j].results;
+
+            }
 
           }
 
@@ -201,7 +204,6 @@ module.exports = {
   //added for Related Component
   cookies:{
     getCookies: function(req,res) {
-      console.log('req.cookies in getcookies function', req.cookies);
       res.status(200).send(JSON.stringify(req.cookies));
     }
   }

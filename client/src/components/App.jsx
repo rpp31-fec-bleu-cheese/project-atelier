@@ -1,12 +1,10 @@
 import React from 'react';
-
 import Header from './Header/Header.jsx';
 import SiteMessage from './SiteMessage.jsx';
 import ProductInfo from './ProductInfo/ProductInfo.jsx';
 import Related_Outfit from './Related_Outfit/Related_Outfit.jsx';
 import QandA from './Q&A/Q&A.jsx';
 import Reviews from './Reviews/Reviews.jsx';
-//import data from '../../data/Related_Outfit.js';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -18,29 +16,27 @@ class App extends React.Component {
     };
     this.relatedOutfitProductClick = this.relatedOutfitProductClick.bind(this);
     this.changeInOutfit = this.changeInOutfit.bind(this);
-
   }
+   /****************************************************************************/
+  /** clicking on outfit or raletd product makes that as the current product  **/
+  /*****************************************************************************/
   relatedOutfitProductClick(event, productId){
+    if(event.target.id !== 'Overlay_Star' && event.target.id !== 'Overlay_Circle') {
 
-  if(event.target.id !== 'Overlay_Star' && event.target.id !== 'Overlay_Circle') {
-    console.log('inside click function productId:', productId);
-
-    //update the productId
-
-    this.setState({
-      productId:productId
-    });
-   }
-
+      this.setState({
+        productId:productId
+      });
+    }
   }
+  /****************************************************************************/
+             /** adding/deleting  product from outfits **/
+  /*****************************************************************************/
   changeInOutfit(event, productId, todo) {
-    console.log('inside changeInOutfit in APP component')
-    console.log('productId',productId);
     var outfitIds = this.state.outfitIds.slice(0)
     if(todo === "Add") {
       outfitIds.push(productId);
     } else if(todo === "Delete") {
-      console.log("deleting the product from outfits");
+
       var index = outfitIds.indexOf(productId);
       outfitIds.splice(index,1);
 
@@ -49,6 +45,7 @@ class App extends React.Component {
       outfitIds: outfitIds
     })
   }
+
   componentDidMount(){
     var server = 'http://localhost:3000/cookies';
     var options = {
@@ -57,13 +54,10 @@ class App extends React.Component {
     }
     axios(options)
     .then((response) => {
-      console.log('response in APP:', response.data);
       var outfitIds = JSON.parse(response.data.outfitData);
-      console.log('outfitIds',outfitIds );
       this.setState({
         outfitIds:outfitIds
       })
-
     })
     .catch((error) => {
       console.log('error: in APP', error);

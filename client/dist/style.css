@@ -498,16 +498,10 @@ div#Reviews {
 
 
 
-/*
-div#Related_Outfit div.Related_ProductInfo + div#Related_Outfit div.Related_ProductInfo,
-div#Related_Outfit button#Related_Plus + div#Related_Outfit div.Related_ProductInfo{
-  margin-left: 15px;
-}
-*/
+/**********************************/
+/**     RELATED_OUTFIT         **/
+/********************************/
 
-div#Related_Outfit div.RelatedOutfit_ProductInfo {
-  column-gap: 15px;
-}
 
 div#Related_Outfit div.Related_products {
   grid-column: 2;
@@ -544,14 +538,14 @@ div#Related_Outfit #Outfit {
   height:100%;
   overflow-x: scroll;
   scroll-behavior: smooth;
-
-
 }
-div#Related_Outfit button#Related_Plus{
-  font-family:Arial, Helvetica, sans-serif;
-  font-size:larger;
 
+/*style for product cards and add to outfit button */
+
+div#Related_Outfit div.RelatedOutfit_ProductInfo {
+  column-gap: 15px;
 }
+
 div#Related_Outfit div.RelatedOutfit_ProductInfo,
 div#Related_Outfit button#Related_Plus {
 
@@ -569,10 +563,30 @@ div#Related_Outfit button#Related_Plus {
   margin: 4px 4px;
 
 }
+
+div#Related_Outfit button#Related_Plus{
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:larger;
+
+}
+
+/*for image and star/cross button part in each product card*/
+
+div#Related_Outfit .Related,
+div#Related_Outfit .Outfit {
+
+  height: 150px;
+  width:100%;
+  position:relative;
+}
+
 /*style for scroll buttons */
+div#Related_Outfit button {
+  border:"none";
+}
 div#Related_Outfit button.PreviousProd {
   grid-column: 1;
-
+  font-size: larger;
   background-color:rgba(107, 107, 161, 0.377);
   width:50%;
   height:15%;
@@ -581,7 +595,7 @@ div#Related_Outfit button.PreviousProd {
 }
 div#Related_Outfit button.NextProd {
   grid-column: 3;
-
+  font-size: larger;
   background-color:rgba(107, 107, 161, 0.377);
   width:50%;
   height:15%;
@@ -596,25 +610,7 @@ div#Related_Outfit button.Related{
 }
 
 
-div#Related_Outfit .RelatedOutfit_ProductInfo .ratings {
-  position: relative;
-  vertical-align: middle;
-  display: inline-block;
-
-  overflow: hidden;
-}
-
-
-
-
-div#Related_Outfit .Related,
-div#Related_Outfit .Outfit {
-
-  height: 150px;
-  width:100%;
-  position:relative;
-}
-
+/*cross button and star button*/
 div#Related_Outfit .Related #Overlay_Star,
 div#Related_Outfit .Outfit #Overlay_Circle{
   color:cadetblue;
@@ -628,24 +624,20 @@ div#Related_Outfit .Outfit #Overlay_Circle:hover {
   color:red;
 
 }
-
+/*deals with the spacing between each property in the product card*/
 div#Related_Outfit div.RelatedOutfit_ProductInfo div.RelatedInfo,
 div#Related_Outfit div.RelatedOutfit_ProductInfo div.OutfitInfo{
   padding:5px;
 }
-/*div#Related_Outfit div#Comparison{
-  display: none; /* Hidden by default */
-  /*position: absolute; /* Stay in place */
-
-  /*left: 30%;
-  top: 30%;
-  width:100%;
-  height:100%;
-
-}*/
-div#Related_Outfit button {
-  border:"none";
+/*the name of the product in bold */
+div#Related_Outfit div.RelatedOutfit_ProductInfo div.RelatedInfo.name,
+div#Related_Outfit div.RelatedOutfit_ProductInfo div.OutfitInfo.name {
+  font-weight:bold;
+  font-size: medium;
 }
+
+
+/*comparison popup */
 div#Related_Outfit div#Comparison div#PopupTrue{
 
   position:  fixed;
@@ -671,14 +663,7 @@ div#Related_Outfit  div#Comparison div#PopupTrue th{
   font-weight:bold;
 }
 
-/*
-width: 100%; /* Full width */
-/*height: 100%; /* Full height */
-/*overflow: auto; /* Enable scroll if needed */
-/*background-color: rgb(0,0,0); /* Fallback color */
-/*background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-/*z-index: 1; /* Sit on top */
-/*padding-top: 100px; /* Location of the box */
+
 
 
 
