@@ -5,6 +5,7 @@ import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import 'jsdom-global/register';
 import sinon from 'sinon';
+import jest from 'jest';
 import Related_Outfit from '../client/src/components/Related_Outfit/Related_Outfit.jsx';
 
 
@@ -17,6 +18,17 @@ describe('Related_Outfit', () => {
     const wrapper = Enzyme.mount(<Related_Outfit/>);
     expect(wrapper).toMatchSnapshot();
 
+   // expect(Foo.prototype.componentDidMount).to.have.property('callCount', 1);
+  });
+  it('componentDidMount() is called', (done) => {
+    const wrapper = Enzyme.mount(<Related_Outfit/>);
+    const instance = wrapper.instance();
+    sinon.spy(instance, 'fetchRelatedInfo');
+    instance.componentDidMount();
+    console.log('instance:', instance.fetchRelatedInfo);
+
+    expect(instance.fetchRelatedInfo).toHaveBeenCalledTimes(1);
+    done();
    // expect(Foo.prototype.componentDidMount).to.have.property('callCount', 1);
   });
   /*it('calls componentDidMount', () => {

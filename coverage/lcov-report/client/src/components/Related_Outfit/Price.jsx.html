@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for client/src/components/Related_Outfit/Rating.jsx</title>
+    <title>Code coverage report for client/src/components/Related_Outfit/Price.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">client/src/components/Related_Outfit</a> Rating.jsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">client/src/components/Related_Outfit</a> Price.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/5</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/5</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
@@ -81,55 +81,61 @@
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
 import React from 'react';
+import PropTypes from 'prop-types';
 &nbsp;
-&nbsp;
-var Rating = <span class="fstat-no" title="function not covered" >(p</span>rops) =&gt; {
-  var finalRating = <span class="cstat-no" title="statement not covered" >6;</span>
-<span class="cstat-no" title="statement not covered" >  if(finalRating === 6) {</span>
+var Price = <span class="fstat-no" title="function not covered" >(p</span>rops) =&gt; {
+<span class="cstat-no" title="statement not covered" >  if(props.salePrice === null || props.salePrice === undefined) {</span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;div&gt;
-        &lt;i className="far fa-star" &gt;&lt;/i&gt; &lt;i className="far fa-star" &gt;&lt;/i&gt; &lt;i className="far fa-star" &gt;&lt;/i&gt; &lt;i className="far fa-star" &gt;&lt;/i&gt; &lt;i className="far fa-star" &gt;&lt;/i&gt;
+        ${props.defaultPrice}
       &lt;/div&gt;
     )
   }
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;div id='Related_Rating'&gt;
-  &lt;div className='Stars'&gt;
-    &lt;div className='empty-stars'&gt;&lt;/div&gt;
-    &lt;div className='full-stars' style={{width: ((finalRating / 5) * 100) + '%' }}&gt;&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return(</span>
+    &lt;div&gt;
+      &lt;span style={{color:'red'}}&gt;${props.salePrice} &lt;/span&gt;
+      &lt;span style={{textDecoration: 'line-through'}}&gt;  ${props.defaultPrice}&lt;/span&gt;
+    &lt;/div&gt;
   )
 }
-export default Rating;
 &nbsp;
-&nbsp;</pre></td></tr></table></pre>
+Price.propTypes = {
+  salePrice:PropTypes.string,
+  defaultPrice:PropTypes.string
+}
+&nbsp;
+export default Price;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
