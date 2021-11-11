@@ -799,8 +799,19 @@ div#QandA div.photo-container img {
   max-width: 100%;
 }
 
+div#QandA div.thumbnail-image {
+  /* margin-top: 100px;
+  margin-left: 400px; */
+  display: flex;
+  justify-content: center;
+  height: 1000px;
+  /* width: 1000px; */
+}
 
-
+div#QandA div.thumbnail-image img {
+  height: 70%;
+  margin-top: 105px;
+}
 
 
 

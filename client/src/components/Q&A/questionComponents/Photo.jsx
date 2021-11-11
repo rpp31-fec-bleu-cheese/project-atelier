@@ -7,8 +7,11 @@ const Photo = ({ photo }) => {
 
   return (
     <>
-      <div className="photo" style={{ backgroundImage: `url(${photo})`, backgroundSize: "cover"}}></div>
-      {/* <PhotoModal /> */}
+      <div
+        className="photo"
+        style={{ backgroundImage: `url(${photo})`, backgroundSize: "cover"}}
+        onClick={() => setShowModal(true)}></div>
+      <PhotoModal showModal={showModal} setShowModal={setShowModal} photo={photo}/>
     </>
   )
 }
