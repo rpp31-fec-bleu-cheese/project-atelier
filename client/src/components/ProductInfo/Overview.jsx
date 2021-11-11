@@ -11,36 +11,12 @@ import axios from 'axios';
 // removed products from props
 let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
 
-  const [products, setProducts] = useState([]);
-  // console.log('PRODUCTS:', products);
   const [indexes, setIndexes] = useState({product: 0, style: 0, photo: 0});
-  // let currentProduct = {'id': productId};
   console.log('INDEXES:', indexes);
-
   const [productById, setProductById] = useState({});
   // console.log('CURRENT PRODUCT BY ID:', productById);
   const [productStyles, setProductStyles] = useState({});
   // // console.log('CURRENT PRODUCT STYLE:', productStyles);
-  // const [productPhotoIndex, setProductPhotoIndex] = useState(0);
-  // // console.log('CURRENT PHOTO INDEX:', productPhotoIndex);
-  // const [productStyleIndex, setProductStyleIndex] = useState(0);
-  // // console.log('CURRENT STYLE INDEX:', productStyleIndex);
-
-  // useEffect(() => {
-  //   let productOptions = {
-  //     url: '/products',
-  //     method: 'get',
-  //     headers: {'Content-Type': 'application/json',
-  //     'Authorization': cam_token.cam_token}
-  //   };
-  //   axios(productOptions)
-  //     .then(response => {
-  //       // console.log('ALL PRODUCTS API RESPONSE:', response)
-  //       setProducts(response.data);
-  //       })
-  //       .catch(error => {
-  //         console.log(error)});
-  //     }, []);
 
   useEffect (() => {
     let productIdOptions = {
@@ -57,28 +33,14 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
     };
     axios(productIdOptions)
       .then(response => {
-        // console.log('PRODUCT ID API RESPONSE:', response)
         setProductById(response.data);
-        // setIndexes({...indexes, style: 0, photo: 0})
         axios(productStylesOptions)
         .then(response => {
-          // console.log('PRODUCT STYLES API RESPONSE:', response)
           setProductStyles(response.data);
             })
           })
             .catch(error => {
               console.log(error)});
-
-          // axios(productStylesOptions)
-          //   .then(response => {
-          //     // console.log('PRODUCT STYLES API RESPONSE:', response)
-          //     setProductStyles(response.data);
-          //   })
-          //     .catch(error => {
-          //       console.log(error)})
-          //       // .then(() => {
-          //       //   setIndexes({...indexes, style: 0, photo: 0})
-          //       // })
   }, []);
 
   // Effect for watching incoming productId from App component
@@ -112,9 +74,6 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
 
   useEffect(() => {
     setIndexes({...indexes, style: 0, photo: 0})
-  }, [indexes.product]);
-  useEffect(() => {
-    setIndexes({...indexes, style: 0, photo: 0})
   }, [productId]);
 
 
@@ -122,17 +81,14 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
     if (indexes.photo === 0) {
       let nextIndex = productStyles.results[indexes.style].photos.length - 1;
       setIndexes({...indexes, photo: nextIndex});
-      // resetPhotoIndex();
     } else {
       setIndexes({...indexes, photo: indexes.photo - 1});
-      // resetPhotoIndex();
     }
   }
 
   let handleRightArrowClick = () => {
     let nextIndex = (indexes.photo + 1) % productStyles.results[indexes.style].photos.length;
     setIndexes({...indexes, photo: nextIndex});
-    // resetPhotoIndex();
   }
 
   let handleThumbnailClick = (event) => {
@@ -156,11 +112,11 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
 
   return (
     <div data-testid="Overview" id='Overview'>
-      {Object.keys(productStyles).length > 0 && <><ImageGallery products={products} indexes={indexes} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
+      {Object.keys(productStyles).length > 0 && <><ImageGallery indexes={indexes} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
       <ProductInformation productById={productById} productStyles={productStyles} indexes={indexes} />
       <StyleSelector productStyles={productStyles} indexes={indexes} handleStyleClick={handleStyleClick}  />
-      <AddToCart products={products} productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} />
+      <AddToCart productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} />
       <ProductSloganAndDescription productById={productById} />
       <ProductFeatures productById={productById} cam_token={cam_token} /></>}
     </div>
@@ -174,15 +130,11 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
     let imageComingSoon = '/media'
 
       if (Object.keys(productStyles).length) {
-        // if (productStyles.results[productStyleIndex].photos[productPhotoIndex] === undefined) {
-          //   productPhotoIndex = 0;
-          // }
           let productImage = productStyles.results[indexes.style].photos[indexes.photo].url ? productStyles.results[indexes.style].photos[indexes.photo].url : imageComingSoon;
 
       return (
         <div className="ImageGallery">
           <div style={{background: `center / contain no-repeat url(${productImage})`}} className="MainImage" alt="Main Product Image">
-            {/* <img src={productStyles.results[0].photos[0].url || imageComingSoon} /> */}
           </div>
           <div className="ImageGalleryThumbnails">
             {productStyles.results[indexes.style].photos.map((currentStyle, i) => (
@@ -282,25 +234,15 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
 
     console.log('INDEXES IN CART:', indexes);
     let stylesIndex = indexes.style;
-    let productsIndex = indexes.product;
     const [currentSize, setCurrentSize] = useState(null);
     console.log('CURRENT SIZE:', currentSize);
     const [currentQuantity, setCurrentQuantity] = useState(null);
     console.log('CURRENT QTY:', currentQuantity);
     const [qtyInStock, setQtyInStock] = useState([]);
-    const [currentQtyAndSize, setCurrentQtyAndSize] = useState({size: '', qty: []});
-    // const [isMyOutfit, setIsMyOutfit] = useState();
     const [myOutfitIcon, setMyOutfitIcon] = useState('⭐');
-    // const [defaultQty, setDefaultQty] = useState('-');
-    // const [defaultSize, setDefaultSize] = useState('SELECT SIZE');
-    const [defaultSizeAndQty, setDefaultSizeAndQty] = useState({size: 'SELECT SIZE', qty: '-'});
+    // const [defaultSizeAndQty, setDefaultSizeAndQty] = useState({size: 'SELECT SIZE', qty: '-'});
     // console.log('DEFAULT SZ AND QTY:', defaultSizeAndQty);
 
-    // useEffect(() => {
-    //   if (qtyInStock.length) {
-    //     setDefaultSizeAndQty({...defaultSizeAndQty, qty: qtyInStock[0]});
-    //   }
-    // }, [qtyInStock]);
 
     useEffect(() => {
 
@@ -323,9 +265,6 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
       handleMyOutfitCollection()
     }, [productStyles.product_id])
 
-    // useEffect(() => {
-    //   setDefaultSizeAndQty({size: 'SELECT SIZE', qty: '-'});
-    // }, [indexes.product]);
 
     if(Object.keys(productStyles).length) {
 
@@ -345,7 +284,6 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
       let handleMyOutfitClick = (event) => {
         event.persist();
         if (myOutfitIcon === '⭐') {
-          console.log('PRODUCT BEING SENT:', productStyles.product_id);
           changeInOutfit(event, productStyles.product_id, 'Add');
           setMyOutfitIcon('❤️');
         }
@@ -451,15 +389,6 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
 
   // Product Features Component
   let ProductFeatures = ({productById}) => {
-    // const [productById, setProductById] = useState();
-    // const [hasLoaded, setHasLoaded] = useState(false);
-
-    // useEffect(() => {
-    //   if (Object.keys(productById).length) {
-    //     setHasLoaded(true);
-    //   }
-    //     }, []);
-
 
     return (
       <div className="ProductFeatures">
@@ -483,8 +412,6 @@ ImageGallery.propTypes = {
   handleRightArrowClick: PropTypes.func,
   handleThumbnailClick: PropTypes.func,
   indexes: PropTypes.object,
-  // productStyleIndex: PropTypes.number,
-  // productPhotoIndex: PropTypes.number,
   productStyles: PropTypes.object
 }
 ProductFeatures.propTypes = {
@@ -493,21 +420,15 @@ ProductFeatures.propTypes = {
 }
 ProductSloganAndDescription.propTypes = {
   productById: PropTypes.object
-  // currentProduct: PropTypes.object
 }
 AddToCart.propTypes = {
   productStyles: PropTypes.object,
-  // productStyleIndex: PropTypes.number,
-  // productPhotoIndex: PropTypes.number
   indexes: PropTypes.object,
-  // currentProduct: PropTypes.object,
   changeInOutfit: PropTypes.func,
   outfitIds: PropTypes.array
 }
 StyleSelector.propTypes = {
   productStyles: PropTypes.object,
-  // productStyleIndex: PropTypes.number,
-  // productPhotoIndex: PropTypes.number,
   handleStyleClick: PropTypes.func,
   indexes: PropTypes.object
 }
@@ -519,7 +440,6 @@ Overview.propTypes = {
 }
 ProductInformation.propTypes = {
   productById: PropTypes.object,
-  // currentProduct: PropTypes.object,
   productStyles: PropTypes.object,
   indexes: PropTypes.object
 }
