@@ -1,61 +1,54 @@
-// // import dependencies
-// import React from 'react'
-// import ReactDOM from 'react-dom';
-// import cam_token from '../config.js';
-
-// // import API mocking utilities from Mock Service Worker
-// import {rest} from 'msw'
-// import {setupServer} from 'msw/node'
-
-// // import react-testing methods
-// import {render} from '@testing-library/react'
-
-// // add custom jest matchers from jest-dom
-// import '@testing-library/jest-dom';
-// // the component to test
-// import Overview from '../client/src/components/ProductInfo/Overview.jsx';
-
-// // const server = setupServer(
-// //   // capture "GET /greeting" requests
-// //   rest.get('/', (req, res, ctx) => {
-// //     // respond using a mocked JSON body
-// //     return res(ctx.json({greeting: 'Talking to server!'}))
-// //   }),
-// // );
-
-// // beforeAll(() => server.listen());
-// // afterEach(() => server.resetHandlers());
-// // afterAll(() => server.close());
-
-
-// test('Overview mounts to DOM', (done) => {
-//   // Arrange
-//   // Act
-//   // Assert
-//   let { getByTestId } = render(<Overview cam_token={cam_token} />);
-//   let overviewContainer = getByTestId('Overview');
-
-//   expect(overviewContainer).not.toBeUndefined();
-//   done();
-// })
-
-// setup file
+// import dependencies for React, Jest, Enzyme
 import React from 'react';
-import Overview from '../client/src/components/ProductInfo/Overview.jsx';
-import ImageGallery from '../client/src/components/ProductInfo/Overview.jsx';
-import StyleSelector from '../client/src/components/ProductInfo/Overview.jsx';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow, mount, render } from 'enzyme';
+// import component modules to be tested
+import Overview from '../client/src/components/ProductInfo/Overview.jsx';
+import ImageGallery from '../client/src/components/ProductInfo/Overview.jsx';
+import ProductInformation from '../client/src/components/ProductInfo/Overview.jsx';
+import StyleSelector from '../client/src/components/ProductInfo/Overview.jsx';
+import AddToCart from '../client/src/components/ProductInfo/Overview.jsx';
+import ProductSloganAndDescription from '../client/src/components/ProductInfo/Overview.jsx';
+import ProductFeatures from '../client/src/components/ProductInfo/Overview.jsx';
 
+// configure Enzyme
 configure({ adapter: new Adapter() });
-// test file
+
+// tests
 
 describe('<Overview />', () => {
   it('Renders Overview component to the DOM', () => {
     const wrapper = shallow(<Overview />);
     expect(wrapper.find('#Overview')).not.toBeUndefined();
+    // expect(wrapper.find('#Overview')).to.have.lengthOf(6);
   })
+  it('Contains an Image Gallery component', () => {
+    const wrapper = shallow(<Overview />);
+    expect(wrapper.find('ImageGallery')).not.toBeUndefined();
+  })
+  it('Contains a Product Information component', () => {
+    const wrapper = shallow(<Overview />);
+    expect(wrapper.find('ProductInformation')).not.toBeUndefined();
+  })
+  it('Contains a Style Selector component', () => {
+    const wrapper = shallow(<Overview />);
+    expect(wrapper.find('StyleSelector')).not.toBeUndefined();
+  })
+  it('Contains a Add To Cart component', () => {
+    const wrapper = shallow(<Overview />);
+    expect(wrapper.find('AddToCart')).not.toBeUndefined();
+  })
+  it('Contains a Product Slogan and Description component', () => {
+    const wrapper = shallow(<Overview />);
+    expect(wrapper.find('ProductSloganAndDescription')).not.toBeUndefined();
+  })
+  it('Contains a Product Features component', () => {
+    const wrapper = shallow(<Overview />);
+    expect(wrapper.find('ProductFeatures')).not.toBeUndefined();
+  })
+
+
 
   // it('Renders child components', () => {
   //   const wrapper = shallow((
@@ -63,14 +56,14 @@ describe('<Overview />', () => {
   //       <ImageGallery />
   //     </Overview>
   //   ));
-  //   expect(wrapper.contains(<ImageGallery />)).to.equal(true);
+  //   expect(wrapper.find(<ImageGallery />)).to.equal(true);
   // });
 
 
 })
 
 describe('<ImageGallery />', () => {
-  it('Renders an ImageGallery container', () => {
+  it('Renders an Image Gallery container', () => {
     const wrapper = shallow(<ImageGallery />);
     expect(wrapper.find('.ImageGallery')).not.toBeUndefined();
   })
@@ -81,6 +74,58 @@ describe('<ImageGallery />', () => {
   })
 })
 
+describe('<ProductInformation />', () => {
+  it('Renders a Style Selector container', () => {
+    const wrapper = shallow(<ProductInformation />);
+    expect(wrapper.find('.ProductInformation')).not.toBeUndefined();
+  })
+})
+
+describe('<StyleSelector />', () => {
+  it('Renders a Style Selector container', () => {
+    const wrapper = shallow(<StyleSelector />);
+    expect(wrapper.find('.StyleSelector')).not.toBeUndefined();
+  })
+  it('Renders styles in Style Selector Icons container', () => {
+    const wrapper = shallow(<StyleSelector />);
+    expect(wrapper.find('.StyleSelectorIcons').children()).not.toBeUndefined();
+  })
+})
+
+describe('<AddToCart />', () => {
+  it('Renders an Add to Cart container', () => {
+    const wrapper = shallow(<AddToCart />);
+    expect(wrapper.find('.AddToCart')).not.toBeUndefined();
+  })
+  it('Renders sizes in Size Selector Dropdown container', () => {
+    const wrapper = shallow(<AddToCart />);
+    expect(wrapper.find('.SizeSelectorDropdown').children()).not.toBeUndefined();
+  })
+  it('Allows items to be added to bag', () => {
+    const wrapper = mount(<AddToCart />);
+    const button = wrapper.find('.AddToBagButton').text();
+    expect(button).toEqual('Add to Bag');
+  })
+  // it('Allows a size to be selected', () => {
+  //   const wrapper = shallow(<AddToCart />);
+  //   wrapper.find('.SizeOption').simulate('click');
+  //   expect(handleSizeClick).to.have.property('callCount', 1);
+  // })
+})
+
+describe('<ProductSloganAndDescription />', () => {
+  it('Renders a Product Slogan and Description container', () => {
+    const wrapper = shallow(<ProductSloganAndDescription />);
+    expect(wrapper.find('.ProductSloganAndDescription')).not.toBeUndefined();
+  })
+})
+
+describe('<ProductFeatures />', () => {
+  it('Renders a Product Features container', () => {
+    const wrapper = shallow(<ProductFeatures />);
+    expect(wrapper.find('.ProductFeatures')).not.toBeUndefined();
+  })
+})
 
 
 // it('Renders six child components', () => {

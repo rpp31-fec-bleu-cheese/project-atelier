@@ -116,7 +116,7 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
       <ProductInformation productById={productById} productStyles={productStyles} indexes={indexes} />
       <StyleSelector productStyles={productStyles} indexes={indexes} handleStyleClick={handleStyleClick}  />
-      <AddToCart productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} />
+      <AddToCart productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} cam_token={cam_token} />
       <ProductSloganAndDescription productById={productById} />
       <ProductFeatures productById={productById} cam_token={cam_token} /></>}
     </div>
@@ -230,7 +230,7 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
   }
 
   // Add to Cart Component
-  let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds}) => {
+  let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token}) => {
 
     console.log('INDEXES IN CART:', indexes);
     let stylesIndex = indexes.style;
@@ -269,17 +269,15 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
     if(Object.keys(productStyles).length) {
 
       let skusArray = [];
-      let currentSkus = productStyles.results[indexes.style].skus
-
-      // this variable correctly tracks product and style id for AddToBag or MyOutfit
-      let currentProductStyleData = {productId: productStyles.product_id,
-        styleId: productStyles.results[indexes.style].style_id}
-      // console.log('CURRENT PRODUCT STYLE ID:', currentProductStyleData);
-
+      let currentSkus = productStyles.results[indexes.style].skus;
       for (let key in currentSkus) {
         skusArray.push(currentSkus[key]);
       }
 
+      // this variable correctly tracks product and style id for AddToBag or MyOutfit
+      let currentProductStyleData = {productId: productStyles.product_id,
+        styleId: productStyles.results[indexes.style].style_id}
+      console.log('CURRENT PRODUCT STYLE ID:', currentProductStyleData);
 
       let handleMyOutfitClick = (event) => {
         event.persist();
@@ -333,6 +331,32 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
         event.preventDefault();
       }
 
+      let handleAddToBag = () => {
+        console.log('Added to bag!')
+        // get sku
+        let productSkuForBag;
+        for (let key in currentSkus) {
+          if (currentSize === currentSkus[key].size) {
+            productSkuForBag = key;
+            console.log('Product Sku:', productSkuForBag);
+          }
+        }
+        let optionsForCart = {
+          url: '/cart',
+          method: 'post',
+          headers: {'Content-Type': 'application/json',
+          'Authorization': cam_token.cam_token},
+          data: {sku_id: productSkuForBag}
+        };
+        axios(optionsForCart)
+          .then(response => {
+            console.log('Response from Cart:', response.data);
+          })
+            .catch(error => {
+              console.log(error);
+            });
+      }
+
 
       return (
         <div className="AddToCart">
@@ -341,7 +365,7 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
               <select className="SizeSelectorDropdown" onChange={handleSizeClick}>
                 <option value="">SELECT SIZE</option>
                 {skusArray.map((skuData, i) => (
-                  <option key={i} value={skuData.size} selected={currentSize === skuData.size ? true : false}>{skuData.size}</option>
+                  <option className="SizeOption" key={i} value={skuData.size} selected={currentSize === skuData.size ? true : false}>{skuData.size}</option>
                 ))}
               </select>
             </form>
@@ -351,13 +375,13 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
               <select className="QuanititySelectorDropdown" onChange={handleQuantityClick}>
               <option value="">-</option>
                 {qtyInStock.length && qtyInStock.map((qty, i) => (
-                  <option key={i} value={qty} selected={currentQuantity === qty ? true : false}>{qty}</option>
+                  <option className="QuantityOption" key={i} value={qty} selected={currentQuantity === qty ? true : false}>{qty}</option>
                 ))}
               </select>
             </form>
           </div>
           <div className="AddToBag">
-            <button className="AddToBagButton" onClick={() => console.log('Add to Bag clicked!')}>Add to Bag</button>
+            <button className="AddToBagButton" onClick={handleAddToBag}>Add to Bag</button>
           </div>
           <div className="AddToFavorite">
             <button className="AddToFavoriteButton" onClick={handleMyOutfitClick}>{myOutfitIcon}</button>
@@ -425,7 +449,8 @@ AddToCart.propTypes = {
   productStyles: PropTypes.object,
   indexes: PropTypes.object,
   changeInOutfit: PropTypes.func,
-  outfitIds: PropTypes.array
+  outfitIds: PropTypes.array,
+  cam_token: PropTypes.string
 }
 StyleSelector.propTypes = {
   productStyles: PropTypes.object,
@@ -445,4 +470,4 @@ ProductInformation.propTypes = {
 }
 
 export default Overview;
-// export {ImageGallery, ProductInformation, ProductFeatures, ProductSloganAndDescription, AddToCart, StyleSelector};
+export {ImageGallery, ProductInformation, ProductFeatures, ProductSloganAndDescription, AddToCart, StyleSelector};
