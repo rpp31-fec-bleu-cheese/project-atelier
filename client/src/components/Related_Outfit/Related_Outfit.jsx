@@ -173,7 +173,10 @@ class Related_Outfit extends React.Component {
     this.fetchRelatedInfo(this.props.productId);
     this.fetchProductInfo(this.props.productId);
     this.fetchProductStyles(this.props.productId);
-    this.fetchOufitInfo(this.props.outfitIds);
+    if(this.props.outfitIds.length > 0) {
+      this.fetchOufitInfo(this.props.outfitIds);
+    }
+
   }
   componentDidUpdate(prevProps) {
     if (prevProps.productId !== this.props.productId) {

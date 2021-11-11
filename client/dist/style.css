@@ -1333,7 +1333,7 @@ div#Related_Outfit div#Comparison div#PopupTrue{
   position:  fixed;
   font-size: small;
    max-width: 400px;
-   max-height:200px;
+   max-height:300px;
    top: calc(50% - 50px);
    padding:30px;
    background-color:aliceblue;
@@ -1341,16 +1341,25 @@ div#Related_Outfit div#Comparison div#PopupTrue{
    border: 1px solid black;
    bottom: 40px;
    z-index: 100;
+   overflow: scroll;
 }
 
-div#Related_Outfit table#ComparingTable th,
+div#Related_Outfit table#ComparingTable{
+  border-collapse: separate;
+  border-spacing: 0 15px;
+}
 div#Related_Outfit table#ComparingTable td  {
   width: 200px;
   height: 10px;
 }
-div#Related_Outfit  div#Comparison div#PopupTrue th{
+
+div#Related_Outfit  div#Comparison div#PopupTrue thead{
   font-size: small;
   font-weight:bold;
+}
+div#Related_Outfit  div#Comparison div#PopupTrue thead #firstHeader,
+div#Related_Outfit  div#Comparison div#PopupTrue thead #secondHeader{
+  position:fixed;
 }
 
 

@@ -39,9 +39,9 @@ var Comparison = (props) => {
 
           <thead>
           <tr>
-            <th><b>{props.toCompare.name}</b></th>
-             <th> </th>
-             <th><b>{props.currentProduct.name}</b></th>
+            <td id="firstHeader">{props.toCompare.name}</td>
+             <td> </td>
+             <td id="secondHeader">{props.currentProduct.name}</td>
           </tr>
           </thead>
           <tbody>

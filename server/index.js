@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const middleware = require('./middle.js');
 app.use(cookieParser());
 
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
