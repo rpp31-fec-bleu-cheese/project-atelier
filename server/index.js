@@ -34,7 +34,7 @@ app.get('/reviews/meta', controllers.reviews.getReviewsMeta);
 app.post('/reviews', controllers.reviews.postReviews);
 
 app.get('/cart', controllers.cart.getProductsInCart);
-app.post('/cart', controllers.cart.postProductToCart)
+app.post('/cart', controllers.cart.postProductToCart);
 
 //utility routes for static media
 app.get('/media', (req, res) => {

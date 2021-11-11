@@ -14,7 +14,7 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
   const [products, setProducts] = useState([]);
   // console.log('PRODUCTS:', products);
   const [indexes, setIndexes] = useState({product: 0, style: 0, photo: 0});
-  let currentProduct = products.length > 0 ? products[indexes.product] : {'id': 59553};
+  let currentProduct = products.length > 0 ? products[indexes.product] : {'id': productId};
   console.log('INDEXES:', indexes);
   console.log('CURRENT PRODUCT:', currentProduct);
   const [productById, setProductById] = useState({});
@@ -44,13 +44,13 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
 
   useEffect (() => {
     let productIdOptions = {
-      url: `/products/${currentProduct.id}`,
+      url: `/products/${productId}`,
       method: 'get',
       headers: {'Content-Type': 'application/json',
       'Authorization': cam_token.cam_token}
     };
     let productStylesOptions = {
-      url: `products/${currentProduct.id}/styles`,
+      url: `products/${productId}/styles`,
       method: 'get',
       headers: {'Content-Type': 'application/json',
       'Authorization': cam_token.cam_token}
@@ -79,7 +79,7 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
           //       // .then(() => {
           //       //   setIndexes({...indexes, style: 0, photo: 0})
           //       // })
-  }, [currentProduct]);
+  }, []);
 
   // Effect for watching incoming productId from App component
   useEffect (() => {
@@ -119,19 +119,19 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
 
 
   let handleLeftArrowClick = () => {
-    if (indexes.product === 0) {
-      let nextIndex = products.length - 1;
-      setIndexes({...indexes, product: nextIndex});
+    if (indexes.photo === 0) {
+      let nextIndex = productStyles.results[indexes.style].photos.length - 1;
+      setIndexes({...indexes, photo: nextIndex});
       // resetPhotoIndex();
     } else {
-      setIndexes({...indexes, product: indexes.product - 1});
+      setIndexes({...indexes, photo: indexes.photo - 1});
       // resetPhotoIndex();
     }
   }
 
   let handleRightArrowClick = () => {
-    let nextIndex = (indexes.product + 1) % products.length;
-    setIndexes({...indexes, product: nextIndex});
+    let nextIndex = (indexes.photo + 1) % productStyles.results[indexes.style].photos.length;
+    setIndexes({...indexes, photo: nextIndex});
     // resetPhotoIndex();
   }
 
@@ -158,10 +158,10 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
     <div data-testid="Overview" id='Overview'>
       {products.length > 0 && <><ImageGallery products={products} indexes={indexes} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
-      <ProductInformation currentProduct={currentProduct} productStyles={productStyles} indexes={indexes} />
+      <ProductInformation productById={productById} productStyles={productStyles} indexes={indexes} />
       <StyleSelector productStyles={productStyles} indexes={indexes} handleStyleClick={handleStyleClick}  />
       <AddToCart products={products} productStyles={productStyles} indexes={indexes} currentProduct={currentProduct} changeInOutfit={changeInOutfit} outfitIds={outfitIds} />
-      <ProductSloganAndDescription currentProduct={currentProduct} />
+      <ProductSloganAndDescription productById={productById} />
       <ProductFeatures productById={productById} cam_token={cam_token} /></>}
     </div>
   );
@@ -210,7 +210,7 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
   }
 
   // Product Information Component (split with Slogan, Description, and Features)
-  let ProductInformation = ({currentProduct, productStyles, indexes}) => {
+  let ProductInformation = ({productById, productStyles, indexes}) => {
 
     if (Object.keys(productStyles).length) {
       return (
@@ -224,10 +224,10 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
             </div>
           </div>
           <div className="ProductCategory">
-            {currentProduct.category}
+            {productById.category}
           </div>
           <div className="ProductName">
-            {currentProduct.name}
+            {productById.name}
           </div>
           <div>
             {!productStyles.results[indexes.style].sale_price && <div>{`$${productStyles.results[indexes.style].original_price}`}</div>}
@@ -436,14 +436,14 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
   }
 
   // Product Slogan and Description Component
-  let ProductSloganAndDescription = ({currentProduct}) => {
+  let ProductSloganAndDescription = ({productById}) => {
     return (
       <div className="ProductSloganAndDescription">
           <div className="ProductSlogan">
-            {currentProduct.slogan}
+            {productById.slogan}
           </div>
           <div className="ProductDescription">
-            {currentProduct.description}
+            {productById.description}
           </div>
       </div>
     );
@@ -492,7 +492,8 @@ ProductFeatures.propTypes = {
   cam_token: PropTypes.object
 }
 ProductSloganAndDescription.propTypes = {
-  currentProduct: PropTypes.object
+  productById: PropTypes.object
+  // currentProduct: PropTypes.object
 }
 AddToCart.propTypes = {
   productStyles: PropTypes.object,
@@ -517,7 +518,8 @@ Overview.propTypes = {
   outfitIds: PropTypes.array
 }
 ProductInformation.propTypes = {
-  currentProduct: PropTypes.object,
+  productById: PropTypes.object,
+  // currentProduct: PropTypes.object,
   productStyles: PropTypes.object,
   indexes: PropTypes.object
 }
