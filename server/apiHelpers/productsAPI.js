@@ -60,6 +60,7 @@ const getProductStyle = (productID, callback) => {
       callback(null, response.data);
     })
     .catch((err) => {
+      console.log('RESPONSE ERR:', err)
       callback(err);
     })
 };
