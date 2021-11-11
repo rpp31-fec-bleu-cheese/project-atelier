@@ -2,6 +2,7 @@ const products = require('./apiHelpers/productsAPI.js');
 const cart = require('./apiHelpers/cartAPI.js');
 const qanda = require('./apiHelpers/qandaAPI.js');
 const reviews = require('./apiHelpers/reviewsAPI.js');
+const Promise = require('bluebird');
 
 module.exports = {
   // PRODUCT CONTROLLERS
@@ -29,7 +30,6 @@ module.exports = {
     },
     getProductStyleByID: function(req, res) {
       let productID = req.params.product_id;
-
       products.getProductStyle(productID, (err, data) => {
         if (err) {
           res.status(404).send();
@@ -50,8 +50,58 @@ module.exports = {
 
         res.status(200).send(data);
       });
+    },
+    //to fetch all the details including styles for an array of related/outfit products
+    getDetailsForProducts: function(req, res) {
+
+      let relatedProducts = JSON.parse(req.query.productIds);
+      let fetchFunctions = [];
+      var promisedFetchProduct = Promise.promisify(products.getProduct);
+      var promisedFetchStyles = Promise.promisify(products.getProductStyle);
+      for(var product of relatedProducts) {
+        fetchFunctions.push(promisedFetchProduct(product));
+      }
+      Promise.all(fetchFunctions)
+      .then((products) => {
+
+        var fetchStyles = [];
+        for(var product of products) {
+          fetchStyles.push(promisedFetchStyles(product.id));
+        }
+        return Promise.all(fetchStyles)
+        .then((productStylesArray)=>{
+
+          /*for(var product of products) {
+
+              for(var productStyle of productStylesArray) {
+
+                if(productStyle.product_id == product.id){
+
+                  product.styles = productStyle.results;
+                }
+              }
+
+          }*/
+          for(var i=0, j=0; i<products.length, j<productStylesArray.length; i++, j++) {
+            if(products[i].id == productStylesArray[j].product_id) {
+
+              products[i].styles = productStylesArray[j].results;
+
+            }
+
+          }
+
+          res.status(200).send(products);
+        })
+      })
+
+      .catch((error) => {
+        console.log(error);
+        res.status(404).send();
+      })
     }
   },
+
   // REVIEWS CONTROLLERS
   reviews: {
     getAllReviews: function(req, res) {
@@ -90,8 +140,21 @@ module.exports = {
 
         res.status(201).send(data);
       })
+    },
+    markHelpful: function(req, res) {
+      let reviewID = req.body.review_id;
+
+      reviews.markReviewHelpful(reviewID, (err, data) => {
+        if (err) {
+          res.status(400).send();
+          return;
+        }
+
+        res.status(204).end()
+      })
     }
   },
+
   // QUESTION & ANSWER CONTROLLERS
   questions_answers: {
     getAllQuestions: function(req, res) {
@@ -170,5 +233,11 @@ module.exports = {
   },
   interactions: {
 
+  },
+  //added for Related Component
+  cookies:{
+    getCookies: function(req,res) {
+      res.status(200).send(JSON.stringify(req.cookies));
+    }
   }
 };
