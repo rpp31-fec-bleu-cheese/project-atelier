@@ -303,8 +303,12 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
     // }, [qtyInStock]);
 
     useEffect(() => {
-      setCurrentSize(null);
+
       setCurrentQuantity(null);
+      setCurrentSize(null);
+      setQtyInStock([]);
+
+
     }, [stylesIndex]);
 
     let handleMyOutfitCollection = () => {
@@ -357,12 +361,13 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
       let handleSizeClick = (event) => {
         event.persist();
         let selectedSize = event.target.value;
+        console.log('SIZE IN SIZE CLICK:', selectedSize);
         for (var i = 0; i < skusArray.length; i++) {
           if (skusArray[i].size === selectedSize) {
             let availableQuantity = skusArray[i].quantity;
             let quantityArray = [];
             if (!availableQuantity) {
-              setDefaultSizeAndQty({...defaultSizeAndQty, size: 'OUT OF STOCK'});
+              setCurrentSize('OUT OF STOCK');
             } else if (availableQuantity <= 15) {
               for (let q = 1; q <= availableQuantity; q++) {
                 quantityArray.push(q);
@@ -398,7 +403,7 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
               <select className="SizeSelectorDropdown" onChange={handleSizeClick}>
                 <option value="">SELECT SIZE</option>
                 {skusArray.map((skuData, i) => (
-                  <option key={i} value={skuData.size} selected={currentSize ? true : false}>{skuData.size}</option>
+                  <option key={i} value={skuData.size} selected={currentSize === skuData.size ? true : false}>{skuData.size}</option>
                 ))}
               </select>
             </form>
@@ -408,7 +413,7 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
               <select className="QuanititySelectorDropdown" onChange={handleQuantityClick}>
               <option value="">-</option>
                 {qtyInStock.length && qtyInStock.map((qty, i) => (
-                  <option key={i} value={qty} selected={currentQuantity ? true : false}>{qty}</option>
+                  <option key={i} value={qty} selected={currentQuantity === qty ? true : false}>{qty}</option>
                 ))}
               </select>
             </form>

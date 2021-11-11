@@ -193,8 +193,9 @@ module.exports = {
         res.status(200).send(data);
       })
     },
-    post: function(req, res) {
-
+    postProductToCart: function(req, res) {
+      console.log('REQ BODY IN POST TO CART:', req.body);
+      res.status(201).send('Item added to cart!');
     }
   },
   interactions: {
