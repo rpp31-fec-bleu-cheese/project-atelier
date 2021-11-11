@@ -9,7 +9,7 @@ const getAllProducts = (callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.cam_token
+      'Authorization': config.API_KEY
     },
     params: {
       page: 1,
@@ -32,7 +32,7 @@ const getProduct = (productID, callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.cam_token
+      'Authorization': config.API_KEY
     },
   }
 
@@ -51,7 +51,7 @@ const getProductStyle = (productID, callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.cam_token
+      'Authorization': config.API_KEY
     }
   };
 
