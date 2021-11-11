@@ -27,11 +27,7 @@ time, mark, audio, video {
 div#App {
   display: grid;
   grid-template-columns: 10% auto 10%;
-<<<<<<< HEAD
   grid-template-rows: 70px 40px 650px 650px 850px 650px;
-=======
-  grid-template-rows: 70px 40px 650px 650px 650px auto;
->>>>>>> mergedBranch
   height: 100%;
 }
 

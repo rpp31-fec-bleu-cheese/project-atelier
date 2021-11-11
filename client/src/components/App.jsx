@@ -12,12 +12,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
       productId: 59558,
-      outfitIds: []
-=======
+      outfitIds: [],
       currentProduct: 59554
->>>>>>> Reviews_Ratings
     };
     this.relatedOutfitProductClick = this.relatedOutfitProductClick.bind(this);
     this.changeInOutfit = this.changeInOutfit.bind(this);

@@ -52,9 +52,7 @@
   "jest": {
     "verbose": true,
     "testEnvironment": "jsdom",
-    "setupFilesAfterEnv": [
-      "<rootDir>setupTests.js"
-    ]
+    "setupFilesAfterEnv": ["<rootDir>setupTests.js"]
   },
   "author": "",
   "license": "ISC"
