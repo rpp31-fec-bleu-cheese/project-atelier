@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useLayoutEffect }  from 'react';
 // import { useState } from 'React';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -9,7 +9,7 @@ import axios from 'axios';
 
 
 // removed products from props
-let Overview = ({cam_token}) => {
+let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
 
   const [products, setProducts] = useState([]);
   // console.log('PRODUCTS:', products);
@@ -81,21 +81,42 @@ let Overview = ({cam_token}) => {
           //       // })
   }, [currentProduct]);
 
+  // Effect for watching incoming productId from App component
+  useEffect (() => {
+    let productIdOptions = {
+      url: `/products/${productId}`,
+      method: 'get',
+      headers: {'Content-Type': 'application/json',
+      'Authorization': cam_token.cam_token}
+    };
+    let productStylesOptions = {
+      url: `products/${productId}/styles`,
+      method: 'get',
+      headers: {'Content-Type': 'application/json',
+      'Authorization': cam_token.cam_token}
+    };
+    axios(productIdOptions)
+      .then(response => {
+        // console.log('PRODUCT ID API RESPONSE:', response)
+        setProductById(response.data);
+        // setIndexes({...indexes, style: 0, photo: 0})
+        axios(productStylesOptions)
+        .then(response => {
+          // console.log('PRODUCT STYLES API RESPONSE:', response)
+          setProductStyles(response.data);
+            })
+          })
+            .catch(error => {
+              console.log(error)});
+  }, [productId]);
+
   useEffect(() => {
     setIndexes({...indexes, style: 0, photo: 0})
   }, [indexes.product]);
+  useEffect(() => {
+    setIndexes({...indexes, style: 0, photo: 0})
+  }, [productId]);
 
-
-  // useEffect(() => {
-
-  //     setProductPhotoIndex(0);
-
-
-  // }, [indexes]);
-
-  // let resetPhotoIndex = () => {
-  //   setProductPhotoIndex(0);
-  // }
 
   let handleLeftArrowClick = () => {
     if (indexes.product === 0) {
@@ -139,7 +160,7 @@ let Overview = ({cam_token}) => {
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
       <ProductInformation currentProduct={currentProduct} productStyles={productStyles} indexes={indexes} />
       <StyleSelector productStyles={productStyles} indexes={indexes} handleStyleClick={handleStyleClick}  />
-      <AddToCart products={products} productStyles={productStyles} indexes={indexes} currentProduct={currentProduct} />
+      <AddToCart products={products} productStyles={productStyles} indexes={indexes} currentProduct={currentProduct} changeInOutfit={changeInOutfit} outfitIds={outfitIds} />
       <ProductSloganAndDescription currentProduct={currentProduct} />
       <ProductFeatures productById={productById} cam_token={cam_token} /></>}
     </div>
@@ -148,7 +169,7 @@ let Overview = ({cam_token}) => {
   };
 
   // Image Gallery Component
-  let ImageGallery = ({products, handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, indexes, productStyles}) => {
+  let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, indexes, productStyles}) => {
 
     let imageComingSoon = '/media'
 
@@ -239,7 +260,10 @@ let Overview = ({cam_token}) => {
           </div>
           <div className="StyleSelectorIcons">
             {productStyles.results.map((style, i) => (
-              <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon"></div>
+                <label key={i} htmlFor="selectedStyle">
+                  <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon"></div>
+                  {/* <input type="radio" id="selectedStyle" /> */}
+                </label>
             ))}
           </div>
         </div>
@@ -254,7 +278,7 @@ let Overview = ({cam_token}) => {
   }
 
   // Add to Cart Component
-  let AddToCart = ({productStyles, indexes, currentProduct}) => {
+  let AddToCart = ({productStyles, indexes, currentProduct, changeInOutfit, outfitIds}) => {
 
     console.log('INDEXES IN CART:', indexes);
     let stylesIndex = indexes.style;
@@ -283,6 +307,18 @@ let Overview = ({cam_token}) => {
       setCurrentQuantity(null);
     }, [stylesIndex]);
 
+    let handleMyOutfitCollection = () => {
+      if (outfitIds.includes(productStyles.product_id)) {
+        setMyOutfitIcon('❤️');
+      } else {
+        setMyOutfitIcon('⭐');
+      }
+    }
+
+    useEffect(() => {
+      handleMyOutfitCollection()
+    }, [productStyles.product_id])
+
     // useEffect(() => {
     //   setDefaultSizeAndQty({size: 'SELECT SIZE', qty: '-'});
     // }, [indexes.product]);
@@ -305,13 +341,18 @@ let Overview = ({cam_token}) => {
       let handleMyOutfitClick = (event) => {
         event.persist();
         if (myOutfitIcon === '⭐') {
+          console.log('PRODUCT BEING SENT:', productStyles.product_id);
+          changeInOutfit(event, productStyles.product_id, 'Add');
           setMyOutfitIcon('❤️');
         }
         if (myOutfitIcon === '❤️') {
+          changeInOutfit(event, productStyles.product_id, 'Delete');
           setMyOutfitIcon('⭐');
         }
         event.preventDefault();
       }
+
+
 
       let handleSizeClick = (event) => {
         event.persist();
@@ -453,7 +494,9 @@ AddToCart.propTypes = {
   // productStyleIndex: PropTypes.number,
   // productPhotoIndex: PropTypes.number
   indexes: PropTypes.object,
-  currentProduct: PropTypes.object
+  currentProduct: PropTypes.object,
+  changeInOutfit: PropTypes.func,
+  outfitIds: PropTypes.array
 }
 StyleSelector.propTypes = {
   productStyles: PropTypes.object,
@@ -463,7 +506,10 @@ StyleSelector.propTypes = {
   indexes: PropTypes.object
 }
 Overview.propTypes = {
-  products: PropTypes.array
+  products: PropTypes.array,
+  productId: PropTypes.number,
+  changeInOutfit : PropTypes.func,
+  outfitIds: PropTypes.array
 }
 ProductInformation.propTypes = {
   currentProduct: PropTypes.object,
