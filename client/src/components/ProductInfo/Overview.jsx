@@ -14,9 +14,9 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
   const [products, setProducts] = useState([]);
   // console.log('PRODUCTS:', products);
   const [indexes, setIndexes] = useState({product: 0, style: 0, photo: 0});
-  let currentProduct = products.length > 0 ? products[indexes.product] : {'id': productId};
+  // let currentProduct = {'id': productId};
   console.log('INDEXES:', indexes);
-  console.log('CURRENT PRODUCT:', currentProduct);
+
   const [productById, setProductById] = useState({});
   // console.log('CURRENT PRODUCT BY ID:', productById);
   const [productStyles, setProductStyles] = useState({});
@@ -26,21 +26,21 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
   // const [productStyleIndex, setProductStyleIndex] = useState(0);
   // // console.log('CURRENT STYLE INDEX:', productStyleIndex);
 
-  useEffect(() => {
-    let productOptions = {
-      url: '/products',
-      method: 'get',
-      headers: {'Content-Type': 'application/json',
-      'Authorization': cam_token.cam_token}
-    };
-    axios(productOptions)
-      .then(response => {
-        // console.log('ALL PRODUCTS API RESPONSE:', response)
-        setProducts(response.data);
-        })
-        .catch(error => {
-          console.log(error)});
-      }, []);
+  // useEffect(() => {
+  //   let productOptions = {
+  //     url: '/products',
+  //     method: 'get',
+  //     headers: {'Content-Type': 'application/json',
+  //     'Authorization': cam_token.cam_token}
+  //   };
+  //   axios(productOptions)
+  //     .then(response => {
+  //       // console.log('ALL PRODUCTS API RESPONSE:', response)
+  //       setProducts(response.data);
+  //       })
+  //       .catch(error => {
+  //         console.log(error)});
+  //     }, []);
 
   useEffect (() => {
     let productIdOptions = {
@@ -156,11 +156,11 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
 
   return (
     <div data-testid="Overview" id='Overview'>
-      {products.length > 0 && <><ImageGallery products={products} indexes={indexes} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
+      {Object.keys(productStyles).length > 0 && <><ImageGallery products={products} indexes={indexes} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
       <ProductInformation productById={productById} productStyles={productStyles} indexes={indexes} />
       <StyleSelector productStyles={productStyles} indexes={indexes} handleStyleClick={handleStyleClick}  />
-      <AddToCart products={products} productStyles={productStyles} indexes={indexes} currentProduct={currentProduct} changeInOutfit={changeInOutfit} outfitIds={outfitIds} />
+      <AddToCart products={products} productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} />
       <ProductSloganAndDescription productById={productById} />
       <ProductFeatures productById={productById} cam_token={cam_token} /></>}
     </div>
@@ -278,7 +278,7 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
   }
 
   // Add to Cart Component
-  let AddToCart = ({productStyles, indexes, currentProduct, changeInOutfit, outfitIds}) => {
+  let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds}) => {
 
     console.log('INDEXES IN CART:', indexes);
     let stylesIndex = indexes.style;
@@ -500,7 +500,7 @@ AddToCart.propTypes = {
   // productStyleIndex: PropTypes.number,
   // productPhotoIndex: PropTypes.number
   indexes: PropTypes.object,
-  currentProduct: PropTypes.object,
+  // currentProduct: PropTypes.object,
   changeInOutfit: PropTypes.func,
   outfitIds: PropTypes.array
 }
