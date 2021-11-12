@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import Search from './Search.jsx';
 import FooterButtons from './FooterButtons.jsx';
@@ -11,7 +12,7 @@ class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productID: 59568, // default productID
+      productID: 59863, //this.props.productID
       currentProduct: "Slacker's Slacks",
       questions: [],
       filteredQuestions: [],
@@ -95,6 +96,7 @@ class QandA extends React.Component {
 
 
   render() {
+    console.log(this.props);
     const { questions, filteredQuestions, questionsToShow, productID } = this.state;
 
     return(
@@ -104,7 +106,7 @@ class QandA extends React.Component {
          <div className='q-a-content'>
            <div className='rendered-questions'>
             {filteredQuestions.slice(0, questionsToShow)
-              .map(question => <QuestionEntry key={question.question_id} question={question}/>)
+              .map(question => <QuestionEntry key={question.question_id} question={question} getQuestions={this.getQuestions}/>)
             }
            </div>
             <FooterButtons
@@ -118,5 +120,9 @@ class QandA extends React.Component {
     )
   }
 };
+
+QandA.propTypes = {
+  productID: PropTypes.number
+}
 
 export default QandA;

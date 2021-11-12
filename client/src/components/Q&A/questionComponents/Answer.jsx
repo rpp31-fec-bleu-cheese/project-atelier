@@ -1,10 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import Photo from './Photo.jsx';
 
-const Answer = ({ answer, questionAsker }) => {
+const Answer = ({ answer, questionAsker, getQuestions }) => {
+  const [clicked, setClicked] = useState(false);
+  const [helpfulness, setHelpfulness] = useState(answer.helpfulness);
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
   const answerDate = new Date(answer.date).toLocaleDateString(undefined, dateOptions);
+
+
+  const handleHelpfulClick = () => {
+
+    if (!clicked) {
+      axios.put(`qa/answers/${answer.id}/helpful`)
+        .then((response) => {
+            setHelpfulness(helpfulness + 1);
+            setClicked(true);
+            getQuestions();
+        })
+    }
+  }
 
   return (
     <div className="answer">
@@ -23,7 +39,7 @@ const Answer = ({ answer, questionAsker }) => {
         <div className="answer-date">, {answerDate}</div>
         <p className="divider">|</p>
         <p>Helpful?</p>
-        <button>Yes ({answer.helpfulness})</button>
+        <button onClick={handleHelpfulClick}>Yes ({helpfulness})</button>
         <p className="divider">|</p>
         <button>Report</button>
       </div>
@@ -34,6 +50,7 @@ const Answer = ({ answer, questionAsker }) => {
 Answer.propTypes = {
   answer: PropTypes.object,
   questionAsker: PropTypes.string,
+  getQuestions: PropTypes.func
 }
 
 export default Answer;

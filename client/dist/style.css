@@ -529,7 +529,7 @@ div#QandA div.q-a-content {
 div#QandA div.q-a-content div.rendered-questions {
   margin-top: -65px;
   max-height: 556px;
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
 }
 
 div#QandA div.q-a-content div.rendered-questions.active{

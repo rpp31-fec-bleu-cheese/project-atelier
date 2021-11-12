@@ -8,9 +8,9 @@ const PhotoModal = ({ showModal, setShowModal, photo }) => {
         <div className="photo-modal">
           <div className="modal-background">
             <div className="modal-content">
-              <div className="thumbnail-image" onClick={() => setShowModal(false)}>
+              <div className="thumbnail-image">
                 {/* <span onClick={() => setShowModal(false)}>&times;</span> */}
-                <img src={photo} alt="product-image"/>
+                <img src={photo} alt="product-image" onClick={() => setShowModal(false)}/>
               </div>
             </div>
           </div>
