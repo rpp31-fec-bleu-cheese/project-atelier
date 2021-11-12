@@ -146,7 +146,7 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
           </div>
           <div className="ImageGalleryThumbnails">
             {productStyles.results[indexes.style].photos.map((currentStyle, i) => (
-              <div key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick}></div>
+              <div key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
             ))}
           </div>
           <div className="SlideGalleryLeft">
@@ -158,8 +158,8 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
           <div className="OpenGalleryModal">
             <div className="OpenGalleryModalButton" onClick={handleModalClick}>⧠</div>
               {showModal && <div id="GalleryModal" onClick={() => { setShowModal(false) }}>
-                <div className="GalleryModalContent">
-                  <img className="ModalImage" src={productImage} />
+                <div id="GalleryModalContent" className="GalleryModalContent">
+                  <img className="ModalImage" src={productImage} alt="Product Image Close Up" />
                 </div>
               </div>}
           </div>
@@ -397,13 +397,13 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
           </div>
            {/* {outOfStock && <div style={{color: 'red'}}>OUT OF STOCK</div>} */}
            {outOfStock && <div className="AddToBag">
-            <button className="AddToBagButton" style={{color: 'red'}}>OUT OF STOCK</button>
+            <button className="AddToBagButton" style={{color: 'red'}} alt="Product Out of Stock">OUT OF STOCK</button>
           </div>}
           {!outOfStock && <div className="AddToBag">
-            <button className="AddToBagButton" onClick={handleAddToBag}>Add to Bag</button>
+            <button className="AddToBagButton" onClick={handleAddToBag} alt="Add Product to Bag">Add to Bag</button>
           </div>}
           <div className="AddToFavorite">
-            <button className="AddToFavoriteButton" onClick={handleMyOutfitClick}>{myOutfitIcon}</button>
+            <button className="AddToFavoriteButton" onClick={handleMyOutfitClick} alt="Add Product to My Outfit">{myOutfitIcon}</button>
           </div>
         </div>
       );

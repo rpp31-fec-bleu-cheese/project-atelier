@@ -93,6 +93,7 @@ div#Overview div.MainImage {
   justify-content: center;
   align-items: center;
   background-color: rgb(200, 200, 200);
+  cursor: zoom-in;
   /* background: center / contain no-repeat; */
 }
 
@@ -179,34 +180,40 @@ div#Overview div.OpenGalleryModal:hover {
   color: rgb(107, 236, 236);
 }
 
-div#Overview div#GalleryModal {
+div#Overview div.ImageGallery div#GalleryModal {
   display: flex;
-  position: fixed; /* Stay in place */
+  position: fixed;
   justify-content: center;
   align-items: center;
-  z-index: 1; /* Sit on top */
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100vw; /* Full width */
-  height: 100vh; /* Full height */
-  /* overflow: auto; */
-  background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-div#Overview div.GalleryModalContent {
-  display: block;
-  margin: 10% auto;
-  height: 500px;
-  width: 500px;
-  padding: 20px;
+div#Overview div#GalleryModalContent {
+  margin: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-div#Overview div.ModalImage {
+div#Overview div#GalleryModalContent img {
+  height: 75%;
+  width: 75%;
+  border: 20px solid #f4f4f4;
+}
+
+/* div#Overview div.ModalImage {
   height: 150px;
   width: 150px;
   border: 20px solid #f4f4f4;
   background: center;
-}
+} */
 
 
 div#Overview div.ProductInformation {
