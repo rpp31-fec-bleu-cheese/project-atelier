@@ -137,7 +137,7 @@ let Overview = ({cam_token}) => {
     <div data-testid="Overview" id='Overview'>
       {products.length > 0 && <><ImageGallery products={products} indexes={indexes} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
-      <ProductInformation currentProduct={currentProduct} productStyles={productStyles} indexes={indexes} />
+      <ProductInformation currentProduct={currentProduct} productStyles={productStyles} indexes={indexes}/>
       <StyleSelector productStyles={productStyles} indexes={indexes} handleStyleClick={handleStyleClick}  />
       <AddToCart products={products} productStyles={productStyles} indexes={indexes} currentProduct={currentProduct} />
       <ProductSloganAndDescription currentProduct={currentProduct} />
@@ -195,9 +195,12 @@ let Overview = ({cam_token}) => {
       return (
         <div className="ProductInformation">
           <div className="StarsAndReviews">
-            <div>
-            ☆☆☆☆☆
-            </div>
+            {/* <div>
+              <div className='Stars'>
+                <div className='empty-stars'></div>
+                <div className='full-stars' style={{width: ((props.rating / 5) * 100) + '%' }}></div>
+              </div>
+            </div> */}
             <div>
             <a href="">Read all (#) reviews</a>
             </div>
@@ -429,7 +432,8 @@ let Overview = ({cam_token}) => {
 
 
 Overview.propTypes = {
-  cam_token: PropTypes.string
+  cam_token: PropTypes.string,
+  rating: PropTypes.number
 }
 ImageGallery.propTypes = {
   products: PropTypes.array,
@@ -468,7 +472,8 @@ Overview.propTypes = {
 ProductInformation.propTypes = {
   currentProduct: PropTypes.object,
   productStyles: PropTypes.object,
-  indexes: PropTypes.object
+  indexes: PropTypes.object,
+  rating: PropTypes.number
 }
 
 export default Overview;
