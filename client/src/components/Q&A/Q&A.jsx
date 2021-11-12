@@ -12,7 +12,7 @@ class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productID: 59863, //this.props.productID
+      // productID: this.props.productId,
       currentProduct: "Slacker's Slacks",
       questions: [],
       filteredQuestions: [],
@@ -28,7 +28,7 @@ class QandA extends React.Component {
   }
 
   getQuestions() {
-    axios.get(`/qa/questions/?product_id=${this.state.productID}`)
+    axios.get(`/qa/questions/?product_id=${this.props.productId}`)
       .then(response => {
         this.setState({
           questions: response.data.results.sort((a, b) => b.question_helpfulness - a.question_helpfulness),
@@ -90,14 +90,22 @@ class QandA extends React.Component {
 
   }
 
+
   componentDidMount() {
     this.getQuestions();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { productId } = this.props;
+    if (prevProps.productId !== productId) {
+      this.getQuestions();
+    }
+  }
+
 
   render() {
-    console.log(this.props);
-    const { questions, filteredQuestions, questionsToShow, productID } = this.state;
+    const { questions, filteredQuestions, questionsToShow } = this.state;
+    console.log('PRODUCT ID!!!!!!!!!!!!!!!!!!!', this.props.productId)
 
     return(
       <div data-testid='question-answers' id='QandA'>
@@ -112,7 +120,7 @@ class QandA extends React.Component {
             <FooterButtons
               questionsLength={filteredQuestions.length}
               handleClick={this.handleMoreAnsweredQuestionsClick}
-              productID={productID}
+              productID={this.props.productId}
               currentProduct={this.state.currentProduct}
               getQuestions={this.getQuestions}/>
          </div>
@@ -122,7 +130,7 @@ class QandA extends React.Component {
 };
 
 QandA.propTypes = {
-  productID: PropTypes.number
+  productId: PropTypes.number
 }
 
 export default QandA;
