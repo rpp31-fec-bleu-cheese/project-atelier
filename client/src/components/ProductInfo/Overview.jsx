@@ -127,7 +127,15 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
   // Image Gallery Component
   let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, indexes, productStyles}) => {
 
+    const [showModal, setShowModal] = useState(false);
+    console.log('SHOW MODAL:', showModal);
+
     let imageComingSoon = '/media'
+
+    let handleModalClick = () => {
+      console.log('Modal clicked!');
+      setShowModal(true);
+    }
 
       if (Object.keys(productStyles).length) {
           let productImage = productStyles.results[indexes.style].photos[indexes.photo].url ? productStyles.results[indexes.style].photos[indexes.photo].url : imageComingSoon;
@@ -148,7 +156,12 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
             <div className="SlideGalleryRightButton" onClick={handleRightArrowClick}>→</div>
           </div>
           <div className="OpenGalleryModal">
-            <div className="OpenGalleryModalButton">⧠</div>
+            <div className="OpenGalleryModalButton" onClick={handleModalClick}>⧠</div>
+              {showModal && <div id="GalleryModal" onClick={() => { setShowModal(false) }}>
+                <div className="GalleryModalContent">
+                  <img className="ModalImage" src={productImage} />
+                </div>
+              </div>}
           </div>
         </div>
       );
@@ -239,18 +252,16 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
     const [currentQuantity, setCurrentQuantity] = useState(null);
     console.log('CURRENT QTY:', currentQuantity);
     const [qtyInStock, setQtyInStock] = useState([]);
+    const [outOfStock, setOutOfStock] = useState(false);
     const [myOutfitIcon, setMyOutfitIcon] = useState('⭐');
     // const [defaultSizeAndQty, setDefaultSizeAndQty] = useState({size: 'SELECT SIZE', qty: '-'});
     // console.log('DEFAULT SZ AND QTY:', defaultSizeAndQty);
 
 
     useEffect(() => {
-
       setCurrentQuantity(null);
       setCurrentSize(null);
       setQtyInStock([]);
-
-
     }, [stylesIndex]);
 
     let handleMyOutfitCollection = () => {
@@ -294,8 +305,10 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
 
 
 
+
       let handleSizeClick = (event) => {
         event.persist();
+        setOutOfStock(false);
         let selectedSize = event.target.value;
         console.log('SIZE IN SIZE CLICK:', selectedSize);
         for (var i = 0; i < skusArray.length; i++) {
@@ -303,7 +316,7 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
             let availableQuantity = skusArray[i].quantity;
             let quantityArray = [];
             if (!availableQuantity) {
-              setCurrentSize('OUT OF STOCK');
+              setOutOfStock(true);
             } else if (availableQuantity <= 15) {
               for (let q = 1; q <= availableQuantity; q++) {
                 quantityArray.push(q);
@@ -358,12 +371,14 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
       }
 
 
+
       return (
         <div className="AddToCart">
           <div className="SizeSelector">
             <form>
               <select className="SizeSelectorDropdown" onChange={handleSizeClick}>
-                <option value="">SELECT SIZE</option>
+                {!outOfStock && <option value="">SELECT SIZE</option>}
+                {/* {outOfStock && <option style={{color: 'red', height: 'auto', width: 'auto'}}>OUT OF STOCK</option>} */}
                 {skusArray.map((skuData, i) => (
                   <option className="SizeOption" key={i} value={skuData.size} selected={currentSize === skuData.size ? true : false}>{skuData.size}</option>
                 ))}
@@ -380,9 +395,13 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
               </select>
             </form>
           </div>
-          <div className="AddToBag">
+           {/* {outOfStock && <div style={{color: 'red'}}>OUT OF STOCK</div>} */}
+           {outOfStock && <div className="AddToBag">
+            <button className="AddToBagButton" style={{color: 'red'}}>OUT OF STOCK</button>
+          </div>}
+          {!outOfStock && <div className="AddToBag">
             <button className="AddToBagButton" onClick={handleAddToBag}>Add to Bag</button>
-          </div>
+          </div>}
           <div className="AddToFavorite">
             <button className="AddToFavoriteButton" onClick={handleMyOutfitClick}>{myOutfitIcon}</button>
           </div>
@@ -450,7 +469,7 @@ AddToCart.propTypes = {
   indexes: PropTypes.object,
   changeInOutfit: PropTypes.func,
   outfitIds: PropTypes.array,
-  cam_token: PropTypes.string
+  cam_token: PropTypes.object
 }
 StyleSelector.propTypes = {
   productStyles: PropTypes.object,
