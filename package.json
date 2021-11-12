@@ -16,12 +16,9 @@
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
-<<<<<<< HEAD
     "jsdom": "^16.7.0",
     "jsdom-global": "^3.0.2",
-=======
     "prop-types": "^15.7.2",
->>>>>>> Reviews_Ratings
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "sinon": "^12.0.1"
@@ -30,13 +27,10 @@
     "@babel/core": "^7.15.8",
     "@babel/preset-env": "7.15.8",
     "@babel/preset-react": "^7.14.5",
-<<<<<<< HEAD
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^12.1.2",
     "babel-jest": "^27.3.1",
-=======
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
->>>>>>> Reviews_Ratings
     "babel-loader": "^8.2.3",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",

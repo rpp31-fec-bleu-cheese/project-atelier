@@ -2,6 +2,8 @@ import React from 'React';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 
+import PhotoModal from './PhotoModal.jsx';
+
 class Review extends React.Component {
 
   constructor(props) {
@@ -49,7 +51,7 @@ class Review extends React.Component {
       summary = summary.slice(0, 60) + '...';
     }
     return (
-      <div className='Review'>
+      <div className='Review' id={this.props.review.review_id}>
         <div className='ReviewStars'>
           <div className='Stars'>
             <div className='empty-stars'></div>
@@ -63,6 +65,16 @@ class Review extends React.Component {
             newLine
         }
         <div className='Body'>{body}</div>
+        {
+          this.props.review.photos.length > 0 &&
+            <div className='PhotoContainer'>
+              {this.props.review.photos.map((photo, i) => {
+                return (
+                  <img className='Thumbnail' id={photo.id} src={photo.url} onClick={this.props.onclick} key={i}></img>
+                )
+              })}
+            </div>
+        }
         {
           this.props.review.recommend === true &&
           <div className='ReviewRecommend'><mark>✓ I recommend this product!</mark></div>
@@ -89,7 +101,8 @@ class Review extends React.Component {
 };
 
 Review.propTypes = {
-  review: PropTypes.object.isRequired
+  review: PropTypes.object.isRequired,
+  onclick: PropTypes.func.isRequired
 };
 
 export default Review;

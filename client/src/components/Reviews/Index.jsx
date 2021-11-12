@@ -12,6 +12,7 @@ class Reviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loaded: false,
       reviewsStarsFilter: {},
       currentSort: 'Relevant',
       currentRatings: {},
@@ -50,6 +51,7 @@ class Reviews extends React.Component {
               characteristics[char] = metaData.characteristics[char]
             }
             this.setState({
+              loaded: true,
               currentRatings: ratings,
               currentReviews: reviews.results,
               characteristics: characteristics
@@ -95,14 +97,15 @@ class Reviews extends React.Component {
   }
 
   render() {
-    if (this.state.currentReviews.length > 0) {
+    if (this.state.loaded) {
       return (
         <div id='RatingsReviews'>
           <Header />
           <RatingsContainer
             ratings={this.state.currentRatings}
             reviews={this.state.currentReviews}
-            onclick={this.addStarFilter.bind(this)}/>
+            onclick={this.addStarFilter.bind(this)}
+            updateRating={this.props.updateRating}/>
           <BreakdownContainer characteristics={this.state.characteristics}/>
           <ReviewsContainer
             reviews={this.state.currentReviews}
@@ -114,7 +117,6 @@ class Reviews extends React.Component {
     } else {
       return (
         <div id='RatingsReviews'>
-          <Header />
           Loading...
         </div>
       )
@@ -124,7 +126,8 @@ class Reviews extends React.Component {
 };
 
 Reviews.propTypes = {
-  product_id: PropTypes.number.isRequired
+  product_id: PropTypes.number.isRequired,
+  updateRating: PropTypes.object.isRequired
 }
 
 export default Reviews;

@@ -1,9 +1,11 @@
 import React from 'React';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
 
-import Review from './Review/Review.jsx';
+import Review from './Review.jsx';
 import MoreButton from './MoreButton.jsx';
 import WriteButton from './WriteButton.jsx';
+import PhotoModal from './PhotoModal.jsx';
 
 class ReviewsContainer extends React.Component {
 
@@ -11,6 +13,7 @@ class ReviewsContainer extends React.Component {
     super(props);
 
     this.state = {
+      modalPhoto: null,
       sortedReviews: [],
       visibleReviews: 2,
     };
@@ -19,6 +22,7 @@ class ReviewsContainer extends React.Component {
   componentDidMount() {
     this.changeFilterSort();
   }
+
   componentDidUpdate(prevProps) {
     let oldProps = Object.keys(prevProps.reviewsStarsFilter) + prevProps.currentSort;
     let newProps = Object.keys(this.props.reviewsStarsFilter) + this.props.currentSort;
@@ -44,6 +48,14 @@ class ReviewsContainer extends React.Component {
     this.setState({
       visibleReviews: this.state.visibleReviews + 2
     })
+    $('html, body').animate({ scrollTop: $(document).height() }, 1000);
+    $('#Reviews').animate({ scrollTop: $('#ReviewsSubcontainer').height() }, 1000);
+  }
+
+  loadPhotoModal(e) {
+    this.setState({
+      modalPhoto: (this.state.modalPhoto === null) ? e.target : null
+    })
   }
 
   render() {
@@ -61,11 +73,13 @@ class ReviewsContainer extends React.Component {
           // If no reviews are present, the Reviews component will not render
           this.state.sortedReviews.length > 0 &&
           <div id='Reviews'>
-            {
-              this.state.sortedReviews
-                .map((review, i) => <Review review={review} key={i}/>)
-                .slice(0, this.state.visibleReviews)
-            }
+            <div id='ReviewsSubcontainer'>
+              {
+                this.state.sortedReviews
+                  .map((review, i) => <Review review={review} key={i} onclick={this.loadPhotoModal.bind(this)}/>)
+                  .slice(0, this.state.visibleReviews)
+              }
+            </div>
           </div>
         }
         <div id='ButtonContainer'>
@@ -76,6 +90,10 @@ class ReviewsContainer extends React.Component {
           }
           <WriteButton />
         </div>
+        {
+          this.state.modalPhoto !== null &&
+            <PhotoModal photo={this.state.modalPhoto} onclick={this.loadPhotoModal.bind(this)}/>
+        }
       </div>
     );
   }

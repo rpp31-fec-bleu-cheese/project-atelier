@@ -4,38 +4,39 @@ import PropTypes from 'prop-types';
 import StarBar from './StarBar.jsx';
 
 const RatingsContainer = props => {
-  /*
-   * This block of code discovers the total amount of ratings, as well as the overall rating of the current product
-   */
-  let ratingSum = 0; // This value will represent the sum of all ratings
-  let rateQuantity = 0; // This value will represent only the total number of rates
+  let ratingSum = 0,
+    rateQuantity = 0,
+    finalRating = 0,
+    recommended = 0,
+    ratingArray = Object.entries(props.ratings);
 
-  let ratingArray = Object.entries(props.ratings);
+  if (props.reviews.length > 0) {
+   /*
+    * This block of code discovers the total amount of ratings, as well as the overall rating of the current product
+    */
+    for (let [key, value] of ratingArray) {
+      ratingSum += key * value;
+      rateQuantity += Number(value); //Number() is called here due to the values at each key being strings
+    }
 
-  for (let [key, value] of ratingArray) {
-    ratingSum += key * value;
-    rateQuantity += Number(value); //Number() is called here due to the values at each key being strings
+    finalRating = (ratingSum / rateQuantity).toFixed(1); // This value will be the actual rating displayed on the page /// Number between 1 - 5
+    props.updateRating.rating = finalRating
+    /////////////////
+
+   /*
+    * This block of code discovers the percentage of reviewers who recommended the current product
+    */
+    for (let i = 0; i < props.reviews.length; i++) {
+      if (props.reviews[i].recommend === true) recommended ++;
+    }
+
+    recommended = Math.round(recommended / rateQuantity * 100)
   }
-
-  let finalRating = ratingSum / rateQuantity; // This value will be the actual rating displayed on the page /// Number between 1 - 5
-  /////////////////
-
-  /*
-   * This block of code discovers the percantage of reviewers who recommended the current product
-   */
-  let recommended = 0;
-
-  for (let i = 0; i < props.reviews.length; i++) {
-    if (props.reviews[i].recommend === true) recommended ++;
-  }
-
-  recommended = Math.round(recommended / rateQuantity * 100)
-  /////////////////
 
   return (
     <div id='RatingsContainer'>
       <div id='Rating'>
-        {finalRating.toFixed(1)}
+        {finalRating}
       </div>
       <div id='StarsContainer'>
         <div className='Stars'>
@@ -54,7 +55,8 @@ const RatingsContainer = props => {
 RatingsContainer.propTypes = {
   ratings: PropTypes.object.isRequired,
   reviews: PropTypes.array.isRequired,
-  onclick: PropTypes.func.isRequired
+  onclick: PropTypes.func.isRequired,
+  updateRating: PropTypes.object.isRequired
 }
 
 export default RatingsContainer;
