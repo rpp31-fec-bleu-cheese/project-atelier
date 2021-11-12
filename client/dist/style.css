@@ -31,7 +31,7 @@ body {
 div#App {
   display: grid;
   grid-template-columns: 10% auto 10%;
-  grid-template-rows: 70px 40px 650px 650px 650px auto;
+  grid-template-rows: 70px 40px 650px 650px 850px auto;
   height: 100%;
 }
 
@@ -351,6 +351,7 @@ div#QandA {
   grid-column: 2;
   grid-row: 5;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -672,7 +673,298 @@ div#RatingsReviews div#ButtonContainer div.Button:hover {
   cursor: pointer;
 }
 
+/* Question & Answers Module Styling*/
+div#QandA h2 {
+  margin-top: -75px;
+  margin-right: auto;
+  margin-left: 25px;
+  padding-left: 100px;
+}
 
+div#QandA div.q-a-content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 550px;
+  width: 90%;
+  padding: 0 55px;
+  margin-top: 90px;
+  /* margin-left: 50px; */
+}
+
+div#QandA div.q-a-content div.rendered-questions {
+  margin-top: -65px;
+  max-height: 556px;
+  /* overflow-y: scroll; */
+}
+
+div#QandA div.q-a-content div.rendered-questions.active{
+  max-height: 600px;
+  overflow-y: scroll;
+}
+
+/* QuestionEntry styling */
+div#QandA div.question-entry {
+  /* margin-top: -25px; */
+}
+
+div#QandA div.question-entry div.question-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-right: 50px;
+}
+
+div#QandA div.question-entry div.question-container div.question {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+div#QandA div.helpful-buttons {
+  color: #3d3d3d;
+  display: flex;
+  /* justify-content: space-evenly; */
+  font-size: 14px;
+}
+
+div#QandA div.helpful-buttons.user-info {
+  padding-left: 31px;
+}
+
+div#QandA div.helpful-buttons div.user {
+  margin-top: 5px;
+}
+
+div#QandA div.helpful-buttons p {
+  color: #3d3d3d;
+  margin-top: 5px;
+}
+
+div#QandA div.helpful-buttons p.divider {
+  font-size: 20px;
+  margin: 0 10px;
+  margin-top: 3px;
+}
+
+div#QandA div.helpful-buttons button {
+  color: #3d3d3d;
+  cursor: pointer;
+  border: none;
+  font-size: 13px;
+  text-decoration: underline;
+  background-color: white;
+}
+
+/* Search component styling */
+div#QandA div.search {
+  width: 100%;
+  margin: 0 auto;
+  margin-top: -140px;
+  margin-left: 25px;
+}
+
+div#QandA div.search div.search-bar {
+  display: flex;
+  margin-top: 150px;
+  padding-left: 100px;
+  width: 78.5%;
+  /* margin-right: 50px; */
+}
+
+div#QandA div.search input {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 20px 40px;
+}
+
+/* FooterButtons component styling */
+div#QandA div.footer-buttons {
+  display: flex;
+  margin-top: 55px;
+  margin-bottom: -45px;
+}
+
+div#QandA div.footer-buttons button {
+  height: 60px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: white;
+  font-weight: bold;
+}
+
+div#QandA div.footer-buttons .additional-answers-button {
+  width: 250px;
+  margin-right: 20px;
+}
+
+div#QandA div.footer-buttons .add-question-button {
+  width: 160px;
+}
+
+div#QandA div.footer-buttons button:hover {
+  color: rgb(255, 255, 255);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+}
+
+/* Modal Styling */
+div#QandA div.modal-background {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+div#QandA div.modal-background div.modal-content form {
+  font-family: sans-serif;
+  background-color: white;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 auto;
+  margin-top: 25vh;
+  width: 470px;
+  padding: 30px 50px;
+}
+
+div#QandA div.modal-background div.modal-content h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #3d3d3d;
+  padding: 10px;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+div#QandA div.modal-background div.modal-content h3 {
+  margin-bottom: 25px;
+  font-weight: 500;
+}
+
+div#QandA div.modal-background div.modal-content label {
+  color: #3d3d3d;
+  font-weight: 550;
+  margin-bottom: 5px;
+}
+
+div#QandA div.modal-background div.modal-content input {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+div#QandA div.modal-background div.modal-content p {
+  font-family: serif;
+  font-size: 15.5px;
+  margin-bottom: 20px;
+}
+
+div#QandA div.modal-background div.modal-content button.submit-button {
+  background-color: rgb(65, 111, 128);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-family: sans-serif;
+  font-size: 17px;
+  height: 47px;
+  padding: 12px 10px;
+  padding: 0 3px;
+  margin-top: 15px;
+  margin-bottom: 8px;
+}
+
+div#QandA div.modal-background div.modal-content button.submit-button:hover {
+  background-color: rgb(46, 67, 75);
+}
+
+div#QandA div.modal-background div.modal-content span {
+  cursor: pointer;
+  text-align: end;
+  font-size: 22px;
+  margin-top: -17px;
+  margin-bottom: 17px;
+  margin-right: -20px;
+}
+
+div#QandA div.modal-background div.modal-content span:hover {
+  color: #858585
+}
+
+/* Answer Styling */
+div#QandA div.answer {
+  margin-top: 15px;
+}
+
+div#QandA div.answer div.answer-content {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+div#QandA div.answer div.answer-content span {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+div#QandA div.answer div.answer-content div.answer-body {
+  color: #3d3d3d;
+  font-size: 17px;
+}
+
+div#QandA div.answer-date {
+  margin-top: 5px;
+  /* margin-left: 4px; */
+}
+
+div#QandA div.q-answers.active{
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+div#QandA .load-answers {
+  margin-top: 15px;
+  padding-left: 31px;
+  font-size: 12px;
+  font-weight: bold;
+  color: rgb(117, 116, 116);
+  border: none;
+  background: white;
+}
+
+div#QandA .load-answers:hover {
+  color: rgb(63, 62, 62);
+}
+
+div#QandA div.photo-container {
+  display: flex;
+  padding-left: 31px;
+}
+
+div#QandA div.photo {
+  border: 1.5px solid rgb(80, 80, 80);
+  height: 65px;
+  width: 65px;
+  margin-right: 15px;
+  align-items: center;
+}
+
+div#QandA div.photo-container img {
+  max-height: 100%;
+  max-width: 100%;
+}
 
 
 

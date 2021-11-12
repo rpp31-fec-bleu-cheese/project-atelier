@@ -1,5 +1,7 @@
 const path = require('path');
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const app = express();
 const axios = require('axios').default;
 const controllers = require('./controllers.js');
@@ -9,7 +11,7 @@ const cookieParser = require('cookie-parser');
 const middleware = require('./middle.js');
 app.use(cookieParser());
 
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/products', controllers.products.getAllProducts);
@@ -26,6 +28,9 @@ app.get('/cookies', controllers.cookies.getCookies);
 
 
 app.get('/qa/questions/', controllers.questions_answers.getAllQuestions);
+app.post('/qa/questions/', controllers.questions_answers.postQuestion);
+app.put('/qa/questions/:question_id/helpful', controllers.questions_answers.updateQuestionHelpfulness);
+app.post('/qa/questions/:question_id/answers', controllers.questions_answers.postAnswer);
 
 app.get('/reviews', controllers.reviews.getAllReviews);
 app.get('/reviews/meta', controllers.reviews.getReviewsMeta);
