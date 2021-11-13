@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from './Header/Header.jsx';
 import SiteMessage from './SiteMessage.jsx';
-import Overview from './ProductInfo/Overview.jsx';
+import Overview from './Overview/Overview.jsx';
 import Related_Outfit from './Related_Outfit/Related_Outfit.jsx';
 import QandA from './Q&A/Q&A.jsx';
 import Reviews from './Reviews/Reviews.jsx';
