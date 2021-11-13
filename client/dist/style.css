@@ -644,7 +644,7 @@ div#QandA div.footer-buttons button:hover {
 
 /* Modal Styling */
 div#QandA div.modal-background {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
   height: 100%;
   width: 100%;
@@ -666,6 +666,10 @@ div#QandA div.modal-background div.modal-content form {
   margin-top: 25vh;
   width: 470px;
   padding: 30px 50px;
+}
+
+div#QandA div.modal-background div.modal-content form.answer-form {
+  margin-top: 10vh;
 }
 
 div#QandA div.modal-background div.modal-content h2 {
@@ -811,6 +815,16 @@ div#QandA div.thumbnail-image {
 div#QandA div.thumbnail-image img {
   height: 70%;
   margin-top: 105px;
+}
+
+div#QandA div.image-uploads {
+  display: flex;
+  justify-content: space-around;
+}
+
+div#QandA div.image-uploads img.upload {
+  height: 70px;
+  width: 70px;
 }
 
 

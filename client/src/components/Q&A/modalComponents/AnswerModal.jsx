@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
 // modal will display when the user clicks on the ADD A QUESTION button
-const AnswerModal = ({ showModal, setShowModal, questionBody, questionID }) => {
+const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQuestions }) => {
   const[name, setName] = useState('');
   const[email, setEmail] = useState('');
   const[answer, setAnswer] = useState('');
+  const[photos, setPhotos] = useState([]);
+  const[display, setDisplay] = useState('block');
 
   const handleInputChange = (event) => {
     let value = event.target.value;
@@ -15,7 +17,7 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID }) => {
       setName(value);
     } else if (event.target.placeholder === 'Example: jack543@email.com') {
       setEmail(value);
-    } else {
+    } else if (event.target.placeholder === 'Type your answer') {
       setAnswer(value);
     }
   }
@@ -28,14 +30,36 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID }) => {
       body: answer,
       name: name,
       email: email,
+      photos: photos,
       question_id: questionID,
     })
       .then((response) => {
         console.log('successful post!', response.data);
+        getQuestions();
         setShowModal(false);
       })
   }
 
+  const addAnswerImages = (event) => {
+    const images = [];
+
+    const fileUploads = Object.values(event.target.files);
+    fileUploads.forEach(file => {
+      let src = URL.createObjectURL(file);
+
+      if (images.length < 5) {
+        images.push(src);
+      }
+    });
+
+    setPhotos([...photos, ...images]);
+  }
+
+  useEffect(() => {
+    if (photos.length >= 5) {
+      setDisplay('none');
+    }
+  })
 
   return (
     <div className="answer-modal">
@@ -54,6 +78,17 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID }) => {
               <p>For authentication reasons, you will not be emailed</p>
               <label>Your Answer</label>
               <input placeholder="Type your answer" type="text" maxLength="1000" required/>
+              <label style={{ 'margin-top': '15px' }}>Upload Images (up to 5)</label>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={addAnswerImages}
+                style={{ display: display }}
+              />
+              <div className="image-uploads">
+                {photos.map((p, i) => <img className="upload" key={i} src={p}/>)}
+              </div>
               <button className="submit-button" onClick={postAnswer}>Submit Answer</button>
             </form>
           </div>
@@ -68,7 +103,8 @@ AnswerModal.propTypes = {
   showModal: PropTypes.bool,
   questionBody: PropTypes.string,
   setShowModal: PropTypes.func,
-  questionID: PropTypes.number
+  questionID: PropTypes.number,
+  getQuestions: PropTypes.func
 }
 
 export default AnswerModal;

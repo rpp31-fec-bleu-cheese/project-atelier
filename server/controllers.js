@@ -213,8 +213,20 @@ module.exports = {
         res.status(201).send(data);
       })
     },
+    reportAnswer: function(req, res) {
+      let answerID = req.params.answer_id;
+      qanda.reportAnswers(answerID, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+
+        res.status(201).send(data);
+      })
+    },
     postAnswer: function(req, res) {
       let answer = req.body;
+      console.log(req.body);
       let questionID = req.params.question_id;
       qanda.addAnswer(answer, questionID, (err, data) => {
         if (err) {

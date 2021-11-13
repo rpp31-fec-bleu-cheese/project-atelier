@@ -22,6 +22,13 @@ const Answer = ({ answer, questionAsker, getQuestions }) => {
     }
   }
 
+  const handleReportClick = (event) => {
+    axios.put(`qa/answers/${answer.id}/report`)
+      .then((response) => {
+        event.target.innerHTML = 'Reported';
+      })
+  }
+
   return (
     <div className="answer">
       <div className="answer-content">
@@ -41,7 +48,7 @@ const Answer = ({ answer, questionAsker, getQuestions }) => {
         <p>Helpful?</p>
         <button onClick={handleHelpfulClick}>Yes ({helpfulness})</button>
         <p className="divider">|</p>
-        <button>Report</button>
+        <button onClick={handleReportClick}>Report</button>
       </div>
     </div>
   )

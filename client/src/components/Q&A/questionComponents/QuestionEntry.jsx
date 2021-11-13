@@ -63,7 +63,6 @@ class QuestionEntry extends React.Component {
         answersToShow: 2,
         expanded: false
       });
-
     }
 
   }
@@ -90,6 +89,7 @@ class QuestionEntry extends React.Component {
           setShowModal={this.closeModal}
           questionBody={question_body}
           questionID={question_id}
+          getQuestions={this.props.getQuestions}
           />
         <div className="q-answers">
           {questionAnswers.slice(0, answersToShow)

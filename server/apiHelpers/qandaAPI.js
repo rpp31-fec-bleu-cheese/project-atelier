@@ -112,6 +112,25 @@ const putAnswers = (answerID, callback) => {
   })
 }
 
+const reportAnswers = (answerID, callback) => {
+  let options = {
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/answers/${answerID}/report`,
+    method: 'put',
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': config.API_KEY
+    }
+  }
+
+  axios(options)
+  .then((response) => {
+    callback(null, response.data)
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
 const addAnswer = (answer, questionID, callback) => {
   let options = {
     url: server + '/' + questionID + '/answers',
@@ -138,5 +157,6 @@ module.exports = {
   postQuestions,
   putQuestions,
   putAnswers,
-  addAnswer
+  addAnswer,
+  reportAnswers
 };
