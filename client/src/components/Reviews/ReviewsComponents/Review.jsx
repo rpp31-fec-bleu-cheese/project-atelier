@@ -10,8 +10,13 @@ class Review extends React.Component {
     super(props);
 
     this.state = {
-      markedHelpful: false
+      markedHelpful: false,
+      reported: false
     }
+  }
+
+  componentDidMount() {
+    if (this.props.review.review_id in this.props.markedHelpful) this.setState({markedHelpful: true})
   }
 
   markHelpful(e) {
@@ -27,6 +32,22 @@ class Review extends React.Component {
           markedHelpful: true
         })
         e.target.innerHTML = `Yes(${this.props.review.helpfulness + 1})`;
+      },
+      error: (_, __, errString) => console.log(errString)
+    })
+  }
+
+  reportReview() {
+    $.ajax({
+      url: 'http://localhost:3000/reviews/:review_id/report',
+      method: 'PUT',
+      data: JSON.stringify({
+        review_id: this.props.review.review_id
+      }),
+      contentType: 'application/json',
+      success: data => {
+        this.props.report(this.props.index)
+        alert('Report has been received.  You will no longer see this review.')
       },
       error: (_, __, errString) => console.log(errString)
     })
@@ -93,7 +114,7 @@ class Review extends React.Component {
             {`Yes(${this.props.review.helpfulness})`}
           </span>
           <span> | </span>
-          <span className='ReportReview'>Report</span>
+          <span className='ReportReview' onClick={this.reportReview.bind(this)}>Report</span>
         </div>
       </div>
     );
@@ -102,7 +123,10 @@ class Review extends React.Component {
 
 Review.propTypes = {
   review: PropTypes.object.isRequired,
-  onclick: PropTypes.func.isRequired
+  onclick: PropTypes.func.isRequired,
+  report: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+  markedHelpful: PropTypes.object.isRequired
 };
 
 export default Review;

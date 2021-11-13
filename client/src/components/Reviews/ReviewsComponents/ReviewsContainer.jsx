@@ -13,6 +13,7 @@ class ReviewsContainer extends React.Component {
     super(props);
 
     this.state = {
+      markedHelpful: {},
       modalPhoto: null,
       sortedReviews: [],
       visibleReviews: 2,
@@ -20,14 +21,30 @@ class ReviewsContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.changeFilterSort();
+    this.setState({
+      sortedReviews: this.changeFilterSort(),
+      markedHelpful: JSON.parse(decodeURIComponent(document.cookie).split('=')[1])
+    });
   }
 
   componentDidUpdate(prevProps) {
     let oldProps = Object.keys(prevProps.reviewsStarsFilter) + prevProps.currentSort;
     let newProps = Object.keys(this.props.reviewsStarsFilter) + this.props.currentSort;
 
-    if (oldProps !== newProps) this.changeFilterSort();
+    if (oldProps !== newProps) {
+      this.setState({
+        sortedReviews: this.changeFilterSort()
+      })
+    };
+  }
+
+  updateListWhenReport(index) {
+    let updatedReviews = this.state.sortedReviews.slice();
+    updatedReviews.splice(index, 1);
+
+    this.setState({
+      sortedReviews: updatedReviews
+    });
   }
 
   changeFilterSort() {
@@ -36,11 +53,8 @@ class ReviewsContainer extends React.Component {
         .filter(review => {
           if (Object.keys(this.props.reviewsStarsFilter).length > 0) return review.rating in this.props.reviewsStarsFilter
           return true;
-        })
-
-      this.setState({
-        sortedReviews: sorted
-      })
+        });
+      return sorted;
     }
   }
 
@@ -76,7 +90,15 @@ class ReviewsContainer extends React.Component {
             <div id='ReviewsSubcontainer'>
               {
                 this.state.sortedReviews
-                  .map((review, i) => <Review review={review} key={i} onclick={this.loadPhotoModal.bind(this)}/>)
+                  .map((review, i) => {
+                    return <Review
+                      review={review}
+                      key={i}
+                      index={i}
+                      markedHelpful={this.state.markedHelpful}
+                      onclick={this.loadPhotoModal.bind(this)}
+                      report={this.updateListWhenReport.bind(this)}/>
+                  })
                   .slice(0, this.state.visibleReviews)
               }
             </div>

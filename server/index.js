@@ -1,4 +1,5 @@
 const path = require('path');
+const compression = require('compression');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -11,7 +12,7 @@ const cookieParser = require('cookie-parser');
 const middleware = require('./middle.js');
 app.use(cookieParser());
 
-
+app.use(compression());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
@@ -34,9 +35,10 @@ app.put('/qa/questions/:question_id/helpful', controllers.questions_answers.upda
 app.post('/qa/questions/:question_id/answers', controllers.questions_answers.postAnswer);
 
 app.get('/reviews', controllers.reviews.getAllReviews);
-app.get('/reviews/meta', controllers.reviews.getReviewsMeta);
 app.post('/reviews', controllers.reviews.postReviews);
-app.put('/reviews/helpful', controllers.reviews.markHelpful)
+app.get('/reviews/meta', controllers.reviews.getReviewsMeta);
+app.put('/reviews/helpful', controllers.reviews.markHelpful);
+app.put('/reviews/:review_id/report', controllers.reviews.reportReview);
 
 app.get('/cart', controllers.cart.getProductsInCart);
 
