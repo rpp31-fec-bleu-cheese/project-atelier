@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 
 // modal will display when the user clicks on the ADD A QUESTION button
 const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQuestions }) => {
-  const[name, setName] = useState('');
-  const[email, setEmail] = useState('');
-  const[answer, setAnswer] = useState('');
-  const[photos, setPhotos] = useState([]);
-  const[display, setDisplay] = useState('block');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [photos, setPhotos] = useState([]);
+  const [display, setDisplay] = useState('block');
+  const [message, setMessage] = useState(false);
 
   const handleInputChange = (event) => {
     let value = event.target.value;
@@ -55,9 +56,31 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
     setPhotos([...photos, ...images]);
   }
 
+  const removeImage = (event) => {
+    console.log('clicked');
+    const imageSrc = event.target.src;
+    const idx = photos.indexOf(imageSrc);
+    photos.splice(idx, 1);
+
+    if (photos.length < 5) {
+      setDisplay('block');
+    }
+
+    setPhotos([...photos]);
+  }
+
+
   useEffect(() => {
     if (photos.length >= 5) {
       setDisplay('none');
+    }
+
+    if (photos.length === 1) {
+      setMessage(true);
+    }
+
+    if (!photos.length) {
+      setMessage(false);
     }
   })
 
@@ -87,8 +110,9 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
                 style={{ display: display }}
               />
               <div className="image-uploads">
-                {photos.map((p, i) => <img className="upload" key={i} src={p}/>)}
+                {photos.map((p, i) => <img className="upload" key={i} src={p} onClick={removeImage}/>)}
               </div>
+              {message ? (<div>Click on image to remove!</div>) : null }
               <button className="submit-button" onClick={postAnswer}>Submit Answer</button>
             </form>
           </div>
