@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const PhotoModal = props => {
   return (
-    <div id='PhotoModal'>
+    <div id='Modal'>
       <span id='CloseImage' onClick={props.onclick}>{'\u00D7'}</span>
       <img id='FullImage' src={props.photo.src}></img>
     </div>

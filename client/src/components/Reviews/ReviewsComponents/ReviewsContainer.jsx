@@ -6,6 +6,7 @@ import Review from './Review.jsx';
 import MoreButton from './MoreButton.jsx';
 import WriteButton from './WriteButton.jsx';
 import PhotoModal from './PhotoModal.jsx';
+import ReviewModal from './ReviewModal.jsx'
 
 class ReviewsContainer extends React.Component {
 
@@ -15,6 +16,7 @@ class ReviewsContainer extends React.Component {
     this.state = {
       markedHelpful: {},
       modalPhoto: null,
+      modalReview: false,
       sortedReviews: [],
       visibleReviews: 2,
     };
@@ -72,6 +74,12 @@ class ReviewsContainer extends React.Component {
     })
   }
 
+  writeReview() {
+    this.setState({
+      modalReview: (!this.state.modalReview) ? true : false
+    })
+  }
+
   render() {
     return (
       <div id='ReviewsContainer'>
@@ -110,11 +118,15 @@ class ReviewsContainer extends React.Component {
             this.state.visibleReviews < this.state.sortedReviews.length &&
               <MoreButton onclick={this.viewMoreReviews.bind(this)}/>
           }
-          <WriteButton />
+          <WriteButton onclick={this.writeReview.bind(this)}/>
         </div>
         {
           this.state.modalPhoto !== null &&
             <PhotoModal photo={this.state.modalPhoto} onclick={this.loadPhotoModal.bind(this)}/>
+        }
+        {
+          this.state.modalReview &&
+            <ReviewModal onsubmit={this.writeReview.bind(this)}/>
         }
       </div>
     );
