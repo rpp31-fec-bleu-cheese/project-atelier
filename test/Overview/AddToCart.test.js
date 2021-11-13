@@ -120,6 +120,32 @@ let handleSizeClick = (event) => {
   event.preventDefault();
 }
 
+let handleAddToBag = () => {
+  console.log('Added to bag!')
+  // get sku
+  let productSkuForBag;
+  for (let key in currentSkus) {
+    if (currentSize === currentSkus[key].size) {
+      productSkuForBag = key;
+      console.log('Product Sku:', productSkuForBag);
+    }
+  }
+  let optionsForCart = {
+    url: '/cart',
+    method: 'post',
+    headers: {'Content-Type': 'application/json',
+    'Authorization': cam_token.cam_token},
+    data: {sku_id: productSkuForBag}
+  };
+  axios(optionsForCart)
+    .then(response => {
+      console.log('Response from Cart:', response.data);
+    })
+      .catch(error => {
+        console.log(error);
+      });
+}
+
   const indexes = {product: 0, photo: 0, style: 0};
   const wrapper = shallow(<AddToCart productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} cam_token={cam_token} />);
   it('Renders an Add to Cart container', () => {
@@ -128,13 +154,13 @@ let handleSizeClick = (event) => {
   it('Renders sizes in Size Selector Dropdown container', () => {
     expect(wrapper.find('.SizeSelectorDropdown').children()).not.toBeUndefined();
   })
+  it('Allows a size to be selected', () => {
+    wrapper.find('.AddToBagButton').simulate('click');
+    expect(handleAddToBag).toHaveBeenCalled();
+  })
   // it('Allows items to be added to bag', () => {
   //   const tree = renderer.create(<AddToCart />).toJSON();
   //   expect(tree).toMatchSnapshot();
-  // })
-  // it('Allows a size to be selected', () => {
-  //   wrapper.find('.SizeSelectorDropdown').simulate('click');
-  //   expect(handleSizeClick).toBeCalled();
   // })
   // it('Renders six sizes', () => {
   //   let sizes = wrapper.find('.SizeOption');
