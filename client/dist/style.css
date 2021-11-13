@@ -27,7 +27,7 @@ time, mark, audio, video {
 div#App {
   display: grid;
   grid-template-columns: 10% auto 10%;
-  grid-template-rows: 70px 40px 650px 650px 850px auto;
+  grid-template-rows: 70px 40px 650px 650px 650px auto;
   height: 100%;
 }
 
@@ -506,12 +506,63 @@ div#RatingsReviews div.Breakdown div.Slider {
   height: 100%;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Question & Answers Module Styling*/
 div#QandA h2 {
   margin-top: -75px;
   margin-right: auto;
-  margin-left: 25px;
-  padding-left: 100px;
+  margin-left: 5px;
 }
 
 div#QandA div.q-a-content {
@@ -520,7 +571,7 @@ div#QandA div.q-a-content {
   flex-direction: column;
   justify-content: space-between;
   max-height: 550px;
-  width: 90%;
+  width: 108%;
   padding: 0 55px;
   margin-top: 90px;
   /* margin-left: 50px; */
@@ -528,12 +579,12 @@ div#QandA div.q-a-content {
 
 div#QandA div.q-a-content div.rendered-questions {
   margin-top: -65px;
-  max-height: 556px;
+  max-height: 360px;
   overflow-y: scroll;
 }
 
 div#QandA div.q-a-content div.rendered-questions.active{
-  max-height: 600px;
+  max-height: 360px;
   overflow-y: scroll;
 }
 
@@ -594,14 +645,13 @@ div#QandA div.search {
   width: 100%;
   margin: 0 auto;
   margin-top: -140px;
-  margin-left: 25px;
+  margin-left: 5px;
 }
 
 div#QandA div.search div.search-bar {
   display: flex;
   margin-top: 150px;
-  padding-left: 100px;
-  width: 78.5%;
+  width: 93.8%;
   /* margin-right: 50px; */
 }
 
