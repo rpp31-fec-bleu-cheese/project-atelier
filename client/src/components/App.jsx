@@ -80,7 +80,7 @@ class App extends React.Component {
         <SiteMessage />
         <Overview products={this.props.products} cam_token={this.props.cam_token} rating={this.state.rating}/>
         <Related_Outfit productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} productClick={this.relatedOutfitProductClick}/>
-        <QandA />
+        <QandA productId={this.state.productId}/>
         <RatingsReviews product_id={this.state.productId} updateRating={this.state}/>
       </div>
     )
