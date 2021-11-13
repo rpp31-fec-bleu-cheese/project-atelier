@@ -75,7 +75,7 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
       setDisplay('none');
     }
 
-    if (photos.length === 1) {
+    if (photos.length >= 1) {
       setMessage(true);
     }
 
