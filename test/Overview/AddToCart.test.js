@@ -132,10 +132,10 @@ let handleSizeClick = (event) => {
   //   const tree = renderer.create(<AddToCart />).toJSON();
   //   expect(tree).toMatchSnapshot();
   // })
-  it('Allows a size to be selected', () => {
-    wrapper.find('.SizeSelectorDropdown').simulate('click');
-    expect(handleSizeClick).toBeCalled();
-  })
+  // it('Allows a size to be selected', () => {
+  //   wrapper.find('.SizeSelectorDropdown').simulate('click');
+  //   expect(handleSizeClick).toBeCalled();
+  // })
   // it('Renders six sizes', () => {
   //   let sizes = wrapper.find('.SizeOption');
   //   expect(sizes).to.have.lengthOf(6);
