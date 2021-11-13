@@ -150,8 +150,27 @@ module.exports = {
           return;
         }
 
-        res.status(204).end()
+        let reviews = JSON.parse(req.cookies.markedHelpful);
+        if (!(reviewID in reviews)) {
+          reviews[reviewID] = reviewID;
+          res.cookie('markedHelpful', JSON.stringify(reviews))
+        }
+
+        res.status(204).end();
       })
+    },
+    reportReview: function(req, res) {
+      let reviewID = req.body.review_id;
+
+      reviews.reportReview(reviewID, (err, data) => {
+        if (err) {
+          res.status(400).send();
+          return;
+        }
+
+        res.status(204).end();
+      })
+
     }
   },
 
@@ -260,6 +279,7 @@ module.exports = {
   //added for Related Component
   cookies:{
     getCookies: function(req,res) {
+      console.log('inside get cookies:', req.cookies);
       res.status(200).send(JSON.stringify(req.cookies));
     }
   }

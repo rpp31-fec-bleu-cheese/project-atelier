@@ -89,11 +89,31 @@ const markReviewHelpful = (reviewID, callback) => {
     .catch((err) => {
       callback(err);
     })
+};
+
+const reportReview = (reviewID, callback) => {
+  let options = {
+    url: server + `/${reviewID}/report`,
+    method: 'put',
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': config.API_KEY
+    }
+  };
+
+  axios(options)
+    .then((response) => {
+      callback(null, response.data);
+    })
+    .catch((err) => {
+      callback(err);
+    })
 }
 
 module.exports = {
   getReviews,
   getMetaReviews,
   postReviewData,
-  markReviewHelpful
+  markReviewHelpful,
+  reportReview
 }

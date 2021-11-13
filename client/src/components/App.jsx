@@ -12,9 +12,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: 59558,
-      outfitIds: [],
-      currentProduct: 59554
+      rating: 0,
+      productId: 59553,
+      outfitIds: []
     };
     this.relatedOutfitProductClick = this.relatedOutfitProductClick.bind(this);
     this.changeInOutfit = this.changeInOutfit.bind(this);
@@ -48,13 +48,17 @@ class App extends React.Component {
     })
   }
 
+  updateRating(rating) {
+    this.setState({
+      rating: rating
+    })
+  }
+
   componentDidMount(){
-    var server = 'http://localhost:3000/cookies';
-    var options = {
-      method: "get",
-      url:server
-    }
-    axios(options)
+    axios({
+      method: 'get',
+      url: 'http://localhost:3000/cookies'
+    })
     .then((response) => {
       var outfitIds = JSON.parse(response.data.outfitData);
       this.setState({
@@ -74,10 +78,10 @@ class App extends React.Component {
       <div id='App'>
         <Header />
         <SiteMessage />
-        <Overview products={this.props.products} cam_token={this.props.cam_token} />
+        <Overview products={this.props.products} cam_token={this.props.cam_token} rating={this.state.rating}/>
         <Related_Outfit productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} productClick={this.relatedOutfitProductClick}/>
-        <QandA productId={this.state.productId}/>
-        <RatingsReviews product_id={this.state.currentProduct}/>
+        <QandA />
+        <RatingsReviews product_id={this.state.productId} updateRating={this.state}/>
       </div>
     )
   }

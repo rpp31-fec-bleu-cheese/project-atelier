@@ -1,9 +1,11 @@
 import React from 'React';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
 
-import Review from './Review/Review.jsx';
+import Review from './Review.jsx';
 import MoreButton from './MoreButton.jsx';
 import WriteButton from './WriteButton.jsx';
+import PhotoModal from './PhotoModal.jsx';
 
 class ReviewsContainer extends React.Component {
 
@@ -11,19 +13,38 @@ class ReviewsContainer extends React.Component {
     super(props);
 
     this.state = {
+      markedHelpful: {},
+      modalPhoto: null,
       sortedReviews: [],
       visibleReviews: 2,
     };
   }
 
   componentDidMount() {
-    this.changeFilterSort();
+    this.setState({
+      sortedReviews: this.changeFilterSort(),
+      markedHelpful: JSON.parse(decodeURIComponent(document.cookie).split('=')[1])
+    });
   }
+
   componentDidUpdate(prevProps) {
     let oldProps = Object.keys(prevProps.reviewsStarsFilter) + prevProps.currentSort;
     let newProps = Object.keys(this.props.reviewsStarsFilter) + this.props.currentSort;
 
-    if (oldProps !== newProps) this.changeFilterSort();
+    if (oldProps !== newProps) {
+      this.setState({
+        sortedReviews: this.changeFilterSort()
+      })
+    };
+  }
+
+  updateListWhenReport(index) {
+    let updatedReviews = this.state.sortedReviews.slice();
+    updatedReviews.splice(index, 1);
+
+    this.setState({
+      sortedReviews: updatedReviews
+    });
   }
 
   changeFilterSort() {
@@ -32,17 +53,22 @@ class ReviewsContainer extends React.Component {
         .filter(review => {
           if (Object.keys(this.props.reviewsStarsFilter).length > 0) return review.rating in this.props.reviewsStarsFilter
           return true;
-        })
-
-      this.setState({
-        sortedReviews: sorted
-      })
+        });
+      return sorted;
     }
   }
 
   viewMoreReviews() {
     this.setState({
       visibleReviews: this.state.visibleReviews + 2
+    })
+    $('html, body').animate({ scrollTop: $(document).height() }, 1000);
+    $('#Reviews').animate({ scrollTop: $('#ReviewsSubcontainer').height() }, 1000);
+  }
+
+  loadPhotoModal(e) {
+    this.setState({
+      modalPhoto: (this.state.modalPhoto === null) ? e.target : null
     })
   }
 
@@ -61,11 +87,21 @@ class ReviewsContainer extends React.Component {
           // If no reviews are present, the Reviews component will not render
           this.state.sortedReviews.length > 0 &&
           <div id='Reviews'>
-            {
-              this.state.sortedReviews
-                .map((review, i) => <Review review={review} key={i}/>)
-                .slice(0, this.state.visibleReviews)
-            }
+            <div id='ReviewsSubcontainer'>
+              {
+                this.state.sortedReviews
+                  .map((review, i) => {
+                    return <Review
+                      review={review}
+                      key={i}
+                      index={i}
+                      markedHelpful={this.state.markedHelpful}
+                      onclick={this.loadPhotoModal.bind(this)}
+                      report={this.updateListWhenReport.bind(this)}/>
+                  })
+                  .slice(0, this.state.visibleReviews)
+              }
+            </div>
           </div>
         }
         <div id='ButtonContainer'>
@@ -76,6 +112,10 @@ class ReviewsContainer extends React.Component {
           }
           <WriteButton />
         </div>
+        {
+          this.state.modalPhoto !== null &&
+            <PhotoModal photo={this.state.modalPhoto} onclick={this.loadPhotoModal.bind(this)}/>
+        }
       </div>
     );
   }
