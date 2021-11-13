@@ -1,3 +1,8 @@
+// module.exports = {
+//   verbose: true,
+//   testURL: "http://localhost/",
+//   testEnvironment: 'jsdom'
+// }
 // Sync object
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
@@ -12,9 +17,3 @@ module.exports = async () => {
     verbose: true,
   };
 };
-
-// {
-//   "jest": {
-//     "setupFilesAfterEnv": ["<rootDir>src/setupTests.js"]
-//   }
-// }

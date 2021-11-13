@@ -204,8 +204,8 @@ div#Overview div#GalleryModalContent {
 }
 
 div#Overview div#GalleryModalContent img {
-  height: 75%;
-  width: 75%;
+  height: 90%;
+  width: 90%;
   border: 20px solid #f4f4f4;
 }
 
