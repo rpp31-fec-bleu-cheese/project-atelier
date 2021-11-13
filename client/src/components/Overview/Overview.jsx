@@ -130,4 +130,4 @@ Overview.propTypes = {
 }
 
 export default Overview;
-export {ImageGallery, ProductInformation, ProductFeatures, ProductSloganAndDescription, StyleSelector};
+// export {ImageGallery, ProductInformation, ProductFeatures, ProductSloganAndDescription, StyleSelector};

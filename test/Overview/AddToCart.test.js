@@ -89,8 +89,39 @@ const changeInOutfit = (event, productId, todo) => {
   })
 }
 
+let handleSizeClick = (event) => {
+  event.persist();
+  setOutOfStock(false);
+  let selectedSize = event.target.value;
+  console.log('SIZE IN SIZE CLICK:', selectedSize);
+  for (var i = 0; i < skusArray.length; i++) {
+    if (skusArray[i].size === selectedSize) {
+      let availableQuantity = skusArray[i].quantity;
+      let quantityArray = [];
+      if (!availableQuantity) {
+        setOutOfStock(true);
+      } else if (availableQuantity <= 15) {
+        for (let q = 1; q <= availableQuantity; q++) {
+          quantityArray.push(q);
+        }
+      } else {
+        for (let q = 1; q <= 15; q++) {
+          quantityArray.push(q);
+        }
+      }
+      // console.log('AVAIL QUANTITY:', availableQuantity);
+      // console.log('QTY ARRAY:', quantityArray);
+      // setDefaultSizeAndQty({qty: quantityArray, size: selectedSize});
+      setCurrentSize(selectedSize);
+      setQtyInStock(quantityArray);
+    }
+  }
+
+  event.preventDefault();
+}
+
   const indexes = {product: 0, photo: 0, style: 0};
-  const wrapper = shallow(<AddToCart indexes={indexes} productStyles={productStyles} changeInOutfit={changeInOutfit} />);
+  const wrapper = shallow(<AddToCart productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} cam_token={cam_token} />);
   it('Renders an Add to Cart container', () => {
     expect(wrapper.find('.AddToCart')).not.toBeUndefined();
   })
@@ -101,10 +132,10 @@ const changeInOutfit = (event, productId, todo) => {
   //   const tree = renderer.create(<AddToCart />).toJSON();
   //   expect(tree).toMatchSnapshot();
   // })
-  // it('Allows a size to be selected', () => {
-  //   wrapper.find('.SizeOption').simulate('click');
-  //   expect(handleSizeClick).to.have.property('callCount', 1);
-  // })
+  it('Allows a size to be selected', () => {
+    wrapper.find('.SizeSelectorDropdown').simulate('click');
+    expect(handleSizeClick).toBeCalled();
+  })
   // it('Renders six sizes', () => {
   //   let sizes = wrapper.find('.SizeOption');
   //   expect(sizes).to.have.lengthOf(6);
