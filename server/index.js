@@ -32,6 +32,9 @@ app.get('/cookies', controllers.cookies.getCookies);
 app.get('/qa/questions/', controllers.questions_answers.getAllQuestions);
 app.post('/qa/questions/', controllers.questions_answers.postQuestion);
 app.put('/qa/questions/:question_id/helpful', controllers.questions_answers.updateQuestionHelpfulness);
+
+app.put('/qa/answers/:answer_id/helpful', controllers.questions_answers.updateAnswerHelpfulness);
+app.put('/qa/answers/:answer_id/report', controllers.questions_answers.reportAnswer);
 app.post('/qa/questions/:question_id/answers', controllers.questions_answers.postAnswer);
 
 app.get('/reviews', controllers.reviews.getAllReviews);
@@ -41,6 +44,7 @@ app.put('/reviews/helpful', controllers.reviews.markHelpful);
 app.put('/reviews/:review_id/report', controllers.reviews.reportReview);
 
 app.get('/cart', controllers.cart.getProductsInCart);
+app.post('/cart', controllers.cart.postProductToCart);
 
 //utility routes for static media
 app.get('/media', (req, res) => {

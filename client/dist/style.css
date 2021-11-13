@@ -31,7 +31,7 @@ body {
 div#App {
   display: grid;
   grid-template-columns: 10% auto 10%;
-  grid-template-rows: 70px 40px 650px 650px 850px auto;
+  grid-template-rows: 70px 40px 650px 650px 650px auto;
   height: 100%;
 }
 
@@ -97,6 +97,7 @@ div#Overview div.MainImage {
   justify-content: center;
   align-items: center;
   background-color: rgb(200, 200, 200);
+  cursor: zoom-in;
   /* background: center / contain no-repeat; */
 }
 
@@ -136,11 +137,15 @@ div#Overview div.SlideGalleryLeft {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 0.7;
+  /* opacity: 0.7; */
   height: auto;
   width: auto;
+  color: orange;
   font-size: 150%;
   cursor: pointer;
+}
+div#Overview div.SlideGalleryLeft:hover {
+  color: rgb(107, 236, 236);
 }
 
 div#Overview div.SlideGalleryRight {
@@ -150,11 +155,15 @@ div#Overview div.SlideGalleryRight {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 0.7;
+  /* opacity: 0.7; */
   height: auto;
   width: auto;
+  color: orange;
   font-size: 150%;
   cursor: pointer;
+}
+div#Overview div.SlideGalleryRight:hover {
+  color: rgb(107, 236, 236);
 }
 
 div#Overview div.OpenGalleryModal {
@@ -164,12 +173,53 @@ div#Overview div.OpenGalleryModal {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  opacity: 0.7;
+  /* opacity: 0.7; */
   height: auto;
   width: auto;
+  color: orange;
   font-size: 150%;
   cursor: pointer;
 }
+div#Overview div.OpenGalleryModal:hover {
+  color: rgb(107, 236, 236);
+}
+
+div#Overview div#GalleryModal {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  /* background-color: rgb(0,0,0); */
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+div#Overview div#GalleryModalContent {
+  margin: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+div#Overview div#GalleryModalContent img {
+  height: 90%;
+  width: 90%;
+  border: 20px solid #f4f4f4;
+}
+
+/* div#Overview div.ModalImage {
+  height: 150px;
+  width: 150px;
+  border: 20px solid #f4f4f4;
+  background: center;
+} */
+
 
 div#Overview div.ProductInformation {
   grid-column: 2;
@@ -686,12 +736,63 @@ div#RatingsReviews div#Modal div#ReviewForm {
   border: 1px solid #888;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Question & Answers Module Styling*/
 div#QandA h2 {
   margin-top: -75px;
   margin-right: auto;
-  margin-left: 25px;
-  padding-left: 100px;
+  margin-left: 5px;
 }
 
 div#QandA div.q-a-content {
@@ -700,7 +801,7 @@ div#QandA div.q-a-content {
   flex-direction: column;
   justify-content: space-between;
   max-height: 550px;
-  width: 90%;
+  width: 108%;
   padding: 0 55px;
   margin-top: 90px;
   /* margin-left: 50px; */
@@ -708,12 +809,12 @@ div#QandA div.q-a-content {
 
 div#QandA div.q-a-content div.rendered-questions {
   margin-top: -65px;
-  max-height: 556px;
-  /* overflow-y: scroll; */
+  max-height: 360px;
+  overflow-y: scroll;
 }
 
 div#QandA div.q-a-content div.rendered-questions.active{
-  max-height: 600px;
+  max-height: 360px;
   overflow-y: scroll;
 }
 
@@ -774,14 +875,13 @@ div#QandA div.search {
   width: 100%;
   margin: 0 auto;
   margin-top: -140px;
-  margin-left: 25px;
+  margin-left: 5px;
 }
 
 div#QandA div.search div.search-bar {
   display: flex;
   margin-top: 150px;
-  padding-left: 100px;
-  width: 78.5%;
+  width: 93.8%;
   /* margin-right: 50px; */
 }
 
@@ -824,7 +924,7 @@ div#QandA div.footer-buttons button:hover {
 
 /* Modal Styling */
 div#QandA div.modal-background {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
   height: 100%;
   width: 100%;
@@ -846,6 +946,10 @@ div#QandA div.modal-background div.modal-content form {
   margin-top: 25vh;
   width: 470px;
   padding: 30px 50px;
+}
+
+div#QandA div.modal-background div.modal-content form.answer-form {
+  margin-top: 10vh;
 }
 
 div#QandA div.modal-background div.modal-content h2 {
@@ -979,8 +1083,29 @@ div#QandA div.photo-container img {
   max-width: 100%;
 }
 
+div#QandA div.thumbnail-image {
+  /* margin-top: 100px;
+  margin-left: 400px; */
+  display: flex;
+  justify-content: center;
+  height: 1000px;
+  /* width: 1000px; */
+}
 
+div#QandA div.thumbnail-image img {
+  height: 70%;
+  margin-top: 105px;
+}
 
+div#QandA div.image-uploads {
+  display: flex;
+  justify-content: space-around;
+}
+
+div#QandA div.image-uploads img.upload {
+  height: 70px;
+  width: 70px;
+}
 
 /**********************************/
 /**     RELATED_OUTFIT         **/

@@ -38,6 +38,7 @@ class QuestionEntry extends React.Component {
         .then((response) => {
             this.setState({ helpful: this.state.helpful + 1});
             this.setState({ clicked: true });
+            this.props.getQuestions();
         })
     }
   }
@@ -62,7 +63,6 @@ class QuestionEntry extends React.Component {
         answersToShow: 2,
         expanded: false
       });
-
     }
 
   }
@@ -70,8 +70,8 @@ class QuestionEntry extends React.Component {
   render() {
     const { question_body, question_id, questionAsker, answers, question_helpfulness } = this.props.question;
     const { answersToShow } = this.state;
-    const questionAnswers = Object.values(answers).sort((a, b) => b.question_helpfulness - a.question_helpfulness);
-
+    const questionAnswers = Object.values(answers).sort((a, b) => b.helpfulness - a.helpfulness);
+    console.log('ANSWERS!!!!!!!!!!!!!!', answers);
 
     return (
       <div className="question-entry">
@@ -89,10 +89,11 @@ class QuestionEntry extends React.Component {
           setShowModal={this.closeModal}
           questionBody={question_body}
           questionID={question_id}
+          getQuestions={this.props.getQuestions}
           />
         <div className="q-answers">
           {questionAnswers.slice(0, answersToShow)
-            .map(answer => <Answer key={answer.id} answer={answer} />)
+            .map(answer => <Answer key={answer.id} answer={answer} getQuestions={this.props.getQuestions}/>)
           }
           {questionAnswers.length > 2 ?
           (<button className="load-answers" onClick={this.showMoreAnswers}>LOAD MORE ANSWERS</button>) : null
@@ -106,6 +107,7 @@ class QuestionEntry extends React.Component {
 
 QuestionEntry.propTypes = {
   question: PropTypes.object,
+  getQuestions: PropTypes.func
 }
 
 export default QuestionEntry;

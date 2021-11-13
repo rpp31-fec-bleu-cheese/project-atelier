@@ -221,8 +221,31 @@ module.exports = {
         res.status(201).send(data);
       })
     },
+    updateAnswerHelpfulness: function(req, res) {
+      let answerID = req.params.answer_id;
+      qanda.putAnswers(answerID, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+
+        res.status(201).send(data);
+      })
+    },
+    reportAnswer: function(req, res) {
+      let answerID = req.params.answer_id;
+      qanda.reportAnswers(answerID, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+
+        res.status(201).send(data);
+      })
+    },
     postAnswer: function(req, res) {
       let answer = req.body;
+      console.log(req.body);
       let questionID = req.params.question_id;
       qanda.addAnswer(answer, questionID, (err, data) => {
         if (err) {
@@ -246,8 +269,14 @@ module.exports = {
         res.status(200).send(data);
       })
     },
-    post: function(req, res) {
-
+    postProductToCart: function(req, res) {
+      cart.addToCart(req.body.sku_id, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+        res.status(201).send(data);
+      })
     }
   },
   interactions: {

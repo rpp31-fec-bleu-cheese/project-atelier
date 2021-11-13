@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 
@@ -23,6 +23,7 @@ class ReviewsContainer extends React.Component {
   }
 
   componentDidMount() {
+    console.log(document.cookie)
     this.setState({
       sortedReviews: this.changeFilterSort(),
       markedHelpful: JSON.parse(decodeURIComponent(document.cookie).split('=')[1])

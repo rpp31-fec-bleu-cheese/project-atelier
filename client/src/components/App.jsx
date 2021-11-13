@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from './Header/Header.jsx';
 import SiteMessage from './SiteMessage.jsx';
-import Overview from './ProductInfo/Overview.jsx';
+import Overview from './Overview/Overview.jsx';
 import Related_Outfit from './Related_Outfit/Related_Outfit.jsx';
 import QandA from './Q&A/Q&A.jsx';
 import axios from 'axios';
@@ -78,9 +78,9 @@ class App extends React.Component {
       <div id='App'>
         <Header />
         <SiteMessage />
-        <Overview products={this.props.products} cam_token={this.props.cam_token} rating={this.state.rating}/>
+        <Overview products={this.props.products} cam_token={this.props.cam_token} productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} />
         <Related_Outfit productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} productClick={this.relatedOutfitProductClick}/>
-        <QandA />
+        <QandA productId={this.state.productId}/>
         <RatingsReviews product_id={this.state.productId} updateRating={this.state}/>
       </div>
     )
