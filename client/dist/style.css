@@ -21,17 +21,21 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
-/*  */
-/*  */
+body {
+  margin-bottom: 50px;
+}
+
+/******/
+/******/
 
 div#App {
   display: grid;
   grid-template-columns: 10% auto 10%;
-  grid-template-rows: 70px 40px 650px 650px 650px 650px;
+  grid-template-rows: 70px 40px 650px 650px 850px auto;
   height: 100%;
 }
 
-div.Header {
+div#App div.Header {
   grid-column: 2;
   grid-row: 1;
   display: grid;
@@ -61,46 +65,1197 @@ div#SiteMessage {
   justify-self: center;
 }
 
-div#ProductInfo {
+/******* START OF OVERVIEW STYLING *******/
+div#Overview {
   grid-column: 2;
   grid-row: 3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 22% 38% 20% 20%;
   border: 1px solid black;
   width: 100%;
   height: 100%;
 }
 
-div#Related_Outfit {
-  grid-column: 2;
-  grid-row: 4;
+div#Overview div.ImageGallery {
+  grid-column: 1;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: 15% 5% auto 10%;
+  grid-template-rows: 10% auto 10% auto;
+  position: relative;
+}
+
+div#Overview div.MainImage {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 5;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgb(200, 200, 200);
+  /* background: center / contain no-repeat; */
+}
+
+div#Overview div.ImageGalleryThumbnails {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  /* display: flex; */
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* position: absolute; */
+  overflow: scroll;
+  height: 450px;
+  width: 100px;
+  margin: 15px 0px 0px 25px;
+}
+
+div#Overview div.GalleryThumbnail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 60px;
   border: 1px solid black;
-  width: 100%;
-  height: 100%;
+  margin: 12px 0px 12px 0px;
+  background-color: rgb(0, 0, 0);
+}
+
+div#Overview div.SlideGalleryLeft {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7;
+  height: auto;
+  width: auto;
+  font-size: 150%;
+  cursor: pointer;
+}
+
+div#Overview div.SlideGalleryRight {
+  grid-column: 4;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7;
+  height: auto;
+  width: auto;
+  font-size: 150%;
+  cursor: pointer;
+}
+
+div#Overview div.OpenGalleryModal {
+  grid-column: 4;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  opacity: 0.7;
+  height: auto;
+  width: auto;
+  font-size: 150%;
+  cursor: pointer;
+}
+
+div#Overview div.ProductInformation {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: flex-start;
+  border: 1px solid black;
+  padding: 10px 0px 0px 25px;
+}
+
+div#Overview div.ProductCategory,
+div#Overview div.SelectedStyle,
+div#Overview select.SizeSelectorDropdown,
+div#Overview select.QuantitySelectorDropdown,
+div#Overview button.AddToFavoriteButton,
+div#Overview button.AddToBagButton {
+  text-transform: uppercase;
+}
+
+div#Overview div.ProductName {
+  font-size: 200%;
+}
+
+div#Overview div.StarsAndReviews {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  gap: 15px;
+}
+
+div#Overview div.StyleSelector {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 1px solid black;
+  padding: 20px 0px 0px 20px;
+}
+
+div#Overview div.SelectedStyle {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  gap: 15px;
+}
+
+div#Overview div.SelectedStyleHeader {
+  font-weight: bold;
+}
+
+div#Overview div.StyleSelectorIcons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px 10px;
+  width: 240px;
+  max-height: 150px;
+}
+
+div#Overview div.StyleIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid black;
+  border-radius: 100%;
+  height: 50px;
+  width: 50px;
+  flex-grow: 1;
+  flex-basis: 20%;
+  max-width: 50px;
+}
+
+div#Overview div.AddToCart {
+  grid-column: 2;
+  grid-row: 3;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+  border: 1px solid black;
+  padding: 10px 0px 0px 25px;
+}
+
+div#Overview select.SizeSelectorDropdown {
+  font-size: 90%;
+  height: 50px;
+  width: 175px;
+  padding: 10px;
+}
+
+div#Overview select.QuanititySelectorDropdown {
+  font-size: 90%;
+  height: 50px;
+  width: 115px;
+  padding: 10px;
+}
+
+div#Overview button.AddToFavoriteButton {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  font-size: 150%;
+  align-items: center;
+  height: 50px;
+  width: 75px;
+  padding: 10px;
+}
+
+div#Overview button.AddToBagButton {
+  display: flex;
+  justify-content: flex-start;
+  background-color: white;
+  font-size: 90%;
+  height: 50px;
+  width: 220px;
+  padding: 15px;
+}
+
+div#Overview div.ProductSloganAndDescription {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row: 4;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  align-items: flex-end;
+  border: 1px solid black;
+  padding: 30px 30px 10px 10px;
+}
+
+div#Overview div.ProductSlogan {
+  font-weight: bold;
+  height: auto;
+  width: 500px;
+  /* padding: 15px 25px 10px 10px; */
+}
+
+div#Overview div.ProductDescription {
+  height: auto;
+  width: 500px;
+  /* padding: 15px 25px 10px 10px; */
+}
+
+div#Overview div.ProductFeatures {
+  grid-column: 2;
+  grid-row: 4;
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  padding-left: 40px;
+}
+
+div#Overview div.ProductFeaturesList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/******* END OF OVERVIEW STYLING *******/
+
+div#Related_Outfit {
+  grid-column: 2;
+  grid-row: 4;
+  display: grid;
+  grid-template-columns: 10% auto 10%;
+  grid-template-rows: 5% 45% 5% 45%;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 div#QandA {
   grid-column: 2;
   grid-row: 5;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
   width: 100%;
   height: 100%;
 }
 
-div#Reviews {
+/********************************/
+/***** Ratings and Reviews ******/
+/********************************/
+
+div#RatingsReviews {
   grid-column: 2;
   grid-row: 6;
+  display: grid;
+  grid-template-columns: 270px auto;
+  grid-template-rows: 30px 180px auto;
+  width: 100%;
+  height: 100%;
+}
+div#RatingsReviews h1#Header {
+  grid-column: 1/-1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  box-sizing: border-box;
+  padding-left: 5px;
+  width: 100%;
+  height: 100%;
+}
+
+/***** Rating ******/
+div#RatingsReviews div#RatingsContainer {
+  grid-column: 1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 90px auto;
+  grid-template-rows: 60px 25px auto;
+}
+div#RatingsReviews div#RatingsContainer div#Rating {
+  display: flex;
+  font-size: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+/***** Stars ******/
+div#StarsContainer {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+div.Stars {
+  position: relative;
+  display: inline-block;
+  color: #b1b1b1;
+  overflow: hidden;
+}
+.full-stars {
+  top: 0;
+  left: 0;
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #fde16d;
+}
+.empty-stars:before, .full-stars:before {
+  content:"\2605\2605\2605\2605\2605";
+  font-size: 14pt;
+}
+.empty-stars:before {
+  -webkit-text-stroke: 1px #848484;
+}
+.full-stars:before {
+  -webkit-text-stroke: 1px orange;
+}
+
+/***** Recommended ******/
+div#RatingsReviews div#recommended {
+  grid-column: 1/-1;
+  grid-row: 2;
+  text-align: center;
+}
+
+/***** StarBars ******/
+div#RatingsReviews div#StarBars {
+  grid-column: 1/-1;
+  grid-row: 3;
+  justify-self: start;
+  align-self: start;
+  display: grid;
+  box-sizing: border-box;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+  width: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div#RatingsReviews div.StarBar {
+  display: grid;
+  grid-template-columns: 47px auto;
+  width: 100%;
+  text-decoration-line: underline;
+}
+div#RatingsReviews div.StarBar:hover {
+  cursor: pointer;
+}
+div#RatingsReviews div.barContainer {
+  grid-column: 2;
+  align-self: center;
+  justify-self: start;
+  display: grid;
+  grid-template-rows: 100%;
+  background-color: #848484;
+  height: 9px;
+  width: 100%;
+}
+div#RatingsReviews div.greenBar {
+  grid-row: 1;
+  border: 1px solid black;
+  align-self: center;
+  background-color: #07a047;
+  height: 9px
+}
+
+/***** Breakdown ******/
+div#RatingsReviews div#BreakdownContainer {
+  grid-column: 1;
+  grid-row: 3;
+  align-self: start;
+  text-align: center;
+}
+div#RatingsReviews div.Breakdown {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(3, 20px);
+  margin: 5px;
+  margin-top: 20px;
+}
+div#RatingsReviews div.Breakdown div.Type {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  justify-self: start;
+  font-weight: bold;
+}
+div#RatingsReviews div.Breakdown div.Marker {
+  text-align: end;
+}
+div#RatingsReviews div.Breakdown div.Slider {
+  grid-column: 1/-1;
+  grid-row: 2;
+  height: 7px;
+  width: 100%;
+  align-self: center;
+  background-color: #d8d8d8;
+}
+div#RatingsReviews div.Breakdown div.TraitContainer {
+  grid-column: 1/-1;
+  grid-row: 3;
+  display: grid;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+/***** Reviews ******/
+div#RatingsReviews div#ReviewsContainer {
+  grid-column: 2;
+  grid-row: 2 / 4;
+  align-self: start;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto auto;
+}
+div#RatingsReviews div#ReviewsContainer div#ReviewCount {
+  grid-column: 1;
+  grid-row: 1;
+}
+div#RatingsReviews div#ReviewsContainer div#Reviews {
+  grid-column: 1;
+  overflow: scroll;
+  max-height: 600px;
+}
+div#RatingsReviews div#ReviewsContainer div.Review {
+  display: grid;
+  grid-template-columns: 100px auto;
+  grid-template-rows: auto 50px auto;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid black;
+}
+div#RatingsReviews div#ReviewsContainer div.ReviewStars {
+  grid-column: 1;
+  grid-row: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+div#RatingsReviews div#ReviewsContainer div.SubmittedBy {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+div#RatingsReviews div#ReviewsContainer div.Summary {
+  grid-column: 1/-1;
+  grid-row: 2;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-weight: bold;
+}
+div#RatingsReviews div#ReviewsContainer div.extendedSummary {
+  grid-column: 1/-1;
+  margin-bottom: 10px;
+}
+div#RatingsReviews div#ReviewsContainer div.Body {
+  grid-column: 1/-1;
+  margin-bottom: 10px;
+}
+div#RatingsReviews div#ReviewsContainer div.ReviewRecommend {
+  grid-column: 1/-1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+/*Photos*/
+div#RatingsReviews div#ReviewsContainer div.PhotoContainer{
+  grid-column: 1/-1;
+  overflow-x: scroll;
+}
+div#RatingsReviews div.PhotoContainer img.Thumbnail {
+  width: 100px;
+  height: 100px;
+  margin-right: 5px;
   border: 1px solid black;
+}
+div#RatingsReviews div.PhotoContainer img.Thumbnail:hover {
+  cursor: pointer;
+}
+div#RatingsReviews div#ReviewsContainer div#PhotoModal {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+}
+div#RatingsReviews div#PhotoModal img {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  justify-self: center;
+  background-color: #fefefe;
+  display: inline-block;
+  max-width: 90%;
+  max-height: 90%;
+  border: 1px solid #888;
+}
+div#RatingsReviews div#PhotoModal span#CloseImage {
+  font-size: x-large;
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+  align-self: start;
+  color: black;
+  margin-right: 5px;
+}
+div#RatingsReviews div#PhotoModal span#CloseImage:hover {
+  cursor: pointer;
+}
+/*Helpful or Report*/
+div#RatingsReviews div#ReviewsContainer div.HelpfulorReport {
+  grid-column: 1/-1;
+  font-size: 12px;
+}
+span.VoteHelpful, span.ReportReview {
+  text-decoration: underline;
+}
+span.VoteHelpful:hover, span.ReportReview:hover {
+  cursor: pointer;
+}
+/*Seller Response*/
+div#RatingsReviews div#ReviewsContainer div.ResponseContainer {
+  grid-column: 1/-1;
+  display: grid;
+  justify-self: start;
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(199, 199, 199);
+}
+div#RatingsReviews div.ResponseContainer div.Header {
+  grid-column: 1;
+  grid-row: 1;
+  font-weight: bold;
+  display: initial;
+}
+/*Buttons*/
+div#RatingsReviews div#ReviewsContainer div#ButtonContainer {
+  grid-column: 1;
+  grid-row: 3;
+  display: flex;
+  justify-content: start;
+}
+div#RatingsReviews div#ButtonContainer div.Button {
+  border: 1px solid black;
+  padding: 10px;
+  margin-left: 5px;
+}
+div#RatingsReviews div#ButtonContainer div.Button:hover {
+  cursor: pointer;
+}
+
+/* Question & Answers Module Styling*/
+div#QandA h2 {
+  margin-top: -75px;
+  margin-right: auto;
+  margin-left: 25px;
+  padding-left: 100px;
+}
+
+div#QandA div.q-a-content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 550px;
+  width: 90%;
+  padding: 0 55px;
+  margin-top: 90px;
+  /* margin-left: 50px; */
+}
+
+div#QandA div.q-a-content div.rendered-questions {
+  margin-top: -65px;
+  max-height: 556px;
+  /* overflow-y: scroll; */
+}
+
+div#QandA div.q-a-content div.rendered-questions.active{
+  max-height: 600px;
+  overflow-y: scroll;
+}
+
+/* QuestionEntry styling */
+div#QandA div.question-entry {
+  /* margin-top: -25px; */
+}
+
+div#QandA div.question-entry div.question-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-right: 50px;
+}
+
+div#QandA div.question-entry div.question-container div.question {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+div#QandA div.helpful-buttons {
+  color: #3d3d3d;
+  display: flex;
+  /* justify-content: space-evenly; */
+  font-size: 14px;
+}
+
+div#QandA div.helpful-buttons.user-info {
+  padding-left: 31px;
+}
+
+div#QandA div.helpful-buttons div.user {
+  margin-top: 5px;
+}
+
+div#QandA div.helpful-buttons p {
+  color: #3d3d3d;
+  margin-top: 5px;
+}
+
+div#QandA div.helpful-buttons p.divider {
+  font-size: 20px;
+  margin: 0 10px;
+  margin-top: 3px;
+}
+
+div#QandA div.helpful-buttons button {
+  color: #3d3d3d;
+  cursor: pointer;
+  border: none;
+  font-size: 13px;
+  text-decoration: underline;
+  background-color: white;
+}
+
+/* Search component styling */
+div#QandA div.search {
   width: 100%;
+  margin: 0 auto;
+  margin-top: -140px;
+  margin-left: 25px;
+}
+
+div#QandA div.search div.search-bar {
+  display: flex;
+  margin-top: 150px;
+  padding-left: 100px;
+  width: 78.5%;
+  /* margin-right: 50px; */
+}
+
+div#QandA div.search input {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 20px 40px;
+}
+
+/* FooterButtons component styling */
+div#QandA div.footer-buttons {
+  display: flex;
+  margin-top: 55px;
+  margin-bottom: -45px;
+}
+
+div#QandA div.footer-buttons button {
+  height: 60px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: white;
+  font-weight: bold;
+}
+
+div#QandA div.footer-buttons .additional-answers-button {
+  width: 250px;
+  margin-right: 20px;
+}
+
+div#QandA div.footer-buttons .add-question-button {
+  width: 160px;
+}
+
+div#QandA div.footer-buttons button:hover {
+  color: rgb(255, 255, 255);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+}
+
+/* Modal Styling */
+div#QandA div.modal-background {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
   height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+div#QandA div.modal-background div.modal-content form {
+  font-family: sans-serif;
+  background-color: white;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 auto;
+  margin-top: 25vh;
+  width: 470px;
+  padding: 30px 50px;
+}
+
+div#QandA div.modal-background div.modal-content h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #3d3d3d;
+  padding: 10px;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+div#QandA div.modal-background div.modal-content h3 {
+  margin-bottom: 25px;
+  font-weight: 500;
+}
+
+div#QandA div.modal-background div.modal-content label {
+  color: #3d3d3d;
+  font-weight: 550;
+  margin-bottom: 5px;
+}
+
+div#QandA div.modal-background div.modal-content input {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+div#QandA div.modal-background div.modal-content p {
+  font-family: serif;
+  font-size: 15.5px;
+  margin-bottom: 20px;
+}
+
+div#QandA div.modal-background div.modal-content button.submit-button {
+  background-color: rgb(65, 111, 128);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-family: sans-serif;
+  font-size: 17px;
+  height: 47px;
+  padding: 12px 10px;
+  padding: 0 3px;
+  margin-top: 15px;
+  margin-bottom: 8px;
+}
+
+div#QandA div.modal-background div.modal-content button.submit-button:hover {
+  background-color: rgb(46, 67, 75);
+}
+
+div#QandA div.modal-background div.modal-content span {
+  cursor: pointer;
+  text-align: end;
+  font-size: 22px;
+  margin-top: -17px;
+  margin-bottom: 17px;
+  margin-right: -20px;
+}
+
+div#QandA div.modal-background div.modal-content span:hover {
+  color: #858585
+}
+
+/* Answer Styling */
+div#QandA div.answer {
+  margin-top: 15px;
+}
+
+div#QandA div.answer div.answer-content {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+div#QandA div.answer div.answer-content span {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+div#QandA div.answer div.answer-content div.answer-body {
+  color: #3d3d3d;
+  font-size: 17px;
+}
+
+div#QandA div.answer-date {
+  margin-top: 5px;
+  /* margin-left: 4px; */
+}
+
+div#QandA div.q-answers.active{
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+div#QandA .load-answers {
+  margin-top: 15px;
+  padding-left: 31px;
+  font-size: 12px;
+  font-weight: bold;
+  color: rgb(117, 116, 116);
+  border: none;
+  background: white;
+}
+
+div#QandA .load-answers:hover {
+  color: rgb(63, 62, 62);
+}
+
+div#QandA div.photo-container {
+  display: flex;
+  padding-left: 31px;
+}
+
+div#QandA div.photo {
+  border: 1.5px solid rgb(80, 80, 80);
+  height: 65px;
+  width: 65px;
+  margin-right: 15px;
+  align-items: center;
+}
+
+div#QandA div.photo-container img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+
+
+
+/**********************************/
+/**     RELATED_OUTFIT         **/
+/********************************/
+
+
+div#Related_Outfit div.Related_products {
+  grid-column: 2;
+  grid-row: 2;
+  display:flex;
+  justify-content: flex-start;
+  align-items: center;
+  width:900px;
+  max-width: 100%;
+  height:100%;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
+div#Related_Outfit h1#Related_Header {
+  font-family:Arial, Helvetica, sans-serif;
+  grid-column: 2;
+  grid-row: 1;
+  font-size: larger;
+}
+div#Related_Outfit h1#Outfit_Header {
+  font-family:Arial, Helvetica, sans-serif;
+  grid-column: 2;
+  grid-row: 3;
+  font-size: larger;
+}
+div#Related_Outfit #Outfit {
+  grid-column: 2;
+  grid-row: 4;
+  display: flex;
+  justify-content:flex-start;
+  align-items: center;
+  width:900px;
+  max-width: 100%;
+  height:100%;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
+
+/*style for product cards and add to outfit button */
+
+div#Related_Outfit div.RelatedOutfit_ProductInfo {
+  column-gap: 15px;
+}
+
+div#Related_Outfit div.RelatedOutfit_ProductInfo,
+div#Related_Outfit button#Related_Plus {
+
+  border: 1px solid black;
+  justify-content: center;
+  align-items: center;
+  min-width:200px;
+  max-width: 200px;
+  min-height:90%;
+  max-height:90%;
+  padding: 8px;
+  margin: 4px 4px;
+
+}
+
+div#Related_Outfit button#Related_Plus{
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:larger;
+
+}
+
+/*for image and star/cross button part in each product card*/
+
+div#Related_Outfit .Related,
+div#Related_Outfit .Outfit {
+
+  height: 150px;
+  width:100%;
+  position:relative;
+}
+
+/*style for scroll buttons */
+div#Related_Outfit button {
+  border:"none";
+}
+div#Related_Outfit button.PreviousProd {
+  grid-column: 1;
+  font-size: larger;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
+  width:50%;
+  height:15%;
+  border-radius: 5px;
+  opacity: 0.5;
+}
+div#Related_Outfit button.NextProd {
+  grid-column: 3;
+  font-size: larger;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
+  width:50%;
+  height:15%;
+  border-radius: 5px;
+  opacity: 0.5;
+}
+div#Related_Outfit button.Outfit {
+  grid-row:4;
+}
+div#Related_Outfit button.Related{
+  grid-row:2;
+}
+
+
+/*cross button and star button*/
+div#Related_Outfit .Related #Overlay_Star,
+div#Related_Outfit .Outfit #Overlay_Circle{
+  color:cadetblue;
+  position: absolute;
+  top: 0%;
+  right: 0%;
+}
+
+div#Related_Outfit i#Overlay_Star:hover,
+div#Related_Outfit .Outfit #Overlay_Circle:hover {
+  color:red;
+
+}
+/*deals with the spacing between each property in the product card*/
+div#Related_Outfit div.RelatedOutfit_ProductInfo div.RelatedInfo,
+div#Related_Outfit div.RelatedOutfit_ProductInfo div.OutfitInfo{
+  padding:5px;
+  font-size:smaller;
+}
+/*the name of the product in bold */
+div#Related_Outfit div.RelatedOutfit_ProductInfo div.RelatedInfo.name,
+div#Related_Outfit div.RelatedOutfit_ProductInfo div.OutfitInfo.name {
+  font-weight:bold;
+  font-size: medium;
+}
+
+
+/*comparison popup */
+div#Related_Outfit div#Comparison div#PopupTrue{
+
+  position:  fixed;
+  font-size: small;
+   max-width: 400px;
+   max-height:300px;
+   top: calc(50% - 50px);
+   padding:30px;
+   background-color:aliceblue;
+   left: calc(70% - 300px);
+   border: 1px solid black;
+   bottom: 40px;
+   z-index: 100;
+   overflow: scroll;
+}
+
+div#Related_Outfit table#ComparingTable{
+  border-collapse: separate;
+  border-spacing: 0 15px;
+}
+div#Related_Outfit table#ComparingTable td  {
+  width: 200px;
+  height: 10px;
+}
+
+div#Related_Outfit  div#Comparison div#PopupTrue thead{
+  font-size: small;
+  font-weight:bold;
+}
+div#Related_Outfit  div#Comparison div#PopupTrue thead #firstHeader,
+div#Related_Outfit  div#Comparison div#PopupTrue thead #secondHeader{
+  position:fixed;
+}
+
+
+div#RatingsReviews div.Breakdown div.TraitContainer {
+  grid-column: 1/-1;
+  grid-row: 3;
+  display: grid;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+/***** Reviews ******/
+div#RatingsReviews div#ReviewsContainer {
+  grid-column: 2;
+  grid-row: 2 / 4;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto 500px auto;
+}
+div#RatingsReviews div#ReviewsContainer div#ReviewCount {
+  grid-column: 1;
+  grid-row: 1;
+}
+div#RatingsReviews div#ReviewsContainer div#Reviews {
+  grid-column: 1;
+  overflow: scroll;
+}
+div#RatingsReviews div#ReviewsContainer div.Review {
+  display: grid;
+  grid-template-columns: 100px auto;
+  grid-template-rows: auto 50px auto;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid black;
+}
+div#RatingsReviews div#ReviewsContainer div.ReviewStars {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+div#RatingsReviews div#ReviewsContainer div.SubmittedBy {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+div#RatingsReviews div#ReviewsContainer div.Summary {
+  grid-column: 1/-1;
+  grid-row: 2;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-weight: bold;
+}
+div#RatingsReviews div#ReviewsContainer div.extendedSummary {
+  grid-column: 1/-1;
+  margin-bottom: 10px;
+}
+div#RatingsReviews div#ReviewsContainer div.Body {
+  grid-column: 1/-1;
+  margin-bottom: 10px;
+}
+div#RatingsReviews div#ReviewsContainer div.ReviewRecommend {
+  grid-column: 1/-1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+/*Helpful or Report*/
+div#RatingsReviews div#ReviewsContainer div.HelpfulorReport {
+  grid-column: 1/-1;
+  font-size: 12px;
+}
+span.VoteHelpful, span.ReportReview {
+  text-decoration: underline;
+}
+span.VoteHelpful:hover, span.ReportReview:hover {
+  cursor: pointer;
+}
+/*Seller Response*/
+div#RatingsReviews div#ReviewsContainer div.ResponseContainer {
+  grid-column: 1/-1;
+  display: grid;
+  justify-self: start;
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(199, 199, 199);
+}
+div#RatingsReviews div.ResponseContainer div.Header {
+  grid-column: 1;
+  grid-row: 1;
+  font-weight: bold;
+  display: initial;
+}
+/*Buttons*/
+div#RatingsReviews div#ReviewsContainer div#ButtonContainer {
+  grid-column: 1;
+  grid-row: 3;
+  display: flex;
+  justify-content: start;
+}
+div#RatingsReviews div#ButtonContainer div.Button {
+  border: 1px solid black;
+  padding: 10px;
+  margin-left: 5px;
+}
+div#RatingsReviews div#ButtonContainer div.Button:hover {
+  cursor: pointer;
 }
