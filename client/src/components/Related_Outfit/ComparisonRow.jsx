@@ -8,8 +8,15 @@ var ComparisonRow = (props) => {
   var valueForClicked = props.featureObj.valueForClicked;
 
   var valueForCurrent = props.featureObj.valueForCurrent;
+  if(valueForClicked === true) {
+    valueForClicked = <i className="fas fa-check"></i>
+  }
+  if(valueForCurrent === true) {
+    valueForCurrent = <i className="fas fa-check"></i>
+  }
 
   return (
+
     <tr>
       <td>
         {valueForClicked}

@@ -140,14 +140,43 @@ module.exports = {
 
         res.status(201).send(data);
       })
+    },
+    markHelpful: function(req, res) {
+      let reviewID = req.body.review_id;
+
+      reviews.markReviewHelpful(reviewID, (err, data) => {
+        if (err) {
+          res.status(400).send();
+          return;
+        }
+
+        let reviews = JSON.parse(req.cookies.markedHelpful);
+        if (!(reviewID in reviews)) {
+          reviews[reviewID] = reviewID;
+          res.cookie('markedHelpful', JSON.stringify(reviews))
+        }
+
+        res.status(204).end();
+      })
+    },
+    reportReview: function(req, res) {
+      let reviewID = req.body.review_id;
+
+      reviews.reportReview(reviewID, (err, data) => {
+        if (err) {
+          res.status(400).send();
+          return;
+        }
+
+        res.status(204).end();
+      })
+
     }
   },
+
   // QUESTION & ANSWER CONTROLLERS
   questions_answers: {
     getAllQuestions: function(req, res) {
-      console.log('inside getAllQuestions');
-      console.log(req.params);
-      console.log(req.query);
       let productID = req.query.product_id;
       qanda.getQuestions(productID, (err, data) => {
         if (err) {
@@ -171,12 +200,59 @@ module.exports = {
     },
     postQuestion: function(req, res) {
       let questionData = req.body;
+
       qanda.postQuestions(questionData, (err, data) => {
         if (err) {
           res.status(404).send();
           return;
         }
 
+        res.status(201).send(data);
+      })
+    },
+    updateQuestionHelpfulness: function(req, res) {
+      let questionID = req.params.question_id;
+      qanda.putQuestions(questionID, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+
+        res.status(201).send(data);
+      })
+    },
+    updateAnswerHelpfulness: function(req, res) {
+      let answerID = req.params.answer_id;
+      qanda.putAnswers(answerID, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+
+        res.status(201).send(data);
+      })
+    },
+    reportAnswer: function(req, res) {
+      let answerID = req.params.answer_id;
+      qanda.reportAnswers(answerID, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+
+        res.status(201).send(data);
+      })
+    },
+    postAnswer: function(req, res) {
+      let answer = req.body;
+      console.log(req.body);
+      let questionID = req.params.question_id;
+      qanda.addAnswer(answer, questionID, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+        console.log(data);
         res.status(201).send(data);
       })
     }
@@ -209,6 +285,7 @@ module.exports = {
   //added for Related Component
   cookies:{
     getCookies: function(req,res) {
+      console.log('inside get cookies:', req.cookies);
       res.status(200).send(JSON.stringify(req.cookies));
     }
   }

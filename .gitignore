@@ -2,4 +2,8 @@ node_modules
 *.env
 **.DS_Store
 config.js
+<<<<<<< HEAD
 client/dist/bundle.js
+=======
+dist/bundle.js
+>>>>>>> ffba27d18dd7f75b1f8f153066143e60ae5157ba

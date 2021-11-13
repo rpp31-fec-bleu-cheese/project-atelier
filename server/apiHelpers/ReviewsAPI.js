@@ -15,17 +15,15 @@ const getReviews = (productID, sort, callback) => {
       product_id: productID,
       sort: sort,
       page: 1,
-      count: 5
+      count: 1000
     }
   };
 
   axios(options)
     .then((response) => {
-      //console.log(response.data)
       callback(null, response.data);
     })
     .catch((err) => {
-      // console.log(err);
       callback(err);
     })
 };
@@ -41,17 +39,15 @@ const getMetaReviews = (productID, callback) => {
     params: {
       product_id: productID,
       page: 1,
-      count: 5
+      count: 1000
     }
   };
 
   axios(options)
     .then((response) => {
-      //console.log(response.data)
       callback(null, response.data);
     })
     .catch((err) => {
-      // console.log(err);
       callback(err);
     })
 };
@@ -76,8 +72,48 @@ const postReviewData = (reviewData, callback) => {
     })
 };
 
+const markReviewHelpful = (reviewID, callback) => {
+  let options = {
+    url: server + `/${reviewID}/helpful`,
+    method: 'put',
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': config.API_KEY
+    }
+  };
+
+  axios(options)
+    .then((response) => {
+      callback(null, response.data);
+    })
+    .catch((err) => {
+      callback(err);
+    })
+};
+
+const reportReview = (reviewID, callback) => {
+  let options = {
+    url: server + `/${reviewID}/report`,
+    method: 'put',
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': config.API_KEY
+    }
+  };
+
+  axios(options)
+    .then((response) => {
+      callback(null, response.data);
+    })
+    .catch((err) => {
+      callback(err);
+    })
+}
+
 module.exports = {
   getReviews,
   getMetaReviews,
-  postReviewData
+  postReviewData,
+  markReviewHelpful,
+  reportReview
 }
