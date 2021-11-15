@@ -36,7 +36,8 @@ class ReviewsContainer extends React.Component {
     console.log(this.state.sortedReviews)
     if (oldProps !== newProps) {
       this.setState({
-        sortedReviews: this.changeFilterSort()
+        sortedReviews: this.changeFilterSort(),
+        markedHelpful: (document.cookie) ? JSON.parse(decodeURIComponent(document.cookie).split('=')[1]) : {}
       })
     };
   }
