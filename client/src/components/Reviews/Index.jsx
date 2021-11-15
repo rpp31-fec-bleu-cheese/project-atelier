@@ -84,8 +84,8 @@ class Reviews extends React.Component {
     })
   }
 
-  componentDidUpdate() {
-
+  componentDidUpdate(prevPropsm, prevState) {
+    if (prevState.currentOverallRating !== this.state.currentOverallRating) this.props.updateRating(this.state.currentOverallRating)
   }
 
   changeSort(e) {
