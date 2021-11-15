@@ -12,10 +12,11 @@ class Reviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loaded: false,
-      reviewsStarsFilter: {},
-      currentOverallRating: 0,
-      rateQuantity: 0,
+      loaded: false, // Lets the component know when to render everything
+      currentProduct: '', // Only used to allow the component to update all info when the current product changes
+      reviewsStarsFilter: {}, // Used to keep track of how the reviews are being filtered
+      currentOverallRating: 0, // Determines current rating of product and passes it up to App component
+      rateQuantity: 0, // Passed into ratings component to determine overall rating
       currentSort: 'Relevant',
       currentRatings: {},
       currentReviews: [],
@@ -24,68 +25,75 @@ class Reviews extends React.Component {
   }
 
   componentDidMount() {
-    $.ajax({
-      url: 'http://localhost:3000/reviews',
-      method: 'GET',
-      data: {
-        product_id: this.props.product_id
-      },
-      success: reviews => {
-        $.ajax({
-          url: 'http://localhost:3000/reviews/meta',
-          method: 'GET',
-          data: {
-            product_id: this.props.product_id
-          },
-          success: metaData => {
-            let ratings = {
-              1: 0,
-              2: 0,
-              3: 0,
-              4: 0,
-              5: 0
-            };
-            let characteristics = {}
-            for (let rate in metaData.ratings) {
-              ratings[rate] = metaData.ratings[rate]
-            }
-            for (let char in metaData.characteristics) {
-              characteristics[char] = metaData.characteristics[char]
-            }
-            let ratingSum = 0,
-              rateQuantity = 0,
-              finalRating = 0,
-              recommended = 0,
-              ratingArray = Object.entries(ratings);
-
-            if (reviews.results.length > 0) {
-            /*
-              * This block of code discovers the total amount of ratings, as well as the overall rating of the current product
-              */
-              for (let [key, value] of ratingArray) {
-                ratingSum += key * value;
-                rateQuantity += Number(value); //Number() is called here due to the values at each key being strings
-              }
-              finalRating = (ratingSum / rateQuantity).toFixed(1);
-            }
-            this.setState({
-              loaded: true,
-              currentOverallRating: finalRating,
-              rateQuantity,
-              currentRatings: ratings,
-              currentReviews: reviews.results,
-              characteristics: characteristics
-            })
-          },
-          error: (_, __, errString) => console.log(errString)
-        })
-      },
-      error: (_, __, errString) => console.log(errString)
-    })
+   this.setState({
+     currentProduct: this.props.product_id
+   })
   }
 
-  componentDidUpdate(prevPropsm, prevState) {
-    if (prevState.currentOverallRating !== this.state.currentOverallRating) this.props.updateRating(this.state.currentOverallRating)
+  componentDidUpdate(_, prevState) {
+    if (prevState.currentProduct !== this.props.product_id) {
+      $.ajax({
+        url: 'http://localhost:3000/reviews',
+        method: 'GET',
+        data: {
+          product_id: this.props.product_id
+        },
+        success: reviews => {
+          $.ajax({
+            url: 'http://localhost:3000/reviews/meta',
+            method: 'GET',
+            data: {
+              product_id: this.props.product_id
+            },
+            success: metaData => {
+              let ratings = {
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0
+              };
+              let characteristics = {}
+              for (let rate in metaData.ratings) {
+                ratings[rate] = metaData.ratings[rate]
+              }
+              for (let char in metaData.characteristics) {
+                characteristics[char] = metaData.characteristics[char]
+              }
+              let ratingSum = 0,
+                rateQuantity = 0,
+                finalRating = 0,
+                recommended = 0,
+                ratingArray = Object.entries(ratings);
+
+              if (reviews.results.length > 0) {
+               /*
+                * This block of code discovers the total amount of ratings, as well as the overall rating of the current product
+                */
+                for (let [key, value] of ratingArray) {
+                  ratingSum += key * value;
+                  rateQuantity += Number(value); //Number() is called here due to the values at each key being strings
+                }
+                finalRating = +(ratingSum / rateQuantity).toFixed(1);
+              }
+              this.props.updateRating(finalRating)
+              this.setState({
+                loaded: true,
+                currentProduct: this.props.product_id,
+                currentOverallRating: finalRating,
+                rateQuantity,
+                currentRatings: ratings,
+                currentReviews: reviews.results,
+                characteristics: characteristics
+              })
+            },
+            error: (_, __, errString) => console.log(errString)
+          })
+        },
+        error: (_, __, errString) => console.log(errString)
+      })
+    }
+
   }
 
   changeSort(e) {

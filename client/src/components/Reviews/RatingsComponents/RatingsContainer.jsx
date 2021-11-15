@@ -16,7 +16,6 @@ const RatingsContainer = props => {
     }
 
     recommended = Math.round(recommended / props.rateQuantity * 100)
-    console.log(recommended)
   }
 
   return (

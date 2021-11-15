@@ -23,7 +23,6 @@ class ReviewsContainer extends React.Component {
   }
 
   componentDidMount() {
-    console.log(document.cookie)
     this.setState({
       sortedReviews: this.changeFilterSort(),
       markedHelpful: (document.cookie) ? JSON.parse(decodeURIComponent(document.cookie).split('=')[1]) : {}
@@ -31,9 +30,10 @@ class ReviewsContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    let oldProps = Object.keys(prevProps.reviewsStarsFilter) + prevProps.currentSort;
-    let newProps = Object.keys(this.props.reviewsStarsFilter) + this.props.currentSort;
+    let oldProps = Object.keys(prevProps.reviewsStarsFilter) + prevProps.currentSort + Object.entries(prevProps.reviews);
+    let newProps = Object.keys(this.props.reviewsStarsFilter) + this.props.currentSort + Object.entries(this.props.reviews);
 
+    console.log(this.state.sortedReviews)
     if (oldProps !== newProps) {
       this.setState({
         sortedReviews: this.changeFilterSort()
@@ -58,6 +58,8 @@ class ReviewsContainer extends React.Component {
           return true;
         });
       return sorted;
+    } else {
+      return [];
     }
   }
 
@@ -70,7 +72,7 @@ class ReviewsContainer extends React.Component {
   }
 
   loadPhotoModal(e) {
-    this.setState({
+    if (e.target.id !== 'FullImage') this.setState({
       modalPhoto: (this.state.modalPhoto === null) ? e.target : null
     })
   }
