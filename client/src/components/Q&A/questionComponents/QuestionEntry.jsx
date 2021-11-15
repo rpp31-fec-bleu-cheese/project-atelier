@@ -32,12 +32,14 @@ class QuestionEntry extends React.Component {
 
   handleHelpfulClick() {
     const { question_id } = this.props.question;
+    const clicked = localStorage.getItem(`clicked-${question_id}`) === 'true';
 
-    if (!this.state.clicked) {
+    if (!clicked) {
       axios.put(`qa/questions/${question_id}/helpful`)
         .then((response) => {
             this.setState({ helpful: this.state.helpful + 1});
             this.setState({ clicked: true });
+            localStorage.setItem(`clicked-${question_id}`, this.state.clicked);
             this.props.getQuestions();
         })
     }
@@ -66,6 +68,7 @@ class QuestionEntry extends React.Component {
     }
 
   }
+
 
   render() {
     const { question_body, question_id, questionAsker, answers, question_helpfulness } = this.props.question;

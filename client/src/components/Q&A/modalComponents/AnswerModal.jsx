@@ -59,7 +59,6 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
         question_id: questionID,
       })
         .then((response) => {
-          console.log('successful post!', response.data);
           getQuestions();
           setShowModal(false);
         })

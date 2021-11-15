@@ -57,7 +57,6 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
         product_id: productID,
       })
         .then((response) => {
-          console.log('successful post!', response.data);
           getQuestions();
           closeModal()
         })
