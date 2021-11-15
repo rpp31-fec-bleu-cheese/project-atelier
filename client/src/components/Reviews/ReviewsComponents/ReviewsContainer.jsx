@@ -26,7 +26,7 @@ class ReviewsContainer extends React.Component {
     console.log(document.cookie)
     this.setState({
       sortedReviews: this.changeFilterSort(),
-      markedHelpful: (document.cookie) ? JSON.parse(decodeURIComponent(document.cookie).split('=')[1]) : ''
+      markedHelpful: (document.cookie) ? JSON.parse(decodeURIComponent(document.cookie).split('=')[1]) : {}
     });
   }
 
