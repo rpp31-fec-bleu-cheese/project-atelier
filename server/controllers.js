@@ -150,8 +150,7 @@ module.exports = {
           return;
         }
 
-        let reviews = JSON.parse(req.cookies.markedHelpful);
-        if (!(reviewID in reviews)) {
+        if (!req.cookies.markedHelpful || !(reviewID in JSON.parse(req.cookies.markedHelpful))) {
           reviews[reviewID] = reviewID;
           res.cookie('markedHelpful', JSON.stringify(reviews))
         }
