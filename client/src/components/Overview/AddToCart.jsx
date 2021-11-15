@@ -26,8 +26,9 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
   }, [stylesIndex]);
 
   let handleMyOutfitCollection = () => {
-    if (outfitIds.includes(productStyles.product_id)) {
-      setMyOutfitIcon('❤️');
+
+    if (outfitIds.includes(Number(productStyles.product_id))) {
+     setMyOutfitIcon('❤️');
     } else {
       setMyOutfitIcon('⭐');
     }
