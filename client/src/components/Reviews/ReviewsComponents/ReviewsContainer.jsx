@@ -91,6 +91,9 @@ class ReviewsContainer extends React.Component {
             <option value='newest'>Newest</option>
             <option value='helpful'>Helpful</option>
           </select>
+          <div style={{fontSize: 'small', fontStyle: 'italic'}}>
+            Reported reviews are not shown
+          </div>
         </div>
         {
           // If no reviews are present, the Reviews component will not render

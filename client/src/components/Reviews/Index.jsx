@@ -14,6 +14,8 @@ class Reviews extends React.Component {
     this.state = {
       loaded: false,
       reviewsStarsFilter: {},
+      currentOverallRating: 0,
+      rateQuantity: 0,
       currentSort: 'Relevant',
       currentRatings: {},
       currentReviews: [],
@@ -50,8 +52,26 @@ class Reviews extends React.Component {
             for (let char in metaData.characteristics) {
               characteristics[char] = metaData.characteristics[char]
             }
+            let ratingSum = 0,
+              rateQuantity = 0,
+              finalRating = 0,
+              recommended = 0,
+              ratingArray = Object.entries(ratings);
+
+            if (reviews.results.length > 0) {
+            /*
+              * This block of code discovers the total amount of ratings, as well as the overall rating of the current product
+              */
+              for (let [key, value] of ratingArray) {
+                ratingSum += key * value;
+                rateQuantity += Number(value); //Number() is called here due to the values at each key being strings
+              }
+              finalRating = (ratingSum / rateQuantity).toFixed(1);
+            }
             this.setState({
               loaded: true,
+              currentOverallRating: finalRating,
+              rateQuantity,
               currentRatings: ratings,
               currentReviews: reviews.results,
               characteristics: characteristics
@@ -62,6 +82,10 @@ class Reviews extends React.Component {
       },
       error: (_, __, errString) => console.log(errString)
     })
+  }
+
+  componentDidUpdate() {
+
   }
 
   changeSort(e) {
@@ -103,9 +127,10 @@ class Reviews extends React.Component {
           <Header />
           <RatingsContainer
             ratings={this.state.currentRatings}
+            finalRating={this.state.currentOverallRating}
             reviews={this.state.currentReviews}
             onclick={this.addStarFilter.bind(this)}
-            updateRating={this.props.updateRating}/>
+            rateQuantity={this.state.rateQuantity}/>
           <BreakdownContainer characteristics={this.state.characteristics}/>
           <ReviewsContainer
             reviews={this.state.currentReviews}
@@ -127,7 +152,7 @@ class Reviews extends React.Component {
 
 Reviews.propTypes = {
   product_id: PropTypes.number.isRequired,
-  updateRating: PropTypes.object.isRequired
+  updateRating: PropTypes.func.isRequired
 }
 
 export default Reviews;
