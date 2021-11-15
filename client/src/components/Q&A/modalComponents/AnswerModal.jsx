@@ -66,24 +66,8 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
 
   }
 
-  // const addAnswerImages = (event) => {
-  //   const images = [];
-
-  //   console.log(event.target.files);
-  //   const fileUploads = Object.values(event.target.files);
-  //   fileUploads.forEach(file => {
-  //     console.log(file);
-  //     let src = window.URL.createObjectURL(file);
-
-  //     if (images.length < 5) {
-  //       images.push(src);
-  //     }
-  //   });
-
-  //   setPhotos([...photos, ...images]);
-  // }
-
   const uploadImages = (event) => {
+    const requests = [];
     const fileUploads = Object.values(event.target.files);
 
     fileUploads.forEach(file => {
@@ -91,15 +75,17 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
       formData.append('file', file);
       formData.append('upload_preset', 'mjtraatld');
 
-      axios.post('https://api.cloudinary.com/v1_1/dyjzdyuc2/image/upload', formData)
-        .then(response => {
-          let imageURL = response.data.secure_url;
-
-          if (photos.length < 5) {
-            setPhotos([...photos, imageURL]);
-          }
-        });
+      if (requests.length < 5) {
+        requests.push(axios.post('https://api.cloudinary.com/v1_1/dyjzdyuc2/image/upload', formData));
+      }
     });
+
+    Promise.all(requests)
+      .then((values) => {
+        let images = values.map(v => v.data.secure_url);
+
+        setPhotos([...photos, ...images]);
+      });
 
   }
 

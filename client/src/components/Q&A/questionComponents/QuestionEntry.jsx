@@ -16,15 +16,11 @@ class QuestionEntry extends React.Component {
       answersToShow: 2
     }
 
-    //this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleHelpfulClick = this.handleHelpfulClick.bind(this);
     this.showMoreAnswers = this.showMoreAnswers.bind(this);
   }
 
-  // openModal() {
-  //   this.setState({ showModal: true });
-  // }
 
   closeModal() {
     this.setState({ showModal: false });
@@ -74,7 +70,6 @@ class QuestionEntry extends React.Component {
     const { question_body, question_id, questionAsker, answers, question_helpfulness } = this.props.question;
     const { answersToShow } = this.state;
     const questionAnswers = Object.values(answers).sort((a, b) => b.helpfulness - a.helpfulness);
-    console.log('ANSWERS!!!!!!!!!!!!!!', answers);
 
     return (
       <div className="question-entry">
