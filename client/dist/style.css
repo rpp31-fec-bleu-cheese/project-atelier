@@ -97,6 +97,7 @@ div#Overview div.MainImage {
   justify-content: center;
   align-items: center;
   background-color: rgb(200, 200, 200);
+  cursor: zoom-in;
   /* background: center / contain no-repeat; */
 }
 
@@ -136,11 +137,15 @@ div#Overview div.SlideGalleryLeft {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 0.7;
+  /* opacity: 0.7; */
   height: auto;
   width: auto;
+  color: orange;
   font-size: 150%;
   cursor: pointer;
+}
+div#Overview div.SlideGalleryLeft:hover {
+  color: rgb(107, 236, 236);
 }
 
 div#Overview div.SlideGalleryRight {
@@ -150,11 +155,15 @@ div#Overview div.SlideGalleryRight {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 0.7;
+  /* opacity: 0.7; */
   height: auto;
   width: auto;
+  color: orange;
   font-size: 150%;
   cursor: pointer;
+}
+div#Overview div.SlideGalleryRight:hover {
+  color: rgb(107, 236, 236);
 }
 
 div#Overview div.OpenGalleryModal {
@@ -164,12 +173,53 @@ div#Overview div.OpenGalleryModal {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  opacity: 0.7;
+  /* opacity: 0.7; */
   height: auto;
   width: auto;
+  color: orange;
   font-size: 150%;
   cursor: pointer;
 }
+div#Overview div.OpenGalleryModal:hover {
+  color: rgb(107, 236, 236);
+}
+
+div#Overview div#GalleryModal {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  /* background-color: rgb(0,0,0); */
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+div#Overview div#GalleryModalContent {
+  margin: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+div#Overview div#GalleryModalContent img {
+  height: 90%;
+  width: 90%;
+  border: 20px solid #f4f4f4;
+}
+
+/* div#Overview div.ModalImage {
+  height: 150px;
+  width: 150px;
+  border: 20px solid #f4f4f4;
+  background: center;
+} */
+
 
 div#Overview div.ProductInformation {
   grid-column: 2;
@@ -527,6 +577,18 @@ div#RatingsReviews div#ReviewsContainer {
   grid-template-columns: 100%;
   grid-template-rows: auto auto auto;
 }
+div#RatingsReviews div#ReviewsContainer div#Modal {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+}
 div#RatingsReviews div#ReviewsContainer div#ReviewCount {
   grid-column: 1;
   grid-row: 1;
@@ -593,19 +655,7 @@ div#RatingsReviews div.PhotoContainer img.Thumbnail {
 div#RatingsReviews div.PhotoContainer img.Thumbnail:hover {
   cursor: pointer;
 }
-div#RatingsReviews div#ReviewsContainer div#PhotoModal {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 100%;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.4);
-}
-div#RatingsReviews div#PhotoModal img {
+div#RatingsReviews div#Modal img {
   grid-column: 1;
   grid-row: 1;
   align-self: center;
@@ -616,7 +666,7 @@ div#RatingsReviews div#PhotoModal img {
   max-height: 90%;
   border: 1px solid #888;
 }
-div#RatingsReviews div#PhotoModal span#CloseImage {
+div#RatingsReviews div#Modal span#CloseImage {
   font-size: x-large;
   grid-column: 1;
   grid-row: 1;
@@ -625,7 +675,7 @@ div#RatingsReviews div#PhotoModal span#CloseImage {
   color: black;
   margin-right: 5px;
 }
-div#RatingsReviews div#PhotoModal span#CloseImage:hover {
+div#RatingsReviews div#Modal span#CloseImage:hover {
   cursor: pointer;
 }
 /*Helpful or Report*/
@@ -671,6 +721,19 @@ div#RatingsReviews div#ButtonContainer div.Button {
 }
 div#RatingsReviews div#ButtonContainer div.Button:hover {
   cursor: pointer;
+}
+/*Write Review*/
+div#RatingsReviews div#Modal div#ReviewForm {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+
+  background-color: #fefefe;
+  width: 800px;
+  height: 600px;
+  border: 1px solid #888;
 }
 
 
@@ -718,9 +781,9 @@ div#QandA div.q-a-content div.rendered-questions.active{
 }
 
 /* QuestionEntry styling */
-div#QandA div.question-entry {
-  /* margin-top: -25px; */
-}
+/* div#QandA div.question-entry {
+  margin-top: -25px;
+} */
 
 div#QandA div.question-entry div.question-container {
   display: flex;
@@ -1201,117 +1264,4 @@ div#Related_Outfit  div#Comparison div#PopupTrue thead{
 div#Related_Outfit  div#Comparison div#PopupTrue thead #firstHeader,
 div#Related_Outfit  div#Comparison div#PopupTrue thead #secondHeader{
   position:fixed;
-}
-
-
-div#RatingsReviews div.Breakdown div.TraitContainer {
-  grid-column: 1/-1;
-  grid-row: 3;
-  display: grid;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-/***** Reviews ******/
-div#RatingsReviews div#ReviewsContainer {
-  grid-column: 2;
-  grid-row: 2 / 4;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: auto 500px auto;
-}
-div#RatingsReviews div#ReviewsContainer div#ReviewCount {
-  grid-column: 1;
-  grid-row: 1;
-}
-div#RatingsReviews div#ReviewsContainer div#Reviews {
-  grid-column: 1;
-  overflow: scroll;
-}
-div#RatingsReviews div#ReviewsContainer div.Review {
-  display: grid;
-  grid-template-columns: 100px auto;
-  grid-template-rows: auto 50px auto;
-  padding: 10px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid black;
-}
-div#RatingsReviews div#ReviewsContainer div.ReviewStars {
-  grid-column: 1;
-  grid-row: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-div#RatingsReviews div#ReviewsContainer div.SubmittedBy {
-  grid-column: 2;
-  grid-row: 1;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
-div#RatingsReviews div#ReviewsContainer div.Summary {
-  grid-column: 1/-1;
-  grid-row: 2;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  font-weight: bold;
-}
-div#RatingsReviews div#ReviewsContainer div.extendedSummary {
-  grid-column: 1/-1;
-  margin-bottom: 10px;
-}
-div#RatingsReviews div#ReviewsContainer div.Body {
-  grid-column: 1/-1;
-  margin-bottom: 10px;
-}
-div#RatingsReviews div#ReviewsContainer div.ReviewRecommend {
-  grid-column: 1/-1;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-/*Helpful or Report*/
-div#RatingsReviews div#ReviewsContainer div.HelpfulorReport {
-  grid-column: 1/-1;
-  font-size: 12px;
-}
-span.VoteHelpful, span.ReportReview {
-  text-decoration: underline;
-}
-span.VoteHelpful:hover, span.ReportReview:hover {
-  cursor: pointer;
-}
-/*Seller Response*/
-div#RatingsReviews div#ReviewsContainer div.ResponseContainer {
-  grid-column: 1/-1;
-  display: grid;
-  justify-self: start;
-  grid-template-columns: 100%;
-  grid-template-rows: auto auto;
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  background-color: rgb(199, 199, 199);
-}
-div#RatingsReviews div.ResponseContainer div.Header {
-  grid-column: 1;
-  grid-row: 1;
-  font-weight: bold;
-  display: initial;
-}
-/*Buttons*/
-div#RatingsReviews div#ReviewsContainer div#ButtonContainer {
-  grid-column: 1;
-  grid-row: 3;
-  display: flex;
-  justify-content: start;
-}
-div#RatingsReviews div#ButtonContainer div.Button {
-  border: 1px solid black;
-  padding: 10px;
-  margin-left: 5px;
-}
-div#RatingsReviews div#ButtonContainer div.Button:hover {
-  cursor: pointer;
 }

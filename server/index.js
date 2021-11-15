@@ -44,6 +44,7 @@ app.put('/reviews/helpful', controllers.reviews.markHelpful);
 app.put('/reviews/:review_id/report', controllers.reviews.reportReview);
 
 app.get('/cart', controllers.cart.getProductsInCart);
+app.post('/cart', controllers.cart.postProductToCart);
 
 //utility routes for static media
 app.get('/media', (req, res) => {
