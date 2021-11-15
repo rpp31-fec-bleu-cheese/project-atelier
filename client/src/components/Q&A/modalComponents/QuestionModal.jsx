@@ -21,21 +21,46 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
     }
   }
 
+
+  const setErrorMessage = (id) => {
+    document.getElementById(id).innerHTML = 'You must enter the following:'
+  }
+
+  const checkMissingRequirements = () => {
+    const requirements = [name, email, question];
+
+    requirements.forEach((req, i) => {
+      if (!req.length) {
+        if (i === 0) {
+          setErrorMessage('name');
+        } else if (i === 1) {
+          setErrorMessage('email');
+        } else {
+          setErrorMessage('question');
+        }
+      }
+    });
+  }
+
   const postQuestion = (event) => {
     event.preventDefault();
-    console.log('posted');
 
-    axios.post('/qa/questions', {
-      body: question,
-      name: name,
-      email: email,
-      product_id: productID,
-    })
-      .then((response) => {
-        console.log('successful post!', response.data);
-        getQuestions();
-        closeModal()
+    checkMissingRequirements();
+
+    if (!name || !email || !answer) {
+      return;
+    } else {
+      axios.post('/qa/questions', {
+        body: question,
+        name: name,
+        email: email,
+        product_id: productID,
       })
+        .then((response) => {
+          getQuestions();
+          closeModal()
+        })
+    }
   }
 
   return (
@@ -46,21 +71,24 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
             <form className="question-form" onChange={handleInputChange}>
               <span onClick={closeModal}>&times;</span>
               <h2>Ask Your Question About: {currentProduct}</h2>
-              <label className="name">What is your nickname</label>
+              <div id="name" className="error-message"></div>
+              <label className="name">What is your nickname <span className="required">*</span></label>
               <input
                 placeholder="Example: jackson11!"
                 type="text"
                 maxLength="60"
                 required />
               <p>For privacy reasons, do not use your full name</p>
-              <label className="email">Your email</label>
+              <div id="email" className="error-message"></div>
+              <label className="email">Your email <span className="required">*</span></label>
               <input
                 placeholder="Example: jackson11@email.com"
                 type="email"
                 maxLength="60"
                 required/>
               <p>For authentication reasons, you will not be emailed</p>
-              <label className="question">Your Question</label>
+              <div id="question" className="error-message"></div>
+              <label className="question">Your Question <span className="required">*</span></label>
               <input
                 placeholder="Type your question"
                 type="text"
