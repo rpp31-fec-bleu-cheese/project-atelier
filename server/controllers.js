@@ -251,7 +251,6 @@ module.exports = {
           res.status(404).send();
           return;
         }
-        console.log(data);
         res.status(201).send(data);
       })
     }

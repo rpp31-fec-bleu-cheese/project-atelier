@@ -797,44 +797,6 @@ div#RatingsReviews div#Modal div#ReviewBodyContainer {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Question & Answers Module Styling*/
 div#QandA h2 {
   margin-top: -75px;
@@ -1146,13 +1108,32 @@ div#QandA div.thumbnail-image img {
 
 div#QandA div.image-uploads {
   display: flex;
-  justify-content: space-around;
 }
 
 div#QandA div.image-uploads img.upload {
   height: 70px;
   width: 70px;
+  margin-right: 6.5px;
 }
+
+div#QandA span.required {
+  color: red;
+}
+
+div#QandA div.image-upload-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 15px;
+}
+
+div#QandA div.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+
+
+
 
 /**********************************/
 /**     RELATED_OUTFIT         **/

@@ -23,41 +23,73 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
     }
   }
 
-  const postAnswer = (event) => {
-    event.preventDefault();
-    console.log('posted');
-
-    axios.post(`/qa/questions/${questionID}/answers`, {
-      body: answer,
-      name: name,
-      email: email,
-      photos: photos,
-      question_id: questionID,
-    })
-      .then((response) => {
-        console.log('successful post!', response.data);
-        getQuestions();
-        setShowModal(false);
-      })
+  const setErrorMessage = (id) => {
+    document.getElementById(id).innerHTML = 'You must enter the following:'
   }
 
-  const addAnswerImages = (event) => {
-    const images = [];
+  const checkMissingRequirements = () => {
+    const requirements = [name, email, answer];
 
+    requirements.forEach((req, i) => {
+      if (!req.length) {
+        if (i === 0) {
+          setErrorMessage('name');
+        } else if (i === 1) {
+          setErrorMessage('email');
+        } else {
+          setErrorMessage('answer');
+        }
+      }
+    });
+  }
+
+  const postAnswer = (event) => {
+    event.preventDefault();
+
+    checkMissingRequirements();
+
+    if (!name || !email || !answer) {
+      return
+    } else {
+      axios.post(`/qa/questions/${questionID}/answers`, {
+        body: answer,
+        name: name,
+        email: email,
+        photos: photos,
+        question_id: questionID,
+      })
+        .then((response) => {
+          getQuestions();
+          setShowModal(false);
+        })
+    }
+
+  }
+
+  const uploadImages = (event) => {
+    const requests = [];
     const fileUploads = Object.values(event.target.files);
-    fileUploads.forEach(file => {
-      let src = URL.createObjectURL(file);
 
-      if (images.length < 5) {
-        images.push(src);
+    fileUploads.forEach(file => {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'mjtraatld');
+
+      if (requests.length < 5) {
+        requests.push(axios.post('https://api.cloudinary.com/v1_1/dyjzdyuc2/image/upload', formData));
       }
     });
 
-    setPhotos([...photos, ...images]);
+    Promise.all(requests)
+      .then((values) => {
+        let images = values.map(v => v.data.secure_url);
+
+        setPhotos([...photos, ...images]);
+      });
+
   }
 
   const removeImage = (event) => {
-    console.log('clicked');
     const imageSrc = event.target.src;
     const idx = photos.indexOf(imageSrc);
     photos.splice(idx, 1);
@@ -93,26 +125,29 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
               <span onClick={() => setShowModal(false)}>&times;</span>
               <h2>Submit your Answer</h2>
               <h3>[Product Name]: {questionBody}</h3>
-              <label>What is your nickname</label>
+              <div id="name" className="error-message"></div>
+              <label>What is your nickname <span className="required">*</span></label>
               <input placeholder="Example: jack543!" type="text" maxLength="60" required/>
               <p>For privacy reasons, do not use your full name</p>
-              <label>Your email</label>
+              <div id="email" className="error-message"></div>
+              <label>Your email <span className="required">*</span></label>
               <input placeholder="Example: jack543@email.com" type="email" maxLength="60" required/>
               <p>For authentication reasons, you will not be emailed</p>
-              <label>Your Answer</label>
+              <div id="answer" className="error-message"></div>
+              <label>Your Answer <span className="required">*</span></label>
               <input placeholder="Type your answer" type="text" maxLength="1000" required/>
-              <label style={{ 'margin-top': '15px' }}>Upload Images (up to 5)</label>
+              <label style={{ marginTop: '15px' }}>Upload Images (up to 5)</label>
               <input
                 type="file"
                 accept="image/*"
                 multiple
-                onChange={addAnswerImages}
+                onChange={uploadImages}
                 style={{ display: display }}
               />
               <div className="image-uploads">
                 {photos.map((p, i) => <img className="upload" key={i} src={p} onClick={removeImage}/>)}
               </div>
-              {message ? (<div>Click on image to remove!</div>) : null }
+              {message ? (<div className="image-upload-message">Click on image to remove!</div>) : null }
               <button className="submit-button" onClick={postAnswer}>Submit Answer</button>
             </form>
           </div>
