@@ -47,7 +47,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
 
     checkMissingRequirements();
 
-    if (!name || !email || !answer) {
+    if (!name || !email || !question) {
       return;
     } else {
       axios.post('/qa/questions', {
@@ -64,7 +64,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
   }
 
   return (
-    <div className="modal">
+    <div data-testid="q-modal" className="modal">
       {showModal ? (
         <div className="modal-background">
           <div className="modal-content">

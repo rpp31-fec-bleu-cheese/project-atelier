@@ -105,7 +105,6 @@ class QandA extends React.Component {
 
   render() {
     const { questions, filteredQuestions, questionsToShow } = this.state;
-    console.log('PRODUCT ID!!!!!!!!!!!!!!!!!!!', this.props.productId)
 
     return(
       <div data-testid='question-answers' id='QandA'>

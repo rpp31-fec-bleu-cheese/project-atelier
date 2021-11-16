@@ -117,7 +117,7 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
   })
 
   return (
-    <div className="answer-modal">
+    <div data-testid="a-modal" className="answer-modal">
       { showModal ? (
         <div className="modal-background">
           <div className="modal-content">
@@ -126,16 +126,16 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
               <h2>Submit your Answer</h2>
               <h3>[Product Name]: {questionBody}</h3>
               <div id="name" className="error-message"></div>
-              <label>What is your nickname <span className="required">*</span></label>
-              <input placeholder="Example: jack543!" type="text" maxLength="60" required/>
+              <label htmlFor="name-field">What is your nickname <span className="required">*</span></label>
+              <input id="name-field" placeholder="Example: jack543!" type="text" maxLength="60" required/>
               <p>For privacy reasons, do not use your full name</p>
               <div id="email" className="error-message"></div>
-              <label>Your email <span className="required">*</span></label>
-              <input placeholder="Example: jack543@email.com" type="email" maxLength="60" required/>
+              <label htmlFor="email-field">Your email <span className="required">*</span></label>
+              <input id="email-field" placeholder="Example: jack543@email.com" type="email" maxLength="60" required/>
               <p>For authentication reasons, you will not be emailed</p>
               <div id="answer" className="error-message"></div>
-              <label>Your Answer <span className="required">*</span></label>
-              <input placeholder="Type your answer" type="text" maxLength="1000" required/>
+              <label htmlFor="answer-field">Your Answer <span className="required">*</span></label>
+              <input id="answer-field" placeholder="Type your answer" type="text" maxLength="1000" required/>
               <label style={{ marginTop: '15px' }}>Upload Images (up to 5)</label>
               <input
                 type="file"
@@ -148,7 +148,7 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
                 {photos.map((p, i) => <img className="upload" key={i} src={p} onClick={removeImage}/>)}
               </div>
               {message ? (<div className="image-upload-message">Click on image to remove!</div>) : null }
-              <button className="submit-button" onClick={postAnswer}>Submit Answer</button>
+              <button aria-label="submit-answer" className="submit-button" onClick={postAnswer}>Submit Answer</button>
             </form>
           </div>
         </div>

@@ -21,11 +21,12 @@ class FooterButtons extends React.Component {
     const { questionsLength, handleClick, productID, currentProduct, getQuestions } = this.props;
 
     return (
-      <div className="footer-buttons">
+      <div data-testid='footer-btns' className="footer-buttons">
         { questionsLength > 2 ?
-          (<button className="additional-answers-button" onClick={handleClick}>MORE ANSWERED QUESTIONS</button>) : null
+          (<button aria-label='more-questions' className="additional-answers-button" onClick={handleClick}>MORE ANSWERED QUESTIONS</button>)
+          : null
         }
-        <button className="add-question-button" onClick={() => this.setState({ showModal: true })}>ADD A QUESTION +</button>
+        <button aria-label='add-question-btn' className="add-question-button" onClick={() => this.setState({ showModal: true })}>ADD A QUESTION +</button>
         <QuestionModal
           showModal={this.state.showModal}
           closeModal={this.closeModal}
@@ -37,34 +38,6 @@ class FooterButtons extends React.Component {
     )
   }
 }
-
-// const FooterButtons = ({ questionsLength, handleClick, productID, currentProduct, getQuestions }) => {
-//   const [showModal, setShowModal] = useState(false);
-//   // const openModal = () => {
-//   //   setShowModal(true);
-//   // }
-
-//   const closeModal = () => {
-//     setShowModal(false);
-//   }
-
-//   return (
-//     <div className="footer-buttons">
-//       { questionsLength > 2 ?
-//         (<button className="additional-answers-button" onClick={handleClick}>MORE ANSWERED QUESTIONS</button>) : null
-//       }
-//       <button className="add-question-button" onClick={() => setShowModal(true)}>ADD A QUESTION +</button>
-//       <QuestionModal
-//         showModal={showModal}
-//         setShowModal={setShowModal}
-//         closeModal={closeModal}
-//         productID={productID}
-//         currentProduct={currentProduct}
-//         getQuestions={getQuestions}
-//       />
-//     </div>
-//   )
-// };
 
 FooterButtons.propTypes = {
   questionsLength: PropTypes.number,
