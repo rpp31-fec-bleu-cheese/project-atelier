@@ -33,7 +33,6 @@ class ReviewsContainer extends React.Component {
     let oldProps = Object.keys(prevProps.reviewsStarsFilter) + prevProps.currentSort + Object.entries(prevProps.reviews);
     let newProps = Object.keys(this.props.reviewsStarsFilter) + this.props.currentSort + Object.entries(this.props.reviews);
 
-    console.log(this.state.sortedReviews)
     if (oldProps !== newProps) {
       this.setState({
         sortedReviews: this.changeFilterSort(),
