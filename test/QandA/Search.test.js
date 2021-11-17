@@ -1,13 +1,19 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
+import ReactDOM from 'react-dom';
 import Search from '../../client/src/components/Q&A/Search.jsx';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-
-Enzyme.configure({ adapter: new Adapter() });
+import { render, fireEvent, screen } from '@testing-library/react';
+import '@testing-library/jest-dom'
 
 describe('<Search />', () => {
+
+  let component;
+
+  beforeEach(() => {
+    component = render(<Search />);
+  });
+
   it ('renders Search component', () => {
-    const wrapper = shallow(<Search />);
-    expect(wrapper.find('.search')).not.toBeUndefined();
+    const searchBar = component.getByTestId('search-bar');
+    expect(searchBar).toBeInTheDocument();
   });
 });

@@ -9,5 +9,6 @@ describe('<Photo />', () => {
   test('it should render Photo component', () => {
     const wrapper = shallow(<Photo />);
     expect(wrapper.find('.photo')).not.toBeUndefined();
-  })
-});
+  });
+
+ });

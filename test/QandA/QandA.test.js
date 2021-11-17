@@ -5,8 +5,21 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 describe('<QandA />', () => {
+
+  let component;
+
+  beforeEach(() => {
+    component = render(<QandA />);
+  })
+
   it ('renders QandA component without crashing', () => {
-    const { getByTestId } = render(<QandA />);
-    expect(getByTestId('question-answers')).toBeInTheDocument();
+    const qandA = component.getByTestId('question-answers');
+    expect(qandA).toBeInTheDocument();
   });
+
+  it ('renders a list of questions', () => {
+    const list = component.getByTestId('question-li');
+    expect(list).toBeInTheDocument();
+  })
+
 });
