@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import config from '/Users/cameroncolaco/Documents/HR/SEI/sprints/project-atelier/config.js';
 
 // Add to Cart Component
 let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token}) => {
@@ -119,7 +120,7 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
         url: '/cart',
         method: 'post',
         headers: {'Content-Type': 'application/json',
-        'Authorization': cam_token.cam_token},
+        'Authorization': config.API_KEY},
         data: {sku_id: productSkuForBag}
       };
       axios(optionsForCart)

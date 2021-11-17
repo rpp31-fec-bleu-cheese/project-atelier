@@ -7,9 +7,9 @@ let ProductFeatures = ({productById}) => {
 
   return (
     <div className="ProductFeatures">
-      {(Object.keys(productById).length) && <div className="ProductFeaturesList">
+      {(Object.keys(productById).length) && <div className="ProductFeaturesList" data-testid="FeatureList">
         {productById.features.map((productFeature, i) => (
-          <div key={i}>✔ {productFeature.feature}: {productFeature.value}</div>
+          <div data-testid={`FeatureListEntry ${i}`} key={i}>✔ {productFeature.feature}: {productFeature.value}</div>
         ))}
       </div>}
     </div>

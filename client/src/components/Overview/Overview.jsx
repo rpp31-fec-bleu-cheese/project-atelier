@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect }  from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import config from '/Users/cameroncolaco/Documents/HR/SEI/sprints/project-atelier/config.js';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
@@ -10,7 +11,7 @@ import ProductFeatures from './ProductFeatures.jsx';
 // const imagePath = '/../../dist/stock_media/'
 // import imageComingSoonPhoto from '/Users/cameroncolaco/Documents/HR/SEI/sprints/project-atelier/client/dist/stock_media/image-coming-soon.png';
 
-let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
+let Overview = ({productId, changeInOutfit, outfitIds}) => {
 
   const [indexes, setIndexes] = useState({product: 0, style: 0, photo: 0});
   console.log('INDEXES:', indexes);
@@ -24,13 +25,13 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
       url: `/products/${productId}`,
       method: 'get',
       headers: {'Content-Type': 'application/json',
-      'Authorization': cam_token.cam_token}
+      'Authorization': config.API_KEY}
     };
     let productStylesOptions = {
       url: `products/${productId}/styles`,
       method: 'get',
       headers: {'Content-Type': 'application/json',
-      'Authorization': cam_token.cam_token}
+      'Authorization': config.API_KEY}
     };
     axios(productIdOptions)
       .then(response => {
@@ -50,13 +51,13 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
       url: `/products/${productId}`,
       method: 'get',
       headers: {'Content-Type': 'application/json',
-      'Authorization': cam_token.cam_token}
+      'Authorization': config.API_KEY}
     };
     let productStylesOptions = {
       url: `products/${productId}/styles`,
       method: 'get',
       headers: {'Content-Type': 'application/json',
-      'Authorization': cam_token.cam_token}
+      'Authorization': config.API_KEY}
     };
     axios(productIdOptions)
       .then(response => {
@@ -113,16 +114,15 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
       <ProductInformation productById={productById} productStyles={productStyles} indexes={indexes} />
       <StyleSelector productStyles={productStyles} indexes={indexes} handleStyleClick={handleStyleClick}  />
-      <AddToCart productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} cam_token={cam_token} />
+      <AddToCart productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} />
       <ProductSloganAndDescription productById={productById} />
-      <ProductFeatures productById={productById} cam_token={cam_token} /></>}
+      <ProductFeatures productById={productById} /></>}
     </div>
   );
 };
 
 
 Overview.propTypes = {
-  cam_token: PropTypes.object,
   products: PropTypes.array,
   productId: PropTypes.number,
   changeInOutfit : PropTypes.func,
