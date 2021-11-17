@@ -93,6 +93,7 @@ describe('<QuestionEntry />', () => {
 
     fireEvent.click(button);
     expect(answerModal).toBeInTheDocument();
-  })
+  });
+
 
 });

@@ -44,16 +44,16 @@ describe('<Answer />', () => {
     component = render(<Answer answer={testAnswer}/>);
   });
 
-  it ('renders Answer component', () => {
+  it('renders Answer component', () => {
     const answer = component.getByTestId('answer');
     expect(answer).toBeInTheDocument();
   });
 
-  it('allows user to mark answer as helpful, helpfulness int should increase by 1', () => {
+  it('allows user to mark answer as helpful, helpfulness int should increase by 1', async () => {
     const button = screen.getByRole('button', { name: /helpful/i});
-
     fireEvent.click(button);
-    expect(button).toHaveTextContent(`Yes (${testAnswer.helpfulness})`);
+
+    await waitFor(() => expect(component.findByText(`Yes (${testAnswer.helpfulness})`)).toBeDefined());
   });
 
   it('allows user to mark answer as reported', async () => {
@@ -62,5 +62,6 @@ describe('<Answer />', () => {
 
 
     await waitFor(() => expect(component.findByText('Report')).toBeDefined());
-  })
+  });
+
  });

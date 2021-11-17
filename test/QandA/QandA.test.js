@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import QandA from '../../client/src/components/Q&A/Q&A.jsx';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 describe('<QandA />', () => {
@@ -20,6 +20,6 @@ describe('<QandA />', () => {
   it ('renders a list of questions', () => {
     const list = component.getByTestId('question-li');
     expect(list).toBeInTheDocument();
-  })
+  });
 
 });
