@@ -18,7 +18,14 @@ let StyleSelector = ({productStyles, indexes, handleStyleClick}) => {
         </div>
         <div className="StyleSelectorIcons">
           {productStyles.results.map((style, i) => (
+            indexes.style === i ?
+                <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon" data-testid={`StyleThumbnail ${i}`}>
+                <div className="StyleIconCheck">✔</div>
+                </div>
+
+                :
                 <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon" data-testid={`StyleThumbnail ${i}`}></div>
+
           ))}
         </div>
       </div>
