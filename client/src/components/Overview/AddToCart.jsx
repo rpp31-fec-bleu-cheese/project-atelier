@@ -27,12 +27,16 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
   }, [stylesIndex]);
 
   let handleMyOutfitCollection = () => {
-    if (outfitIds.includes(productStyles.product_id)) {
+    if (outfitIds.includes(Number(productStyles.product_id))) {
       setMyOutfitIcon('❤️');
     } else {
       setMyOutfitIcon('⭐');
     }
   }
+
+  useEffect(() => {
+    handleMyOutfitCollection();
+  }, [outfitIds])
 
   useEffect(() => {
     handleMyOutfitCollection()
@@ -54,12 +58,18 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
 
     let handleMyOutfitClick = (event) => {
       event.persist();
+      let productNumber = productStyles.product_id;
+      if(typeof productNumber === 'string') {
+        productNumber = Number(productStyles.product_id);
+      }
       if (myOutfitIcon === '⭐') {
-        changeInOutfit(event, productStyles.product_id, 'Add');
+        if(!outfitIds.includes(productNumber)) {
+          changeInOutfit(event, productNumber, 'Add');
+        }
         setMyOutfitIcon('❤️');
       }
       if (myOutfitIcon === '❤️') {
-        changeInOutfit(event, productStyles.product_id, 'Delete');
+        changeInOutfit(event, productNumber, 'Delete');
         setMyOutfitIcon('⭐');
       }
       event.preventDefault();

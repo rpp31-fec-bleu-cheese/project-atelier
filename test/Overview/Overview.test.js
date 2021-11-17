@@ -1,59 +1,43 @@
 // import dependencies for React, Jest, Enzyme
 import React from 'react';
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import { shallow, mount, render } from 'enzyme';
-// import renderer from 'react-test-renderer';
-// import component modules to be tested
+import { render } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
+import '@testing-library/jest-dom/extend-expect';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+// import module(s) under test
 import Overview from '../../client/src/components/Overview/Overview.jsx';
+import ImageGallery from '../../client/src/components/Overview/ImageGallery.jsx';
+import ProductInformation from '../../client/src/components/Overview/ProductInformation.jsx';
+import StyleSelector from '../../client/src/components/Overview/StyleSelector.jsx';
+import AddToCart from '../../client/src/components/Overview/AddToCart.jsx';
+import ProductSloganAndDescription from '../../client/src/components/Overview/ProductSloganAndDescription.jsx';
+import ProductFeatures from '../../client/src/components/Overview/ProductFeatures.jsx';
 
-// configure Enzyme
-// configure({ adapter: new Adapter() });
+// fixtures
+const testProductId = 59553;
 
-// component tests
+// mock an API request
+const server = setupServer(
+  rest.get(`/products/${testProductId}`, (req, res, ctx) => {
+    return res(ctx.json({data: 'test'}))
+  })
+);
+
+// test suite
 describe('<Overview />', () => {
-  let wrapper;
+  beforeAll(() => server.listen())
+  afterEach(() => server.resetHandlers())
+  afterAll(() => server.close())
+  let component;
   beforeEach(() => {
-    wrapper = shallow(<Overview />);
-  });
-
-  it('Accepts a product ID as props', () => {
-    let productId = 59553;
-    expect(productId).not.toBeUndefined();
+    component = render(<Overview />);
   })
-  it('Renders Overview component to the DOM', () => {
-    expect(wrapper.find('Overview')).not.toBeUndefined();
+  test('Renders without crashing', () => {
+    expect(component).toBeDefined();
   })
-  it('Contains an Image Gallery component', () => {
-    expect(wrapper.find('ImageGallery')).not.toBeUndefined();
-  })
-  it('Contains a Product Information component', () => {
-    expect(wrapper.find('ProductInformation')).not.toBeUndefined();
-  })
-  it('Contains a Style Selector component', () => {
-    expect(wrapper.find('StyleSelector')).not.toBeUndefined();
-  })
-  it('Contains a Add To Cart component', () => {
-    expect(wrapper.find('AddToCart')).not.toBeUndefined();
-  })
-  it('Contains a Product Slogan and Description component', () => {
-    expect(wrapper.find('ProductSloganAndDescription')).not.toBeUndefined();
-  })
-  it('Contains a Product Features component', () => {
-    console.log(wrapper.debug())
-    expect(wrapper.find('ProductFeatures')).not.toBeUndefined();
+  test('Renders an Image Gallery component', () => {
+    let imageGallery = component.getByTestId('Overview');
+    expect(imageGallery).toBeInTheDocument();
   })
 })
-
-// describe('<Overview /> logic', () => {
-//   it('', () => {
-
-//   })
-// })
-
-
-
-// it('Renders six child components', () => {
-//   const wrapper = shallow(<Overview />);
-//   expect(wrapper.find(ImageGallery)).to.have.lengthOf(1);
-// })

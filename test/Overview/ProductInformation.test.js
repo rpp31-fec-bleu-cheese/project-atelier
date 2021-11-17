@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
-// import module under test
+// import module(s) under test
 import ProductInformation from '../../client/src/components/Overview/ProductInformation.jsx';
 
 // fixtures

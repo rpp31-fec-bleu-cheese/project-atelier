@@ -109,9 +109,9 @@ let Overview = ({productId, changeInOutfit, outfitIds}) => {
   }
 
   return (
-    <div id='Overview'>
+    <div data-testid="Overview" id='Overview'>
       {Object.keys(productStyles).length > 0 && <><ImageGallery indexes={indexes} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
-       handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
+       handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} data-testid="ImageGallery"/>
       <ProductInformation productById={productById} productStyles={productStyles} indexes={indexes} />
       <StyleSelector productStyles={productStyles} indexes={indexes} handleStyleClick={handleStyleClick}  />
       <AddToCart productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} />

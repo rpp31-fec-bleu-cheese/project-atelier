@@ -6,3 +6,4 @@ module.exports = {
     "<rootDir>setupTests.js"
   ]
 }
+
