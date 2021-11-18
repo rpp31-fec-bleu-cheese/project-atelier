@@ -61,6 +61,7 @@ class App extends React.Component {
     })
     .then((response) => {
       var outfitIds = JSON.parse(response.data.outfitData);
+      console.log('OUTFITIDS ')
       this.setState({
         outfitIds:outfitIds
       })
