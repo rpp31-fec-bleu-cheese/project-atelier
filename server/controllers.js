@@ -285,7 +285,6 @@ module.exports = {
   //added for Related Component
   cookies:{
     getCookies: function(req,res) {
-      console.log('inside get cookies:', req.cookies);
       res.status(200).send(JSON.stringify(req.cookies));
     }
   }

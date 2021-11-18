@@ -138,4 +138,5 @@ Overview.propTypes = {
 }
 
 export default Overview;
-// export {ImageGallery, ProductInformation, ProductFeatures, ProductSloganAndDescription, StyleSelector};
+
+// export {handleStyleClick};

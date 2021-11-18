@@ -5,6 +5,8 @@ import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 // import module(s) under test
 import StyleSelector from '../../client/src/components/Overview/StyleSelector.jsx';
+import { handleStyleClick } from '../../client/src/components/Overview/Overview.jsx';
+console.log('HANDLE STYLE CLICK:', handleStyleClick);
 
 // fixtures
 let testIndexes = { product: 0, style: 0, photo: 0 };
@@ -237,12 +239,16 @@ describe('<StyleSelector />', () => {
       expect(styleThumbnail).toBeInTheDocument();
     }
   })
-  test('The clicked style will update the current style', () => {
-    let styleDescription = component.getByTestId('StyleDescription');
-    let styleThumbnailToBeClicked = component.getByTestId('StyleThumbnail 1');
-    console.log('STYLE CLICKED:', styleThumbnailToBeClicked);
-    expect(styleDescription.textContent).toBe('Forest Green & Black');
-    fireEvent.click(styleThumbnailToBeClicked);
-    expect(styleDescription.textContent).toBe('Desert Brown & Tan');
+  test('Renders a checkmark on the currently selected style', () => {
+    let checkedStyle = component.getByTestId('StyleCheck');
+    expect(checkedStyle).toBeInTheDocument();
   })
+  // test('The clicked style will update the current style', () => {
+  //   let styleDescription = component.getByTestId('StyleDescription');
+  //   let styleThumbnailToBeClicked = component.getByTestId('StyleThumbnail 1');
+  //   console.log('STYLE CLICKED:', styleThumbnailToBeClicked);
+  //   expect(styleDescription.textContent).toBe('Forest Green & Black');
+  //   fireEvent.click(styleThumbnailToBeClicked);
+  //   expect(styleDescription.textContent).toBe('Desert Brown & Tan');
+  // })
 })

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect }  from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 let StyleSelector = ({productStyles, indexes, handleStyleClick}) => {
 
@@ -20,9 +21,10 @@ let StyleSelector = ({productStyles, indexes, handleStyleClick}) => {
           {productStyles.results.map((style, i) => (
             indexes.style === i ?
                 <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon" data-testid={`StyleThumbnail ${i}`}>
-                <div className="StyleIconCheck">✔</div>
+                <div className="StyleIconCheck" data-testid="StyleCheck">
+                <FontAwesomeIcon icon={faCheckCircle}></FontAwesomeIcon>
                 </div>
-
+                </div>
                 :
                 <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon" data-testid={`StyleThumbnail ${i}`}></div>
 

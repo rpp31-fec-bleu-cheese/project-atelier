@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useLayoutEffect }  from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCameraRetro } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, indexes, productStyles}) => {
 
   const [showModal, setShowModal] = useState(false);
-  console.log('SHOW MODAL:', showModal);
-
-  let imageComingSoon = '/media'
 
   let handleModalClick = () => {
     console.log('Modal clicked!');
@@ -16,32 +18,37 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
   }
 
     if (Object.keys(productStyles).length) {
-        let productImage = productStyles.results[indexes.style].photos[indexes.photo].url ? productStyles.results[indexes.style].photos[indexes.photo].url : imageComingSoon;
 
     return (
-      <div className="ImageGallery">
-        <div style={{background: `center / contain no-repeat url(${productImage})`}} className="MainImage" alt="Main Product Image">
+      <div className="ImageGallery">{
+        productStyles.results[indexes.style].photos[indexes.photo].url ?
+        <div data-testid="MainImage" style={{background: `center / contain no-repeat url(${productStyles.results[indexes.style].photos[indexes.photo].url})`}} className="MainImage" alt="Main Product Image">
         </div>
-        <div className="ImageGalleryThumbnails">
+        :
+        <div data-testid="MainImageUnavailable" className="MainImageUnavailable">
+        <FontAwesomeIcon icon={faCameraRetro} />
+        </div>
+        }
+        <div data-testid="ImageGalleryThumbnails" className="ImageGalleryThumbnails">
           {productStyles.results[indexes.style].photos.map((currentStyle, i) => (
             indexes.photo === i ?
 
-            <div key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnailSelected" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
+            <div data-testid={`GalleryThumbnail ${i}`} key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnailSelected" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
             :
-            <div key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
+            <div data-testid={`GalleryThumbnail ${i}`} key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
           ))}
         </div>
         <div className="SlideGalleryLeft">
-          <div className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}>←</div>
+          <div className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}><FontAwesomeIcon icon={faArrowCircleLeft} /></div>
         </div>
         <div className="SlideGalleryRight">
-          <div className="SlideGalleryRightButton" onClick={handleRightArrowClick}>→</div>
+          <div className="SlideGalleryRightButton" onClick={handleRightArrowClick}><FontAwesomeIcon icon={faArrowCircleRight} /></div>
         </div>
         <div className="OpenGalleryModal">
-          <div className="OpenGalleryModalButton" onClick={handleModalClick}>⧠</div>
-            {showModal && <div id="GalleryModal" onClick={() => { setShowModal(false) }}>
+          <div data-testid="OpenGalleryModalButton" className="OpenGalleryModalButton" onClick={handleModalClick}><FontAwesomeIcon icon={faExpandArrowsAlt} /></div>
+            {showModal && <div data-testid="GalleryModal" id="GalleryModal" onClick={() => { setShowModal(false) }}>
               <div id="GalleryModalContent" className="GalleryModalContent">
-                <img className="ModalImage" src={productImage} alt="Product Image Close Up" />
+                <img className="ModalImage" src={productStyles.results[indexes.style].photos[indexes.photo].url} alt="Product Image Close Up" />
               </div>
             </div>}
         </div>
