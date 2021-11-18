@@ -167,13 +167,17 @@ class Related_Outfit extends React.Component {
     });
   }
   componentDidMount(){
+    var productInfo = {};
+    productInfo = this.props.currentProductDetails;
+    productInfo.styles = this.props.currentProductStyles;
     this.setState({
-      productId:this.props.productId
+      productId:this.props.productId,
+      productInfo: productInfo
     });
 
     this.fetchRelatedInfo(this.props.productId);
-    this.fetchProductInfo(this.props.productId);
-    this.fetchProductStyles(this.props.productId);
+    //this.fetchProductInfo(this.props.productId);
+    //this.fetchProductStyles(this.props.productId);
 
 
 
@@ -181,8 +185,18 @@ class Related_Outfit extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.productId !== this.props.productId) {
       this.fetchRelatedInfo(this.props.productId);
-      this.fetchProductInfo(this.props.productId);
-      this.fetchProductStyles(this.props.productId);
+      //this.fetchProductInfo(this.props.productId);
+      //this.fetchProductStyles(this.props.productId);
+    }
+    if(JSON.stringify(prevProps.currentProductDetails) !== JSON.stringify(this.props.currentProductDetails)
+    && JSON.stringify(prevProps.currentProductStyles) !== JSON.stringify(this.props.currentProductStyles)) {
+      var productInfo = {};
+      productInfo = this.props.currentProductDetails;
+      productInfo.styles = this.props.currentProductStyles;
+      this.setState({
+        productId:this.props.productId,
+        productInfo: productInfo
+       });
     }
     if(JSON.stringify(prevProps.outfitIds) !== JSON.stringify(this.props.outfitIds)) {
       this.fetchOufitInfo(this.props.outfitIds);
@@ -247,8 +261,9 @@ Related_Outfit.propTypes = {
   productId:PropTypes.number,
   productClick:PropTypes.func,
   outfitIds:PropTypes.array,
-  changeInOutfit:PropTypes.func
-
+  changeInOutfit:PropTypes.func,
+  currentProductDetails:PropTypes.object,
+  currentProductStyles:PropTypes.object
 
 }
 

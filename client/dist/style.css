@@ -114,7 +114,7 @@ div#Overview div.ImageGalleryThumbnails {
   /* position: absolute; */
   overflow: scroll;
   height: 450px;
-  width: 100px;
+  width: 70px;
   margin: 15px 0px 0px 25px;
 }
 
@@ -130,6 +130,19 @@ div#Overview div.GalleryThumbnail {
   background-color: rgb(0, 0, 0);
 }
 
+div#Overview div.GalleryThumbnailSelected {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 60px;
+  border: 1px solid black;
+  margin: 12px 0px 12px 0px;
+  background-color: rgb(0, 0, 0);
+  box-shadow: 2px 2px 2px 2px coral;
+}
+
 div#Overview div.SlideGalleryLeft {
   grid-column: 2;
   grid-row: 2;
@@ -137,7 +150,6 @@ div#Overview div.SlideGalleryLeft {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* opacity: 0.7; */
   height: auto;
   width: auto;
   color: orange;
@@ -155,7 +167,6 @@ div#Overview div.SlideGalleryRight {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* opacity: 0.7; */
   height: auto;
   width: auto;
   color: orange;
@@ -173,7 +184,6 @@ div#Overview div.OpenGalleryModal {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  /* opacity: 0.7; */
   height: auto;
   width: auto;
   color: orange;
@@ -202,6 +212,7 @@ div#Overview div#GalleryModal {
 div#Overview div#GalleryModalContent {
   margin: 200px;
   display: flex;
+  z-index: 2;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -212,14 +223,6 @@ div#Overview div#GalleryModalContent img {
   width: 90%;
   border: 20px solid #f4f4f4;
 }
-
-/* div#Overview div.ModalImage {
-  height: 150px;
-  width: 150px;
-  border: 20px solid #f4f4f4;
-  background: center;
-} */
-
 
 div#Overview div.ProductInformation {
   grid-column: 2;
@@ -284,17 +287,24 @@ div#Overview div.StyleSelectorIcons {
 }
 
 div#Overview div.StyleIcon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25% 25% 25% 25%;
   border: 1px solid black;
   border-radius: 100%;
   height: 50px;
   width: 50px;
-  flex-grow: 1;
-  flex-basis: 20%;
   max-width: 50px;
+}
+
+div#Overview div.StyleIconCheck {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  grid-column: 4;
+  grid-row: 1;
+  color: coral;
+  font-size: 120%;
 }
 
 div#Overview div.AddToCart {
@@ -389,7 +399,7 @@ div#Related_Outfit {
   grid-column: 2;
   grid-row: 4;
   display: grid;
-  grid-template-columns: 10% auto 10%;
+  grid-template-columns: 5% auto 5%;
   grid-template-rows: 5% 45% 5% 45%;
   justify-content: center;
   align-items: center;

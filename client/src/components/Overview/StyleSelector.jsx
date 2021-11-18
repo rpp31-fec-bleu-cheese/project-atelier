@@ -12,16 +12,20 @@ let StyleSelector = ({productStyles, indexes, handleStyleClick}) => {
           <div className="SelectedStyleHeader">
           Style:
           </div>
-          <div className="SelectedStyleDescription">
+          <div className="SelectedStyleDescription" data-testid="StyleDescription">
           {productStyles.results[indexes.style].name}
           </div>
         </div>
         <div className="StyleSelectorIcons">
           {productStyles.results.map((style, i) => (
-              <label key={i} htmlFor="selectedStyle">
-                <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon"></div>
-                {/* <input type="radio" id="selectedStyle" /> */}
-              </label>
+            indexes.style === i ?
+                <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon" data-testid={`StyleThumbnail ${i}`}>
+                <div className="StyleIconCheck">✔</div>
+                </div>
+
+                :
+                <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon" data-testid={`StyleThumbnail ${i}`}></div>
+
           ))}
         </div>
       </div>

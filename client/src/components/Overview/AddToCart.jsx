@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+//import config from '/Users/cameroncolaco/Documents/HR/SEI/sprints/project-atelier/config.js';
+import config from '../../../../config.js';
 // Add to Cart Component
 let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token}) => {
 
@@ -26,13 +27,16 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
   }, [stylesIndex]);
 
   let handleMyOutfitCollection = () => {
-
     if (outfitIds.includes(Number(productStyles.product_id))) {
-     setMyOutfitIcon('❤️');
+      setMyOutfitIcon('❤️');
     } else {
       setMyOutfitIcon('⭐');
     }
   }
+
+  useEffect(() => {
+    handleMyOutfitCollection();
+  }, [outfitIds])
 
   useEffect(() => {
     handleMyOutfitCollection()
@@ -54,12 +58,18 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
 
     let handleMyOutfitClick = (event) => {
       event.persist();
+      let productNumber = productStyles.product_id;
+      if(typeof productNumber === 'string') {
+        productNumber = Number(productStyles.product_id);
+      }
       if (myOutfitIcon === '⭐') {
-        changeInOutfit(event, productStyles.product_id, 'Add');
+        if(!outfitIds.includes(productNumber)) {
+          changeInOutfit(event, productNumber, 'Add');
+        }
         setMyOutfitIcon('❤️');
       }
       if (myOutfitIcon === '❤️') {
-        changeInOutfit(event, productStyles.product_id, 'Delete');
+        changeInOutfit(event, productNumber, 'Delete');
         setMyOutfitIcon('⭐');
       }
       event.preventDefault();
@@ -120,7 +130,7 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
         url: '/cart',
         method: 'post',
         headers: {'Content-Type': 'application/json',
-        'Authorization': cam_token.cam_token},
+        'Authorization': config.API_KEY},
         data: {sku_id: productSkuForBag}
       };
       axios(optionsForCart)

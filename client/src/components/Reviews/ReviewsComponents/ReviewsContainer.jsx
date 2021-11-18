@@ -27,6 +27,7 @@ class ReviewsContainer extends React.Component {
       sortedReviews: this.changeFilterSort(),
       markedHelpful: (document.cookie) ? JSON.parse(decodeURIComponent(document.cookie).split('=')[1]) : {}
     });
+    console.log('DOCUMENT COOKIE:', document.cookie);
   }
 
   componentDidUpdate(prevProps) {

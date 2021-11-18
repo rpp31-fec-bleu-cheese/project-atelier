@@ -22,6 +22,9 @@ var RelatedOutfit_ProductInfo = (props) => {
       image = props.product.styles[0]["photos"][0]["url"];
       salePrice =  props.product.styles["sale_price"];
     }
+    if(image === null) {
+      image = <i className="fas fa-camera-retro"></i>
+    }
   }
 
   if(props.component === 'Related') {

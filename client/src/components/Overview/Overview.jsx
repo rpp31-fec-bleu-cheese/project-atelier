@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect }  from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+//import config from '../../../../config.js';
+import config from '/Users/sangeetha/Documents/HackReactor/remote-course/FEC/project-atelier/config.js'
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
@@ -10,39 +12,39 @@ import ProductFeatures from './ProductFeatures.jsx';
 // const imagePath = '/../../dist/stock_media/'
 // import imageComingSoonPhoto from '/Users/cameroncolaco/Documents/HR/SEI/sprints/project-atelier/client/dist/stock_media/image-coming-soon.png';
 
-let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
+let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, changeInOutfit, outfitIds}) => {
 
   const [indexes, setIndexes] = useState({product: 0, style: 0, photo: 0});
   console.log('INDEXES:', indexes);
-  const [productById, setProductById] = useState({});
+  // const [productById, setProductById] = useState({});
   // console.log('CURRENT PRODUCT BY ID:', productById);
-  const [productStyles, setProductStyles] = useState({});
+  // const [productStyles, setProductStyles] = useState({});
   // // console.log('CURRENT PRODUCT STYLE:', productStyles);
 
-  useEffect (() => {
-    let productIdOptions = {
-      url: `/products/${productId}`,
-      method: 'get',
-      headers: {'Content-Type': 'application/json',
-      'Authorization': cam_token.cam_token}
-    };
-    let productStylesOptions = {
-      url: `products/${productId}/styles`,
-      method: 'get',
-      headers: {'Content-Type': 'application/json',
-      'Authorization': cam_token.cam_token}
-    };
-    axios(productIdOptions)
-      .then(response => {
-        setProductById(response.data);
-        axios(productStylesOptions)
-        .then(response => {
-          setProductStyles(response.data);
-            })
-          })
-            .catch(error => {
-              console.log(error)});
-  }, []);
+  // useEffect (() => {
+  //   let productIdOptions = {
+  //     url: `/products/${productId}`,
+  //     method: 'get',
+  //     headers: {'Content-Type': 'application/json',
+  //     'Authorization': config.API_KEY}
+  //   };
+  //   let productStylesOptions = {
+  //     url: `products/${productId}/styles`,
+  //     method: 'get',
+  //     headers: {'Content-Type': 'application/json',
+  //     'Authorization': config.API_KEY}
+  //   };
+  //   axios(productIdOptions)
+  //     .then(response => {
+  //       setProductById(response.data);
+  //       axios(productStylesOptions)
+  //       .then(response => {
+  //         setProductStyles(response.data);
+  //           })
+  //         })
+  //           .catch(error => {
+  //             console.log(error)});
+  // }, []);
 
   // Effect for watching incoming productId from App component
   useEffect (() => {
@@ -50,20 +52,25 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
       url: `/products/${productId}`,
       method: 'get',
       headers: {'Content-Type': 'application/json',
-      'Authorization': cam_token.cam_token}
+      'Authorization': config.API_KEY}
     };
     let productStylesOptions = {
       url: `products/${productId}/styles`,
       method: 'get',
       headers: {'Content-Type': 'application/json',
-      'Authorization': cam_token.cam_token}
+      'Authorization': config.API_KEY}
     };
     axios(productIdOptions)
       .then(response => {
-        setProductById(response.data);
+        let product = {
+          details: response.data
+        };
+        // setProductById(response.data);
         axios(productStylesOptions)
         .then(response => {
-          setProductStyles(response.data);
+          product.styles = response.data
+          updateDetailsAndStyles(product.details, product.styles);
+          // setProductStyles(response.data);
             })
           })
             .catch(error => {
@@ -108,25 +115,27 @@ let Overview = ({cam_token, productId, changeInOutfit, outfitIds}) => {
   }
 
   return (
-    <div id='Overview'>
+    <div data-testid="Overview" id='Overview'>
       {Object.keys(productStyles).length > 0 && <><ImageGallery indexes={indexes} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
-       handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} />
+       handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} data-testid="ImageGallery"/>
       <ProductInformation productById={productById} productStyles={productStyles} indexes={indexes} />
       <StyleSelector productStyles={productStyles} indexes={indexes} handleStyleClick={handleStyleClick}  />
-      <AddToCart productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} cam_token={cam_token} />
+      <AddToCart productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} />
       <ProductSloganAndDescription productById={productById} />
-      <ProductFeatures productById={productById} cam_token={cam_token} /></>}
+      <ProductFeatures productById={productById} /></>}
     </div>
   );
 };
 
 
 Overview.propTypes = {
-  cam_token: PropTypes.object,
+  productById: PropTypes.object,
+  productStyles: PropTypes.object,
   products: PropTypes.array,
   productId: PropTypes.number,
   changeInOutfit : PropTypes.func,
-  outfitIds: PropTypes.array
+  outfitIds: PropTypes.array,
+  updateDetailsAndStyles: PropTypes.func
 }
 
 export default Overview;

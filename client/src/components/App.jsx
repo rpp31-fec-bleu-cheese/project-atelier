@@ -7,17 +7,22 @@ import Related_Outfit from './Related_Outfit/Related_Outfit.jsx';
 import QandA from './Q&A/Q&A.jsx';
 import axios from 'axios';
 import RatingsReviews from './Reviews/Index.jsx';
+import config from '../../../config.js';
+import { useEffect } from 'react';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       rating: 0,
-      productId: 59555,
-      outfitIds: []
+      productId: this.props.startingProductId,
+      outfitIds: [],
+      currentProductDetails: {},
+      currentProductStyles: {}
     };
     this.relatedOutfitProductClick = this.relatedOutfitProductClick.bind(this);
     this.changeInOutfit = this.changeInOutfit.bind(this);
+    this.updateDetailsAndStyles = this.updateDetailsAndStyles.bind(this);
   }
    /****************************************************************************/
   /** clicking on outfit or raletd product makes that as the current product  **/
@@ -54,6 +59,13 @@ class App extends React.Component {
     })
   }
 
+  updateDetailsAndStyles(productDetails, productStyles) {
+   this.setState({
+     currentProductDetails: productDetails,
+     currentProductStyles: productStyles
+   })
+  }
+
   componentDidMount(){
     axios({
       method: 'get',
@@ -69,7 +81,85 @@ class App extends React.Component {
     .catch((error) => {
       console.log('error: in APP', error);
     });
+    // API calls for product ID and styles
+    let productIdOptions = {
+      url: `/products/${this.state.productId}`,
+      method: 'get',
+      headers: {'Content-Type': 'application/json',
+      'Authorization': config.API_KEY}
+    };
+    let productStylesOptions = {
+      url: `products/${this.state.productId}/styles`,
+      method: 'get',
+      headers: {'Content-Type': 'application/json',
+      'Authorization': config.API_KEY}
+    };
+    axios(productIdOptions)
+      .then(response => {
+        this.setState({ currentProductDetails: response.data });
+        axios(productStylesOptions)
+        .then(response => {
+          this.setState({ currentProductStyles: response.data });
+            })
+          })
+          .catch(error => {
+            console.log(error)});
   }
+
+  // useEffect (() => {
+  //   let productIdOptions = {
+  //     url: `/products/${this.state.productId}`,
+  //     method: 'get',
+  //     headers: {'Content-Type': 'application/json',
+  //     'Authorization': config.API_KEY}
+  //   };
+  //   let productStylesOptions = {
+  //     url: `products/${this.state.productId}/styles`,
+  //     method: 'get',
+  //     headers: {'Content-Type': 'application/json',
+  //     'Authorization': config.API_KEY}
+  //   };
+  //   axios(productIdOptions)
+  //     .then(response => {
+  //       this.setState({ currentProductDetails: response.data });
+  //       axios(productStylesOptions)
+  //       .then(response => {
+  //         this.setState({ currentProductStyles: response.data });
+  //           })
+  //         })
+  //           .catch(error => {
+  //             console.log(error)});
+  // }, [this.state.productId]);
+
+  // componentDidUpdate(prevProps) {
+  //   console.log('PREV STATE:', prevProps);
+  //   console.log('PREV STATE PRODUCT ID:', prevProps.startingProductId);
+  //   console.log('CURRENT STATE PRODUCT ID:', this.state.productId);
+  //   if(prevProps.startingProductId !== this.state.productId) {
+  //     let productIdOptions = {
+  //       url: `/products/${this.state.productId}`,
+  //       method: 'get',
+  //       headers: {'Content-Type': 'application/json',
+  //       'Authorization': config.API_KEY}
+  //     };
+  //     let productStylesOptions = {
+  //       url: `products/${this.state.productId}/styles`,
+  //       method: 'get',
+  //       headers: {'Content-Type': 'application/json',
+  //       'Authorization': config.API_KEY}
+  //     };
+  //     axios(productIdOptions)
+  //       .then(response => {
+  //         this.setState({ currentProductDetails: response.data });
+  //         axios(productStylesOptions)
+  //         .then(response => {
+  //           this.setState({ currentProductStyles: response.data });
+  //             })
+  //           })
+  //           .catch(error => {
+  //             console.log(error)});
+  //   }
+  // }
 
 
 
@@ -79,8 +169,8 @@ class App extends React.Component {
       <div id='App'>
         <Header />
         <SiteMessage />
-        <Overview products={this.props.products} cam_token={this.props.cam_token} productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} />
-        <Related_Outfit productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} productClick={this.relatedOutfitProductClick}/>
+        <Overview updateDetailsAndStyles={this.updateDetailsAndStyles} productById={this.state.currentProductDetails} productStyles={this.state.currentProductStyles} cam_token={this.props.cam_token} productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} />
+        <Related_Outfit productId={this.state.productId} currentProductDetails ={this.state.currentProductDetails} currentProductStyles={this.state.currentProductStyles} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} productClick={this.relatedOutfitProductClick}/>
         <QandA productId={this.state.productId}/>
         <RatingsReviews product_id={this.state.productId} updateRating={this.updateRating.bind(this)}/>
       </div>
@@ -92,7 +182,8 @@ App.propTypes = {
   cam_token: PropTypes.string
 }
 App.propTypes = {
-  products: PropTypes.array
+  products: PropTypes.array,
+  startingProductId: PropTypes.number
 }
 
 export default App;

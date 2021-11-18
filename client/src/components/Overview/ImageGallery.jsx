@@ -24,6 +24,10 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
         </div>
         <div className="ImageGalleryThumbnails">
           {productStyles.results[indexes.style].photos.map((currentStyle, i) => (
+            indexes.photo === i ?
+
+            <div key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnailSelected" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
+            :
             <div key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
           ))}
         </div>

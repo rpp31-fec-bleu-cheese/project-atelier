@@ -6,10 +6,10 @@ import axios from 'axios';
 let ProductSloganAndDescription = ({productById}) => {
   return (
     <div className="ProductSloganAndDescription">
-        <div className="ProductSlogan">
+        <div className="ProductSlogan" data-testid="ProductSloganHeader">
           {productById.slogan}
         </div>
-        <div className="ProductDescription">
+        <div className="ProductDescription" data-testid="ProductDescriptionBody">
           {productById.description}
         </div>
     </div>
