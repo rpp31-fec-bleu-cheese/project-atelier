@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import config from '/Users/cameroncolaco/Documents/HR/SEI/sprints/project-atelier/config.js';
+import config from '../../../../config.js';
 
 // Add to Cart Component
 let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token}) => {

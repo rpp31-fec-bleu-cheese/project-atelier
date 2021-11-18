@@ -1,3 +1,3 @@
 module.exports = {
-  API_KEY:'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'
+  API_KEY: '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'
 };
