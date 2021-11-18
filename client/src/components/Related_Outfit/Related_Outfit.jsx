@@ -176,6 +176,7 @@ class Related_Outfit extends React.Component {
     this.fetchProductStyles(this.props.productId);
 
 
+
   }
   componentDidUpdate(prevProps) {
     if (prevProps.productId !== this.props.productId) {

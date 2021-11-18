@@ -15,55 +15,157 @@ Enzyme.configure({adapter:new Adapter()});
 
 describe('Related_Outfit', () => {
   //test to see if Related_Outfit component is rendered
-  it('Related_Outfit should render correctly', () => {
+  it('Related_Outfit should render correctly', (done) => {
       const wrapper = mount(<Related_Outfit/>);
-      //expect(wrapper).toMatchSnapshot();
       expect(wrapper.find('#Related_Outfit')).not.toBeUndefined();
+      done();
   });
 
-/*import React from 'react';
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import Enzyme from 'enzyme';
-//import { shallow, mount, render } from 'enzyme';
-import renderer from 'react-test-renderer';
-// import component modules to be tested
-import Related_Outfit  from '../client/src/components/Related_Outfit/Related_Outfit.jsx';
-
-// configure Enzyme
-Enzyme.configure({adapter:new Adapter()});
-
-// component tests
-describe('<Related_Outfit />', () => {
-  it('Related_Outfit should render correctly', () => {
+  it('when the state updates with outfits, the div with id "Outfit" is displayed', (done) => {
     const wrapper = Enzyme.mount(<Related_Outfit/>);
-    //expect(wrapper).toMatchSnapshot();
-    expect(wrapper.find('#Related_Outfit')).not.toBeUndefined();
+
+    wrapper.setState({outfits:[
+      {
+        "id": 59557,
+        "campus": "hr-rpp",
+        "name": "Heir Force Ones",
+        "slogan": "A sneaker dynasty",
+        "description": "Now where da boxes where I keep mine? You should peep mine, maybe once or twice but never three times. I'm just a sneaker pro, I love Pumas and shell toes, but can't nothin compare to a fresh crispy white pearl",
+        "category": "Kicks",
+        "default_price": "99.00",
+        "created_at": "2021-10-18T22:50:41.839Z",
+        "updated_at": "2021-10-18T22:50:41.839Z",
+        "features": [
+            {
+                "feature": "Sole",
+                "value": "Rubber"
+            },
+            {
+                "feature": "Material",
+                "value": "FullControlSkin"
+            },
+            {
+                "feature": "Mid-Sole",
+                "value": "ControlSupport Arch Bridge"
+            },
+            {
+                "feature": "Stitching",
+                "value": "Double Stitch"
+            }
+        ],
+        "image":"https://images.unsplash.com/photo-1477420143023-6a0e0b04b69a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+    },
+    {
+        "id": 59555,
+        "campus": "hr-rpp",
+        "name": "Morning Joggers",
+        "slogan": "Make yourself a morning person",
+        "description": "Whether you're a morning person or not.  Whether you're gym bound or not.  Everyone looks good in joggers.",
+        "category": "Pants",
+        "default_price": "40.00",
+        "created_at": "2021-10-18T22:50:41.839Z",
+        "updated_at": "2021-10-18T22:50:41.839Z",
+        "features": [
+            {
+                "feature": "Fabric",
+                "value": "100% Cotton"
+            },
+            {
+                "feature": "Cut",
+                "value": "Skinny"
+            }
+        ],
+        "image":"https://images.unsplash.com/photo-1477420143023-6a0e0b04b69a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+    },
+
+    ]
+  });
+  //console.log("after setting state");
+  //console.log('wrapper.state', wrapper.state());
+  expect(wrapper.find('#Outfit')).not.toBeUndefined();
+  done();
+  });
+  it('Can find the star button in the DOM', (done) => {
+    const wrapper = Enzyme.mount(<Related_Outfit/>);
+
+    wrapper.setState({outfits:[
+      {
+        "id": 59557,
+        "campus": "hr-rpp",
+        "name": "Heir Force Ones",
+        "slogan": "A sneaker dynasty",
+        "description": "Now where da boxes where I keep mine? You should peep mine, maybe once or twice but never three times. I'm just a sneaker pro, I love Pumas and shell toes, but can't nothin compare to a fresh crispy white pearl",
+        "category": "Kicks",
+        "default_price": "99.00",
+        "created_at": "2021-10-18T22:50:41.839Z",
+        "updated_at": "2021-10-18T22:50:41.839Z",
+        "features": [
+            {
+                "feature": "Sole",
+                "value": "Rubber"
+            },
+            {
+                "feature": "Material",
+                "value": "FullControlSkin"
+            },
+            {
+                "feature": "Mid-Sole",
+                "value": "ControlSupport Arch Bridge"
+            },
+            {
+                "feature": "Stitching",
+                "value": "Double Stitch"
+            }
+        ],
+        "image":"https://images.unsplash.com/photo-1477420143023-6a0e0b04b69a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+    },
+
+
+    ]
+    });
+     expect(wrapper.find('#Overlay_Star')).not.toBeUndefined();
+     done();
+  });
+  it('Can find the cross button in the DOM', (done) => {
+    const wrapper = Enzyme.mount(<Related_Outfit/>);
+
+    wrapper.setState({relatedProducts:[
+      {
+        "id": 59557,
+        "campus": "hr-rpp",
+        "name": "Heir Force Ones",
+        "slogan": "A sneaker dynasty",
+        "description": "Now where da boxes where I keep mine? You should peep mine, maybe once or twice but never three times. I'm just a sneaker pro, I love Pumas and shell toes, but can't nothin compare to a fresh crispy white pearl",
+        "category": "Kicks",
+        "default_price": "99.00",
+        "created_at": "2021-10-18T22:50:41.839Z",
+        "updated_at": "2021-10-18T22:50:41.839Z",
+        "features": [
+            {
+                "feature": "Sole",
+                "value": "Rubber"
+            },
+            {
+                "feature": "Material",
+                "value": "FullControlSkin"
+            },
+            {
+                "feature": "Mid-Sole",
+                "value": "ControlSupport Arch Bridge"
+            },
+            {
+                "feature": "Stitching",
+                "value": "Double Stitch"
+            }
+        ],
+        "image":"https://images.unsplash.com/photo-1477420143023-6a0e0b04b69a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+    },
+
+
+    ]
+    });
+     expect(wrapper.find('#Overlay_Circle')).not.toBeUndefined();
+    done();
+  });
+
 });
-//    // expect(Foo.prototype.componentDidMount).to.have.property('callCount', 1);
-//   });
-//   it('componentDidMount() is called', (done) => {
-//     const wrapper = Enzyme.mount(<Related_Outfit/>);
-//     const instance = wrapper.instance();
-//     sinon.spy(instance, 'fetchRelatedInfo');
-//     instance.componentDidMount();
-//     console.log('instance:', instance.fetchRelatedInfo);
-
-//     expect(instance.fetchRelatedInfo).toHaveBeenCalledTimes(1);
-//     done();
-//    // expect(Foo.prototype.componentDidMount).to.have.property('callCount', 1);
-//   });
-//   /*it('calls componentDidMount', () => {
-//     const wrapper = Enzyme.mount(<Related_Outfit/>);
-//     sinon.spy(Related_Outfit.prototype,'componentDidMount');
-
-//     //expect(Related_Outfit.prototype.componentDidMount).to.have.property('callCount', 1);
-//   });*/
-//   /*it('Related_ProductInfo should render', () => {
-//     const wrapper = Enzyme.mount(<Related_Outfit/>);
-//     //console.log(wrapper.find(Related_ProductInfo).debug())
-//     expect(wrapper.matchesElement(<button className="NextProd Related"></button>)).to.equal(true);
-//     expect(wrapper.find('Related_ProductInfo')).to.equal(true);
-//   })*/
-
- });
