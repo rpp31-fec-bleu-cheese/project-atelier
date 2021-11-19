@@ -9,6 +9,9 @@
     "test": "jest --coverage"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
     "axios": "^0.23.0",
     "bluebird": "^3.7.2",

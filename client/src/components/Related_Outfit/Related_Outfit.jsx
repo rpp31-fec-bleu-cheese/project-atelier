@@ -39,7 +39,7 @@ class Related_Outfit extends React.Component {
           productToCompare = product;
         }
       }
-
+      //console.log("productId in starButton Click", productId);
       this.setState({
         productIdToCompare: productId,
         productToCompare: productToCompare
@@ -130,10 +130,10 @@ class Related_Outfit extends React.Component {
      })
   }
 
-  /**********************************/
+ /**********************************/
   /*fecth current product info*/
   /**********************************/
-  fetchProductInfo(productId) {
+  /*fetchProductInfo(productId) {
     fetch.productInfo(productId)
     .then((result) => {
 
@@ -148,7 +148,7 @@ class Related_Outfit extends React.Component {
   /**********************************/
   /*fecth current product styles*/
   /**********************************/
-  fetchProductStyles(productId) {
+  /*fetchProductStyles(productId) {
     fetch.productStyles(productId)
     .then((styles) => {
 
@@ -165,7 +165,7 @@ class Related_Outfit extends React.Component {
     .catch((error) => {
       console.log('error:',error);
     });
-  }
+  }*/
   componentDidMount(){
     var productInfo = {};
     productInfo = this.props.currentProductDetails;
@@ -174,7 +174,10 @@ class Related_Outfit extends React.Component {
       productId:this.props.productId,
       productInfo: productInfo
     });
+    console.log('IN COMPONENT DID MOUNT')
+    //console.log('prevProps.currentProductStyles',prevProps.currentProductStyles);
 
+    console.log('this.props.currentProductStyles',this.props.currentProductStyles);
     this.fetchRelatedInfo(this.props.productId);
     //this.fetchProductInfo(this.props.productId);
     //this.fetchProductStyles(this.props.productId);
@@ -189,10 +192,14 @@ class Related_Outfit extends React.Component {
       //this.fetchProductStyles(this.props.productId);
     }
     if(JSON.stringify(prevProps.currentProductDetails) !== JSON.stringify(this.props.currentProductDetails)
-    && JSON.stringify(prevProps.currentProductStyles) !== JSON.stringify(this.props.currentProductStyles)) {
+    || JSON.stringify(prevProps.currentProductStyles) !== JSON.stringify(this.props.currentProductStyles)) {
+      console.log('prevProps.currentProductStyles',prevProps.currentProductStyles);
+
+      console.log('this.props.currentProductStyles',this.props.currentProductStyles);
       var productInfo = {};
       productInfo = this.props.currentProductDetails;
       productInfo.styles = this.props.currentProductStyles;
+
       this.setState({
         productId:this.props.productId,
         productInfo: productInfo
