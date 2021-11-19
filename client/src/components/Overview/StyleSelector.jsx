@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect }  from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 let StyleSelector = ({productStyles, indexes, handleStyleClick}) => {
 
@@ -12,16 +13,21 @@ let StyleSelector = ({productStyles, indexes, handleStyleClick}) => {
           <div className="SelectedStyleHeader">
           Style:
           </div>
-          <div className="SelectedStyleDescription">
+          <div className="SelectedStyleDescription" data-testid="StyleDescription">
           {productStyles.results[indexes.style].name}
           </div>
         </div>
         <div className="StyleSelectorIcons">
           {productStyles.results.map((style, i) => (
-              <label key={i} htmlFor="selectedStyle">
-                <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon"></div>
-                {/* <input type="radio" id="selectedStyle" /> */}
-              </label>
+            indexes.style === i ?
+                <div key={i} index={i} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon" data-testid={`StyleThumbnail ${i}`}>
+                <div className="StyleIconCheck" data-testid="StyleCheck">
+                <FontAwesomeIcon icon={faCheckCircle}></FontAwesomeIcon>
+                </div>
+                </div>
+                :
+                <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon" data-testid={`StyleThumbnail ${i}`}></div>
+
           ))}
         </div>
       </div>

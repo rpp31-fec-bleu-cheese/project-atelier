@@ -9,6 +9,9 @@
     "test": "jest --coverage"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
     "axios": "^0.23.0",
     "bluebird": "^3.7.2",
@@ -45,18 +48,12 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-webpack-plugin": "^3.0.1",
     "jest": "^27.3.1",
+    "jest-react-hooks-shallow": "^1.5.1",
     "msw": "^0.35.0",
     "nodemon": "^2.0.14",
     "react-test-renderer": "^17.0.2",
     "webpack": "^5.59.1",
     "webpack-cli": "^4.9.1"
-  },
-  "jest": {
-    "verbose": true,
-    "testEnvironment": "jsdom",
-    "setupFilesAfterEnv": [
-      "<rootDir>setupTests.js"
-    ]
   },
   "author": "",
   "license": "ISC"

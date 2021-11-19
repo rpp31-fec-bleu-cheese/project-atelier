@@ -9,22 +9,22 @@ let ProductInformation = ({productById, productStyles, indexes}) => {
     return (
       <div className="ProductInformation">
         <div className="StarsAndReviews">
-          <div>
+          <div data-testid="ProductStars">
           ☆☆☆☆☆
           </div>
           <div>
-          <a href="">Read all (#) reviews</a>
+          <a href="" data-testid="ProductReviewsLink">Read all (#) reviews</a>
           </div>
         </div>
-        <div className="ProductCategory">
+        <div className="ProductCategory" data-testid="ProductByCategory">
           {productById.category}
         </div>
-        <div className="ProductName">
+        <div className="ProductName" data-testid="ProductByName">
           {productById.name}
         </div>
-        <div>
+        <div data-testid="ProductByPrice">
           {!productStyles.results[indexes.style].sale_price && <div>{`$${productStyles.results[indexes.style].original_price}`}</div>}
-          {productStyles.results[indexes.style].sale_price && <div><div style={{textDecoration: 'line-through'}}>{`$${productStyles.results[indexes.style].original_price}`}</div><div style={{color: 'red'}}>{`$${productStyles.results[indexes.style].sale_price}`}</div></div>}
+          {productStyles.results[indexes.style].sale_price && <div><div style={{textDecoration: 'line-through'}}>{`$${productStyles.results[indexes.style].original_price}`}</div><div data-testid="ProductBySalePrice" style={{color: 'red'}}>{`$${productStyles.results[indexes.style].sale_price}`}</div></div>}
         </div>
       </div>
     );

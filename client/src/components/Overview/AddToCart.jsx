@@ -2,22 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import config from '../../../../config.js';
 
 // Add to Cart Component
-let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token}) => {
+let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds}) => {
 
-  console.log('INDEXES IN CART:', indexes);
   let stylesIndex = indexes.style;
   const [currentSize, setCurrentSize] = useState(null);
-  console.log('CURRENT SIZE:', currentSize);
   const [currentQuantity, setCurrentQuantity] = useState(null);
-  console.log('CURRENT QTY:', currentQuantity);
   const [qtyInStock, setQtyInStock] = useState([]);
   const [outOfStock, setOutOfStock] = useState(false);
   const [myOutfitIcon, setMyOutfitIcon] = useState('⭐');
-  // const [defaultSizeAndQty, setDefaultSizeAndQty] = useState({size: 'SELECT SIZE', qty: '-'});
-  // console.log('DEFAULT SZ AND QTY:', defaultSizeAndQty);
-
 
   useEffect(() => {
     setCurrentQuantity(null);
@@ -26,12 +21,16 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
   }, [stylesIndex]);
 
   let handleMyOutfitCollection = () => {
-    if (outfitIds.includes(productStyles.product_id)) {
+    if (outfitIds.includes(Number(productStyles.product_id))) {
       setMyOutfitIcon('❤️');
     } else {
       setMyOutfitIcon('⭐');
     }
   }
+
+  useEffect(() => {
+    handleMyOutfitCollection();
+  }, [outfitIds])
 
   useEffect(() => {
     handleMyOutfitCollection()
@@ -53,12 +52,18 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
 
     let handleMyOutfitClick = (event) => {
       event.persist();
+      let productNumber = productStyles.product_id;
+      if(typeof productNumber === 'string') {
+        productNumber = Number(productStyles.product_id);
+      }
       if (myOutfitIcon === '⭐') {
-        changeInOutfit(event, productStyles.product_id, 'Add');
+        if(!outfitIds.includes(productNumber)) {
+          changeInOutfit(event, productNumber, 'Add');
+        }
         setMyOutfitIcon('❤️');
       }
       if (myOutfitIcon === '❤️') {
-        changeInOutfit(event, productStyles.product_id, 'Delete');
+        changeInOutfit(event, productNumber, 'Delete');
         setMyOutfitIcon('⭐');
       }
       event.preventDefault();
@@ -71,7 +76,6 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
       event.persist();
       setOutOfStock(false);
       let selectedSize = event.target.value;
-      console.log('SIZE IN SIZE CLICK:', selectedSize);
       for (var i = 0; i < skusArray.length; i++) {
         if (skusArray[i].size === selectedSize) {
           let availableQuantity = skusArray[i].quantity;
@@ -87,9 +91,6 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
               quantityArray.push(q);
             }
           }
-          // console.log('AVAIL QUANTITY:', availableQuantity);
-          // console.log('QTY ARRAY:', quantityArray);
-          // setDefaultSizeAndQty({qty: quantityArray, size: selectedSize});
           setCurrentSize(selectedSize);
           setQtyInStock(quantityArray);
         }
@@ -106,20 +107,19 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
     }
 
     let handleAddToBag = () => {
-      console.log('Added to bag!')
       // get sku
       let productSkuForBag;
       for (let key in currentSkus) {
         if (currentSize === currentSkus[key].size) {
           productSkuForBag = key;
-          console.log('Product Sku:', productSkuForBag);
+          // console.log('Product Sku:', productSkuForBag);
         }
       }
       let optionsForCart = {
         url: '/cart',
         method: 'post',
         headers: {'Content-Type': 'application/json',
-        'Authorization': cam_token.cam_token},
+        'Authorization': config.API_KEY},
         data: {sku_id: productSkuForBag}
       };
       axios(optionsForCart)
@@ -137,21 +137,20 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
       <div className="AddToCart">
         <div className="SizeSelector">
           <form>
-            <select className="SizeSelectorDropdown" onChange={handleSizeClick}>
+            <select data-testid="SizeSelectorDropdown" className="SizeSelectorDropdown" onChange={handleSizeClick}>
               {!outOfStock && <option value="">SELECT SIZE</option>}
-              {/* {outOfStock && <option style={{color: 'red', height: 'auto', width: 'auto'}}>OUT OF STOCK</option>} */}
               {skusArray.map((skuData, i) => (
-                <option className="SizeOption" key={i} value={skuData.size} selected={currentSize === skuData.size ? true : false}>{skuData.size}</option>
+                <option data-testid={`SizeOption ${i}`} className="SizeOption" key={i} value={skuData.size} selected={currentSize === skuData.size ? true : false}>{skuData.size}</option>
               ))}
             </select>
           </form>
         </div>
         <div className="QuanititySelector">
           <form>
-            <select className="QuanititySelectorDropdown" onChange={handleQuantityClick}>
+            <select data-testid="QuanititySelectorDropdown" className="QuanititySelectorDropdown" onChange={handleQuantityClick}>
             <option value="">-</option>
               {qtyInStock.length && qtyInStock.map((qty, i) => (
-                <option className="QuantityOption" key={i} value={qty} selected={currentQuantity === qty ? true : false}>{qty}</option>
+                <option data-testid={`QuantityOption ${i}`} className="QuantityOption" key={i} value={qty} selected={currentQuantity === qty ? true : false}>{qty}</option>
               ))}
             </select>
           </form>
@@ -160,10 +159,10 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds, cam_token})
           <button className="AddToBagButton" style={{color: 'red'}} alt="Product Out of Stock">OUT OF STOCK</button>
         </div>}
         {!outOfStock && <div className="AddToBag">
-          <button className="AddToBagButton" onClick={handleAddToBag} alt="Add Product to Bag">Add to Bag</button>
+          <button data-testid="AddToBagButton" className="AddToBagButton" onClick={handleAddToBag} alt="Add Product to Bag">Add to Bag</button>
         </div>}
         <div className="AddToFavorite">
-          <button className="AddToFavoriteButton" onClick={handleMyOutfitClick} alt="Add Product to My Outfit">{myOutfitIcon}</button>
+          <button data-testid="AddToFavoriteButton" className="AddToFavoriteButton" onClick={handleMyOutfitClick} alt="Add Product to My Outfit">{myOutfitIcon}</button>
         </div>
       </div>
     );
@@ -180,8 +179,31 @@ AddToCart.propTypes = {
   productStyles: PropTypes.object,
   indexes: PropTypes.object,
   changeInOutfit: PropTypes.func,
-  outfitIds: PropTypes.array,
-  cam_token: PropTypes.object
+  outfitIds: PropTypes.array
 }
 
 export default AddToCart;
+export const handleAddToBag = () => {
+  // get sku
+  let productSkuForBag;
+  for (let key in currentSkus) {
+    if (currentSize === currentSkus[key].size) {
+      productSkuForBag = key;
+      // console.log('Product Sku:', productSkuForBag);
+    }
+  }
+  let optionsForCart = {
+    url: '/cart',
+    method: 'post',
+    headers: {'Content-Type': 'application/json',
+    'Authorization': config.API_KEY},
+    data: {sku_id: productSkuForBag}
+  };
+  axios(optionsForCart)
+    .then(response => {
+      console.log('Response from Cart:', response.data);
+    })
+      .catch(error => {
+        console.log(error);
+      });
+}

@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<AddToCart /> Allows items to be added to bag 1`] = `
-<div
-  data-testid="Overview"
-  id="Overview"
-/>
-`;

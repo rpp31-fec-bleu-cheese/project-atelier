@@ -40,7 +40,7 @@ div#App div.Header {
   grid-column: 2;
   grid-row: 1;
   display: grid;
-  grid-template-columns: 10% auto 10%;
+  grid-template-columns: 35% auto 10%;
   grid-template-rows: auto;
   background-color: rgba(58, 94, 118);
   color: white;
@@ -49,8 +49,14 @@ div#App div.Header {
 div#Logo {
   grid-column: 1;
   grid-row: 1;
-  align-self: center;
-  justify-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 150%;
+  width: 300px;
+  height: auto;
 }
 
 div#SearchBar {
@@ -83,7 +89,7 @@ div#Overview div.ImageGallery {
   grid-column: 1;
   grid-row-start: 1;
   grid-row-end: 4;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: grid;
   grid-template-columns: 15% 5% auto 10%;
   grid-template-rows: 10% auto 10% auto;
@@ -103,6 +109,18 @@ div#Overview div.MainImage {
   /* background: center / contain no-repeat; */
 }
 
+div#Overview div.MainImageUnavailable {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  font-size: 700%;
+}
+
 div#Overview div.ImageGalleryThumbnails {
   grid-column-start: 1;
   grid-column-end: 2;
@@ -116,7 +134,7 @@ div#Overview div.ImageGalleryThumbnails {
   /* position: absolute; */
   overflow: scroll;
   height: 450px;
-  width: 100px;
+  width: 70px;
   margin: 15px 0px 0px 25px;
 }
 
@@ -132,6 +150,19 @@ div#Overview div.GalleryThumbnail {
   background-color: rgb(0, 0, 0);
 }
 
+div#Overview div.GalleryThumbnailSelected {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 60px;
+  border: 1px solid black;
+  margin: 12px 0px 12px 0px;
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0px 3px coral;
+}
+
 div#Overview div.SlideGalleryLeft {
   grid-column: 2;
   grid-row: 2;
@@ -139,7 +170,6 @@ div#Overview div.SlideGalleryLeft {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* opacity: 0.7; */
   height: auto;
   width: auto;
   color: orange;
@@ -157,7 +187,6 @@ div#Overview div.SlideGalleryRight {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* opacity: 0.7; */
   height: auto;
   width: auto;
   color: orange;
@@ -175,7 +204,6 @@ div#Overview div.OpenGalleryModal {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  /* opacity: 0.7; */
   height: auto;
   width: auto;
   color: orange;
@@ -204,6 +232,7 @@ div#Overview div#GalleryModal {
 div#Overview div#GalleryModalContent {
   margin: 200px;
   display: flex;
+  z-index: 2;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -215,14 +244,6 @@ div#Overview div#GalleryModalContent img {
   border: 20px solid #f4f4f4;
 }
 
-/* div#Overview div.ModalImage {
-  height: 150px;
-  width: 150px;
-  border: 20px solid #f4f4f4;
-  background: center;
-} */
-
-
 div#Overview div.ProductInformation {
   grid-column: 2;
   grid-row: 1;
@@ -230,7 +251,7 @@ div#Overview div.ProductInformation {
   flex-direction: column;
   gap: 5px;
   justify-content: flex-start;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   padding: 10px 0px 0px 25px;
 }
 
@@ -261,7 +282,7 @@ div#Overview div.StyleSelector {
   gap: 15px;
   flex-direction: column;
   justify-content: flex-start;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   padding: 20px 0px 0px 20px;
 }
 
@@ -286,17 +307,24 @@ div#Overview div.StyleSelectorIcons {
 }
 
 div#Overview div.StyleIcon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25% 25% 25% 25%;
   border: 1px solid black;
   border-radius: 100%;
   height: 50px;
   width: 50px;
-  flex-grow: 1;
-  flex-basis: 20%;
   max-width: 50px;
+}
+
+div#Overview div.StyleIconCheck {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  grid-column: 4;
+  grid-row: 1;
+  color: rgb(30, 240, 11);
+  font-size: 120%;
 }
 
 div#Overview div.AddToCart {
@@ -306,7 +334,7 @@ div#Overview div.AddToCart {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 15px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   padding: 10px 0px 0px 25px;
 }
 
@@ -353,8 +381,8 @@ div#Overview div.ProductSloganAndDescription {
   gap: 15px;
   flex-direction: column;
   align-items: flex-end;
-  border: 1px solid black;
-  padding: 30px 30px 10px 10px;
+  /* border: 1px solid black; */
+  padding: 10px 30px 10px 10px;
 }
 
 div#Overview div.ProductSlogan {
@@ -375,7 +403,7 @@ div#Overview div.ProductFeatures {
   grid-row: 4;
   display: flex;
   align-items: center;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   padding-left: 40px;
 }
 
@@ -464,7 +492,7 @@ div.Stars {
   color: #b1b1b1;
   overflow: hidden;
 }
-.full-stars {
+.full-stars, .full-stars-write-review {
   top: 0;
   left: 0;
   position: absolute;
@@ -476,11 +504,17 @@ div.Stars {
   content:"\2605\2605\2605\2605\2605";
   font-size: 14pt;
 }
-.empty-stars:before {
+.empty-stars:before, .empty-stars-write-review {
   -webkit-text-stroke: 1px #848484;
 }
-.full-stars:before {
-  -webkit-text-stroke: 1px orange;
+.full-stars:before, .full-stars-write-review {
+  -webkit-text-stroke: 1px #ffa600;
+}
+.empty-stars-write-review, .full-stars-write-review {
+  font-size: 14pt;
+}
+.empty-stars-write-review:hover, .full-stars-write-review:hover {
+  cursor: pointer;
 }
 
 /***** Recommended ******/
@@ -727,26 +761,67 @@ div#RatingsReviews div#ButtonContainer div.Button:hover {
   cursor: pointer;
 }
 /*Write Review*/
-div#RatingsReviews div#Modal div#ReviewForm {
+div#RatingsReviews div#Modal #ReviewForm {
   grid-column: 1;
   grid-row: 1;
   align-self: center;
   justify-self: center;
   display: grid;
-
+  grid-template-columns: auto;
+  grid-template-rows: 60px repeat(3, 25px) 160px 25px;
   background-color: #fefefe;
   width: 800px;
   height: 600px;
   border: 1px solid #888;
+  padding: 10px;
+  font-size: 14pt;
 }
-
-
-
-
-
-
-
-
+div#RatingsReviews div#Modal div.WriteContainer > * {
+  margin-right: 5px;
+}
+div#RatingsReviews div#Modal div#ReviewFormHeader {
+  grid-column: 1/-1;
+  grid-row: 1;
+  background-color: rgb(199, 199, 199);
+  padding-left: 5px;
+}
+div#RatingsReviews div#Modal div#ReviewFormRating {
+  grid-column: 1/-1;
+  justify-self: start;
+  align-self: start;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  height: 100%;
+}
+div#RatingsReviews div#Modal div#ReviewCharacteristics {
+  display: grid;
+  grid-template-columns: repeat(6, 16.66%);
+  grid-template-rows: 25px auto;
+}
+div#RatingsReviews div#ReviewCharacteristics div#ReviewCategoryTitle {
+  grid-column: 1/-1;
+  grid-row: 1;
+}
+div#RatingsReviews div#ReviewCharacteristics div#ReviewCategoryContainer {
+  grid-row: 2;
+  grid-column: 2;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  grid-template-columns: repeat(2, auto) 100px;
+  grid-template-rows: repeat(6, auto);
+}
+div#RatingsReviews div#ReviewCharacteristics div#ReviewCategory {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+div#RatingsReviews div#Modal div#ReviewBodyContainer {
+  display: grid;
+  grid-template-columns: 78px auto;
+  grid-template-rows: 107px auto;
+}
 
 
 

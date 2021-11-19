@@ -23,17 +23,24 @@ class ReviewsContainer extends React.Component {
   }
 
   componentDidMount() {
+<<<<<<< HEAD
+    // this.setState({
+    //   sortedReviews: this.changeFilterSort(),
+    //   markedHelpful: JSON.parse(decodeURIComponent(document.cookie).split('=')[1])
+    // });
+    console.log('DOCUMENT COOKIE:', document.cookie);
+=======
     this.setState({
       sortedReviews: this.changeFilterSort(),
       markedHelpful: (document.cookie) ? JSON.parse(decodeURIComponent(document.cookie).split('=')[1]) : {}
     });
+>>>>>>> 5513c9a17b53f5d6615c01aed3127e0a59bcd007
   }
 
   componentDidUpdate(prevProps) {
     let oldProps = Object.keys(prevProps.reviewsStarsFilter) + prevProps.currentSort + Object.entries(prevProps.reviews);
     let newProps = Object.keys(this.props.reviewsStarsFilter) + this.props.currentSort + Object.entries(this.props.reviews);
 
-    console.log(this.state.sortedReviews)
     if (oldProps !== newProps) {
       this.setState({
         sortedReviews: this.changeFilterSort(),

@@ -1,19 +1,52 @@
 // import dependencies for React, Jest, Enzyme
 import React from 'react';
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import { shallow, mount, render } from 'enzyme';
-import renderer from 'react-test-renderer';
-// import components to be tested
-import ProductSloganAndDescription from '../../client/src/components/Overview/Overview.jsx';
+import { render } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
+import '@testing-library/jest-dom/extend-expect';
+// import module(s) under test
+import ProductSloganAndDescription from '../../client/src/components/Overview/ProductSloganAndDescription.jsx';
 
-// configure Enzyme
-configure({ adapter: new Adapter() });
+// fixtures
+const testProductById = {
+  "id": 59553,
+  "campus": "hr-rpp",
+  "name": "Camo Onesie",
+  "slogan": "Blend in to your crowd",
+  "description": "The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.",
+  "category": "Jackets",
+  "default_price": "140.00",
+  "created_at": "2021-10-18T22:50:41.839Z",
+  "updated_at": "2021-10-18T22:50:41.839Z",
+  "features": [
+      {
+          "feature": "Fabric",
+          "value": "Canvas"
+      },
+      {
+          "feature": "Buttons",
+          "value": "Brass"
+      }
+  ]
+}
 
-// component tests
+// test suite
 describe('<ProductSloganAndDescription />', () => {
-  it('Renders a Product Slogan and Description container', () => {
-    const wrapper = shallow(<ProductSloganAndDescription />);
-    expect(wrapper.find('.ProductSloganAndDescription')).not.toBeUndefined();
+  let component;
+  beforeEach(() => {
+    component = render(<ProductSloganAndDescription productById={testProductById} />);
+  })
+  test('Renders without crashing', () => {
+    expect(component).toBeDefined();
+  })
+  test('Accepts an object of product details', () => {
+    expect(typeof testProductById).toBe('object');
+  })
+  test('Displays the current product slogan', () => {
+    let productSlogan = component.getByTestId('ProductSloganHeader');
+    expect(productSlogan.textContent).toBe(testProductById.slogan);
+  })
+  test('Displays the current product description', () => {
+    let productSlogan = component.getByTestId('ProductDescriptionBody');
+    expect(productSlogan.textContent).toBe(testProductById.description);
   })
 })
