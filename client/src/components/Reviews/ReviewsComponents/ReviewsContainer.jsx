@@ -132,7 +132,7 @@ class ReviewsContainer extends React.Component {
         }
         {
           this.state.modalReview &&
-            <ReviewModal onsubmit={this.writeReview.bind(this)}/>
+            <ReviewModal closeModal={this.writeReview.bind(this)} product_id={this.props.product_id}/>
         }
       </div>
     );
@@ -143,7 +143,8 @@ ReviewsContainer.propTypes = {
   reviews: PropTypes.array.isRequired,
   reviewsStarsFilter: PropTypes.object.isRequired,
   onchange: PropTypes.func.isRequired,
-  currentSort: PropTypes.string.isRequired
+  currentSort: PropTypes.string.isRequired,
+  product_id: PropTypes.number.isRequired
 };
 
 export default ReviewsContainer;
