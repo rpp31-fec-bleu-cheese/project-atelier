@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 class ReviewModal extends React.Component {

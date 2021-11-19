@@ -168,7 +168,7 @@ class App extends React.Component {
       <div id='App'>
         <Header />
         <SiteMessage />
-        <Overview updateDetailsAndStyles={this.updateDetailsAndStyles} productById={this.state.currentProductDetails} productStyles={this.state.currentProductStyles} cam_token={this.props.cam_token} productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} />
+        <Overview starRating={this.state.rating} updateDetailsAndStyles={this.updateDetailsAndStyles} productById={this.state.currentProductDetails} productStyles={this.state.currentProductStyles} cam_token={this.props.cam_token} productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} />
         <Related_Outfit productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} productClick={this.relatedOutfitProductClick}/>
         <QandA productId={this.state.productId}/>
         <RatingsReviews product_id={this.state.productId} updateRating={this.updateRating.bind(this)}/>
