@@ -97,5 +97,12 @@ describe('<AnswerModal />', () => {
     fireEvent.click(close);
 
     await (() => expect(screen.getByTestId('modal-cont')).not.toBeInTheDocument());
+  });
+
+  it('allows user to post answer', () => {
+    const submitBtn = screen.getByRole('button', { name: /submit-answer/i});
+    fireEvent.click(submitBtn);
+
+    expect(component.getByTestId('a-modal')).toBeInTheDocument();
   })
 });

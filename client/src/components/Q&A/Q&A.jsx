@@ -111,7 +111,7 @@ class QandA extends React.Component {
           <h2>QUESTIONS & ANSWERS</h2>
           <Search handleSearch={this.handleSearch} filterDataOnSearch={this.filterDataOnSearch}/>
          <div className='q-a-content'>
-           <div className='rendered-questions'>
+           <div data-testid="question-li" className='rendered-questions'>
             {filteredQuestions.slice(0, questionsToShow)
               .map(question => <QuestionEntry key={question.question_id} question={question} getQuestions={this.getQuestions}/>)
             }

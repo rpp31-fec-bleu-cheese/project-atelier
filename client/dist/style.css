@@ -23,6 +23,7 @@ time, mark, audio, video {
 
 body {
   margin-bottom: 50px;
+  background: #f4f1ebf7;
 }
 
 /******/
@@ -41,7 +42,8 @@ div#App div.Header {
   display: grid;
   grid-template-columns: 10% auto 10%;
   grid-template-rows: auto;
-  background-color: rgb(199, 199, 199);
+  background-color: rgba(58, 94, 118);
+  color: white;
 }
 
 div#Logo {
@@ -706,6 +708,8 @@ div#RatingsReviews div.ResponseContainer div.Header {
   grid-row: 1;
   font-weight: bold;
   display: initial;
+  background: none;
+  color: black;
 }
 /*Buttons*/
 div#RatingsReviews div#ReviewsContainer div#ButtonContainer {
@@ -829,7 +833,8 @@ div#QandA div.helpful-buttons button {
   border: none;
   font-size: 13px;
   text-decoration: underline;
-  background-color: white;
+  /* background-color: white; */
+  background: none;
 }
 
 /* Search component styling */
@@ -843,7 +848,7 @@ div#QandA div.search {
 div#QandA div.search div.search-bar {
   display: flex;
   margin-top: 150px;
-  width: 93.8%;
+  width: 94.3%;
   /* margin-right: 50px; */
 }
 
@@ -880,7 +885,7 @@ div#QandA div.footer-buttons .add-question-button {
 
 div#QandA div.footer-buttons button:hover {
   color: rgb(255, 255, 255);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(58, 94, 118);
   border: none;
 }
 
@@ -1020,7 +1025,8 @@ div#QandA .load-answers {
   font-weight: bold;
   color: rgb(117, 116, 116);
   border: none;
-  background: white;
+  /* background: white; */
+  background: none;
 }
 
 div#QandA .load-answers:hover {

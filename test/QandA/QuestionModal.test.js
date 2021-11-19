@@ -71,6 +71,13 @@ describe('<QuestionModal />', () => {
     fireEvent.click(close);
 
     await (() => expect(screen.getByTestId('modal-content')).not.toBeInTheDocument());
+  });
+
+  it('allows user to post question', () => {
+    const submitBtn = screen.getByRole('button', { name: /submit-question/i});
+    fireEvent.click(submitBtn);
+
+    expect(component.getByTestId('q-modal')).toBeInTheDocument();
   })
 
 })

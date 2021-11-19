@@ -66,14 +66,15 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
   return (
     <div data-testid="q-modal" className="modal">
       {showModal ? (
-        <div className="modal-background">
+        <div data-testid="modal-content" className="modal-background">
           <div className="modal-content">
             <form className="question-form" onChange={handleInputChange}>
-              <span onClick={closeModal}>&times;</span>
+              <span data-testid="close-modal" onClick={closeModal}>&times;</span>
               <h2>Ask Your Question About: {currentProduct}</h2>
               <div id="name" className="error-message"></div>
               <label className="name">What is your nickname <span className="required">*</span></label>
               <input
+                data-testid="q-name"
                 placeholder="Example: jackson11!"
                 type="text"
                 maxLength="60"
@@ -82,6 +83,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
               <div id="email" className="error-message"></div>
               <label className="email">Your email <span className="required">*</span></label>
               <input
+                data-testid="q-email"
                 placeholder="Example: jackson11@email.com"
                 type="email"
                 maxLength="60"
@@ -90,11 +92,12 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
               <div id="question" className="error-message"></div>
               <label className="question">Your Question <span className="required">*</span></label>
               <input
+                data-testid="question"
                 placeholder="Type your question"
                 type="text"
                 maxLength="1000"
                 required/>
-              <button className="submit-button" onClick={postQuestion}>Submit Question</button>
+              <button aria-label="submit-question" className="submit-button" onClick={postQuestion}>Submit Question</button>
             </form>
           </div>
         </div>
