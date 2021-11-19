@@ -343,5 +343,13 @@ describe('<ImageGallery />', () => {
     let imageModalContent = component.getByTestId('GalleryModal');
     expect(imageModalContent).toBeInTheDocument();
   })
+  test('Contains a button to slide gallery to the left', () => {
+    let slideGalleryLeft = component.getByTestId('SlideGalleryLeftButtonTest');
+    expect(slideGalleryLeft).toBeInTheDocument();
+  })
+  test('Contains a button to slide gallery to the right', () => {
+    let slideGalleryRight = component.getByTestId('SlideGalleryRightButtonTest');
+    expect(slideGalleryRight).toBeInTheDocument();
+  })
 })
 

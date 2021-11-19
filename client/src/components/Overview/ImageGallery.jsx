@@ -39,10 +39,10 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
           ))}
         </div>
         <div className="SlideGalleryLeft">
-          <div className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}><FontAwesomeIcon icon={faArrowCircleLeft} /></div>
+          <div data-testid="SlideGalleryLeftButtonTest" className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}><FontAwesomeIcon icon={faArrowCircleLeft} /></div>
         </div>
         <div className="SlideGalleryRight">
-          <div className="SlideGalleryRightButton" onClick={handleRightArrowClick}><FontAwesomeIcon icon={faArrowCircleRight} /></div>
+          <div data-testid="SlideGalleryRightButtonTest" className="SlideGalleryRightButton" onClick={handleRightArrowClick}><FontAwesomeIcon icon={faArrowCircleRight} /></div>
         </div>
         <div className="OpenGalleryModal">
           <div data-testid="OpenGalleryModalButton" className="OpenGalleryModalButton" onClick={handleModalClick}><FontAwesomeIcon icon={faExpandArrowsAlt} /></div>

@@ -5,6 +5,7 @@ import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 // import module(s) under test
 import AddToCart from '../../client/src/components/Overview/AddToCart.jsx';
+import handleAddToBag from '../../client/src/components/Overview/AddToCart.jsx';
 
 // fixtures
 const testIndexes = { product: 0, style: 0, photo: 0 };
@@ -277,4 +278,9 @@ describe('<AddToCart />', () => {
       fireEvent.click(addToFavoriteButton);
       expect(addToFavoriteButton.textContent).toBe('⭐');
     })
+    // test('', () => {
+    //   let addToBagButton = component.getByTestId('AddToBagButton');
+    //   fireEvent.click(addToBagButton);
+    //   expect(handleAddToBag(jest.fn())).toHaveBeenCalled();
+    // })
   })

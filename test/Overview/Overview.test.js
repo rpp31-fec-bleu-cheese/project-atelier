@@ -7,6 +7,9 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 // import module(s) under test
 import Overview from '../../client/src/components/Overview/Overview.jsx';
+import handleLeftArrowClick from '../../client/src/components/Overview/Overview.jsx';
+import handleRightArrowClick from '../../client/src/components/Overview/Overview.jsx';
+import handleThumbnailClick from '../../client/src/components/Overview/Overview.jsx';
 import ImageGallery from '../../client/src/components/Overview/ImageGallery.jsx';
 import ProductInformation from '../../client/src/components/Overview/ProductInformation.jsx';
 import StyleSelector from '../../client/src/components/Overview/StyleSelector.jsx';
@@ -24,6 +27,18 @@ let testUpdateDetailsAndStyles = (productDetails, productStyles) => {
   //   currentProductStyles: productStyles
   // })
  }
+ let testHandleLeftArrowClick = () => {
+    if (indexes.photo === 0) {
+      let nextIndex = productStyles.results[indexes.style].photos.length - 1;
+      setIndexes({...indexes, photo: nextIndex});
+    } else {
+      setIndexes({...indexes, photo: indexes.photo - 1});
+    }
+  }
+  let testHandleRightArrowClick = () => {
+    let nextIndex = (indexes.photo + 1) % productStyles.results[indexes.style].photos.length;
+    setIndexes({...indexes, photo: nextIndex});
+  }
 const testProductStyles = {
   "product_id": "59553",
   "results": [
@@ -256,13 +271,72 @@ describe('<Overview />', () => {
   afterAll(() => server.close())
   let component;
   beforeEach(() => {
-    component = render(<Overview updateDetailsAndStyles={testUpdateDetailsAndStyles} productById={testProductById} productStyle={testProductStyles} outfitIds={testOutfitIds} changeInOutfit={testChangeInOutfit} productId={testProductId}/>);
+    component = render(<Overview updateDetailsAndStyles={testUpdateDetailsAndStyles} productById={testProductById} productStyles={testProductStyles} outfitIds={testOutfitIds} changeInOutfit={testChangeInOutfit} productId={testProductId}/>);
   })
   test('Renders without crashing', () => {
     expect(component).toBeDefined();
   })
-  test('Renders an Image Gallery component', () => {
-    let imageGallery = component.getByTestId('Overview');
-    expect(imageGallery).toBeInTheDocument();
+  test('Renders an Overview container to be rendered into App', () => {
+    let overviewContainer = component.getByTestId('Overview');
+    expect(overviewContainer).toBeDefined();
   })
+  test('Renders an Image Gallery component', () => {
+    expect(ImageGallery).toBeDefined();
+  })
+  test('Renders a Product Information component', () => {
+    expect(ProductInformation).toBeDefined();
+  })
+  test('Renders a Style Selector component', () => {
+    expect(StyleSelector).toBeDefined();
+  })
+  test('Renders a Add to Cart component', () => {
+    expect(AddToCart).toBeDefined();
+  })
+  test('Renders a Product Slogan and Description component', () => {
+    expect(ProductSloganAndDescription).toBeDefined();
+  })
+  test('Renders a Product Features component', () => {
+    expect(ProductFeatures).toBeDefined();
+  })
+  test('Accepts an object of product styles', () => {
+    expect(typeof testProductStyles).toBe('object');
+  })
+  test('Accepts an object of current product details', () => {
+    expect(typeof testProductById).toBe('object');
+  })
+  test('Accepts the current product ID from App', () => {
+    expect(typeof testProductId).toBe('number');
+  })
+  test('Holds a function which passes updated product details to state', () => {
+    expect(typeof testUpdateDetailsAndStyles).toBe('function');
+  })
+  test('Holds a function which passes data to App component when outfit is changed', () => {
+    expect(typeof testChangeInOutfit).toBe('function');
+  })
+  test('Holds a function slides gallery to the left', () => {
+    expect(handleLeftArrowClick).toBeDefined();
+  })
+  test('Holds a function slides gallery to the right', () => {
+    expect(handleRightArrowClick).toBeDefined();
+  })
+  test('Holds a function select a thumbnail when clicked', () => {
+    expect(handleThumbnailClick).toBeDefined();
+  })
+//   test('Passes product details to subcomponents', () => {
+//       let productSloganAndDesc = render(<ProductSloganAndDescription productById={testProductById} />);
+//       let slogan = productSloganAndDesc.getByTestId('ProductSloganHeader');
+//       expect(slogan).toBe(testProductId.slogan);
+//   })
+//   test('Clicking a thumbnail in image gallery should fire handler in Overview', () => {
+//       let imageGalleryComponent = render(<ImageGallery handleRightArrowClick={testHandleRightArrowClick} handleLeftArrowClick={testHandleLeftArrowClick} handleThumbnailClick={handleThumbnailClick} productStyles={testProductStyles} indexes={testIndexes} />);
+//       let leftArrowClick = imageGalleryComponent.getByTestId('SlideGalleryLeftButtonTest');
+//       fireEvent.click(leftArrowClick);
+//       expect(handleLeftArrowClick).toHaveBeenCalled();
+//   })
+//   test('Clicking a thumbnail in image gallery should fire handler in Overview', () => {
+//     let imageGalleryComponent = render(<ImageGallery handleRightArrowClick={testHandleRightArrowClick} handleLeftArrowClick={testHandleLeftArrowClick} handleThumbnailClick={handleThumbnailClick} productStyles={testProductStyles} indexes={testIndexes} />);
+//     let rightArrowClick = screen.getAllByText('data-testid="SlideGalleryRightButtonTest"');
+//     fireEvent.click(rightArrowClick);
+//     expect(handleRightArrowClick).toHaveBeenCalled();
+// })
 })

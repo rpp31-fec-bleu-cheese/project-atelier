@@ -183,3 +183,27 @@ AddToCart.propTypes = {
 }
 
 export default AddToCart;
+export const handleAddToBag = () => {
+  // get sku
+  let productSkuForBag;
+  for (let key in currentSkus) {
+    if (currentSize === currentSkus[key].size) {
+      productSkuForBag = key;
+      // console.log('Product Sku:', productSkuForBag);
+    }
+  }
+  let optionsForCart = {
+    url: '/cart',
+    method: 'post',
+    headers: {'Content-Type': 'application/json',
+    'Authorization': config.API_KEY},
+    data: {sku_id: productSkuForBag}
+  };
+  axios(optionsForCart)
+    .then(response => {
+      console.log('Response from Cart:', response.data);
+    })
+      .catch(error => {
+        console.log(error);
+      });
+}

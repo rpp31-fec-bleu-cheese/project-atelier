@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.18% </span>
+                <span class="strong">81.81% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/11</span>
+                <span class='fraction'>9/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.18% </span>
+                <span class="strong">81.81% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/11</span>
+                <span class='fraction'>9/11</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -141,18 +141,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,7 +164,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">277x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,7 +196,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -215,18 +215,18 @@ import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 &nbsp;
 &nbsp;
-let ImageGallery = <span class="fstat-no" title="function not covered" >({</span>handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, indexes, productStyles}) =&gt; {
+let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, indexes, productStyles}) =&gt; {
 &nbsp;
-  const [showModal, setShowModal] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+  const [showModal, setShowModal] = useState(false);
 &nbsp;
-  let handleModalClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    console.log('Modal clicked!');</span>
-<span class="cstat-no" title="statement not covered" >    setShowModal(true);</span>
+  let handleModalClick = () =&gt; {
+    console.log('Modal clicked!');
+    setShowModal(true);
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (Object.keys(productStyles).length) {</span>
+    if (Object.keys(productStyles).length) {
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return (</span>
+    return (
       &lt;div className="ImageGallery"&gt;{
         productStyles.results[indexes.style].photos[indexes.photo].url ?
         &lt;div data-testid="MainImage" style={{background: `center / contain no-repeat url(${productStyles.results[indexes.style].photos[indexes.photo].url})`}} className="MainImage" alt="Main Product Image"&gt;
@@ -237,8 +237,8 @@ let ImageGallery = <span class="fstat-no" title="function not covered" >({</span
         &lt;/div&gt;
         }
         &lt;div data-testid="ImageGalleryThumbnails" className="ImageGalleryThumbnails"&gt;
-          {productStyles.results[indexes.style].photos.map(<span class="fstat-no" title="function not covered" >(c</span>urrentStyle, i) =&gt; (
-<span class="cstat-no" title="statement not covered" >            indexes.photo === i ?</span>
+          {productStyles.results[indexes.style].photos.map((currentStyle, i) =&gt; (
+            indexes.photo === i ?
 &nbsp;
             &lt;div data-testid={`GalleryThumbnail ${i}`} key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnailSelected" onClick={handleThumbnailClick} alt="Product Thumbnail Image"&gt;&lt;/div&gt;
             :
@@ -246,10 +246,10 @@ let ImageGallery = <span class="fstat-no" title="function not covered" >({</span
           ))}
         &lt;/div&gt;
         &lt;div className="SlideGalleryLeft"&gt;
-          &lt;div className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}&gt;&lt;FontAwesomeIcon icon={faArrowCircleLeft} /&gt;&lt;/div&gt;
+          &lt;div data-testid="SlideGalleryLeftButtonTest" className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}&gt;&lt;FontAwesomeIcon icon={faArrowCircleLeft} /&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div className="SlideGalleryRight"&gt;
-          &lt;div className="SlideGalleryRightButton" onClick={handleRightArrowClick}&gt;&lt;FontAwesomeIcon icon={faArrowCircleRight} /&gt;&lt;/div&gt;
+          &lt;div data-testid="SlideGalleryRightButtonTest" className="SlideGalleryRightButton" onClick={handleRightArrowClick}&gt;&lt;FontAwesomeIcon icon={faArrowCircleRight} /&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div className="OpenGalleryModal"&gt;
           &lt;div data-testid="OpenGalleryModalButton" className="OpenGalleryModalButton" onClick={handleModalClick}&gt;&lt;FontAwesomeIcon icon={faExpandArrowsAlt} /&gt;&lt;/div&gt;
@@ -261,7 +261,7 @@ let ImageGallery = <span class="fstat-no" title="function not covered" >({</span
         &lt;/div&gt;
       &lt;/div&gt;
     );
-  } else {
+  } else <span class="missing-if-branch" title="else path not taken" >E</span>{
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;div className="ImageGallery"&gt;
         &lt;h3&gt;Loading...&lt;/h3&gt;
@@ -286,7 +286,7 @@ export default ImageGallery;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 18 2021 16:18:39 GMT-0800 (Pacific Standard Time)
+                at Thu Nov 18 2021 20:14:41 GMT-0800 (Pacific Standard Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>
