@@ -5,7 +5,6 @@ class ReviewModal extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       rating: 0,
       Comfort: '',
@@ -15,7 +14,7 @@ class ReviewModal extends React.Component {
       Size: '',
       Width: '',
       bodyLength: 0
-    }
+    };
   }
 
   componentDidMount() {
@@ -35,7 +34,7 @@ class ReviewModal extends React.Component {
   starClick(e) {
     this.setState({
       rating: e.target.id.slice(9)
-    })
+    });
   }
 
   categoryClick(e) {
@@ -138,10 +137,6 @@ class ReviewModal extends React.Component {
       'Width'
     ];
 
-
-
-
-
     return (
       <div id='Modal'>
         <form id='ReviewForm'>
@@ -214,10 +209,10 @@ class ReviewModal extends React.Component {
       </div>
     );
   }
-}
+};
 
 ReviewModal.propTypes = {
   onsubmit: PropTypes.func.isRequired,
-}
+};
 
 export default ReviewModal;
