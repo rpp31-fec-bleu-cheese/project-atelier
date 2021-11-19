@@ -295,7 +295,7 @@ const productStylesUnavailable = {
 describe('<ImageGallery />', () => {
   let component;
   beforeEach(() => {
-    component = render(<ImageGallery handleRightArrowClick={testHandleRightArrowClick} handleLeftArrowClick={testHandleLeftArrowClick} handleThumbnailClick={testHandleThumbnailClick} productStyles={testProductStyles} indexes={testIndexes} />);
+    component = render(<ImageGallery handleRightArrowClick={testHandleRightArrowClick} handleLeftArrowClick={testHandleLeftArrowClick} handleThumbnailClick={testHandleThumbnailClick} productStyles={testProductStyles} indexes={testIndexes} productImage={testProductStyles}/>);
   })
   test('Renders without crashing', () => {
     expect(component).toBeDefined();
