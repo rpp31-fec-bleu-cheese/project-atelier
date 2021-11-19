@@ -107,7 +107,7 @@ class QandA extends React.Component {
     const { questions, filteredQuestions, questionsToShow } = this.state;
 
     return(
-      <div data-testid='question-answers' id='QandA'>
+      <div data-testid='question-answers' id='QandA' onClick={() => this.props.trackUserClicks('QandA', event)}>
           <h2>QUESTIONS & ANSWERS</h2>
           <Search handleSearch={this.handleSearch} filterDataOnSearch={this.filterDataOnSearch}/>
          <div className='q-a-content'>
@@ -129,7 +129,8 @@ class QandA extends React.Component {
 };
 
 QandA.propTypes = {
-  productId: PropTypes.number
+  productId: PropTypes.number,
+  trackUserClicks: PropTypes.func
 }
 
 export default QandA;
