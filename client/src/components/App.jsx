@@ -15,15 +15,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       rating: 0,
-<<<<<<< HEAD
       productId: 59553,
       outfitIds: [],
       currentProductDetails: {},
       currentProductStyles: {}
-=======
-      productId: 59554,
-      outfitIds: []
->>>>>>> 5513c9a17b53f5d6615c01aed3127e0a59bcd007
     };
     this.relatedOutfitProductClick = this.relatedOutfitProductClick.bind(this);
     this.changeInOutfit = this.changeInOutfit.bind(this);
