@@ -8,8 +8,7 @@ import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
 import ProductSloganAndDescription from './ProductSloganAndDescription.jsx';
 import ProductFeatures from './ProductFeatures.jsx';
-// const imagePath = '/../../dist/stock_media/'
-// import imageComingSoonPhoto from '/Users/cameroncolaco/Documents/HR/SEI/sprints/project-atelier/client/dist/stock_media/image-coming-soon.png';
+
 
 let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, changeInOutfit, outfitIds}) => {
 
