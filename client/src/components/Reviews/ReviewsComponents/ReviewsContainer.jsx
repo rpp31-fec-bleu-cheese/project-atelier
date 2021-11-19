@@ -23,18 +23,10 @@ class ReviewsContainer extends React.Component {
   }
 
   componentDidMount() {
-<<<<<<< HEAD
-    // this.setState({
-    //   sortedReviews: this.changeFilterSort(),
-    //   markedHelpful: JSON.parse(decodeURIComponent(document.cookie).split('=')[1])
-    // });
-    console.log('DOCUMENT COOKIE:', document.cookie);
-=======
     this.setState({
       sortedReviews: this.changeFilterSort(),
       markedHelpful: (document.cookie) ? JSON.parse(decodeURIComponent(document.cookie).split('=')[1]) : {}
     });
->>>>>>> 5513c9a17b53f5d6615c01aed3127e0a59bcd007
   }
 
   componentDidUpdate(prevProps) {
