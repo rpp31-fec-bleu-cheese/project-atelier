@@ -11,12 +11,14 @@ const Answer = ({ answer, questionAsker, getQuestions }) => {
 
 
   const handleHelpfulClick = () => {
+    const clicked = localStorage.getItem(`clicked-${answer.id}`) === 'true';
 
     if (!clicked) {
       axios.put(`qa/answers/${answer.id}/helpful`)
         .then((response) => {
             setHelpfulness(helpfulness + 1);
             setClicked(true);
+            localStorage.setItem(`clicked-${answer.id}`, true);
             getQuestions();
         })
     }

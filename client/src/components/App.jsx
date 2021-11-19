@@ -15,10 +15,15 @@ class App extends React.Component {
     super(props);
     this.state = {
       rating: 0,
+<<<<<<< HEAD
       productId: 59553,
       outfitIds: [],
       currentProductDetails: {},
       currentProductStyles: {}
+=======
+      productId: 59554,
+      outfitIds: []
+>>>>>>> 5513c9a17b53f5d6615c01aed3127e0a59bcd007
     };
     this.relatedOutfitProductClick = this.relatedOutfitProductClick.bind(this);
     this.changeInOutfit = this.changeInOutfit.bind(this);
@@ -171,7 +176,7 @@ class App extends React.Component {
         <Overview updateDetailsAndStyles={this.updateDetailsAndStyles} productById={this.state.currentProductDetails} productStyles={this.state.currentProductStyles} cam_token={this.props.cam_token} productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} />
         <Related_Outfit productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} productClick={this.relatedOutfitProductClick}/>
         <QandA productId={this.state.productId}/>
-        <RatingsReviews product_id={this.state.productId} updateRating={this.state}/>
+        <RatingsReviews product_id={this.state.productId} updateRating={this.updateRating.bind(this)}/>
       </div>
     )
   }

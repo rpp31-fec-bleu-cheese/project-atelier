@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 const PhotoModal = props => {
   return (
-    <div id='PhotoModal'>
-      <span id='CloseImage' onClick={props.onclick}>{'\u00D7'}</span>
-      <img id='FullImage' src={props.photo.src}></img>
+    <div id='Modal' onClick={props.onclick}>
+      <span id='CloseImage'>{'\u00D7'}</span>
+      <img id='FullImage' onClick={()=>{}}src={props.photo.src}></img>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import Review from './Review.jsx';
 import MoreButton from './MoreButton.jsx';
 import WriteButton from './WriteButton.jsx';
 import PhotoModal from './PhotoModal.jsx';
+import ReviewModal from './ReviewModal.jsx'
 
 class ReviewsContainer extends React.Component {
 
@@ -15,26 +16,35 @@ class ReviewsContainer extends React.Component {
     this.state = {
       markedHelpful: {},
       modalPhoto: null,
+      modalReview: false,
       sortedReviews: [],
       visibleReviews: 2,
     };
   }
 
   componentDidMount() {
+<<<<<<< HEAD
     // this.setState({
     //   sortedReviews: this.changeFilterSort(),
     //   markedHelpful: JSON.parse(decodeURIComponent(document.cookie).split('=')[1])
     // });
     console.log('DOCUMENT COOKIE:', document.cookie);
+=======
+    this.setState({
+      sortedReviews: this.changeFilterSort(),
+      markedHelpful: (document.cookie) ? JSON.parse(decodeURIComponent(document.cookie).split('=')[1]) : {}
+    });
+>>>>>>> 5513c9a17b53f5d6615c01aed3127e0a59bcd007
   }
 
   componentDidUpdate(prevProps) {
-    let oldProps = Object.keys(prevProps.reviewsStarsFilter) + prevProps.currentSort;
-    let newProps = Object.keys(this.props.reviewsStarsFilter) + this.props.currentSort;
+    let oldProps = Object.keys(prevProps.reviewsStarsFilter) + prevProps.currentSort + Object.entries(prevProps.reviews);
+    let newProps = Object.keys(this.props.reviewsStarsFilter) + this.props.currentSort + Object.entries(this.props.reviews);
 
     if (oldProps !== newProps) {
       this.setState({
-        sortedReviews: this.changeFilterSort()
+        sortedReviews: this.changeFilterSort(),
+        markedHelpful: (document.cookie) ? JSON.parse(decodeURIComponent(document.cookie).split('=')[1]) : {}
       })
     };
   }
@@ -56,6 +66,8 @@ class ReviewsContainer extends React.Component {
           return true;
         });
       return sorted;
+    } else {
+      return [];
     }
   }
 
@@ -68,8 +80,14 @@ class ReviewsContainer extends React.Component {
   }
 
   loadPhotoModal(e) {
-    this.setState({
+    if (e.target.id !== 'FullImage') this.setState({
       modalPhoto: (this.state.modalPhoto === null) ? e.target : null
+    })
+  }
+
+  writeReview() {
+    this.setState({
+      modalReview: (!this.state.modalReview) ? true : false
     })
   }
 
@@ -83,6 +101,9 @@ class ReviewsContainer extends React.Component {
             <option value='newest'>Newest</option>
             <option value='helpful'>Helpful</option>
           </select>
+          <div style={{fontSize: 'small', fontStyle: 'italic'}}>
+            Reported reviews are not shown
+          </div>
         </div>
         {
           // If no reviews are present, the Reviews component will not render
@@ -111,11 +132,15 @@ class ReviewsContainer extends React.Component {
             this.state.visibleReviews < this.state.sortedReviews.length &&
               <MoreButton onclick={this.viewMoreReviews.bind(this)}/>
           }
-          <WriteButton />
+          <WriteButton onclick={this.writeReview.bind(this)}/>
         </div>
         {
           this.state.modalPhoto !== null &&
             <PhotoModal photo={this.state.modalPhoto} onclick={this.loadPhotoModal.bind(this)}/>
+        }
+        {
+          this.state.modalReview &&
+            <ReviewModal onsubmit={this.writeReview.bind(this)}/>
         }
       </div>
     );
