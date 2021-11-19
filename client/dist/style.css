@@ -23,6 +23,7 @@ time, mark, audio, video {
 
 body {
   margin-bottom: 50px;
+  background-color: #f4f1ebf7;
 }
 
 /******/
@@ -41,7 +42,8 @@ div#App div.Header {
   display: grid;
   grid-template-columns: 35% auto 10%;
   grid-template-rows: auto;
-  background-color: rgb(199, 199, 199);
+  background-color: rgb(58, 94, 118);
+  color: white;
 }
 
 div#Logo {
@@ -67,8 +69,10 @@ div#SearchBar {
 div#SiteMessage {
   grid-column: 2;
   grid-row: 2;
-  align-self: center;
-  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ivory;
 }
 
 /******* START OF OVERVIEW STYLING *******/
@@ -78,7 +82,7 @@ div#Overview {
   display: grid;
   grid-template-columns: 60% 40%;
   grid-template-rows: 25% 35% 20% 20%;
-  border: 1px solid black;
+  border-bottom: 1px solid white;
   width: 100%;
   height: 100%;
 }
@@ -103,6 +107,7 @@ div#Overview div.MainImage {
   justify-content: center;
   align-items: center;
   background-color: rgb(200, 200, 200);
+  border-left: 10px solid ivory;
   cursor: zoom-in;
   /* background: center / contain no-repeat; */
 }
@@ -251,6 +256,7 @@ div#Overview div.ProductInformation {
   justify-content: flex-start;
   /* border: 1px solid black; */
   padding: 10px 0px 0px 25px;
+  background-color: ivory;
 }
 
 div#Overview div.StarsContainer {
@@ -301,6 +307,7 @@ div#Overview div.StyleSelector {
   justify-content: flex-start;
   /* border: 1px solid black; */
   padding: 20px 0px 0px 20px;
+  background-color: ivory;
 }
 
 div#Overview div.SelectedStyle {
@@ -353,6 +360,7 @@ div#Overview div.AddToCart {
   gap: 15px;
   /* border: 1px solid black; */
   padding: 10px 0px 0px 25px;
+  background-color: ivory;
 }
 
 div#Overview select.SizeSelectorDropdown {
@@ -400,6 +408,8 @@ div#Overview div.ProductSloganAndDescription {
   align-items: flex-end;
   /* border: 1px solid black; */
   padding: 10px 30px 10px 10px;
+  background-color: rgb(58, 94, 118);
+  color: white;
 }
 
 div#Overview div.ProductSlogan {
@@ -422,6 +432,8 @@ div#Overview div.ProductFeatures {
   align-items: center;
   /* border: 1px solid black; */
   padding-left: 40px;
+  background-color: rgb(58, 94, 118);
+  color: white;
 }
 
 div#Overview div.ProductFeaturesList {
