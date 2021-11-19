@@ -147,13 +147,15 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
               <p>For authentication reasons, you will not be emailed</p>
               <div id="answer" className="error-message"></div>
               <label htmlFor="answer-field">Your Answer <span className="required">*</span></label>
-              <input
+              <textarea
                 data-testid="answer"
                 id="answer-field"
                 placeholder="Type your answer"
                 type="text"
                 maxLength="1000"
-                required/>
+                style={{width: 465, height: 100, resize: 'none'}}
+                required>
+              </textarea>
               <label style={{ marginTop: '15px' }}>Upload Images (up to 5)</label>
               <input
                 data-testid="image-upload"

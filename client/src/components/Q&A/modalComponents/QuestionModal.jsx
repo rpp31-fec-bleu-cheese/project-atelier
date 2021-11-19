@@ -91,12 +91,14 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
               <p>For authentication reasons, you will not be emailed</p>
               <div id="question" className="error-message"></div>
               <label className="question">Your Question <span className="required">*</span></label>
-              <input
+              <textarea
                 data-testid="question"
                 placeholder="Type your question"
                 type="text"
                 maxLength="1000"
-                required/>
+                style={{width: 465, height: 100, resize: 'none'}}
+                required>
+              </textarea>
               <button aria-label="submit-question" className="submit-button" onClick={postQuestion}>Submit Question</button>
             </form>
           </div>
