@@ -427,16 +427,6 @@ div#Related_Outfit {
   max-height: 100%;
 }
 
-div#QandA {
-  grid-column: 2;
-  grid-row: 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
 
 /********************************/
 /***** Ratings and Reviews ******/
@@ -830,6 +820,19 @@ div#RatingsReviews div#Modal div#ReviewBodyContainer {
 
 
 /* Question & Answers Module Styling*/
+
+div#QandA {
+  grid-column: 2;
+  grid-row: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: ivory;
+}
+
 div#QandA h2 {
   margin-top: -75px;
   margin-right: auto;
@@ -945,7 +948,10 @@ div#QandA div.footer-buttons button {
   height: 60px;
   padding: 10px;
   cursor: pointer;
-  background-color: white;
+  background-color: rgba(58, 94, 118);
+  border: 1px solid white;
+  border-radius: 10px;
+  color: white;
   font-weight: bold;
 }
 
@@ -960,7 +966,7 @@ div#QandA div.footer-buttons .add-question-button {
 
 div#QandA div.footer-buttons button:hover {
   color: rgb(255, 255, 255);
-  background: rgba(58, 94, 118);
+  background: rgb(81, 130, 163);
   border: none;
 }
 
@@ -978,7 +984,7 @@ div#QandA div.modal-background {
 
 div#QandA div.modal-background div.modal-content form {
   font-family: sans-serif;
-  background-color: white;
+  background-color: ivory;
   border: 1px solid #dedede;
   border-radius: 8px;
   display: flex;
@@ -1031,7 +1037,7 @@ div#QandA div.modal-background div.modal-content p {
 }
 
 div#QandA div.modal-background div.modal-content button.submit-button {
-  background-color: rgb(65, 111, 128);
+  background-color: rgba(58, 94, 118);
   border: none;
   border-radius: 10px;
   color: white;
