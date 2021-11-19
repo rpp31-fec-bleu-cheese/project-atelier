@@ -46,6 +46,8 @@ app.put('/reviews/:review_id/report', controllers.reviews.reportReview);
 app.get('/cart', controllers.cart.getProductsInCart);
 app.post('/cart', controllers.cart.postProductToCart);
 
+app.post('/interactions', controllers.interactions.postInteraction);
+
 let port = 3000;
 app.listen(port, () => {
   console.log(`Server is listening on port: ${port}`);
