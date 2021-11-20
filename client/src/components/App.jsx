@@ -73,6 +73,7 @@ class App extends React.Component {
     })
     .then((response) => {
       var outfitIds = JSON.parse(response.data.outfitData);
+      console.log('OUTFITIDS ')
       this.setState({
         outfitIds:outfitIds
       })
@@ -102,15 +103,60 @@ class App extends React.Component {
   }
 
 
+  trackUserInteractions(widget, event) {
+    let date = new Date();
+    let timeOfInteraction = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+
+    let interactionToLog = {
+      element: event.target.outerHTML,
+      widget: widget,
+      time: timeOfInteraction
+    };
+    console.log(interactionToLog)
+
+    axios.post('/interactions', {
+      element: event.target.outerHTML,
+      widget: widget,
+      time: timeOfInteraction
+    })
+      .then((reponse) => {
+        console.log('Interaction Successfully Logged!');
+      })
+      .catch((err) => console.log(err));
+  }
+
   render() {
     return (
       <div id='App'>
         <Header />
         <SiteMessage />
-        <Overview starRating={this.state.rating} updateDetailsAndStyles={this.updateDetailsAndStyles} productById={this.state.currentProductDetails} productStyles={this.state.currentProductStyles} cam_token={this.props.cam_token} productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} />
-        <Related_Outfit productId={this.state.productId} changeInOutfit={this.changeInOutfit} outfitIds={this.state.outfitIds} productClick={this.relatedOutfitProductClick}/>
-        <QandA productId={this.state.productId}/>
-        <RatingsReviews product_id={this.state.productId} updateRating={this.updateRating.bind(this)}/>
+
+        <Overview
+          updateDetailsAndStyles={this.updateDetailsAndStyles}
+          productById={this.state.currentProductDetails}
+          productStyles={this.state.currentProductStyles}
+          cam_token={this.props.cam_token}
+          productId={this.state.productId}
+          changeInOutfit={this.changeInOutfit}
+          outfitIds={this.state.outfitIds}
+          trackUserClicks={this.trackUserInteractions}/>
+        <Related_Outfit
+          productId={this.state.productId}
+          changeInOutfit={this.changeInOutfit}
+          outfitIds={this.state.outfitIds}
+          productClick={this.relatedOutfitProductClick}
+          trackUserClicks={this.trackUserInteractions}
+          currentProductDetails ={this.state.currentProductDetails}
+          currentProductStyles={this.state.currentProductStyles}
+          rating = {this.state.rating}/>
+        <QandA
+          productId={this.state.productId}
+          currentProduct={this.state.currentProductDetails.name}
+          trackUserClicks={this.trackUserInteractions}/>
+        <RatingsReviews
+          product_id={this.state.productId}
+          updateRating={this.updateRating.bind(this)}
+          trackUserClicks={this.trackUserInteractions}/>
       </div>
     )
   }

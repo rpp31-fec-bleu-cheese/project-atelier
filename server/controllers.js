@@ -1,9 +1,11 @@
 const products = require('./apiHelpers/productsAPI.js');
 const cart = require('./apiHelpers/cartAPI.js');
 const qanda = require('./apiHelpers/qandaAPI.js');
-const reviews = require('./apiHelpers/ReviewsAPI.js');
+const reviews = require('./apiHelpers/reviewsAPI.js');
+const interactions = require('./apiHelpers/interactionsAPI.js');
 const Promise = require('bluebird');
 // match lower case?
+
 
 module.exports = {
   // PRODUCT CONTROLLERS
@@ -278,8 +280,18 @@ module.exports = {
       })
     }
   },
+  // INTERACTIONS
   interactions: {
-
+    postInteraction: function(req, res) {
+      let interactionData = req.body
+      interactions.postUserInteraction(interactionData, (err, data) => {
+        if (err) {
+          res.status(404).send();
+          return;
+        }
+        res.status(201).send(data);
+      })
+    }
   },
   //added for Related Component
   cookies:{
@@ -287,4 +299,5 @@ module.exports = {
       res.status(200).send(JSON.stringify(req.cookies));
     }
   }
+
 };

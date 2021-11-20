@@ -25,6 +25,13 @@ body {
   margin-bottom: 50px;
   background-color: #f4f1ebf7;
 }
+input:invalid, textarea:invalid {
+  border: 3px solid red;
+}
+input:required, textarea:required {
+  border: 1px solid black;
+}
+
 
 /******/
 /******/
@@ -139,7 +146,7 @@ div#Overview div.ImageGalleryThumbnails {
   overflow: scroll;
   height: 450px;
   width: 70px;
-  margin: 15px 0px 0px 25px;
+  margin: 5px 0px 0px 25px;
 }
 
 div#Overview div.GalleryThumbnail {
@@ -449,7 +456,7 @@ div#Related_Outfit {
   grid-column: 2;
   grid-row: 4;
   display: grid;
-  grid-template-columns: 10% auto 10%;
+  grid-template-columns: 5% auto 5%;
   grid-template-rows: 5% 45% 5% 45%;
   justify-content: center;
   align-items: center;
@@ -457,16 +464,6 @@ div#Related_Outfit {
   max-height: 100%;
 }
 
-div#QandA {
-  grid-column: 2;
-  grid-row: 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
 
 /********************************/
 /***** Ratings and Reviews ******/
@@ -772,6 +769,8 @@ div#RatingsReviews div.ResponseContainer div.Header {
   grid-row: 1;
   font-weight: bold;
   display: initial;
+  background: none;
+  color: black;
 }
 /*Buttons*/
 div#RatingsReviews div#ReviewsContainer div#ButtonContainer {
@@ -796,10 +795,10 @@ div#RatingsReviews div#Modal #ReviewForm {
   justify-self: center;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 60px repeat(3, 25px) 160px 25px;
+  grid-template-rows: 60px repeat(3, 25px) 160px 25px 132px;
   background-color: #fefefe;
-  width: 800px;
-  height: 600px;
+  width: 700px;
+  height: 650px;
   border: 1px solid #888;
   padding: 10px;
   font-size: 14pt;
@@ -837,7 +836,7 @@ div#RatingsReviews div#ReviewCharacteristics div#ReviewCategoryContainer {
   align-self: center;
   justify-self: center;
   display: grid;
-  grid-template-columns: repeat(2, auto) 100px;
+  grid-template-columns: repeat(2, auto) 125px;
   grid-template-rows: repeat(6, auto);
 }
 div#RatingsReviews div#ReviewCharacteristics div#ReviewCategory {
@@ -848,7 +847,18 @@ div#RatingsReviews div#ReviewCharacteristics div#ReviewCategory {
 div#RatingsReviews div#Modal div#ReviewBodyContainer {
   display: grid;
   grid-template-columns: 78px auto;
-  grid-template-rows: 107px auto;
+  grid-template-rows: 107px 25px;
+}
+div#RatingsReviews div#Modal #ReviewImageHolder {
+  width: 600px;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 25px 100px;
+  border: 1px solid black;
+}
+div#RatingsReviews div#Modal div#ReviewButtons {
+  align-self: start;
+  justify-self: center;
 }
 
 
@@ -858,6 +868,19 @@ div#RatingsReviews div#Modal div#ReviewBodyContainer {
 
 
 /* Question & Answers Module Styling*/
+
+div#QandA {
+  grid-column: 2;
+  grid-row: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: ivory;
+}
+
 div#QandA h2 {
   margin-top: -75px;
   margin-right: auto;
@@ -880,6 +903,7 @@ div#QandA div.q-a-content div.rendered-questions {
   margin-top: -65px;
   max-height: 360px;
   overflow-y: scroll;
+  padding-left: 10px;
 }
 
 div#QandA div.q-a-content div.rendered-questions.active{
@@ -936,7 +960,8 @@ div#QandA div.helpful-buttons button {
   border: none;
   font-size: 13px;
   text-decoration: underline;
-  background-color: white;
+  /* background-color: white; */
+  background: none;
 }
 
 /* Search component styling */
@@ -950,7 +975,8 @@ div#QandA div.search {
 div#QandA div.search div.search-bar {
   display: flex;
   margin-top: 150px;
-  width: 93.8%;
+  width: 94.3%;
+  border: 2px solid rgba(58, 94, 118);
   /* margin-right: 50px; */
 }
 
@@ -959,6 +985,22 @@ div#QandA div.search input {
   box-sizing: border-box;
   font-size: 16px;
   padding: 20px 40px;
+  border: none;
+}
+
+div#QandA div.search input:focus {
+  outline: none;
+}
+
+div#QandA div.search button.icon-btn {
+  background: white;
+  border: none;
+}
+
+div#QandA div.search i.fa.fa-search {
+  color: rgba(58, 94, 118);
+  font-size: large;
+  font-weight: bolder;
 }
 
 /* FooterButtons component styling */
@@ -966,13 +1008,16 @@ div#QandA div.footer-buttons {
   display: flex;
   margin-top: 55px;
   margin-bottom: -45px;
+  padding-left: 10px;
 }
 
 div#QandA div.footer-buttons button {
   height: 60px;
   padding: 10px;
   cursor: pointer;
-  background-color: white;
+  background-color: rgba(58, 94, 118);
+  border: 1px solid white;
+  color: white;
   font-weight: bold;
 }
 
@@ -987,7 +1032,7 @@ div#QandA div.footer-buttons .add-question-button {
 
 div#QandA div.footer-buttons button:hover {
   color: rgb(255, 255, 255);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgb(81, 130, 163);
   border: none;
 }
 
@@ -1005,7 +1050,7 @@ div#QandA div.modal-background {
 
 div#QandA div.modal-background div.modal-content form {
   font-family: sans-serif;
-  background-color: white;
+  background-color: ivory;
   border: 1px solid #dedede;
   border-radius: 8px;
   display: flex;
@@ -1057,22 +1102,28 @@ div#QandA div.modal-background div.modal-content p {
   margin-bottom: 20px;
 }
 
+div#QandA div.modal-background div.modal-content div.form-btns {
+  display: flex;
+  justify-content: center;
+}
+
 div#QandA div.modal-background div.modal-content button.submit-button {
-  background-color: rgb(65, 111, 128);
+  background-color: rgba(58, 94, 118);
   border: none;
-  border-radius: 10px;
   color: white;
-  font-family: sans-serif;
-  font-size: 17px;
-  height: 47px;
+  height: 38px;
+  font-size: 15.5px;
+  width: 170px;
   padding: 12px 10px;
   padding: 0 3px;
   margin-top: 15px;
+  margin-right: 5px;
   margin-bottom: 8px;
+  font-weight: bold;
 }
 
 div#QandA div.modal-background div.modal-content button.submit-button:hover {
-  background-color: rgb(46, 67, 75);
+  background-color: rgb(81, 130, 163);;
 }
 
 div#QandA div.modal-background div.modal-content span {
@@ -1127,7 +1178,8 @@ div#QandA .load-answers {
   font-weight: bold;
   color: rgb(117, 116, 116);
   border: none;
-  background: white;
+  /* background: white; */
+  background: none;
 }
 
 div#QandA .load-answers:hover {
@@ -1255,9 +1307,14 @@ div#Related_Outfit button#Related_Plus {
   max-height:90%;
   padding: 8px;
   margin: 4px 4px;
+  background-color: ivory;
 
 }
-
+div#Related_Outfit #CameraIcon{
+  align-self: center;
+  height:90%;
+  width:90%;
+}
 div#Related_Outfit button#Related_Plus{
   font-family:Arial, Helvetica, sans-serif;
   font-size:larger;

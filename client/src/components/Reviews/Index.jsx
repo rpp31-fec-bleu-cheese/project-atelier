@@ -46,6 +46,7 @@ class Reviews extends React.Component {
               product_id: this.props.product_id
             },
             success: metaData => {
+              console.log(metaData)
               let ratings = {
                 1: 0,
                 2: 0,
@@ -131,7 +132,7 @@ class Reviews extends React.Component {
   render() {
     if (this.state.loaded) {
       return (
-        <div id='RatingsReviews'>
+        <div id='RatingsReviews' onClick={() => this.props.trackUserClicks('Reviews', event)}>
           <Header />
           <RatingsContainer
             ratings={this.state.currentRatings}
@@ -144,7 +145,8 @@ class Reviews extends React.Component {
             reviews={this.state.currentReviews}
             reviewsStarsFilter={this.state.reviewsStarsFilter}
             currentSort={this.state.currentSort}
-            onchange={this.changeSort.bind(this)}/>
+            onchange={this.changeSort.bind(this)}
+            product_id={this.props.product_id}/>
         </div>
       )
     } else {
@@ -160,7 +162,8 @@ class Reviews extends React.Component {
 
 Reviews.propTypes = {
   product_id: PropTypes.number.isRequired,
-  updateRating: PropTypes.func.isRequired
+  updateRating: PropTypes.func.isRequired,
+  trackUserClicks: PropTypes.func.isRequired
 }
 
 export default Reviews;

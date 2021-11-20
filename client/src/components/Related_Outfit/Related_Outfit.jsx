@@ -39,7 +39,7 @@ class Related_Outfit extends React.Component {
           productToCompare = product;
         }
       }
-
+      //console.log("productId in starButton Click", productId);
       this.setState({
         productIdToCompare: productId,
         productToCompare: productToCompare
@@ -96,44 +96,68 @@ class Related_Outfit extends React.Component {
   /***************************************************************************/
   fetchRelatedInfo(productId) {
      /**fetch related product ids**/
-     fetch.relatedProductIDs(this.props.productId)
-     .then((relatedProductIds) => {
 
-       var related = [];
-       /**get unique product Ids**/
-       relatedProductIds.forEach((productId, index) => {
-          if(relatedProductIds.indexOf(productId) === index){
-           related.push(productId);
+     const cachedRelatedDetails = localStorage.getItem(productId);
+     if(cachedRelatedDetails && productId === 59553) {
+
+        this.setState({
+          relatedProducts:JSON.parse(cachedRelatedDetails)
+        })
+     } else {
+      fetch.relatedProductIDs(this.props.productId)
+      .then((relatedProductIds) => {
+
+        var related = [];
+        /**get unique product Ids**/
+        relatedProductIds.forEach((productId, index) => {
+           if(relatedProductIds.indexOf(productId) === index){
+            related.push(productId);
+           }
+        })
+
+        this.setState({
+          relatedProductIds: related
+        })
+        return related;
+      })
+      .then((related) => {
+
+        fetch.relatedProductDetails(related)
+        .then((relatedProductDetails) => {
+          if(productId === 59553) {
+            localStorage.setItem(productId, JSON.stringify(relatedProductDetails));
           }
-       })
 
-       this.setState({
-         relatedProductIds: related
-       })
-       return related;
-     })
-     .then((related) => {
+          this.setState({
+            relatedProducts: relatedProductDetails
+          });
+         // alert('Data Added into cache!')
+          /*if ('caches' in window) {
+            console.log("inside caches ");
+           // Opening given cache and putting our data into it
+           caches.open('MyCache').then((cache) => {
+             cache.put("http://localhost:3000/products/related/details", productInfo);
+             alert('Data Added into cache!')
+           });
+         }*/
 
-       fetch.relatedProductDetails(related)
-       .then((relatedProductDetails) => {
 
-         this.setState({
-           relatedProducts: relatedProductDetails
-         })
-       })
-       .catch((error) => {
-         console.log('error in fetching DETAILS', error);
-       })
-     })
-     .catch((error) => {
-       console.log('error:',error);
-     })
+        })
+        .catch((error) => {
+          console.log('error in fetching DETAILS', error);
+        })
+      })
+      .catch((error) => {
+        console.log('error:',error);
+      })
+     }
+
   }
 
-  /**********************************/
+ /**********************************/
   /*fecth current product info*/
   /**********************************/
-  fetchProductInfo(productId) {
+  /*fetchProductInfo(productId) {
     fetch.productInfo(productId)
     .then((result) => {
 
@@ -148,7 +172,7 @@ class Related_Outfit extends React.Component {
   /**********************************/
   /*fecth current product styles*/
   /**********************************/
-  fetchProductStyles(productId) {
+  /*fetchProductStyles(productId) {
     fetch.productStyles(productId)
     .then((styles) => {
 
@@ -165,24 +189,42 @@ class Related_Outfit extends React.Component {
     .catch((error) => {
       console.log('error:',error);
     });
-  }
+  }*/
   componentDidMount(){
+    var productInfo = {};
+    productInfo = this.props.currentProductDetails;
+    productInfo.styles = this.props.currentProductStyles;
     this.setState({
-      productId:this.props.productId
+      productId:this.props.productId,
+      productInfo: productInfo
     });
+
     this.fetchRelatedInfo(this.props.productId);
-    this.fetchProductInfo(this.props.productId);
-    this.fetchProductStyles(this.props.productId);
-    if(this.props.outfitIds.length > 0) {
-      this.fetchOufitInfo(this.props.outfitIds);
-    }
+    //this.fetchProductInfo(this.props.productId);
+    //this.fetchProductStyles(this.props.productId);
+
+
 
   }
   componentDidUpdate(prevProps) {
     if (prevProps.productId !== this.props.productId) {
       this.fetchRelatedInfo(this.props.productId);
-      this.fetchProductInfo(this.props.productId);
-      this.fetchProductStyles(this.props.productId);
+      //this.fetchProductInfo(this.props.productId);
+      //this.fetchProductStyles(this.props.productId);
+    }
+    if(JSON.stringify(prevProps.currentProductDetails) !== JSON.stringify(this.props.currentProductDetails)
+    || JSON.stringify(prevProps.currentProductStyles) !== JSON.stringify(this.props.currentProductStyles)) {
+      console.log('prevProps.currentProductStyles',prevProps.currentProductStyles);
+
+      console.log('this.props.currentProductStyles',this.props.currentProductStyles);
+      var productInfo = {};
+      productInfo = this.props.currentProductDetails;
+      productInfo.styles = this.props.currentProductStyles;
+
+      this.setState({
+        productId:this.props.productId,
+        productInfo: productInfo
+       });
     }
     if(JSON.stringify(prevProps.outfitIds) !== JSON.stringify(this.props.outfitIds)) {
       this.fetchOufitInfo(this.props.outfitIds);
@@ -215,12 +257,12 @@ class Related_Outfit extends React.Component {
 
     return(
 
-      <div id='Related_Outfit'>
+      <div id='Related_Outfit' onClick={() => this.props.trackUserClicks('Related Outfits', event)}>
         <h1 id="Related_Header">Related Products</h1>
           <button className="PreviousProd Related" ><i className="fa fa-angle-left" onClick={(event)=>this.scroll(event,-250)}></i></button>
             <div className="Related_products">
               {this.state.relatedProducts.map((product) => (
-                <RelatedOutfit_ProductInfo key={product.id} product={product} component={'Related'} starButtonClick={this.starButtonClick} productClick={this.props.productClick}/>
+                <RelatedOutfit_ProductInfo key={product.id} currentProductId={this.state.productId} rating={this.props.rating} product={product} component={'Related'} starButtonClick={this.starButtonClick} productClick={this.props.productClick}/>
               ))}
 
             </div>
@@ -232,7 +274,7 @@ class Related_Outfit extends React.Component {
             <div id="Outfit">
               <button id="Related_Plus" onClick={()=>this.addToOutfit()}><i className="fa fa-plus"></i><div>Add to Outfit</div></button>
               {this.state.outfits.map((product) => (
-                <RelatedOutfit_ProductInfo key={product.id} product={product} component={'Outfit'} productClick={this.props.productClick} crossButtonClick={this.crossButtonClick}/>
+                <RelatedOutfit_ProductInfo key={product.id} currentProductId={this.state.productId} rating={this.props.rating} product={product} component={'Outfit'} productClick={this.props.productClick} crossButtonClick={this.crossButtonClick}/>
               ))}
             </div>
             <button className="NextProd Outfit" ><i className="fa fa-angle-right" onClick={(event)=>this.scroll(event,+250)}></i></button>
@@ -247,7 +289,11 @@ Related_Outfit.propTypes = {
   productId:PropTypes.number,
   productClick:PropTypes.func,
   outfitIds:PropTypes.array,
-  changeInOutfit:PropTypes.func
+  changeInOutfit:PropTypes.func,
+  currentProductDetails:PropTypes.object,
+  currentProductStyles:PropTypes.object,
+  trackUserClicks: PropTypes.func,
+  rating: PropTypes.number
 
 
 }
