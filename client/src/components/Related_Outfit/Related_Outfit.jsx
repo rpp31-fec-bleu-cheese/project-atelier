@@ -96,38 +96,59 @@ class Related_Outfit extends React.Component {
   /***************************************************************************/
   fetchRelatedInfo(productId) {
      /**fetch related product ids**/
-     fetch.relatedProductIDs(this.props.productId)
-     .then((relatedProductIds) => {
+     const cachedRelatedDetails = localStorage.getItem(productId);
+     if(cachedRelatedDetails) {
+       console.log('#############################################')
+        this.setState({
+          relatedProducts:JSON.parse(cachedRelatedDetails)
+        })
+     } else {
+      fetch.relatedProductIDs(this.props.productId)
+      .then((relatedProductIds) => {
 
-       var related = [];
-       /**get unique product Ids**/
-       relatedProductIds.forEach((productId, index) => {
-          if(relatedProductIds.indexOf(productId) === index){
-           related.push(productId);
-          }
-       })
+        var related = [];
+        /**get unique product Ids**/
+        relatedProductIds.forEach((productId, index) => {
+           if(relatedProductIds.indexOf(productId) === index){
+            related.push(productId);
+           }
+        })
 
-       this.setState({
-         relatedProductIds: related
-       })
-       return related;
-     })
-     .then((related) => {
+        this.setState({
+          relatedProductIds: related
+        })
+        return related;
+      })
+      .then((related) => {
 
-       fetch.relatedProductDetails(related)
-       .then((relatedProductDetails) => {
+        fetch.relatedProductDetails(related)
+        .then((relatedProductDetails) => {
+          console.log('#############################################')
+          localStorage.setItem(productId, JSON.stringify(relatedProductDetails));
+          this.setState({
+            relatedProducts: relatedProductDetails
+          });
+         // alert('Data Added into cache!')
+          /*if ('caches' in window) {
+            console.log("inside caches ");
+           // Opening given cache and putting our data into it
+           caches.open('MyCache').then((cache) => {
+             cache.put("http://localhost:3000/products/related/details", productInfo);
+             alert('Data Added into cache!')
+           });
+         }*/
 
-         this.setState({
-           relatedProducts: relatedProductDetails
-         })
-       })
-       .catch((error) => {
-         console.log('error in fetching DETAILS', error);
-       })
-     })
-     .catch((error) => {
-       console.log('error:',error);
-     })
+
+        })
+        .catch((error) => {
+          console.log('error in fetching DETAILS', error);
+        })
+      })
+      .catch((error) => {
+        console.log('error:',error);
+      })
+     }
+
   }
 
  /**********************************/
@@ -174,10 +195,7 @@ class Related_Outfit extends React.Component {
       productId:this.props.productId,
       productInfo: productInfo
     });
-    console.log('IN COMPONENT DID MOUNT')
-    //console.log('prevProps.currentProductStyles',prevProps.currentProductStyles);
 
-    console.log('this.props.currentProductStyles',this.props.currentProductStyles);
     this.fetchRelatedInfo(this.props.productId);
     //this.fetchProductInfo(this.props.productId);
     //this.fetchProductStyles(this.props.productId);
