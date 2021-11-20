@@ -124,11 +124,11 @@ const AnswerModal = ({ currentProduct, showModal, setShowModal, questionBody, qu
         <div data-testid="modal-cont" className="modal-background">
           <div className="modal-content">
             <form className="answer-form" onChange={handleInputChange}>
-              <span data-testid="close" onClick={() => setShowModal(false)}>&times;</span>
+              {/* <span data-testid="close" onClick={() => setShowModal(false)}>&times;</span> */}
               <h2>Submit your Answer</h2>
               <h3>{currentProduct}: {questionBody}</h3>
               <div id="name" className="error-message"></div>
-              <label htmlFor="name-field">What is your nickname <span className="required">*</span></label>
+              <label htmlFor="name-field">What is your nickname (mandatory)<span className="required">*</span></label>
               <input
                 data-testid="name"
                 id="name-field"
@@ -138,7 +138,7 @@ const AnswerModal = ({ currentProduct, showModal, setShowModal, questionBody, qu
                 required/>
               <p>For privacy reasons, do not use your full name</p>
               <div id="email" className="error-message"></div>
-              <label htmlFor="email-field">Your email <span className="required">*</span></label>
+              <label htmlFor="email-field">Your email (mandatory)<span className="required">*</span></label>
               <input
                 data-testid="email"
                 id="email-field"
@@ -148,7 +148,7 @@ const AnswerModal = ({ currentProduct, showModal, setShowModal, questionBody, qu
                 required/>
               <p>For authentication reasons, you will not be emailed</p>
               <div id="answer" className="error-message"></div>
-              <label htmlFor="answer-field">Your Answer <span className="required">*</span></label>
+              <label htmlFor="answer-field">Your Answer (mandatory)<span className="required">*</span></label>
               <textarea
                 data-testid="answer"
                 id="answer-field"
@@ -172,7 +172,10 @@ const AnswerModal = ({ currentProduct, showModal, setShowModal, questionBody, qu
                 {photos.map((p, i) => <img data-testid="a-image" className="upload" key={i} src={p} onClick={removeImage}/>)}
               </div>
               {message ? (<div className="image-upload-message">Click on image to remove!</div>) : null }
-              <button aria-label="submit-answer" className="submit-button" onClick={postAnswer}>Submit Answer</button>
+              <div className="form-btns">
+                <button data-testid="close" className="submit-button" onClick={() => setShowModal(false)}>Cancel</button>
+                <button aria-label="submit-answer" className="submit-button" onClick={postAnswer}>Submit Answer</button>
+              </div>
             </form>
           </div>
         </div>

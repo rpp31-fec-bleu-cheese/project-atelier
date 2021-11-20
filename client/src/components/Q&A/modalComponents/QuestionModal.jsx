@@ -71,10 +71,10 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
         <div data-testid="modal-content" className="modal-background">
           <div className="modal-content">
             <form className="question-form" onChange={handleInputChange}>
-              <span data-testid="close-modal" onClick={closeModal}>&times;</span>
+              {/* <span data-testid="close-modal" onClick={closeModal}>&times;</span> */}
               <h2>Ask Your Question About: {currentProduct}</h2>
               <div id="name" className="error-message"></div>
-              <label className="name">What is your nickname <span className="required">*</span></label>
+              <label className="name">What is your nickname (mandatory)<span className="required">*</span></label>
               <input
                 data-testid="q-name"
                 placeholder="Example: jackson11!"
@@ -83,7 +83,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
                 required />
               <p>For privacy reasons, do not use your full name</p>
               <div id="email" className="error-message"></div>
-              <label className="email">Your email <span className="required">*</span></label>
+              <label className="email">Your email (mandatory)<span className="required">*</span></label>
               <input
                 data-testid="q-email"
                 placeholder="Example: jackson11@email.com"
@@ -92,7 +92,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
                 required/>
               <p>For authentication reasons, you will not be emailed</p>
               <div id="question" className="error-message"></div>
-              <label className="question">Your Question <span className="required">*</span></label>
+              <label className="question">Your Question (mandatory)<span className="required">*</span></label>
               <textarea
                 data-testid="question"
                 placeholder="Type your question"
@@ -102,7 +102,11 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
                 required>
               </textarea>
               <div style={{fontSize: 12}}>Minimum required characters left: {charCount}</div>
-              <button aria-label="submit-question" className="submit-button" onClick={postQuestion}>Submit Question</button>
+              <div className="form-btns">
+                <button data-testid="close-modal" className="submit-button" onClick={closeModal}>Cancel</button>
+                <button aria-label="submit-question" className="submit-button" onClick={postQuestion}>Submit Question</button>
+              </div>
+
             </form>
           </div>
         </div>
