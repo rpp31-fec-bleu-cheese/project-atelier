@@ -13,26 +13,16 @@ import ProductFeatures from './ProductFeatures.jsx';
 let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, changeInOutfit, outfitIds, starRating}) => {
 
   const [indexes, setIndexes] = useState({product: 0, style: 0, photo: 0});
-  console.log('INDEXES:', indexes);
-  // const [productById, setProductById] = useState({});
-  // console.log('CURRENT PRODUCT BY ID:', productById);
-  // const [productStyles, setProductStyles] = useState({});
-  // // console.log('CURRENT PRODUCT STYLE:', productStyles);
-
-
+  // console.log('INDEXES:', indexes);
   // Effect for watching incoming productId from App component
   useEffect (() => {
     let productIdOptions = {
       url: `/products/${productId}`,
-      method: 'get',
-      headers: {'Content-Type': 'application/json',
-      'Authorization': config.API_KEY}
+      method: 'get'
     };
     let productStylesOptions = {
       url: `products/${productId}/styles`,
-      method: 'get',
-      headers: {'Content-Type': 'application/json',
-      'Authorization': config.API_KEY}
+      method: 'get'
     };
     axios(productIdOptions)
       .then(response => {

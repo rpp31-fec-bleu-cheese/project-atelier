@@ -83,15 +83,11 @@ class App extends React.Component {
     // API calls for product ID and styles
     let productIdOptions = {
       url: `/products/${this.state.productId}`,
-      method: 'get',
-      headers: {'Content-Type': 'application/json',
-      'Authorization': config.API_KEY}
+      method: 'get'
     };
     let productStylesOptions = {
       url: `products/${this.state.productId}/styles`,
-      method: 'get',
-      headers: {'Content-Type': 'application/json',
-      'Authorization': config.API_KEY}
+      method: 'get'
     };
     axios(productIdOptions)
       .then(response => {
@@ -104,63 +100,6 @@ class App extends React.Component {
           .catch(error => {
             console.log(error)});
   }
-
-  // useEffect (() => {
-  //   let productIdOptions = {
-  //     url: `/products/${this.state.productId}`,
-  //     method: 'get',
-  //     headers: {'Content-Type': 'application/json',
-  //     'Authorization': config.API_KEY}
-  //   };
-  //   let productStylesOptions = {
-  //     url: `products/${this.state.productId}/styles`,
-  //     method: 'get',
-  //     headers: {'Content-Type': 'application/json',
-  //     'Authorization': config.API_KEY}
-  //   };
-  //   axios(productIdOptions)
-  //     .then(response => {
-  //       this.setState({ currentProductDetails: response.data });
-  //       axios(productStylesOptions)
-  //       .then(response => {
-  //         this.setState({ currentProductStyles: response.data });
-  //           })
-  //         })
-  //           .catch(error => {
-  //             console.log(error)});
-  // }, [this.state.productId]);
-
-  // componentDidUpdate(prevProps) {
-  //   console.log('PREV STATE:', prevProps);
-  //   console.log('PREV STATE PRODUCT ID:', prevProps.startingProductId);
-  //   console.log('CURRENT STATE PRODUCT ID:', this.state.productId);
-  //   if(prevProps.startingProductId !== this.state.productId) {
-  //     let productIdOptions = {
-  //       url: `/products/${this.state.productId}`,
-  //       method: 'get',
-  //       headers: {'Content-Type': 'application/json',
-  //       'Authorization': config.API_KEY}
-  //     };
-  //     let productStylesOptions = {
-  //       url: `products/${this.state.productId}/styles`,
-  //       method: 'get',
-  //       headers: {'Content-Type': 'application/json',
-  //       'Authorization': config.API_KEY}
-  //     };
-  //     axios(productIdOptions)
-  //       .then(response => {
-  //         this.setState({ currentProductDetails: response.data });
-  //         axios(productStylesOptions)
-  //         .then(response => {
-  //           this.setState({ currentProductStyles: response.data });
-  //             })
-  //           })
-  //           .catch(error => {
-  //             console.log(error)});
-  //   }
-  // }
-
-
 
 
   render() {

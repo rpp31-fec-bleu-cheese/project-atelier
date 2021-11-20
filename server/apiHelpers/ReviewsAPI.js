@@ -9,7 +9,7 @@ const getReviews = (productID, sort, callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     },
     params: {
       product_id: productID,
@@ -34,7 +34,7 @@ const getMetaReviews = (productID, callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     },
     params: {
       product_id: productID,
@@ -58,7 +58,7 @@ const postReviewData = (reviewData, callback) => {
     method: 'post',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     },
     params: reviewData
   };
@@ -78,7 +78,7 @@ const markReviewHelpful = (reviewID, callback) => {
     method: 'put',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     }
   };
 
@@ -97,7 +97,7 @@ const reportReview = (reviewID, callback) => {
     method: 'put',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     }
   };
 

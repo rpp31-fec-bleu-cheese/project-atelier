@@ -9,7 +9,7 @@ const getAllProducts = (callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     },
     params: {
       page: 1,
@@ -32,7 +32,7 @@ const getProduct = (productID, callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     },
   }
 
@@ -51,7 +51,7 @@ const getProductStyle = (productID, callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     }
   };
 
@@ -71,7 +71,7 @@ const getRelatedProducts = (productID, callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     }
   };
 
