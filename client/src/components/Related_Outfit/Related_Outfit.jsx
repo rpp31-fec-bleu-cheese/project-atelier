@@ -96,9 +96,10 @@ class Related_Outfit extends React.Component {
   /***************************************************************************/
   fetchRelatedInfo(productId) {
      /**fetch related product ids**/
+
      const cachedRelatedDetails = localStorage.getItem(productId);
-     if(cachedRelatedDetails) {
-       console.log('#############################################')
+     if(cachedRelatedDetails && productId === 59553) {
+
         this.setState({
           relatedProducts:JSON.parse(cachedRelatedDetails)
         })
@@ -123,8 +124,10 @@ class Related_Outfit extends React.Component {
 
         fetch.relatedProductDetails(related)
         .then((relatedProductDetails) => {
-          console.log('#############################################')
-          localStorage.setItem(productId, JSON.stringify(relatedProductDetails));
+          if(productId === 59553) {
+            localStorage.setItem(productId, JSON.stringify(relatedProductDetails));
+          }
+
           this.setState({
             relatedProducts: relatedProductDetails
           });
@@ -259,7 +262,7 @@ class Related_Outfit extends React.Component {
           <button className="PreviousProd Related" ><i className="fa fa-angle-left" onClick={(event)=>this.scroll(event,-250)}></i></button>
             <div className="Related_products">
               {this.state.relatedProducts.map((product) => (
-                <RelatedOutfit_ProductInfo key={product.id} product={product} component={'Related'} starButtonClick={this.starButtonClick} productClick={this.props.productClick}/>
+                <RelatedOutfit_ProductInfo key={product.id} currentProductId={this.state.productId} rating={this.props.rating} product={product} component={'Related'} starButtonClick={this.starButtonClick} productClick={this.props.productClick}/>
               ))}
 
             </div>
@@ -271,7 +274,7 @@ class Related_Outfit extends React.Component {
             <div id="Outfit">
               <button id="Related_Plus" onClick={()=>this.addToOutfit()}><i className="fa fa-plus"></i><div>Add to Outfit</div></button>
               {this.state.outfits.map((product) => (
-                <RelatedOutfit_ProductInfo key={product.id} product={product} component={'Outfit'} productClick={this.props.productClick} crossButtonClick={this.crossButtonClick}/>
+                <RelatedOutfit_ProductInfo key={product.id} currentProductId={this.state.productId} rating={this.props.rating} product={product} component={'Outfit'} productClick={this.props.productClick} crossButtonClick={this.crossButtonClick}/>
               ))}
             </div>
             <button className="NextProd Outfit" ><i className="fa fa-angle-right" onClick={(event)=>this.scroll(event,+250)}></i></button>
@@ -289,7 +292,8 @@ Related_Outfit.propTypes = {
   changeInOutfit:PropTypes.func,
   currentProductDetails:PropTypes.object,
   currentProductStyles:PropTypes.object,
-  trackUserClicks: PropTypes.func
+  trackUserClicks: PropTypes.func,
+  rating: PropTypes.number
 
 
 }

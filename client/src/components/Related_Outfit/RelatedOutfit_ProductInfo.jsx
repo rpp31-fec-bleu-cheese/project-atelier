@@ -29,6 +29,10 @@ var RelatedOutfit_ProductInfo = (props) => {
       style= { background: `center / contain no-repeat  url(${image}) `,backgroundSize:"cover"};
     }
     //var noImage = <i className="fas fa-camera-retro"></i>
+    var rating = 0;
+    if(props.product.id === props.currentProductId) {
+      rating = props.rating;
+    }
   }
 
   if(props.component === 'Related') {
@@ -55,7 +59,7 @@ var RelatedOutfit_ProductInfo = (props) => {
         <Price salePrice={salePrice} defaultPrice={props.product.default_price}/>
         </div>
         <div className="OutfitInfo">
-          <Rating />
+          <Rating rating={rating}/>
         </div>
       </div>
     )
@@ -79,7 +83,7 @@ var RelatedOutfit_ProductInfo = (props) => {
           <Price salePrice={salePrice} defaultPrice={props.product.default_price}/>
         </div>
         <div className="OutfitInfo">
-          <Rating />
+          <Rating rating={rating}/>
         </div>
       </div>
     )
@@ -87,11 +91,13 @@ var RelatedOutfit_ProductInfo = (props) => {
 
 }
 RelatedOutfit_ProductInfo.propTypes = {
+  currentProductId:PropTypes.number,
   product:PropTypes.object,
   component:PropTypes.string,
   starButtonClick:PropTypes.func,
   productClick:PropTypes.func,
-  crossButtonClick:PropTypes.func
+  crossButtonClick:PropTypes.func,
+  rating:PropTypes.number
 }
 export default RelatedOutfit_ProductInfo;
 

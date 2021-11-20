@@ -206,7 +206,8 @@ class App extends React.Component {
           productClick={this.relatedOutfitProductClick}
           trackUserClicks={this.trackUserInteractions}
           currentProductDetails ={this.state.currentProductDetails}
-          currentProductStyles={this.state.currentProductStyles}/>
+          currentProductStyles={this.state.currentProductStyles}
+          rating = {this.state.rating}/>
         <QandA
           productId={this.state.productId}
           currentProduct={this.state.currentProductDetails.name}
