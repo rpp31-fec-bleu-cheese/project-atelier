@@ -33,12 +33,17 @@ const AnswerModal = ({ currentProduct, showModal, setShowModal, questionBody, qu
     const requirements = [name, email, answer];
 
     requirements.forEach((req, i) => {
+      console.log(!req.length)
       if (!req.length) {
         if (i === 0) {
           setErrorMessage('name');
-        } else if (i === 1) {
+        }
+
+        if (i === 1) {
           setErrorMessage('email');
-        } else {
+        }
+
+        if (i === 2) {
           setErrorMessage('answer');
         }
       }
@@ -49,10 +54,9 @@ const AnswerModal = ({ currentProduct, showModal, setShowModal, questionBody, qu
     event.preventDefault();
 
     checkMissingRequirements();
+    console.log(`email: ${email}, name: ${name}, answer: ${answer}`);
 
-    if (!name || !email || !answer) {
-      return
-    } else {
+    if(email.length && name.length && answer.length) {
       axios.post(`/qa/questions/${questionID}/answers`, {
         body: answer,
         name: name,
@@ -63,9 +67,19 @@ const AnswerModal = ({ currentProduct, showModal, setShowModal, questionBody, qu
         .then((response) => {
           getQuestions();
           setShowModal(false);
+          setName('');
+          setEmail('');
+          setAnswer('');
         })
     }
+  }
 
+  const cancel = () => {
+    setName('');
+    setEmail('');
+    setAnswer('');
+
+    setShowModal(false)
   }
 
   const uploadImages = (event) => {
@@ -173,7 +187,7 @@ const AnswerModal = ({ currentProduct, showModal, setShowModal, questionBody, qu
               </div>
               {message ? (<div className="image-upload-message">Click on image to remove!</div>) : null }
               <div className="form-btns">
-                <button data-testid="close" className="submit-button" onClick={() => setShowModal(false)}>Cancel</button>
+                <button data-testid="close" className="submit-button" onClick={cancel}>Cancel</button>
                 <button aria-label="submit-answer" className="submit-button" onClick={postAnswer}>Submit Answer</button>
               </div>
             </form>

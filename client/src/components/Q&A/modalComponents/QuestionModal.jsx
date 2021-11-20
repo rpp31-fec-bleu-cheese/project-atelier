@@ -49,9 +49,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
 
     checkMissingRequirements();
 
-    if (!name || !email || !question) {
-      return;
-    } else {
+    if (email.length && name.length && question.length) {
       axios.post('/qa/questions', {
         body: question,
         name: name,
@@ -60,9 +58,20 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
       })
         .then((response) => {
           getQuestions();
-          closeModal()
+          closeModal();
+          setName('');
+          setEmail('');
+          setAnswer('');
         })
     }
+  }
+
+  const cancel = () => {
+    setName('');
+    setEmail('');
+    setQuestion('');
+
+    closeModal();
   }
 
   return (
@@ -103,7 +112,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
               </textarea>
               <div style={{fontSize: 12}}>Minimum required characters left: {charCount}</div>
               <div className="form-btns">
-                <button data-testid="close-modal" className="submit-button" onClick={closeModal}>Cancel</button>
+                <button data-testid="close-modal" className="submit-button" onClick={cancel}>Cancel</button>
                 <button aria-label="submit-question" className="submit-button" onClick={postQuestion}>Submit Question</button>
               </div>
 
