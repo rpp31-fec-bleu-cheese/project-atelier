@@ -183,7 +183,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('current product details!!!!!!!!', this.state.currentProductDetails.name);
     return (
       <div id='App'>
         <Header />
