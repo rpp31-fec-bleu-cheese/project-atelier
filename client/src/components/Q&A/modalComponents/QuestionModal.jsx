@@ -7,6 +7,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [question, setQuestion] = useState('');
+  const [charCount, setCharCount] = useState(1000);
   // const [expanded, setExpanded] = useState(false);
 
   const handleInputChange = (event) => {
@@ -17,6 +18,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
     } else if (event.target.placeholder === 'Example: jackson11@email.com') {
       setEmail(value);
     } else {
+      setCharCount(1000 - value.length);
       setQuestion(value);
     }
   }
@@ -47,9 +49,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
 
     checkMissingRequirements();
 
-    if (!name || !email || !answer) {
-      return;
-    } else {
+    if (email.length && name.length && question.length) {
       axios.post('/qa/questions', {
         body: question,
         name: name,
@@ -58,43 +58,64 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
       })
         .then((response) => {
           getQuestions();
-          closeModal()
+          closeModal();
+          setName('');
+          setEmail('');
+          setAnswer('');
         })
     }
   }
 
+  const cancel = () => {
+    setName('');
+    setEmail('');
+    setQuestion('');
+
+    closeModal();
+  }
+
   return (
-    <div className="modal">
+    <div data-testid="q-modal" className="modal">
       {showModal ? (
-        <div className="modal-background">
+        <div data-testid="modal-content" className="modal-background">
           <div className="modal-content">
             <form className="question-form" onChange={handleInputChange}>
-              <span onClick={closeModal}>&times;</span>
+              {/* <span data-testid="close-modal" onClick={closeModal}>&times;</span> */}
               <h2>Ask Your Question About: {currentProduct}</h2>
               <div id="name" className="error-message"></div>
-              <label className="name">What is your nickname <span className="required">*</span></label>
+              <label className="name">What is your nickname (mandatory)<span className="required">*</span></label>
               <input
+                data-testid="q-name"
                 placeholder="Example: jackson11!"
                 type="text"
                 maxLength="60"
                 required />
               <p>For privacy reasons, do not use your full name</p>
               <div id="email" className="error-message"></div>
-              <label className="email">Your email <span className="required">*</span></label>
+              <label className="email">Your email (mandatory)<span className="required">*</span></label>
               <input
+                data-testid="q-email"
                 placeholder="Example: jackson11@email.com"
                 type="email"
                 maxLength="60"
                 required/>
               <p>For authentication reasons, you will not be emailed</p>
               <div id="question" className="error-message"></div>
-              <label className="question">Your Question <span className="required">*</span></label>
-              <input
+              <label className="question">Your Question (mandatory)<span className="required">*</span></label>
+              <textarea
+                data-testid="question"
                 placeholder="Type your question"
                 type="text"
                 maxLength="1000"
-                required/>
-              <button className="submit-button" onClick={postQuestion}>Submit Question</button>
+                style={{width: 465, height: 100, resize: 'none'}}
+                required>
+              </textarea>
+              <div style={{fontSize: 12}}>Minimum required characters left: {charCount}</div>
+              <div className="form-btns">
+                <button data-testid="close-modal" className="submit-button" onClick={cancel}>Cancel</button>
+                <button aria-label="submit-question" className="submit-button" onClick={postQuestion}>Submit Question</button>
+              </div>
+
             </form>
           </div>
         </div>

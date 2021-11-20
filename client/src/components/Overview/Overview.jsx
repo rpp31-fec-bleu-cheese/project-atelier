@@ -11,7 +11,7 @@ import ProductSloganAndDescription from './ProductSloganAndDescription.jsx';
 import ProductFeatures from './ProductFeatures.jsx';
 
 
-let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, changeInOutfit, outfitIds}) => {
+let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, changeInOutfit, outfitIds, trackUserClicks}) => {
 
   const [indexes, setIndexes] = useState({product: 0, style: 0, photo: 0});
   console.log('INDEXES:', indexes);
@@ -90,7 +90,7 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
   }
 
   return (
-    <div data-testid="Overview" id='Overview'>
+    <div data-testid="Overview" id='Overview' onClick={() => trackUserClicks('Overview', event)}>
       {Object.keys(productStyles).length > 0 && <><ImageGallery indexes={indexes} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} data-testid="ImageGallery"/>
       <ProductInformation productById={productById} productStyles={productStyles} indexes={indexes} />
@@ -110,7 +110,8 @@ Overview.propTypes = {
   productId: PropTypes.number,
   changeInOutfit : PropTypes.func,
   outfitIds: PropTypes.array,
-  updateDetailsAndStyles: PropTypes.func
+  updateDetailsAndStyles: PropTypes.func,
+  trackUserClicks: PropTypes.func
 }
 
 export default Overview;

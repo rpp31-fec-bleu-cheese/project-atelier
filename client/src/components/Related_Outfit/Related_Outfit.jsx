@@ -254,7 +254,7 @@ class Related_Outfit extends React.Component {
 
     return(
 
-      <div id='Related_Outfit'>
+      <div id='Related_Outfit' onClick={() => this.props.trackUserClicks('Related Outfits', event)}>
         <h1 id="Related_Header">Related Products</h1>
           <button className="PreviousProd Related" ><i className="fa fa-angle-left" onClick={(event)=>this.scroll(event,-250)}></i></button>
             <div className="Related_products">
@@ -288,7 +288,9 @@ Related_Outfit.propTypes = {
   outfitIds:PropTypes.array,
   changeInOutfit:PropTypes.func,
   currentProductDetails:PropTypes.object,
-  currentProductStyles:PropTypes.object
+  currentProductStyles:PropTypes.object,
+  trackUserClicks: PropTypes.func
+
 
 }
 

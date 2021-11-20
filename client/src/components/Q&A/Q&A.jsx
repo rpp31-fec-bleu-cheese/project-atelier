@@ -12,8 +12,6 @@ class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // productID: this.props.productId,
-      currentProduct: "Slacker's Slacks",
       questions: [],
       filteredQuestions: [],
       questionsToShow: 2,
@@ -105,23 +103,28 @@ class QandA extends React.Component {
 
   render() {
     const { questions, filteredQuestions, questionsToShow } = this.state;
-    console.log('PRODUCT ID!!!!!!!!!!!!!!!!!!!', this.props.productId)
 
     return(
-      <div data-testid='question-answers' id='QandA'>
+      <div data-testid='question-answers' id='QandA' onClick={() => this.props.trackUserClicks('QandA', event)}>
           <h2>QUESTIONS & ANSWERS</h2>
           <Search handleSearch={this.handleSearch} filterDataOnSearch={this.filterDataOnSearch}/>
          <div className='q-a-content'>
-           <div className='rendered-questions'>
+           <div data-testid="question-li" className='rendered-questions'>
             {filteredQuestions.slice(0, questionsToShow)
-              .map(question => <QuestionEntry key={question.question_id} question={question} getQuestions={this.getQuestions}/>)
+              .map(question =>
+                <QuestionEntry
+                  key={question.question_id}
+                  currentProduct={this.props.currentProduct}
+                  question={question}
+                  getQuestions={this.getQuestions}
+              />)
             }
            </div>
             <FooterButtons
               questionsLength={filteredQuestions.length}
               handleClick={this.handleMoreAnsweredQuestionsClick}
               productID={this.props.productId}
-              currentProduct={this.state.currentProduct}
+              currentProduct={this.props.currentProduct}
               getQuestions={this.getQuestions}/>
          </div>
       </div>
@@ -130,7 +133,9 @@ class QandA extends React.Component {
 };
 
 QandA.propTypes = {
-  productId: PropTypes.number
+  productId: PropTypes.number,
+  currentProduct: PropTypes.string,
+  trackUserClicks: PropTypes.func
 }
 
 export default QandA;

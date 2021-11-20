@@ -72,17 +72,23 @@ class QuestionEntry extends React.Component {
     const questionAnswers = Object.values(answers).sort((a, b) => b.helpfulness - a.helpfulness);
 
     return (
-      <div className="question-entry">
+      <div data-testid='q-entry' className="question-entry">
         <div className="question-container">
           <div className="question">Q: {question_body}</div>
           <div className="helpful-buttons">
             <p>Helpful?</p>
-            <button onClick={this.handleHelpfulClick}>Yes ({this.state.helpful})</button>
+            <button
+              aria-label="helpful-btn"
+              onClick={this.handleHelpfulClick}>Yes ({this.state.helpful})</button>
             <p className="divider">|</p>
-            <button className="add-answer" onClick={() => this.setState({ showModal: true })}>Add Answer</button>
+            <button
+              aria-label="add-answer-btn"
+              className="add-answer"
+              onClick={() => this.setState({ showModal: true })}>Add Answer</button>
           </div>
         </div>
         <AnswerModal
+          currentProduct={this.props.currentProduct}
           showModal={this.state.showModal}
           setShowModal={this.closeModal}
           questionBody={question_body}
@@ -94,7 +100,7 @@ class QuestionEntry extends React.Component {
             .map(answer => <Answer key={answer.id} answer={answer} getQuestions={this.props.getQuestions}/>)
           }
           {questionAnswers.length > 2 ?
-          (<button className="load-answers" onClick={this.showMoreAnswers}>LOAD MORE ANSWERS</button>) : null
+          (<button aria-label="load-btn" className="load-answers" onClick={this.showMoreAnswers}>LOAD MORE ANSWERS</button>) : null
           }
         </div>
       </div>
@@ -104,6 +110,7 @@ class QuestionEntry extends React.Component {
 }
 
 QuestionEntry.propTypes = {
+  currentProduct: PropTypes.string,
   question: PropTypes.object,
   getQuestions: PropTypes.func
 }
