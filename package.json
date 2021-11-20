@@ -26,11 +26,8 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-<<<<<<< HEAD
     "regenerator-runtime": "^0.13.9",
-=======
     "react-is": "^17.0.2",
->>>>>>> 166bbcc66e8d2977bbdea4d1928de841ffd97aa5
     "sinon": "^12.0.1"
   },
   "devDependencies": {

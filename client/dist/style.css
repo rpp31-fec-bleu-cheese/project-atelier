@@ -49,12 +49,9 @@ div#App div.Header {
   display: grid;
   grid-template-columns: 35% auto 10%;
   grid-template-rows: auto;
-<<<<<<< HEAD
   background-color: rgba(58, 94, 118);
   color: white;
-=======
-  background-color: #c7c7c7;
->>>>>>> 166bbcc66e8d2977bbdea4d1928de841ffd97aa5
+  /* background-color: #c7c7c7; */
 }
 
 div#Logo {
