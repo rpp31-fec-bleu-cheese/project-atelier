@@ -32,7 +32,7 @@ const Answer = ({ answer, questionAsker, getQuestions }) => {
   }
 
   return (
-    <div className="answer">
+    <div data-testid="answer" className="answer">
       <div className="answer-content">
         <span>A: </span>
         <div className="answer-body">{answer.body}</div>
@@ -48,9 +48,9 @@ const Answer = ({ answer, questionAsker, getQuestions }) => {
         <div className="answer-date">, {answerDate}</div>
         <p className="divider">|</p>
         <p>Helpful?</p>
-        <button onClick={handleHelpfulClick}>Yes ({helpfulness})</button>
+        <button aria-label="helpful" onClick={handleHelpfulClick}>Yes ({helpfulness})</button>
         <p className="divider">|</p>
-        <button onClick={handleReportClick}>Report</button>
+        <button aria-label="reported" onClick={handleReportClick}>Report</button>
       </div>
     </div>
   )

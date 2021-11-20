@@ -132,7 +132,7 @@ class Reviews extends React.Component {
   render() {
     if (this.state.loaded) {
       return (
-        <div id='RatingsReviews'>
+        <div id='RatingsReviews' onClick={() => this.props.trackUserClicks('Reviews', event)}>
           <Header />
           <RatingsContainer
             ratings={this.state.currentRatings}
@@ -162,7 +162,8 @@ class Reviews extends React.Component {
 
 Reviews.propTypes = {
   product_id: PropTypes.number.isRequired,
-  updateRating: PropTypes.func.isRequired
+  updateRating: PropTypes.func.isRequired,
+  trackUserClicks: PropTypes.func.isRequired
 }
 
 export default Reviews;

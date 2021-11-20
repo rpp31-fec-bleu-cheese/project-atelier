@@ -3,13 +3,14 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 // modal will display when the user clicks on the ADD A QUESTION button
-const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQuestions }) => {
+const AnswerModal = ({ currentProduct, showModal, setShowModal, questionBody, questionID, getQuestions }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [answer, setAnswer] = useState('');
   const [photos, setPhotos] = useState([]);
   const [display, setDisplay] = useState('block');
   const [message, setMessage] = useState(false);
+  const [charCount, setCharCount] = useState(1000);
 
   const handleInputChange = (event) => {
     let value = event.target.value;
@@ -19,6 +20,7 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
     } else if (event.target.placeholder === 'Example: jack543@email.com') {
       setEmail(value);
     } else if (event.target.placeholder === 'Type your answer') {
+      setCharCount(1000 - value.length);
       setAnswer(value);
     }
   }
@@ -31,12 +33,17 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
     const requirements = [name, email, answer];
 
     requirements.forEach((req, i) => {
+      console.log(!req.length)
       if (!req.length) {
         if (i === 0) {
           setErrorMessage('name');
-        } else if (i === 1) {
+        }
+
+        if (i === 1) {
           setErrorMessage('email');
-        } else {
+        }
+
+        if (i === 2) {
           setErrorMessage('answer');
         }
       }
@@ -47,10 +54,9 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
     event.preventDefault();
 
     checkMissingRequirements();
+    console.log(`email: ${email}, name: ${name}, answer: ${answer}`);
 
-    if (!name || !email || !answer) {
-      return
-    } else {
+    if(email.length && name.length && answer.length) {
       axios.post(`/qa/questions/${questionID}/answers`, {
         body: answer,
         name: name,
@@ -61,9 +67,19 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
         .then((response) => {
           getQuestions();
           setShowModal(false);
+          setName('');
+          setEmail('');
+          setAnswer('');
         })
     }
+  }
 
+  const cancel = () => {
+    setName('');
+    setEmail('');
+    setAnswer('');
+
+    setShowModal(false)
   }
 
   const uploadImages = (event) => {
@@ -117,27 +133,49 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
   })
 
   return (
-    <div className="answer-modal">
+    <div data-testid="a-modal" className="answer-modal">
       { showModal ? (
-        <div className="modal-background">
+        <div data-testid="modal-cont" className="modal-background">
           <div className="modal-content">
             <form className="answer-form" onChange={handleInputChange}>
-              <span onClick={() => setShowModal(false)}>&times;</span>
+              {/* <span data-testid="close" onClick={() => setShowModal(false)}>&times;</span> */}
               <h2>Submit your Answer</h2>
-              <h3>[Product Name]: {questionBody}</h3>
+              <h3>{currentProduct}: {questionBody}</h3>
               <div id="name" className="error-message"></div>
-              <label>What is your nickname <span className="required">*</span></label>
-              <input placeholder="Example: jack543!" type="text" maxLength="60" required/>
+              <label htmlFor="name-field">What is your nickname (mandatory)<span className="required">*</span></label>
+              <input
+                data-testid="name"
+                id="name-field"
+                placeholder="Example: jack543!"
+                type="text"
+                maxLength="60"
+                required/>
               <p>For privacy reasons, do not use your full name</p>
               <div id="email" className="error-message"></div>
-              <label>Your email <span className="required">*</span></label>
-              <input placeholder="Example: jack543@email.com" type="email" maxLength="60" required/>
+              <label htmlFor="email-field">Your email (mandatory)<span className="required">*</span></label>
+              <input
+                data-testid="email"
+                id="email-field"
+                placeholder="Example: jack543@email.com"
+                type="email"
+                maxLength="60"
+                required/>
               <p>For authentication reasons, you will not be emailed</p>
               <div id="answer" className="error-message"></div>
-              <label>Your Answer <span className="required">*</span></label>
-              <input placeholder="Type your answer" type="text" maxLength="1000" required/>
-              <label style={{ marginTop: '15px' }}>Upload Images (up to 5)</label>
+              <label htmlFor="answer-field">Your Answer (mandatory)<span className="required">*</span></label>
+              <textarea
+                data-testid="answer"
+                id="answer-field"
+                placeholder="Type your answer"
+                type="text"
+                maxLength="1000"
+                style={{width: 465, height: 100, resize: 'none'}}
+                required>
+              </textarea>
+              <div style={{fontSize: 12}}>Minimum required characters left: {charCount}</div>
+              <label style={{ marginTop: '15px'}}>Upload Images (up to 5)</label>
               <input
+                data-testid="image-upload"
                 type="file"
                 accept="image/*"
                 multiple
@@ -145,10 +183,13 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
                 style={{ display: display }}
               />
               <div className="image-uploads">
-                {photos.map((p, i) => <img className="upload" key={i} src={p} onClick={removeImage}/>)}
+                {photos.map((p, i) => <img data-testid="a-image" className="upload" key={i} src={p} onClick={removeImage}/>)}
               </div>
               {message ? (<div className="image-upload-message">Click on image to remove!</div>) : null }
-              <button className="submit-button" onClick={postAnswer}>Submit Answer</button>
+              <div className="form-btns">
+                <button data-testid="close" className="submit-button" onClick={cancel}>Cancel</button>
+                <button aria-label="submit-answer" className="submit-button" onClick={postAnswer}>Submit Answer</button>
+              </div>
             </form>
           </div>
         </div>
@@ -159,6 +200,7 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
 };
 
 AnswerModal.propTypes = {
+  currentProduct: PropTypes.string,
   showModal: PropTypes.bool,
   questionBody: PropTypes.string,
   setShowModal: PropTypes.func,

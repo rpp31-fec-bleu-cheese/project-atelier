@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 const Search = ({ handleSearch, filterDataOnSearch }) => {
   return (
-    <div className="search">
+    <div data-testid="search-bar" className="search">
       <form onChange={handleSearch}>
         <div className="search-bar">
-          <input placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."></input>
-          <button onClick={filterDataOnSearch}><i className="fa fa-search"></i></button>
+          <input data-testid='search-txt' placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."></input>
+          <button className="icon-btn" onClick={filterDataOnSearch}><i className="fa fa-search"></i></button>
         </div>
       </form>
     </div>
