@@ -183,6 +183,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log('current product details!!!!!!!!', this.state.currentProductDetails.name);
     return (
       <div id='App'>
         <Header />
@@ -204,6 +205,7 @@ class App extends React.Component {
           trackUserClicks={this.trackUserInteractions}/>
         <QandA
           productId={this.state.productId}
+          currentProduct={this.state.currentProductDetails.name}
           trackUserClicks={this.trackUserInteractions}/>
         <RatingsReviews
           product_id={this.state.productId}

@@ -88,6 +88,7 @@ class QuestionEntry extends React.Component {
           </div>
         </div>
         <AnswerModal
+          currentProduct={this.props.currentProduct}
           showModal={this.state.showModal}
           setShowModal={this.closeModal}
           questionBody={question_body}
@@ -109,6 +110,7 @@ class QuestionEntry extends React.Component {
 }
 
 QuestionEntry.propTypes = {
+  currentProduct: PropTypes.string,
   question: PropTypes.object,
   getQuestions: PropTypes.func
 }

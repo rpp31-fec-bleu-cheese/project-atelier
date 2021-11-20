@@ -18,7 +18,7 @@ class FooterButtons extends React.Component {
   }
 
   render() {
-    const { questionsLength, handleClick, productID, currentProduct, getQuestions } = this.props;
+    const { questionsLength, handleClick, productID, currentProduct, getQuestions, productName } = this.props;
 
     return (
       <div data-testid='footer-btns' className="footer-buttons">

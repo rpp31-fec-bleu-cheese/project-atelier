@@ -3,13 +3,14 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 // modal will display when the user clicks on the ADD A QUESTION button
-const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQuestions }) => {
+const AnswerModal = ({ currentProduct, showModal, setShowModal, questionBody, questionID, getQuestions }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [answer, setAnswer] = useState('');
   const [photos, setPhotos] = useState([]);
   const [display, setDisplay] = useState('block');
   const [message, setMessage] = useState(false);
+  const [charCount, setCharCount] = useState(1000);
 
   const handleInputChange = (event) => {
     let value = event.target.value;
@@ -19,6 +20,7 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
     } else if (event.target.placeholder === 'Example: jack543@email.com') {
       setEmail(value);
     } else if (event.target.placeholder === 'Type your answer') {
+      setCharCount(1000 - value.length);
       setAnswer(value);
     }
   }
@@ -124,7 +126,7 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
             <form className="answer-form" onChange={handleInputChange}>
               <span data-testid="close" onClick={() => setShowModal(false)}>&times;</span>
               <h2>Submit your Answer</h2>
-              <h3>[Product Name]: {questionBody}</h3>
+              <h3>{currentProduct}: {questionBody}</h3>
               <div id="name" className="error-message"></div>
               <label htmlFor="name-field">What is your nickname <span className="required">*</span></label>
               <input
@@ -156,7 +158,8 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
                 style={{width: 465, height: 100, resize: 'none'}}
                 required>
               </textarea>
-              <label style={{ marginTop: '15px' }}>Upload Images (up to 5)</label>
+              <div style={{fontSize: 12}}>Minimum required characters left: {charCount}</div>
+              <label style={{ marginTop: '15px'}}>Upload Images (up to 5)</label>
               <input
                 data-testid="image-upload"
                 type="file"
@@ -180,6 +183,7 @@ const AnswerModal = ({ showModal, setShowModal, questionBody, questionID, getQue
 };
 
 AnswerModal.propTypes = {
+  currentProduct: PropTypes.string,
   showModal: PropTypes.bool,
   questionBody: PropTypes.string,
   setShowModal: PropTypes.func,

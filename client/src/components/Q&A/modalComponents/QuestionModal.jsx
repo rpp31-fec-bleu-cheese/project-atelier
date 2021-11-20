@@ -7,6 +7,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [question, setQuestion] = useState('');
+  const [charCount, setCharCount] = useState(1000);
   // const [expanded, setExpanded] = useState(false);
 
   const handleInputChange = (event) => {
@@ -17,6 +18,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
     } else if (event.target.placeholder === 'Example: jackson11@email.com') {
       setEmail(value);
     } else {
+      setCharCount(1000 - value.length);
       setQuestion(value);
     }
   }
@@ -99,6 +101,7 @@ const QuestionModal = ({ showModal, setShowModal, closeModal, productID, current
                 style={{width: 465, height: 100, resize: 'none'}}
                 required>
               </textarea>
+              <div style={{fontSize: 12}}>Minimum required characters left: {charCount}</div>
               <button aria-label="submit-question" className="submit-button" onClick={postQuestion}>Submit Question</button>
             </form>
           </div>

@@ -948,7 +948,6 @@ div#QandA div.search button.icon-btn {
   border: none;
 }
 
-
 div#QandA div.search i.fa.fa-search {
   color: rgba(58, 94, 118);
   font-size: large;
@@ -982,7 +981,7 @@ div#QandA div.footer-buttons .add-question-button {
   width: 160px;
 }
 
-div#QandA div.footer-buttons button:hover {
+div#QandA button:hover {
   color: rgb(255, 255, 255);
   background: rgb(81, 130, 163);
   border: none;
