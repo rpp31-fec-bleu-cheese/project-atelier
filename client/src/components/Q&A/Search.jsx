@@ -7,7 +7,7 @@ const Search = ({ handleSearch, filterDataOnSearch }) => {
       <form onChange={handleSearch}>
         <div className="search-bar">
           <input data-testid='search-txt' placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."></input>
-          <button onClick={filterDataOnSearch}><i className="fa fa-search"></i></button>
+          <button className="icon-btn" onClick={filterDataOnSearch}><i className="fa fa-search"></i></button>
         </div>
       </form>
     </div>

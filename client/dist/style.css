@@ -927,6 +927,7 @@ div#QandA div.search div.search-bar {
   display: flex;
   margin-top: 150px;
   width: 94.3%;
+  border: 2px solid rgba(58, 94, 118);
   /* margin-right: 50px; */
 }
 
@@ -935,6 +936,23 @@ div#QandA div.search input {
   box-sizing: border-box;
   font-size: 16px;
   padding: 20px 40px;
+  border: none;
+}
+
+div#QandA div.search input:focus {
+  outline: none;
+}
+
+div#QandA div.search button.icon-btn {
+  background: white;
+  border: none;
+}
+
+
+div#QandA div.search i.fa.fa-search {
+  color: rgba(58, 94, 118);
+  font-size: large;
+  font-weight: bolder;
 }
 
 /* FooterButtons component styling */

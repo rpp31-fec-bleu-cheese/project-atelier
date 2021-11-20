@@ -179,7 +179,7 @@ class App extends React.Component {
       .then((reponse) => {
         console.log('Interaction Successfully Logged!');
       })
-      .catch((err) => console.log('ERROR!!!!!!', err));
+      .catch((err) => console.log(err));
   }
 
   render() {
