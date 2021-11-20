@@ -46,6 +46,7 @@ class Reviews extends React.Component {
               product_id: this.props.product_id
             },
             success: metaData => {
+              console.log(metaData)
               let ratings = {
                 1: 0,
                 2: 0,
@@ -144,7 +145,8 @@ class Reviews extends React.Component {
             reviews={this.state.currentReviews}
             reviewsStarsFilter={this.state.reviewsStarsFilter}
             currentSort={this.state.currentSort}
-            onchange={this.changeSort.bind(this)}/>
+            onchange={this.changeSort.bind(this)}
+            product_id={this.props.product_id}/>
         </div>
       )
     } else {

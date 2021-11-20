@@ -9,8 +9,7 @@ import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
 import ProductSloganAndDescription from './ProductSloganAndDescription.jsx';
 import ProductFeatures from './ProductFeatures.jsx';
-// const imagePath = '/../../dist/stock_media/'
-// import imageComingSoonPhoto from '/Users/cameroncolaco/Documents/HR/SEI/sprints/project-atelier/client/dist/stock_media/image-coming-soon.png';
+
 
 let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, changeInOutfit, outfitIds}) => {
 
@@ -21,30 +20,6 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
   // const [productStyles, setProductStyles] = useState({});
   // // console.log('CURRENT PRODUCT STYLE:', productStyles);
 
-  // useEffect (() => {
-  //   let productIdOptions = {
-  //     url: `/products/${productId}`,
-  //     method: 'get',
-  //     headers: {'Content-Type': 'application/json',
-  //     'Authorization': config.API_KEY}
-  //   };
-  //   let productStylesOptions = {
-  //     url: `products/${productId}/styles`,
-  //     method: 'get',
-  //     headers: {'Content-Type': 'application/json',
-  //     'Authorization': config.API_KEY}
-  //   };
-  //   axios(productIdOptions)
-  //     .then(response => {
-  //       setProductById(response.data);
-  //       axios(productStylesOptions)
-  //       .then(response => {
-  //         setProductStyles(response.data);
-  //           })
-  //         })
-  //           .catch(error => {
-  //             console.log(error)});
-  // }, []);
 
   // Effect for watching incoming productId from App component
   useEffect (() => {
@@ -68,7 +43,7 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
         // setProductById(response.data);
         axios(productStylesOptions)
         .then(response => {
-          product.styles = response.data
+          product.styles = response.data;
           updateDetailsAndStyles(product.details, product.styles);
           // setProductStyles(response.data);
             })
@@ -139,4 +114,21 @@ Overview.propTypes = {
 }
 
 export default Overview;
-// export {ImageGallery, ProductInformation, ProductFeatures, ProductSloganAndDescription, StyleSelector};
+export const handleThumbnailClick = (event) => {
+  event.persist();
+  let indexValue = Number(event.target.attributes.index.nodeValue);
+  setIndexes({...indexes, photo: indexValue});
+  event.preventDefault();
+}
+export const handleLeftArrowClick = () => {
+  if (indexes.photo === 0) {
+    let nextIndex = productStyles.results[indexes.style].photos.length - 1;
+    setIndexes({...indexes, photo: nextIndex});
+  } else {
+    setIndexes({...indexes, photo: indexes.photo - 1});
+  }
+}
+export const handleRightArrowClick = () => {
+  let nextIndex = (indexes.photo + 1) % productStyles.results[indexes.style].photos.length;
+  setIndexes({...indexes, photo: nextIndex});
+}

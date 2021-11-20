@@ -27,7 +27,6 @@ class ReviewsContainer extends React.Component {
       sortedReviews: this.changeFilterSort(),
       markedHelpful: (document.cookie) ? JSON.parse(decodeURIComponent(document.cookie).split('=')[1]) : {}
     });
-    console.log('DOCUMENT COOKIE:', document.cookie);
   }
 
   componentDidUpdate(prevProps) {
@@ -133,7 +132,7 @@ class ReviewsContainer extends React.Component {
         }
         {
           this.state.modalReview &&
-            <ReviewModal onsubmit={this.writeReview.bind(this)}/>
+            <ReviewModal closeModal={this.writeReview.bind(this)} product_id={this.props.product_id}/>
         }
       </div>
     );
@@ -144,7 +143,8 @@ ReviewsContainer.propTypes = {
   reviews: PropTypes.array.isRequired,
   reviewsStarsFilter: PropTypes.object.isRequired,
   onchange: PropTypes.func.isRequired,
-  currentSort: PropTypes.string.isRequired
+  currentSort: PropTypes.string.isRequired,
+  product_id: PropTypes.number.isRequired
 };
 
 export default ReviewsContainer;

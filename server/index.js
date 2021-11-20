@@ -46,21 +46,6 @@ app.put('/reviews/:review_id/report', controllers.reviews.reportReview);
 app.get('/cart', controllers.cart.getProductsInCart);
 app.post('/cart', controllers.cart.postProductToCart);
 
-//utility routes for static media
-app.get('/media', (req, res) => {
-
-  let imageComingSoon = path.join(__dirname, '../stock_media/image-coming-soon.png')
-
-
-  res.sendFile(imageComingSoon, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('Image Coming Soon sent');
-    }
-  });
-})
-
 let port = 3000;
 app.listen(port, () => {
   console.log(`Server is listening on port: ${port}`);
