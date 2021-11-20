@@ -134,7 +134,8 @@ module.exports = {
 
       reviews.postReviewData(reviewData, (err, data) => {
         if (err) {
-          res.status(400).send();
+          console.log(err)
+          res.status(400).send(err);
           return;
         }
 

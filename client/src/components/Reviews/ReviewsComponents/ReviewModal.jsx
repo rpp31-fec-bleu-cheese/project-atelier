@@ -160,16 +160,18 @@ class ReviewModal extends React.Component {
       if (pair[0] in categories) {
         characteristics[pair[0]] = {
           id: Math.floor(Math.random() * (1000000 - 200000) + 200000),
-          value: pair[1]
+          value: +pair[1]
         };
       }
       else userData[pair[0]] = pair[1];
     }
 
     userData.product_id = this.props.product_id
-    userData.rating = this.state.rating;
+    userData.rating = +this.state.rating;
     userData.photos = this.state.images;
     userData.characteristics = characteristics;
+    (userData.recommend === 'true') ? userData.recommend = true : userData.recommend = false;
+
     console.log(userData)
     $.ajax({
       url: '/reviews',
