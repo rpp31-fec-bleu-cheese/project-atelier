@@ -170,6 +170,7 @@ class App extends React.Component {
       widget: widget,
       time: timeOfInteraction
     };
+    console.log(interactionToLog)
 
     axios.post('/interactions', {
       element: event.target.outerHTML,

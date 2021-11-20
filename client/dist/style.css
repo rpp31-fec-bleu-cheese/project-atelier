@@ -874,6 +874,7 @@ div#QandA div.q-a-content div.rendered-questions {
   margin-top: -65px;
   max-height: 360px;
   overflow-y: scroll;
+  padding-left: 10px;
 }
 
 div#QandA div.q-a-content div.rendered-questions.active{
@@ -978,6 +979,7 @@ div#QandA div.footer-buttons {
   display: flex;
   margin-top: 55px;
   margin-bottom: -45px;
+  padding-left: 10px;
 }
 
 div#QandA div.footer-buttons button {
