@@ -981,7 +981,7 @@ div#QandA div.footer-buttons .add-question-button {
   width: 160px;
 }
 
-div#QandA button:hover {
+div#QandA div.footer-buttons button:hover {
   color: rgb(255, 255, 255);
   background: rgb(81, 130, 163);
   border: none;
@@ -1068,7 +1068,7 @@ div#QandA div.modal-background div.modal-content button.submit-button {
 }
 
 div#QandA div.modal-background div.modal-content button.submit-button:hover {
-  background-color: rgb(46, 67, 75);
+  background-color: rgb(81, 130, 163);;
 }
 
 div#QandA div.modal-background div.modal-content span {
