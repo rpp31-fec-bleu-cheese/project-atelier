@@ -30,8 +30,12 @@ var RelatedOutfit_ProductInfo = (props) => {
     }
     //var noImage = <i className="fas fa-camera-retro"></i>
     var rating = 0;
+
     if(props.product.id === props.currentProductId) {
       rating = props.rating;
+    }else {
+      console.log('rating in productInfo', props.product.rating);
+      rating = props.product.rating;
     }
   }
 

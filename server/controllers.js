@@ -60,6 +60,7 @@ module.exports = {
       let fetchFunctions = [];
       var promisedFetchProduct = Promise.promisify(products.getProduct);
       var promisedFetchStyles = Promise.promisify(products.getProductStyle);
+      var promisedFetchReviews = Promise.promisify(reviews.getReviews);
       for(var product of relatedProducts) {
         fetchFunctions.push(promisedFetchProduct(product));
       }
@@ -91,12 +92,53 @@ module.exports = {
 
             }
 
+
           }
+          //res.status(200).send(products);
+          return products;
 
-          res.status(200).send(products);
-        })
       })
+    })
+      .then((products)=>{
+        var fetchReviews = [];
+          for(product of products) {
+            fetchReviews.push(promisedFetchReviews(product.id, undefined))
+          }
+          console.log('fetchReviews',fetchReviews);
+          return Promise.all(fetchReviews)
+          .then((productReviewsArray) => {
+            console.log('productReviewsArray',productReviewsArray);
+            var ratingArray = [];
+            for(product of productReviewsArray) {
+              var obj = {};
+              obj.id = product.product;
+              obj.rating = 0;
+              if(product.results.length > 0) {
+                for(var result of product.results) {
+                  //console.log('result', result);
+                  obj.rating += result.rating;
+                }
+                obj.rating = parseFloat(obj.rating/product.results.length);
+                //console.log('obj.rating', obj.rating);
+              }
+              console.log('obj', obj);
+              ratingArray.push(obj);
+            }
 
+            for(var i=0, j=0; i<products.length, j<ratingArray.length; i++, j++) {
+              if(products[i].id == ratingArray[j].id) {
+
+                products[i].rating = ratingArray[j].rating;
+
+              }
+
+            }
+            console.log('related products with reviews', products);
+            res.status(200).send(products);
+          });
+
+
+      })
       .catch((error) => {
         console.log(error);
         res.status(404).send();
