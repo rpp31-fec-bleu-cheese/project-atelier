@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect }  from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-//import config from '../../../../config.js';
-import config from '/Users/sangeetha/Documents/HackReactor/remote-course/FEC/project-atelier/config.js'
+import config from '../../../../config.js';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
@@ -11,29 +10,19 @@ import ProductSloganAndDescription from './ProductSloganAndDescription.jsx';
 import ProductFeatures from './ProductFeatures.jsx';
 
 
-let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, changeInOutfit, outfitIds, trackUserClicks}) => {
+let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, changeInOutfit, outfitIds, starRating, trackUserClicks}) => {
 
   const [indexes, setIndexes] = useState({product: 0, style: 0, photo: 0});
-  console.log('INDEXES:', indexes);
-  // const [productById, setProductById] = useState({});
-  // console.log('CURRENT PRODUCT BY ID:', productById);
-  // const [productStyles, setProductStyles] = useState({});
-  // // console.log('CURRENT PRODUCT STYLE:', productStyles);
-
-
+  // console.log('INDEXES:', indexes);
   // Effect for watching incoming productId from App component
   useEffect (() => {
     let productIdOptions = {
       url: `/products/${productId}`,
-      method: 'get',
-      headers: {'Content-Type': 'application/json',
-      'Authorization': config.API_KEY}
+      method: 'get'
     };
     let productStylesOptions = {
       url: `products/${productId}/styles`,
-      method: 'get',
-      headers: {'Content-Type': 'application/json',
-      'Authorization': config.API_KEY}
+      method: 'get'
     };
     axios(productIdOptions)
       .then(response => {
@@ -93,7 +82,7 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
     <div data-testid="Overview" id='Overview' onClick={() => trackUserClicks('Overview', event)}>
       {Object.keys(productStyles).length > 0 && <><ImageGallery indexes={indexes} handleThumbnailClick={handleThumbnailClick} handleLeftArrowClick={handleLeftArrowClick}
        handleRightArrowClick={handleRightArrowClick} productStyles={productStyles} data-testid="ImageGallery"/>
-      <ProductInformation productById={productById} productStyles={productStyles} indexes={indexes} />
+      <ProductInformation starRating={starRating} productById={productById} productStyles={productStyles} indexes={indexes} />
       <StyleSelector productStyles={productStyles} indexes={indexes} handleStyleClick={handleStyleClick}  />
       <AddToCart productStyles={productStyles} indexes={indexes} changeInOutfit={changeInOutfit} outfitIds={outfitIds} />
       <ProductSloganAndDescription productById={productById} />
@@ -111,6 +100,7 @@ Overview.propTypes = {
   changeInOutfit : PropTypes.func,
   outfitIds: PropTypes.array,
   updateDetailsAndStyles: PropTypes.func,
+  starRating: PropTypes.number,
   trackUserClicks: PropTypes.func
 }
 

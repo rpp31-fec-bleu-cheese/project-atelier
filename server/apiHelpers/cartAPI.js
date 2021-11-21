@@ -9,7 +9,7 @@ const getProductsFromCart = (callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     }
   };
 
@@ -30,7 +30,7 @@ const addToCart = (skuId, callback) => {
     method: 'post',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     },
     data: {sku_id: skuId}
   };

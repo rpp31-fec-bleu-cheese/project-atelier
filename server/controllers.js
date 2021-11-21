@@ -4,6 +4,7 @@ const qanda = require('./apiHelpers/qandaAPI.js');
 const reviews = require('./apiHelpers/reviewsAPI.js');
 const interactions = require('./apiHelpers/interactionsAPI.js');
 const Promise = require('bluebird');
+// match lower case?
 
 
 module.exports = {
