@@ -1,10 +1,11 @@
 const dotenv = require('dotenv');
-const result = dotenv.config({path: __dirname + '/.env'});
+const result = dotenv.config();
 if (result.error) {
   throw result.error
 }
 
 console.log(result.parsed);
+
 const path = require('path');
 const compression = require('compression');
 const express = require('express');
