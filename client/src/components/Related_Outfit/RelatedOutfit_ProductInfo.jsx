@@ -71,10 +71,16 @@ var RelatedOutfit_ProductInfo = (props) => {
     return (
       <div className="RelatedOutfit_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
 
-        <div className="Outfit" style={{ background: `center / contain no-repeat  url(${image}) `,backgroundSize:"cover"}}>
 
+          {Object.keys(style).length > 0
+          ?<div className="Outfit" style={style}>
+               <i id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} className="far fa-times-circle" ></i>
+            </div>
+          :<div className="Outfit" style={style}>
+              <FontAwesomeIcon icon = {faCameraRetro} id="CameraIcon"/>
               <i id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} className="far fa-times-circle" ></i>
           </div>
+        }
 
         <div className="OutfitInfo">
           {props.product.category}
@@ -133,3 +139,8 @@ export default RelatedOutfit_ProductInfo;
               <i id="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} className="far fa-star"></i>
           </div>
         }*/
+
+        /* <div className="Outfit" style={{ background: `center / contain no-repeat  url(${image}) `,backgroundSize:"cover"}}>
+
+              <i id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} className="far fa-times-circle" ></i>
+          </div>*/
