@@ -146,7 +146,8 @@ class Reviews extends React.Component {
             reviewsStarsFilter={this.state.reviewsStarsFilter}
             currentSort={this.state.currentSort}
             onchange={this.changeSort.bind(this)}
-            product_id={this.props.product_id}/>
+            product_id={this.props.product_id}
+            characteristics={this.state.characteristics}/>
         </div>
       )
     } else {

@@ -157,12 +157,7 @@ class ReviewModal extends React.Component {
     };
 
     for (let pair of data.entries()) {
-      if (pair[0] in categories) {
-        characteristics[pair[0]] = {
-          id: Math.floor(Math.random() * (1000000 - 200000) + 200000),
-          value: +pair[1]
-        };
-      }
+      if (!Number.isNaN(+pair[0])) characteristics[pair[0].toString()] = +pair[1]
       else userData[pair[0]] = pair[1];
     }
 
@@ -179,7 +174,7 @@ class ReviewModal extends React.Component {
       data: userData,
       success: data => {
         alert('Review submitted!')
-        this.props.closeModal;
+        this.props.closeModal();
       },
       error: (_, __, errString) => console.log(errString)
     })
@@ -188,24 +183,31 @@ class ReviewModal extends React.Component {
   categoryElement(cat) {
     let _ = Array(5).fill('');
 
-    return (
-      <>
-        <span style={{alignSelf: 'center', justifySelf: 'end'}}>{`${cat}: `}</span>
-        <div style={{width: 160, alignSelf: 'center', justifySelf: 'center'}}>
-          {
-            _.map((__, j) => {
-              return (
-                <>
-                  <input type='radio' id={`${cat}_${j + 1}`} value={j + 1} name={cat} onClick={this.categoryClick.bind(this)}></input>
-                  <label htmlFor={`${cat}_${j + 1}`}>{j + 1}</label>
-                </>
-              )
-            })
-          }
-        </div>
-        <span style={{fontSize: 12, alignSelf: 'center'}}>{this.state[cat]}</span>
-      </>
-    );
+    if (cat in this.props.characteristics) {
+      return (
+        <>
+          <span style={{alignSelf: 'center', justifySelf: 'end'}}>{`${cat}: `}</span>
+          <div style={{width: 160, alignSelf: 'center', justifySelf: 'center'}}>
+            {
+              _.map((__, j) => {
+                return (
+                  <>
+                    <input
+                      type='radio'
+                      id={`${cat}_${j + 1}`}
+                      value={j + 1}
+                      name={this.props.characteristics[cat].id}
+                      onClick={this.categoryClick.bind(this)}></input>
+                    <label htmlFor={`${cat}_${j + 1}`}>{j + 1}</label>
+                  </>
+                )
+              })
+            }
+          </div>
+          <span style={{fontSize: 12, alignSelf: 'center'}}>{this.state[cat]}</span>
+        </>
+      );
+    }
   }
 
   render() {
@@ -323,7 +325,8 @@ class ReviewModal extends React.Component {
 
 ReviewModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  product_id: PropTypes.number.isRequired
+  product_id: PropTypes.number.isRequired,
+  characteristics: PropTypes.object.isRequired
 }
 
 export default ReviewModal;
