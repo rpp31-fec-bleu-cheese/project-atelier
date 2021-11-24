@@ -48,7 +48,7 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds}) => {
     // this variable correctly tracks product and style id for AddToBag or MyOutfit
     let currentProductStyleData = {productId: productStyles.product_id,
       styleId: productStyles.results[indexes.style].style_id}
-    console.log('CURRENT PRODUCT STYLE ID:', currentProductStyleData);
+
 
     let handleMyOutfitClick = (event) => {
       event.persist();
@@ -112,14 +112,11 @@ let AddToCart = ({productStyles, indexes, changeInOutfit, outfitIds}) => {
       for (let key in currentSkus) {
         if (currentSize === currentSkus[key].size) {
           productSkuForBag = key;
-          // console.log('Product Sku:', productSkuForBag);
         }
       }
       let optionsForCart = {
         url: '/cart',
         method: 'post',
-        headers: {'Content-Type': 'application/json',
-        'Authorization': config.API_KEY},
         data: {sku_id: productSkuForBag}
       };
       axios(optionsForCart)

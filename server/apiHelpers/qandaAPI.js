@@ -9,7 +9,7 @@ const getQuestions = (productID, callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     },
     params: {
       product_id: productID,
@@ -34,7 +34,7 @@ const getAnswersByID = (questionID, callback) => {
     method: 'get',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     },
     params: {
       page: 1,
@@ -57,7 +57,7 @@ const postQuestions = (questionData, callback) => {
     method: 'post',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     },
     data: questionData
   };
@@ -80,7 +80,7 @@ const putQuestions = (questionID, callback) => {
     method: 'put',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     }
   };
 
@@ -99,7 +99,7 @@ const putAnswers = (answerID, callback) => {
     method: 'put',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     }
   }
 
@@ -118,7 +118,7 @@ const reportAnswers = (answerID, callback) => {
     method: 'put',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     }
   }
 
@@ -137,7 +137,7 @@ const addAnswer = (answer, questionID, callback) => {
     method: 'post',
     headers: {
       'User-Agent': 'request',
-      'Authorization': config.API_KEY
+      'Authorization': config.API_KEY || process.env.API_KEY
     },
     data: answer
   };
