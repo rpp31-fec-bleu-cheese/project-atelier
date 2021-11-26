@@ -17,6 +17,12 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
     setShowModal(true);
   }
 
+  let selectedThumbnails = [];
+  for (let t = 0; t < productStyles.results[indexes.style].photos.length; t++) {
+    selectedThumbnails.push(t);
+  }
+  console.log('SELECTED THUMBNAILS:', selectedThumbnails);
+
     if (Object.keys(productStyles).length) {
 
     return (

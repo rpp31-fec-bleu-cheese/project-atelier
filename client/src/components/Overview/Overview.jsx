@@ -15,6 +15,10 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
   const [indexes, setIndexes] = useState({product: 0, style: 0, photo: 0});
   // console.log('INDEXES:', indexes);
   // Effect for watching incoming productId from App component
+  // useLayoutEffect(() => {
+  //   setIndexes({...indexes, style: 0, photo: 0})
+  // }, [productId]);
+
   useEffect (() => {
     let productIdOptions = {
       url: `/products/${productId}`,
@@ -33,6 +37,7 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
         axios(productStylesOptions)
         .then(response => {
           product.styles = response.data;
+          setIndexes({...indexes, style: 0, photo: 0})
           updateDetailsAndStyles(product.details, product.styles);
           // setProductStyles(response.data);
             })
@@ -41,9 +46,9 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
               console.log(error)});
   }, [productId]);
 
-  useEffect(() => {
-    setIndexes({...indexes, style: 0, photo: 0})
-  }, [productId]);
+  // useEffect(() => {
+  //   setIndexes({...indexes, style: 0, photo: 0})
+  // }, [productId]);
 
 
   let handleLeftArrowClick = () => {
