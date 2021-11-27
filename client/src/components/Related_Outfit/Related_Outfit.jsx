@@ -247,7 +247,7 @@ class Related_Outfit extends React.Component {
 
   render() {
 
-   if(this.state.relatedProducts.length === 0) {
+   if(this.state.relatedProducts.length === 0 && this.state.outfits.length === 0) {
      return (
        <div id='Related_Outfit'>
          Loading...
