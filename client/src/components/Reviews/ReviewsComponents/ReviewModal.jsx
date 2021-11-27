@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import $ from 'jquery';
 
 class ReviewModal extends React.Component {
@@ -38,32 +39,19 @@ class ReviewModal extends React.Component {
     let handleFile = function() {
       let asyncFiles = [];
 
-      let promisedReader = data => {
-        return new Promise((resolve, reject) => {
-          let reader = new FileReader();
-          reader.onload = () => {
-            let validImageTypes = ['data:image/jpeg', 'data:image/png'];
-            let imageType = reader.result.split(';')[0];
-
-            if (!validImageTypes.includes(imageType)) reject('Invalid file')
-            else resolve(reader.result);
-          };
-          reader.onerror = () => {
-            reject();
-          }
-          reader.readAsDataURL(data);
-        })
-      };
-
       for (let img in this.files) {
-        if (this.files.hasOwnProperty(img)) asyncFiles.push(promisedReader(this.files[img]));
+        let formData = new FormData();
+        formData.append('file', this.files[img]);
+        formData.append('upload_preset', 'mjtraatld');
+        if (this.files.hasOwnProperty(img)) asyncFiles.push(axios.post('https://api.cloudinary.com/v1_1/dyjzdyuc2/image/upload', formData));
       }
       Promise.all(asyncFiles)
         .then(results => {
           if (results.length > 5) {
             alert('You have selected more than 5 images.  Please try again.')
           } else {
-            setState({images: results})
+            let images = results.map(result => result.data.secure_url);
+            setState({images: images})
           }
         })
         .catch(err => {
@@ -324,9 +312,9 @@ class ReviewModal extends React.Component {
 };
 
 ReviewModal.propTypes = {
-  closeModal: PropTypes.func.isRequired,
-  product_id: PropTypes.number.isRequired,
-  characteristics: PropTypes.object.isRequired
+  closeModal: PropTypes.func,
+  product_id: PropTypes.number,
+  characteristics: PropTypes.object
 }
 
 export default ReviewModal;

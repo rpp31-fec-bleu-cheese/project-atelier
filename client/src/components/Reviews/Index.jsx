@@ -162,9 +162,9 @@ class Reviews extends React.Component {
 };
 
 Reviews.propTypes = {
-  product_id: PropTypes.number.isRequired,
-  updateRating: PropTypes.func.isRequired,
-  trackUserClicks: PropTypes.func.isRequired
+  product_id: PropTypes.number,
+  updateRating: PropTypes.func,
+  trackUserClicks: PropTypes.func
 }
 
 export default Reviews;
