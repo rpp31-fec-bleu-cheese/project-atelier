@@ -146,7 +146,8 @@ class Reviews extends React.Component {
             reviewsStarsFilter={this.state.reviewsStarsFilter}
             currentSort={this.state.currentSort}
             onchange={this.changeSort.bind(this)}
-            product_id={this.props.product_id}/>
+            product_id={this.props.product_id}
+            characteristics={this.state.characteristics}/>
         </div>
       )
     } else {
@@ -161,9 +162,9 @@ class Reviews extends React.Component {
 };
 
 Reviews.propTypes = {
-  product_id: PropTypes.number.isRequired,
-  updateRating: PropTypes.func.isRequired,
-  trackUserClicks: PropTypes.func.isRequired
+  product_id: PropTypes.number,
+  updateRating: PropTypes.func,
+  trackUserClicks: PropTypes.func
 }
 
 export default Reviews;

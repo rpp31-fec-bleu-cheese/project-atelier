@@ -1,7 +1,7 @@
 const products = require('./apiHelpers/productsAPI.js');
 const cart = require('./apiHelpers/cartAPI.js');
 const qanda = require('./apiHelpers/qandaAPI.js');
-const reviews = require('./apiHelpers/reviewsAPI.js');
+const reviews = require('./apiHelpers/ReviewsAPI.js');
 const interactions = require('./apiHelpers/interactionsAPI.js');
 const Promise = require('bluebird');
 // match lower case?
@@ -179,7 +179,8 @@ module.exports = {
 
       reviews.postReviewData(reviewData, (err, data) => {
         if (err) {
-          res.status(400).send();
+          console.log(err)
+          res.status(400).send(err);
           return;
         }
 
