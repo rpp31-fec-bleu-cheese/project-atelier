@@ -257,10 +257,10 @@ class Related_Outfit extends React.Component {
 
     return(
 
-      <div id='Related_Outfit' onClick={() => this.props.trackUserClicks('Related Outfits', event)}>
+      <div data-testid="Related_Outifit" id='Related_Outfit' onClick={() => this.props.trackUserClicks('Related Outfits', event)}>
         <h1 id="Related_Header">Related Products</h1>
           <button className="PreviousProd Related" ><i className="fa fa-angle-left" onClick={(event)=>this.scroll(event,-250)}></i></button>
-            <div className="Related_products">
+            <div data-testid="Related" className="Related_products">
               {this.state.relatedProducts.map((product) => (
                 <RelatedOutfit_ProductInfo key={product.id} currentProductId={this.state.productId} rating={this.props.rating} product={product} component={'Related'} starButtonClick={this.starButtonClick} productClick={this.props.productClick}/>
               ))}
@@ -271,7 +271,7 @@ class Related_Outfit extends React.Component {
             <h1 id="Outfit_Header">Your Outfit</h1>
           <button className="PreviousProd Outfit" ><i className="fa fa-angle-left" onClick={(event)=>this.scroll(event,-250)}></i></button>
 
-            <div id="Outfit">
+            <div data-testid="Outfit" id="Outfit">
               <button id="Related_Plus" onClick={()=>this.addToOutfit()}><i className="fa fa-plus"></i><div>Add to Outfit</div></button>
               {this.state.outfits.map((product) => (
                 <RelatedOutfit_ProductInfo key={product.id} currentProductId={this.state.productId} rating={this.props.rating} product={product} component={'Outfit'} productClick={this.props.productClick} crossButtonClick={this.crossButtonClick}/>

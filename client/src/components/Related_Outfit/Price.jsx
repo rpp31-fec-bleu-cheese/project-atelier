@@ -13,7 +13,7 @@ var Price = (props) => {
 
   return(
     <div>
-      <span style={{color:'red'}}>${props.salePrice} </span>
+      <span id="RelatedOutfit_SalePrice" style={{color:'red'}}>${props.salePrice} </span>
       <span style={{textDecoration: 'line-through'}}>  ${props.defaultPrice}</span>
     </div>
   )
