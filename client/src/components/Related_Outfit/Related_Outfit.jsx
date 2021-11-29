@@ -78,6 +78,7 @@ class Related_Outfit extends React.Component {
   /**fetch outfit product details for an array of outfit products**/
   /****************************************************************/
   fetchOufitInfo(outfitIds) {
+    //const cachedOutfitDetails = localStorage.getItem('outfits');
     fetch.outfitProductDetails(outfitIds)
     .then((outfitProductDetails) => {
 
