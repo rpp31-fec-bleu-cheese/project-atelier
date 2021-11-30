@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.5% </span>
+                <span class="strong">27.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/40</span>
+                <span class='fraction'>11/40</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">10% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/20</span>
+                <span class='fraction'>2/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.5% </span>
+                <span class="strong">27.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/40</span>
+                <span class='fraction'>11/40</span>
             </div>
         
             
@@ -179,13 +179,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -246,13 +246,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -264,13 +264,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -296,7 +296,7 @@ var axios = require('axios');
 var relatedProductIDs = function(productId) {
 &nbsp;
   return new Promise((resolve, reject) =&gt; {
-    var server = 'http://localhost:3000/products/'+productId+'/related';
+    var server = '/products/'+productId+'/related';
     var options = {
       method:"get",
       url:server
@@ -316,7 +316,7 @@ var relatedProductIDs = function(productId) {
 var relatedProductDetails = <span class="fstat-no" title="function not covered" >fu</span>nction(relatedIds) {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-    var server = <span class="cstat-no" title="statement not covered" >'http://localhost:3000/products/related/details';</span>
+    var server = <span class="cstat-no" title="statement not covered" >'/products/related/details';</span>
     var options = <span class="cstat-no" title="statement not covered" >{</span>
       method:"get",
       url:server,
@@ -340,7 +340,7 @@ var relatedProductDetails = <span class="fstat-no" title="function not covered" 
 var outfitProductDetails = <span class="fstat-no" title="function not covered" >fu</span>nction(outfitIds) {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-    var server = <span class="cstat-no" title="statement not covered" >'http://localhost:3000/products/outfit/details';</span>
+    var server = <span class="cstat-no" title="statement not covered" >'/products/outfit/details';</span>
     var options = <span class="cstat-no" title="statement not covered" >{</span>
       method:"get",
       url:server,
@@ -361,14 +361,14 @@ var outfitProductDetails = <span class="fstat-no" title="function not covered" >
     });
   });
 }
-var productInfo = function(productId) {
-  var server = 'http://localhost:3000/products/'+productId;
-  return new Promise((resolve, reject) =&gt; {
-  var options = {
+var productInfo = <span class="fstat-no" title="function not covered" >fu</span>nction(productId) {
+  var server = <span class="cstat-no" title="statement not covered" >'/products/'+productId;</span>
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+  var options = <span class="cstat-no" title="statement not covered" >{</span>
     method:"get",
     url: server
   }
-    axios(options)
+<span class="cstat-no" title="statement not covered" >    axios(options)</span>
     .then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
       var productInfo = <span class="cstat-no" title="statement not covered" >response.data</span>
 &nbsp;
@@ -379,14 +379,14 @@ var productInfo = function(productId) {
     });
   });
 }
-var productStyles = function(productId) {
-  var server = 'http://localhost:3000/products/'+productId+'/styles';
-  return new Promise((resolve, reject) =&gt; {
-  var options = {
+var productStyles = <span class="fstat-no" title="function not covered" >fu</span>nction(productId) {
+  var server = <span class="cstat-no" title="statement not covered" >'/products/'+productId+'/styles';</span>
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+  var options = <span class="cstat-no" title="statement not covered" >{</span>
     method:"get",
     url: server
   }
-    axios(options)
+<span class="cstat-no" title="statement not covered" >    axios(options)</span>
     .then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
       var styles = <span class="cstat-no" title="statement not covered" >response.data</span>
 &nbsp;
@@ -412,7 +412,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 18 2021 09:52:14 GMT-0800 (Pacific Standard Time)
+                at Mon Nov 29 2021 17:20:36 GMT-0800 (Pacific Standard Time)
             </div>
         </div>
         <script src="prettify.js"></script>

@@ -10,7 +10,7 @@ var RelatedOutfit_ProductInfo = (props) => {
   var image = '';
   var imageFound = false;
   var salePrice = null;
-  //var style = {};
+  var style = {};
   if(Array.isArray(props.product.styles) && props.product.styles.length > 0) {
     for(var productStyle of props.product.styles) {
       if(productStyle[ "default?"] === true) {
@@ -24,20 +24,24 @@ var RelatedOutfit_ProductInfo = (props) => {
       salePrice =  props.product.styles["sale_price"];
 
     }
-    var style = {}
+
     if(image !== null ) {
       style= { background: `center / contain no-repeat  url(${image}) `,backgroundSize:"cover"};
     }
     //var noImage = <i className="fas fa-camera-retro"></i>
     var rating = 0;
+
     if(props.product.id === props.currentProductId) {
       rating = props.rating;
+    }else {
+      console.log('rating in productInfo', props.product.rating);
+      rating = props.product.rating;
     }
   }
 
   if(props.component === 'Related') {
     return(
-      <div className="RelatedOutfit_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
+      <div data-testid="RelatedOutfit_ProductInfo" className="RelatedOutfit_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
        {Object.keys(style).length > 0
           ?<div className="Related" style={style}>
               <i id="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} className="far fa-star"></i>
@@ -49,7 +53,7 @@ var RelatedOutfit_ProductInfo = (props) => {
         }
 
 
-        <div className="RelatedInfo">
+        <div data-testid="Category" className="RelatedInfo">
           {props.product.category}
         </div>
         <div className="RelatedInfo name">
@@ -58,7 +62,7 @@ var RelatedOutfit_ProductInfo = (props) => {
         <div className="RelatedInfo">
         <Price salePrice={salePrice} defaultPrice={props.product.default_price}/>
         </div>
-        <div className="OutfitInfo">
+        <div className="RelatedInfo">
           <Rating rating={rating}/>
         </div>
       </div>
@@ -67,10 +71,16 @@ var RelatedOutfit_ProductInfo = (props) => {
     return (
       <div className="RelatedOutfit_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
 
-        <div className="Outfit" style={{ background: `center / contain no-repeat  url(${image}) `,backgroundSize:"cover"}}>
 
+          {Object.keys(style).length > 0
+          ?<div className="Outfit" style={style}>
+               <i id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} className="far fa-times-circle" ></i>
+            </div>
+          :<div className="Outfit" style={style}>
+              <FontAwesomeIcon icon = {faCameraRetro} id="CameraIcon"/>
               <i id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} className="far fa-times-circle" ></i>
           </div>
+        }
 
         <div className="OutfitInfo">
           {props.product.category}
@@ -129,3 +139,8 @@ export default RelatedOutfit_ProductInfo;
               <i id="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} className="far fa-star"></i>
           </div>
         }*/
+
+        /* <div className="Outfit" style={{ background: `center / contain no-repeat  url(${image}) `,backgroundSize:"cover"}}>
+
+              <i id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} className="far fa-times-circle" ></i>
+          </div>*/

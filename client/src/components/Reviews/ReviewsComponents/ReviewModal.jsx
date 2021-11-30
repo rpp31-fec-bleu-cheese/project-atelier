@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import $ from 'jquery';
 
 class ReviewModal extends React.Component {
@@ -38,32 +39,19 @@ class ReviewModal extends React.Component {
     let handleFile = function() {
       let asyncFiles = [];
 
-      let promisedReader = data => {
-        return new Promise((resolve, reject) => {
-          let reader = new FileReader();
-          reader.onload = () => {
-            let validImageTypes = ['data:image/jpeg', 'data:image/png'];
-            let imageType = reader.result.split(';')[0];
-
-            if (!validImageTypes.includes(imageType)) reject('Invalid file')
-            else resolve(reader.result);
-          };
-          reader.onerror = () => {
-            reject();
-          }
-          reader.readAsDataURL(data);
-        })
-      };
-
       for (let img in this.files) {
-        if (this.files.hasOwnProperty(img)) asyncFiles.push(promisedReader(this.files[img]));
+        let formData = new FormData();
+        formData.append('file', this.files[img]);
+        formData.append('upload_preset', 'mjtraatld');
+        if (this.files.hasOwnProperty(img)) asyncFiles.push(axios.post('https://api.cloudinary.com/v1_1/dyjzdyuc2/image/upload', formData));
       }
       Promise.all(asyncFiles)
         .then(results => {
           if (results.length > 5) {
             alert('You have selected more than 5 images.  Please try again.')
           } else {
-            setState({images: results})
+            let images = results.map(result => result.data.secure_url);
+            setState({images: images})
           }
         })
         .catch(err => {
@@ -157,19 +145,16 @@ class ReviewModal extends React.Component {
     };
 
     for (let pair of data.entries()) {
-      if (pair[0] in categories) {
-        characteristics[pair[0]] = {
-          id: Math.floor(Math.random() * (1000000 - 200000) + 200000),
-          value: pair[1]
-        };
-      }
+      if (!Number.isNaN(+pair[0])) characteristics[pair[0].toString()] = +pair[1]
       else userData[pair[0]] = pair[1];
     }
 
     userData.product_id = this.props.product_id
-    userData.rating = this.state.rating;
+    userData.rating = +this.state.rating;
     userData.photos = this.state.images;
     userData.characteristics = characteristics;
+    (userData.recommend === 'true') ? userData.recommend = true : userData.recommend = false;
+
     console.log(userData)
     $.ajax({
       url: '/reviews',
@@ -177,7 +162,7 @@ class ReviewModal extends React.Component {
       data: userData,
       success: data => {
         alert('Review submitted!')
-        this.props.closeModal;
+        this.props.closeModal();
       },
       error: (_, __, errString) => console.log(errString)
     })
@@ -186,24 +171,31 @@ class ReviewModal extends React.Component {
   categoryElement(cat) {
     let _ = Array(5).fill('');
 
-    return (
-      <>
-        <span style={{alignSelf: 'center', justifySelf: 'end'}}>{`${cat}: `}</span>
-        <div style={{width: 160, alignSelf: 'center', justifySelf: 'center'}}>
-          {
-            _.map((__, j) => {
-              return (
-                <>
-                  <input type='radio' id={`${cat}_${j + 1}`} value={j + 1} name={cat} onClick={this.categoryClick.bind(this)}></input>
-                  <label htmlFor={`${cat}_${j + 1}`}>{j + 1}</label>
-                </>
-              )
-            })
-          }
-        </div>
-        <span style={{fontSize: 12, alignSelf: 'center'}}>{this.state[cat]}</span>
-      </>
-    );
+    if (cat in this.props.characteristics) {
+      return (
+        <>
+          <span style={{alignSelf: 'center', justifySelf: 'end'}}>{`${cat}: `}</span>
+          <div style={{width: 160, alignSelf: 'center', justifySelf: 'center'}}>
+            {
+              _.map((__, j) => {
+                return (
+                  <>
+                    <input
+                      type='radio'
+                      id={`${cat}_${j + 1}`}
+                      value={j + 1}
+                      name={this.props.characteristics[cat].id}
+                      onClick={this.categoryClick.bind(this)}></input>
+                    <label htmlFor={`${cat}_${j + 1}`}>{j + 1}</label>
+                  </>
+                )
+              })
+            }
+          </div>
+          <span style={{fontSize: 12, alignSelf: 'center'}}>{this.state[cat]}</span>
+        </>
+      );
+    }
   }
 
   render() {
@@ -320,8 +312,9 @@ class ReviewModal extends React.Component {
 };
 
 ReviewModal.propTypes = {
-  closeModal: PropTypes.func.isRequired,
-  product_id: PropTypes.number.isRequired
+  closeModal: PropTypes.func,
+  product_id: PropTypes.number,
+  characteristics: PropTypes.object
 }
 
 export default ReviewModal;

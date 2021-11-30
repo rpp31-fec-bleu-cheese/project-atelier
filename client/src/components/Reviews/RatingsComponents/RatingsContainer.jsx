@@ -14,8 +14,7 @@ const RatingsContainer = props => {
     for (let i = 0; i < props.reviews.length; i++) {
       if (props.reviews[i].recommend === true) recommended ++;
     }
-
-    recommended = Math.round(recommended / props.rateQuantity * 100)
+    recommended = Math.round(recommended / props.rateQuantity * 100);
   }
 
   return (

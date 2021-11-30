@@ -77,19 +77,43 @@ class Related_Outfit extends React.Component {
   /*****************************************************************/
   /**fetch outfit product details for an array of outfit products**/
   /****************************************************************/
-  fetchOufitInfo(outfitIds) {
-    fetch.outfitProductDetails(outfitIds)
-    .then((outfitProductDetails) => {
-
+  fetchOufitInfo(outfitIds, prevOutfitIds) {
+    //localStorage.clear();
+    localStorage.removeItem('outfits:'+prevOutfitIds.toString());
+    const keyForStorage = 'outfits:'+outfitIds.toString();
+    let outfitDetailsInString = localStorage.getItem(keyForStorage);
+    console.log('key for storage', keyForStorage);
+    console.log('outfits in localStorage',  JSON.parse(outfitDetailsInString));
+    if(outfitDetailsInString) {
+      var outfitProducts = JSON.parse(outfitDetailsInString);
       this.setState({
-        outfits: outfitProductDetails
+        outfits: outfitProducts
       })
-    })
-    .catch((error) => {
-      console.log((error) => {
-        console.log("error ",error);
+    }else {
+      //const keyForStorage = 'outfits:'+outfitIds.toString();
+      console.log('OUTFIT IDS', outfitIds);
+      console.log('going to fetch data');
+        fetch.outfitProductDetails(outfitIds)
+      .then((outfitProductDetails) => {
+        localStorage.setItem(keyForStorage, JSON.stringify(outfitProductDetails));
+        //if ('caches' in window) {
+          // Opening given cache and putting our data into it
+         // caches.open('outfits').then((cache) => {
+            //cache.put(keyForStorage, data);
+            //alert('Data Added into cache!')
+          //});
+        //}
+        this.setState({
+          outfits: outfitProductDetails
+        })
       })
-    })
+      .catch((error) => {
+        console.log((error) => {
+          console.log("error ",error);
+        })
+      })
+    }
+
   }
   /***************************************************************************/
   /**fetch related product ids and their details for a particular productId**/
@@ -227,7 +251,7 @@ class Related_Outfit extends React.Component {
        });
     }
     if(JSON.stringify(prevProps.outfitIds) !== JSON.stringify(this.props.outfitIds)) {
-      this.fetchOufitInfo(this.props.outfitIds);
+      this.fetchOufitInfo(this.props.outfitIds, prevProps.outfitIds);
     }
   }
   /**************************************/
@@ -247,7 +271,7 @@ class Related_Outfit extends React.Component {
 
   render() {
 
-   if(this.state.relatedProducts.length === 0) {
+   if(this.state.relatedProducts.length === 0 && this.state.outfits.length === 0) {
      return (
        <div id='Related_Outfit'>
          Loading...
@@ -257,10 +281,10 @@ class Related_Outfit extends React.Component {
 
     return(
 
-      <div id='Related_Outfit' onClick={() => this.props.trackUserClicks('Related Outfits', event)}>
+      <div data-testid="Related_Outifit" id='Related_Outfit' onClick={() => this.props.trackUserClicks('Related Outfits', event)}>
         <h1 id="Related_Header">Related Products</h1>
           <button className="PreviousProd Related" ><i className="fa fa-angle-left" onClick={(event)=>this.scroll(event,-250)}></i></button>
-            <div className="Related_products">
+            <div data-testid="Related" className="Related_products">
               {this.state.relatedProducts.map((product) => (
                 <RelatedOutfit_ProductInfo key={product.id} currentProductId={this.state.productId} rating={this.props.rating} product={product} component={'Related'} starButtonClick={this.starButtonClick} productClick={this.props.productClick}/>
               ))}
@@ -271,7 +295,7 @@ class Related_Outfit extends React.Component {
             <h1 id="Outfit_Header">Your Outfit</h1>
           <button className="PreviousProd Outfit" ><i className="fa fa-angle-left" onClick={(event)=>this.scroll(event,-250)}></i></button>
 
-            <div id="Outfit">
+            <div data-testid="Outfit" id="Outfit">
               <button id="Related_Plus" onClick={()=>this.addToOutfit()}><i className="fa fa-plus"></i><div>Add to Outfit</div></button>
               {this.state.outfits.map((product) => (
                 <RelatedOutfit_ProductInfo key={product.id} currentProductId={this.state.productId} rating={this.props.rating} product={product} component={'Outfit'} productClick={this.props.productClick} crossButtonClick={this.crossButtonClick}/>
