@@ -259,7 +259,7 @@ describe('Related_Outfit', () => {
               "image":"https://images.unsplash.com/photo-1477420143023-6a0e0b04b69a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
           },
           {
-              "id": 59555,
+              "id": 59556,
               "campus": "hr-rpp",
               "name": "Morning Joggers",
               "slogan": "Make yourself a morning person",
@@ -292,6 +292,15 @@ describe('Related_Outfit', () => {
       });
       it('Can find the cross button in the DOM', (done) => {
         expect(component.find('#Overlay_Circle')).not.toBeUndefined();
+        done();
+      });
+      it('Can find the AddTOOutfit button in the DOM', (done) => {
+        expect(component.find('#Related_Plus')).not.toBeUndefined();
+        done();
+      });
+      it('Can find the AddTOOutfit button in the DOM', (done) => {
+        fireEvent.click(component.find('#Related_Plus'));
+        expect(component.state().outfits.contains(59555)).toBe(true)
         done();
       });
 });

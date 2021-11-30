@@ -414,7 +414,7 @@ describe('RelatedOutfit_ProductInfo ', () => {
       expect(component.find(".far fa-star")).not.toBeUndefined();
       done();
     });
-    it('checks if the category is Morning Joggers',(done) => {
+    it('checks if the category Morning Joggers is displayed',(done) => {
       expect(component.find(".name").text()).toEqual('Morning Joggers');
       done();
     });

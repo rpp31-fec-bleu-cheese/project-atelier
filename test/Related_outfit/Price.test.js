@@ -20,7 +20,7 @@ describe('Price', () => {
     expect(component).not.toBeUndefined();
     done();
   })
-  it('see if the salePrice displayed',(done)=>{
+  it('The salePrice displayed',(done)=>{
     expect(component.find('#RelatedOutfit_SalePrice')).not.toBeUndefined();
     done();
   })

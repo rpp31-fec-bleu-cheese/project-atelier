@@ -77,20 +77,43 @@ class Related_Outfit extends React.Component {
   /*****************************************************************/
   /**fetch outfit product details for an array of outfit products**/
   /****************************************************************/
-  fetchOufitInfo(outfitIds) {
-    //const cachedOutfitDetails = localStorage.getItem('outfits');
-    fetch.outfitProductDetails(outfitIds)
-    .then((outfitProductDetails) => {
-
+  fetchOufitInfo(outfitIds, prevOutfitIds) {
+    //localStorage.clear();
+    localStorage.removeItem('outfits:'+prevOutfitIds.toString());
+    const keyForStorage = 'outfits:'+outfitIds.toString();
+    let outfitDetailsInString = localStorage.getItem(keyForStorage);
+    console.log('key for storage', keyForStorage);
+    console.log('outfits in localStorage',  JSON.parse(outfitDetailsInString));
+    if(outfitDetailsInString) {
+      var outfitProducts = JSON.parse(outfitDetailsInString);
       this.setState({
-        outfits: outfitProductDetails
+        outfits: outfitProducts
       })
-    })
-    .catch((error) => {
-      console.log((error) => {
-        console.log("error ",error);
+    }else {
+      //const keyForStorage = 'outfits:'+outfitIds.toString();
+      console.log('OUTFIT IDS', outfitIds);
+      console.log('going to fetch data');
+        fetch.outfitProductDetails(outfitIds)
+      .then((outfitProductDetails) => {
+        localStorage.setItem(keyForStorage, JSON.stringify(outfitProductDetails));
+        //if ('caches' in window) {
+          // Opening given cache and putting our data into it
+         // caches.open('outfits').then((cache) => {
+            //cache.put(keyForStorage, data);
+            //alert('Data Added into cache!')
+          //});
+        //}
+        this.setState({
+          outfits: outfitProductDetails
+        })
       })
-    })
+      .catch((error) => {
+        console.log((error) => {
+          console.log("error ",error);
+        })
+      })
+    }
+
   }
   /***************************************************************************/
   /**fetch related product ids and their details for a particular productId**/
@@ -228,7 +251,7 @@ class Related_Outfit extends React.Component {
        });
     }
     if(JSON.stringify(prevProps.outfitIds) !== JSON.stringify(this.props.outfitIds)) {
-      this.fetchOufitInfo(this.props.outfitIds);
+      this.fetchOufitInfo(this.props.outfitIds, prevProps.outfitIds);
     }
   }
   /**************************************/
