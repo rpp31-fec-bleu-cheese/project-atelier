@@ -104,6 +104,7 @@ class App extends React.Component {
 
 
   trackUserInteractions(widget, event) {
+
     let date = new Date();
     let timeOfInteraction = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
