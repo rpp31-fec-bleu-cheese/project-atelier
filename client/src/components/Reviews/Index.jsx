@@ -33,14 +33,14 @@ class Reviews extends React.Component {
   componentDidUpdate(_, prevState) {
     if (prevState.currentProduct !== this.props.product_id) {
       $.ajax({
-        url: 'http://localhost:3000/reviews',
+        url: '/reviews',
         method: 'GET',
         data: {
           product_id: this.props.product_id
         },
         success: reviews => {
           $.ajax({
-            url: 'http://localhost:3000/reviews/meta',
+            url: '/reviews/meta',
             method: 'GET',
             data: {
               product_id: this.props.product_id
@@ -99,7 +99,7 @@ class Reviews extends React.Component {
 
   changeSort(e) {
     $.ajax({
-      url: 'http://localhost:3000/reviews',
+      url: '/reviews',
       method: 'GET',
       data: {
         product_id: this.props.product_id,

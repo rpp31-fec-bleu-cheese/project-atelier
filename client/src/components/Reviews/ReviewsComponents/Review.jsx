@@ -21,7 +21,7 @@ class Review extends React.Component {
 
   markHelpful(e) {
     $.ajax({
-      url: 'http://localhost:3000/reviews/helpful',
+      url: '/reviews/helpful',
       method: 'PUT',
       data: JSON.stringify({
         review_id: this.props.review.review_id
@@ -39,7 +39,7 @@ class Review extends React.Component {
 
   reportReview() {
     $.ajax({
-      url: 'http://localhost:3000/reviews/:review_id/report',
+      url: '/reviews/:review_id/report',
       method: 'PUT',
       data: JSON.stringify({
         review_id: this.props.review.review_id
