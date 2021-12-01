@@ -1,12 +1,4 @@
 TN:
-<<<<<<< HEAD
-SF:config.js
-FNF:0
-FNH:0
-DA:1,3
-LF:1
-LH:1
-=======
 SF:client/src/components/Related_Outfit/Comparison.jsx
 FN:5,(anonymous_0)
 FN:49,(anonymous_1)
@@ -103,7 +95,6 @@ DA:14,6
 DA:23,2
 LF:3
 LH:3
->>>>>>> aaf5156338e64ede275a969842a01a325746b548
 BRF:0
 BRH:0
 end_of_record
