@@ -6,7 +6,7 @@ import Price from './Price.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCameraRetro } from '@fortawesome/free-solid-svg-icons';
 import {faStar} from '@fortawesome/free-solid-svg-icons';
-import {faTimesCircle} from '@fortawesome/free-solid-svg-icons';
+import {faTimes} from '@fortawesome/free-solid-svg-icons';
 
 var RelatedOutfit_ProductInfo = (props) => {
   var image = '';
@@ -76,11 +76,11 @@ var RelatedOutfit_ProductInfo = (props) => {
 
           {Object.keys(style).length > 0
           ?<div className="Outfit" style={style}>
-               <span id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} ><FontAwesomeIcon icon = {faTimesCircle}/></span>
+               <span id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} ><FontAwesomeIcon icon = {faTimes}/></span>
             </div>
           :<div className="Outfit" style={style}>
               <FontAwesomeIcon icon = {faCameraRetro} id="CameraIcon"/>
-              <span id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} ><FontAwesomeIcon icon = {faTimesCircle}/></span>
+              <span id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} ><FontAwesomeIcon icon = {faTimes}/></span>
           </div>
         }
 

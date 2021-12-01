@@ -27,7 +27,9 @@ class Related_Outfit extends React.Component {
       popup_style:{"display":"none"},
       scrollLeftRelated:0,
       scrollLeftOutfit:0,
-      defaultStyle:{"display":"none"}
+      defaultStyle:{"display":"none"},
+      maxScrollLeftRelated:0,
+      maxScrollLeftOutfit:0
     };
     this.starButtonClick = this.starButtonClick.bind(this);
     this.crossButtonClick = this.crossButtonClick.bind(this);
@@ -87,31 +89,35 @@ class Related_Outfit extends React.Component {
   /****************************************************************/
   fetchOufitInfo(outfitIds, prevOutfitIds) {
     //localStorage.clear();
-    document.cookie="outfitIds="+JSON.stringify(outfitIds);
-    localStorage.removeItem('outfits:'+prevOutfitIds.toString());
+    //document.cookie="outfitIds="+JSON.stringify(outfitIds);
+    /*localStorage.removeItem('outfits:'+prevOutfitIds.toString());
     const keyForStorage = 'outfits:'+outfitIds.toString();
     let outfitDetailsInString = localStorage.getItem(keyForStorage);
     //console.log('key for storage', keyForStorage);
     //console.log('outfits in localStorage',  JSON.parse(outfitDetailsInString));
     if(outfitDetailsInString) {
       var outfitProducts = JSON.parse(outfitDetailsInString);
+      var maxScrollLeftOutfit = (outfits.length-3) * 215;
       this.setState({
         outfits: outfitProducts,
         scrollLeftRelated:0,
-        scrollLeftOutfit:0
+        scrollLeftOutfit:0,
+        maxScrollLeftOutfit:maxScrollLeftOutfit
       })
-    }else {
+    }else {*/
       //const keyForStorage = 'outfits:'+outfitIds.toString();
       //console.log('OUTFIT IDS', outfitIds);
       //console.log('going to fetch data');
+      var maxScrollLeftOutfit = (outfitIds.length-3) * 215;
         fetch.outfitProductDetails(outfitIds)
       .then((outfitProductDetails) => {
-        localStorage.setItem(keyForStorage, JSON.stringify(outfitProductDetails));
+        //localStorage.setItem(keyForStorage, JSON.stringify(outfitProductDetails));
 
         this.setState({
           outfits: outfitProductDetails,
           scrollLeftRelated:0,
-          scrollLeftOutfit:0
+          scrollLeftOutfit:0,
+          maxScrollLeftOutfit:maxScrollLeftOutfit
         })
       })
       .catch((error) => {
@@ -119,7 +125,7 @@ class Related_Outfit extends React.Component {
           console.log("error ",error);
         })
       })
-    }
+    //}
 
   }
   /***************************************************************************/
@@ -145,11 +151,12 @@ class Related_Outfit extends React.Component {
             related.push(productId);
            }
         })
-
+        var maxScrollLeftRelated = (relatedProductIds.length - 4) * 215;
         this.setState({
           relatedProductIds: related,
           scrollLeftRelated:0,
-          scrollLeftOutfit:0
+          scrollLeftOutfit:0,
+          maxScrollLeftRelated:maxScrollLeftRelated
         })
         return related;
       })
@@ -318,6 +325,12 @@ class Related_Outfit extends React.Component {
    }
    if(this.state.scrollLeftOutfit > 0) {
     scrollLeftOutfitStyle = {"visibility": "visible"}
+   }
+   if(this.state.scrollLeftOutfit > this.state.maxScrollLeftOutfit) {
+    scrollRightOutfitStyle = this.state.defaultStyle;
+   }
+   if(this.state.scrollLeftRelated > this.state.maxScrollLeftRelated) {
+    scrollRightRelatedStyle = this.state.defaultStyle;
    }
    //console.log("scrollRightRelatedStyle",scrollRightRelatedStyle);
    if(this.state.relatedProducts.length === 0 && this.state.outfits.length === 0) {

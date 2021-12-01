@@ -10,6 +10,7 @@ import RatingsReviews from './Reviews/Index.jsx';
 import config from '../../../config.js';
 import { useEffect } from 'react';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +29,7 @@ class App extends React.Component {
   /** clicking on outfit or raletd product makes that as the current product  **/
   /*****************************************************************************/
   relatedOutfitProductClick(event, productId){
-
+    console.log(event.target.parentElement.parentElement.id);
     if(event.target.parentElement.parentElement.id !== 'Overlay_Star' && event.target.parentElement.parentElement.id  !== 'Overlay_Circle') {
 
       this.setState({
