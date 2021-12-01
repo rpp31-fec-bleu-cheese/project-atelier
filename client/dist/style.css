@@ -864,8 +864,8 @@ div#RatingsReviews div#ReviewCharacteristics div#ReviewCategoryTitle {
 div#RatingsReviews div#ReviewCharacteristics div#ReviewCategoryContainer {
   grid-row: 2;
   grid-column: 2;
-  align-self: center;
-  justify-self: center;
+  align-self: start;
+  justify-self: start;
   display: grid;
   grid-template-columns: repeat(2, auto) 125px;
   grid-template-rows: repeat(6, auto);
@@ -1432,7 +1432,7 @@ div#Related_Outfit div#Comparison div#PopupTrue{
   position:  fixed;
   font-size: small;
    max-width: 400px;
-   max-height:300px;
+   max-height: 150px;
    top: calc(50% - 50px);
    padding:30px;
    background-color:aliceblue;

@@ -20,7 +20,6 @@ class Review extends React.Component {
   }
 
   markHelpful(e) {
-    console.log(this.props.review.review_id)
     $.ajax({
       url: '/reviews/helpful',
       method: 'PUT',
