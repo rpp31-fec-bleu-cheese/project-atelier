@@ -5,6 +5,8 @@ import Rating from './Rating.jsx';
 import Price from './Price.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCameraRetro } from '@fortawesome/free-solid-svg-icons';
+import {faStar} from '@fortawesome/free-solid-svg-icons';
+import {faTimesCircle} from '@fortawesome/free-solid-svg-icons';
 
 var RelatedOutfit_ProductInfo = (props) => {
   var image = '';
@@ -34,7 +36,7 @@ var RelatedOutfit_ProductInfo = (props) => {
     if(props.product.id === props.currentProductId) {
       rating = props.rating;
     }else {
-      console.log('rating in productInfo', props.product.rating);
+      //console.log('rating in productInfo', props.product.rating);
       rating = props.product.rating;
     }
   }
@@ -44,11 +46,11 @@ var RelatedOutfit_ProductInfo = (props) => {
       <div data-testid="RelatedOutfit_ProductInfo" className="RelatedOutfit_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
        {Object.keys(style).length > 0
           ?<div className="Related" style={style}>
-              <i id="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} className="far fa-star"></i>
+              <span id="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} ><FontAwesomeIcon icon = {faStar} /></span>
             </div>
           :<div className="Related" style={style}>
               <FontAwesomeIcon icon = {faCameraRetro} id="CameraIcon"/>
-              <i id="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} className="far fa-star"></i>
+              <span id="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} ><FontAwesomeIcon icon = {faStar} /></span>
           </div>
         }
 
@@ -74,11 +76,11 @@ var RelatedOutfit_ProductInfo = (props) => {
 
           {Object.keys(style).length > 0
           ?<div className="Outfit" style={style}>
-               <i id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} className="far fa-times-circle" ></i>
+               <span id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} ><FontAwesomeIcon icon = {faTimesCircle}/></span>
             </div>
           :<div className="Outfit" style={style}>
               <FontAwesomeIcon icon = {faCameraRetro} id="CameraIcon"/>
-              <i id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} className="far fa-times-circle" ></i>
+              <span id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} ><FontAwesomeIcon icon = {faTimesCircle}/></span>
           </div>
         }
 
