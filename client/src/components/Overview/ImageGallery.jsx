@@ -14,6 +14,10 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
 
   const [showModal, setShowModal] = useState(false);
 
+  let handleModalClick = () => {
+    setShowModal(true);
+  }
+
     if (Object.keys(productStyles).length) {
 
     return (
