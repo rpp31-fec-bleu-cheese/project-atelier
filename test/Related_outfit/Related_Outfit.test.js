@@ -233,7 +233,7 @@ describe('Related_Outfit', () => {
               "campus": "hr-rpp",
               "name": "Heir Force Ones",
               "slogan": "A sneaker dynasty",
-              "description": "Now where da boxes where I keep mine? You should peep mine, maybe once or twice but never three times. I'm just a sneaker pro, I love Pumas and shell toes, but can't nothin compare to a fresh crispy white pearl",
+              "description": "Now wheret da boxes where I keep mine? You should peep mine, maybe once or twice but never three times. I'm just a sneaker pro, I love Pumas and shell toes, but can't nothin compare to a fresh crispy white pearl",
               "category": "Kicks",
               "default_price": "99.00",
               "created_at": "2021-10-18T22:50:41.839Z",
@@ -298,10 +298,20 @@ describe('Related_Outfit', () => {
         expect(component.find('#Related_Plus')).not.toBeUndefined();
         done();
       });
-      it('Can find the AddTOOutfit button in the DOM', (done) => {
+      it('Can find the leftScrollButton button in the DOM', (done) => {
+        //fireEvent.click(component.find('.PreviousProd'));
+        expect(component.find('.PreviousProd')).not.toBeUndefined();
+        done();
+      });
+      it('Can find the rightScrollButton button in the DOM', (done) => {
+        //fireEvent.click(component.find('.PreviousProd'));
+        expect(component.find('.NextProd')).not.toBeUndefined();
+        done();
+      });
+      /*it('Can find the AddTOOutfit button in the DOM', (done) => {
         fireEvent.click(component.find('#Related_Plus'));
         expect(component.state().outfits.contains(59555)).toBe(true)
         done();
-      });
+      });*/
 });
 

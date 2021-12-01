@@ -1407,6 +1407,7 @@ div#Related_Outfit .Outfit #Overlay_Circle{
   top: 0%;
   right: 0%;
   width:10%;
+  height:50%;
 }
 
 div#Related_Outfit span#Overlay_Star:hover,

@@ -418,4 +418,15 @@ describe('RelatedOutfit_ProductInfo ', () => {
       expect(component.find(".name").text()).toEqual('Morning Joggers');
       done();
     });
+    it('can find the star button', (done) => {
+      expect(component.find("#Overlay_Star")).not.toBeUndefined();
+      done();
+    })
+    it('display comparing table when start button is clicked',(done) => {
+        const starButton = component.find('#Overlay_Star');
+        fireEvent.click(starButton);
+        expect(screen.find('#ComparingTable')).not.toBeUndefined();
+        done();
+      });
+
 });
