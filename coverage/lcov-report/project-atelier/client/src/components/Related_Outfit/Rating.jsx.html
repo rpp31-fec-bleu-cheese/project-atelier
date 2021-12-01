@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for project-atelier/client/src/components/Overview/ProductFeatures.jsx</title>
+    <title>Code coverage report for project-atelier/client/src/components/Related_Outfit/Rating.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">project-atelier/client/src/components/Overview</a> ProductFeatures.jsx</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">project-atelier/client/src/components/Related_Outfit</a> Rating.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -80,53 +80,65 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect, useLayoutEffect }  from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 &nbsp;
-&nbsp;
-let ProductFeatures = ({productById}) =&gt; {
-&nbsp;
-  return (
-    &lt;div className="ProductFeatures"&gt;
-      {(Object.keys(productById).length) &amp;&amp; &lt;div className="ProductFeaturesList" data-testid="FeatureList"&gt;
-        {productById.features.map((productFeature, i) =&gt; (
-          &lt;div data-testid={`FeatureListEntry ${i}`} key={i}&gt;✔ {productFeature.feature}: {productFeature.value}&lt;/div&gt;
-        ))}
-      &lt;/div&gt;}
-    &lt;/div&gt;
-  );
+var Rating = <span class="fstat-no" title="function not covered" >(p</span>rops) =&gt; {
+  /*var finalRating = 6;
+  if(finalRating === 6) {
+    return (
+      &lt;div&gt;
+        &lt;i className="far fa-star" &gt;&lt;/i&gt; &lt;i className="far fa-star" &gt;&lt;/i&gt; &lt;i className="far fa-star" &gt;&lt;/i&gt; &lt;i className="far fa-star" &gt;&lt;/i&gt; &lt;i className="far fa-star" &gt;&lt;/i&gt;
+      &lt;/div&gt;
+    )
+  }*/
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;div id='Related_Rating'&gt;
+  &lt;div className='Stars'&gt;
+    &lt;div className='empty-stars'&gt;&lt;/div&gt;
+    &lt;div className='full-stars' style={{width: ((props.rating / 5) * 100) + '%' }}&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+  )
 }
-&nbsp;
-ProductFeatures.propTypes = {
-  productById: PropTypes.object,
-  cam_token: PropTypes.object
+Rating.propTypes = {
+  rating:PropTypes.number
 }
+export default Rating;
 &nbsp;
-export default ProductFeatures;</pre></td></tr></table></pre>
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

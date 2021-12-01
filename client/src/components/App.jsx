@@ -69,7 +69,7 @@ class App extends React.Component {
   componentDidMount(){
     axios({
       method: 'get',
-      url: 'http://localhost:3000/cookies'
+      url: '/cookies'
     })
     .then((response) => {
       var outfitIds = JSON.parse(response.data.outfitData);
