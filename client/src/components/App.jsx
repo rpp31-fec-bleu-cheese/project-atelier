@@ -140,6 +140,7 @@ class App extends React.Component {
           productId={this.state.productId}
           changeInOutfit={this.changeInOutfit}
           outfitIds={this.state.outfitIds}
+          starRating={this.state.rating}
           trackUserClicks={this.trackUserInteractions}/>
         <Related_Outfit
           productId={this.state.productId}
