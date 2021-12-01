@@ -53,6 +53,13 @@ const getMetaReviews = (productID, callback) => {
 };
 
 const postReviewData = (reviewData, callback) => {
+  reviewData.recommend = (reviewData.recommend === 'true') ? true : false;
+  reviewData.product_id = +reviewData.product_id;
+  reviewData.rating = +reviewData.rating;
+  for (let trait in reviewData.characteristics) {
+    reviewData.characteristics[trait] = +reviewData.characteristics[trait]
+  }
+
   let options = {
     url: server,
     method: 'post',
@@ -60,7 +67,7 @@ const postReviewData = (reviewData, callback) => {
       'User-Agent': 'request',
       'Authorization': config.API_KEY || process.env.API_KEY
     },
-    params: reviewData
+    data: reviewData
   };
 
   axios(options)
