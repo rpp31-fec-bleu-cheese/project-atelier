@@ -1368,7 +1368,7 @@ div#Related_Outfit button {
 }
 div#Related_Outfit button.PreviousProd {
   grid-column: 1;
-  font-size: larger;
+  font-size: xx-large;
   background-color: transparent;
   background-repeat: no-repeat;
   border: none;
@@ -1380,7 +1380,7 @@ div#Related_Outfit button.PreviousProd {
 }
 div#Related_Outfit button.NextProd {
   grid-column: 3;
-  font-size: larger;
+  font-size:xx-large;
   background-color: transparent;
   background-repeat: no-repeat;
   border: none;
@@ -1389,6 +1389,7 @@ div#Related_Outfit button.NextProd {
   height:15%;
   border-radius: 5px;
   opacity: 0.5;
+
 }
 div#Related_Outfit button.Outfit {
   grid-row:4;
@@ -1405,11 +1406,12 @@ div#Related_Outfit .Outfit #Overlay_Circle{
   position: absolute;
   top: 0%;
   right: 0%;
+  width:10%;
 }
 
-div#Related_Outfit i#Overlay_Star:hover,
+div#Related_Outfit span#Overlay_Star:hover,
 div#Related_Outfit .Outfit #Overlay_Circle:hover {
-  color:red;
+  color:blue;
 
 }
 /*deals with the spacing between each property in the product card*/
