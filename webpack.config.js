@@ -6,6 +6,7 @@ const entry_dir = path.join(__dirname, 'client/src/index.js');
 const output_dir = path.join(__dirname, 'client/dist');
 
 module.exports = {
+  mode: 'production',
   entry: entry_dir,
   output: {
     filename: 'bundle.js',
