@@ -15,13 +15,21 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
   const [indexes, setIndexes] = useState({product: 0, style: 0, photo: 0});
   // console.log('INDEXES:', indexes);
   // Effect for watching incoming productId from App component
+  // useLayoutEffect(() => {
+  //   setIndexes({...indexes, style: 0, photo: 0})
+  // }, [productId]);
+
+  // useEffect(() => {
+  //   setIndexes({...indexes, style: 0, photo: 0})
+  // }, [productId]);
+
   useEffect (() => {
     let productIdOptions = {
       url: `/products/${productId}`,
       method: 'get'
     };
     let productStylesOptions = {
-      url: `products/${productId}/styles`,
+      url: `/products/${productId}/styles`,
       method: 'get'
     };
     axios(productIdOptions)
@@ -33,16 +41,13 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
         axios(productStylesOptions)
         .then(response => {
           product.styles = response.data;
+          setIndexes({...indexes, style: 0, photo: 0})
           updateDetailsAndStyles(product.details, product.styles);
           // setProductStyles(response.data);
             })
           })
             .catch(error => {
               console.log(error)});
-  }, [productId]);
-
-  useEffect(() => {
-    setIndexes({...indexes, style: 0, photo: 0})
   }, [productId]);
 
 
@@ -74,7 +79,7 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
       return;
     }
     console.log('Style Index:', styleIndex);
-    setIndexes({...indexes, style: styleIndex});
+    setIndexes({...indexes, style: styleIndex, photo: 0});
     event.preventDefault();
   }
 

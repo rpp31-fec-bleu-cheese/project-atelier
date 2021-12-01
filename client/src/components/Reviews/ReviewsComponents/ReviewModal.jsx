@@ -153,9 +153,7 @@ class ReviewModal extends React.Component {
     userData.rating = +this.state.rating;
     userData.photos = this.state.images;
     userData.characteristics = characteristics;
-    (userData.recommend === 'true') ? userData.recommend = true : userData.recommend = false;
 
-    console.log(userData)
     $.ajax({
       url: '/reviews',
       method: 'POST',

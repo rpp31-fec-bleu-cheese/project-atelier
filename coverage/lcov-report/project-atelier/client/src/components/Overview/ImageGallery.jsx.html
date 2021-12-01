@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.81% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/11</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.81% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/11</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
@@ -131,7 +131,14 @@
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,18 +150,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">47x</span>
+<span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">47x</span>
+<span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">47x</span>
+<span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">47x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,7 +168,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">277x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">181x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,6 +223,8 @@ import { faCameraRetro } from '@fortawesome/free-solid-svg-icons';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 &nbsp;
 &nbsp;
 let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, indexes, productStyles}) =&gt; {
@@ -220,7 +232,6 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
   const [showModal, setShowModal] = useState(false);
 &nbsp;
   let handleModalClick = () =&gt; {
-    console.log('Modal clicked!');
     setShowModal(true);
   }
 &nbsp;
@@ -236,14 +247,18 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
         &lt;FontAwesomeIcon icon={faCameraRetro} /&gt;
         &lt;/div&gt;
         }
+        &lt;div className="ImageGalleryControls"&gt;
+        &lt;button className="ThumbnailScrollUp"&gt;&lt;FontAwesomeIcon icon={faChevronUp} /&gt;&lt;/button&gt;
         &lt;div data-testid="ImageGalleryThumbnails" className="ImageGalleryThumbnails"&gt;
-          {productStyles.results[indexes.style].photos.map((currentStyle, i) =&gt; (
+        {productStyles.results[indexes.style].photos.map((currentStyle, i) =&gt; (
             indexes.photo === i ?
 &nbsp;
             &lt;div data-testid={`GalleryThumbnail ${i}`} key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnailSelected" onClick={handleThumbnailClick} alt="Product Thumbnail Image"&gt;&lt;/div&gt;
             :
             &lt;div data-testid={`GalleryThumbnail ${i}`} key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick} alt="Product Thumbnail Image"&gt;&lt;/div&gt;
           ))}
+        &lt;/div&gt;
+        &lt;button className="ThumbnailScrollDown"&gt;&lt;FontAwesomeIcon icon={faChevronDown} /&gt;&lt;/button&gt;
         &lt;/div&gt;
         &lt;div className="SlideGalleryLeft"&gt;
           &lt;div data-testid="SlideGalleryLeftButtonTest" className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}&gt;&lt;FontAwesomeIcon icon={faArrowCircleLeft} /&gt;&lt;/div&gt;
@@ -286,7 +301,11 @@ export default ImageGallery;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
+<<<<<<< HEAD
+                at Tue Nov 30 2021 20:22:04 GMT-0800 (Pacific Standard Time)
+=======
                 at Sun Nov 28 2021 17:41:19 GMT-0800 (Pacific Standard Time)
+>>>>>>> aaf5156338e64ede275a969842a01a325746b548
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>
