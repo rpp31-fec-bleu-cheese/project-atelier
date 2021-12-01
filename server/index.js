@@ -22,6 +22,8 @@ app.use(cookieParser());
 
 app.use(compression());
 app.use(bodyParser.json());
+app.use(express.urlencoded());
+app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/products', controllers.products.getAllProducts);
