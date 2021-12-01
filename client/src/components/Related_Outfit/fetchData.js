@@ -5,7 +5,7 @@ var axios = require('axios');
 var relatedProductIDs = function(productId) {
 
   return new Promise((resolve, reject) => {
-    var server = 'http://localhost:3000/products/'+productId+'/related';
+    var server = '/products/'+productId+'/related';
     var options = {
       method:"get",
       url:server
@@ -25,7 +25,7 @@ var relatedProductIDs = function(productId) {
 var relatedProductDetails = function(relatedIds) {
 
   return new Promise((resolve, reject) => {
-    var server = 'http://localhost:3000/products/related/details';
+    var server = '/products/related/details';
     var options = {
       method:"get",
       url:server,

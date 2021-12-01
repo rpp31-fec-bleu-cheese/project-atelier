@@ -19,13 +19,17 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
   //   setIndexes({...indexes, style: 0, photo: 0})
   // }, [productId]);
 
+  // useEffect(() => {
+  //   setIndexes({...indexes, style: 0, photo: 0})
+  // }, [productId]);
+
   useEffect (() => {
     let productIdOptions = {
       url: `/products/${productId}`,
       method: 'get'
     };
     let productStylesOptions = {
-      url: `products/${productId}/styles`,
+      url: `/products/${productId}/styles`,
       method: 'get'
     };
     axios(productIdOptions)
@@ -45,10 +49,6 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
             .catch(error => {
               console.log(error)});
   }, [productId]);
-
-  // useEffect(() => {
-  //   setIndexes({...indexes, style: 0, photo: 0})
-  // }, [productId]);
 
 
   let handleLeftArrowClick = () => {
@@ -79,7 +79,7 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
       return;
     }
     console.log('Style Index:', styleIndex);
-    setIndexes({...indexes, style: styleIndex});
+    setIndexes({...indexes, style: styleIndex, photo: 0});
     event.preventDefault();
   }
 
