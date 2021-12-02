@@ -1439,12 +1439,12 @@ div#Related_Outfit div.RelatedOutfit_ProductInfo div.OutfitInfo.name {
 div#Related_Outfit div#Comparison div#PopupTrue{
 
   position:  fixed;
-  font-size: small;
+  font-size:small;
    max-width: 400px;
-   max-height: 250px;
+   max-height: 300px;
    top: calc(50% - 50px);
    padding:30px;
-   background-color:aliceblue;
+   background-color:rgb(196, 223, 247);
    left: calc(70% - 300px);
    border: 1px solid black;
    bottom: 40px;
@@ -1454,14 +1454,12 @@ div#Related_Outfit div#Comparison div#PopupTrue{
 
 div#Related_Outfit table#ComparingTable{
   border-collapse: separate;
-  border-spacing: 0 15px;
+  border-spacing: 0 25px;
 }
 div#Related_Outfit table#ComparingTable td  {
   width: 200px;
   height: 10px;
 }
-
-
 
 div#Related_Outfit  div#Comparison div#PopupTrue thead #firstHeader,
 div#Related_Outfit  div#Comparison div#PopupTrue thead #secondHeader{
@@ -1469,6 +1467,7 @@ div#Related_Outfit  div#Comparison div#PopupTrue thead #secondHeader{
   font-size: small;
   font-weight:bold;
 }
+
 
 
 

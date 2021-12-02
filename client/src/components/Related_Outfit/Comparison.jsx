@@ -14,7 +14,7 @@ var Comparison = (props) => {
       var nameOfFeature = featureOfClicked.feature;
       features[nameOfFeature] = {};
       features[nameOfFeature].valueForClicked = featureOfClicked.value;
-      features[nameOfFeature].valueForCurrent = null;
+      features[nameOfFeature].valueForCurrent = undefined;
       //features.push(obj);
      }
      //console.log('featuresOfCurrentProduct',featuresOfCurrentProduct);
@@ -24,7 +24,7 @@ var Comparison = (props) => {
       if(features[nameOfFeature] === undefined) {
         features[nameOfFeature] = {};
         features[nameOfFeature].valueForCurrent = featureOfCurrent.value;
-        features[nameOfFeature].valueForClicked = null;
+        features[nameOfFeature].valueForClicked = undefined;
       }else {
         features[nameOfFeature].valueForCurrent = featureOfCurrent.value;
       }
@@ -40,7 +40,7 @@ var Comparison = (props) => {
 
           <thead>
             <tr>
-              <td>
+              <td id="topHeader">
                 Comparing
               </td>
             </tr>
