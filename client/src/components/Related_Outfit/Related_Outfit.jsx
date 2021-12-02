@@ -84,6 +84,7 @@ class Related_Outfit extends React.Component {
       this.props.changeInOutfit(event, this.props.productId, "Add");
     }
   }
+
   /*****************************************************************/
   /**fetch outfit product details for an array of outfit products**/
   /****************************************************************/
@@ -249,6 +250,7 @@ class Related_Outfit extends React.Component {
 
 
   }
+
   componentDidUpdate(prevProps) {
     if (prevProps.productId !== this.props.productId) {
       this.fetchRelatedInfo(this.props.productId);

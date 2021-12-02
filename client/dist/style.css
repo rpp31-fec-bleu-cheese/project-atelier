@@ -1406,7 +1406,7 @@ div#Related_Outfit button.Related{
 /*cross button and star button*/
 div#Related_Outfit .Related #Overlay_Star,
 div#Related_Outfit .Outfit #Overlay_Circle{
-  color:lavender;
+  color:aquamarine;
   position: absolute;
   top: 0%;
   right: 0%;
