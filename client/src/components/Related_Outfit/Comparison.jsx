@@ -35,10 +35,15 @@ var Comparison = (props) => {
      //console.log('allFeatures:',allFeatures);
     return(
       <div  id="PopupTrue" style={props.popup_style}>
-      Comparing
+
         <table id="ComparingTable">
 
           <thead>
+            <tr>
+              <td>
+                Comparing
+              </td>
+            </tr>
           <tr>
             <td id="firstHeader">{props.currentProduct.name}</td>
              <td> </td>

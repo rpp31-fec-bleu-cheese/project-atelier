@@ -1292,7 +1292,7 @@ div#Related_Outfit div.Related_products {
   width:900px;
   max-width: 100%;
   height:100%;
-  overflow-x: scroll;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 div#Related_Outfit h1#Related_Header {
@@ -1316,7 +1316,7 @@ div#Related_Outfit #Outfit {
   width:900px;
   max-width: 100%;
   height:100%;
-  overflow-x: scroll;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
@@ -1435,7 +1435,7 @@ div#Related_Outfit div#Comparison div#PopupTrue{
   position:  fixed;
   font-size: small;
    max-width: 400px;
-   max-height: 200px;
+   max-height: 250px;
    top: calc(50% - 50px);
    padding:30px;
    background-color:aliceblue;
@@ -1455,12 +1455,18 @@ div#Related_Outfit table#ComparingTable td  {
   height: 10px;
 }
 
-div#Related_Outfit  div#Comparison div#PopupTrue thead{
-  font-size: small;
-  font-weight:bold;
 
-}
+
 div#Related_Outfit  div#Comparison div#PopupTrue thead #firstHeader,
 div#Related_Outfit  div#Comparison div#PopupTrue thead #secondHeader{
   position:fixed;
+  font-size: small;
+  font-weight:bold;
 }
+
+
+
+
+
+
+
