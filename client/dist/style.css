@@ -1325,6 +1325,10 @@ div#Related_Outfit #Outfit {
 div#Related_Outfit div.RelatedOutfit_ProductInfo {
   column-gap: 15px;
 }
+div#Related_Outfit div.RelatedOutfit_ProductInfo:hover,
+div#Related_Outfit button#Related_Plus:hover {
+  background-color: rgb(227, 234, 245);
+}
 
 div#Related_Outfit div.RelatedOutfit_ProductInfo,
 div#Related_Outfit button#Related_Plus {
@@ -1338,7 +1342,7 @@ div#Related_Outfit button#Related_Plus {
   max-height:90%;
   padding: 8px;
   margin: 4px 4px;
-  background-color: ivory;
+  background-color:ivory
 
 }
 div#Related_Outfit #CameraIcon{
@@ -1402,7 +1406,7 @@ div#Related_Outfit button.Related{
 /*cross button and star button*/
 div#Related_Outfit .Related #Overlay_Star,
 div#Related_Outfit .Outfit #Overlay_Circle{
-  color:cadetblue;
+  color:lavender;
   position: absolute;
   top: 0%;
   right: 0%;
@@ -1410,10 +1414,12 @@ div#Related_Outfit .Outfit #Overlay_Circle{
   height:50%;
 }
 
-div#Related_Outfit span#Overlay_Star:hover,
-div#Related_Outfit .Outfit #Overlay_Circle:hover {
-  color:blue;
+div#Related_Outfit span#Overlay_Star:hover {
+  color:rgb(198, 71, 248);
 
+}
+div#Related_Outfit .Outfit #Overlay_Circle:hover {
+  color: red;
 }
 /*deals with the spacing between each property in the product card*/
 div#Related_Outfit div.RelatedOutfit_ProductInfo div.RelatedInfo,
