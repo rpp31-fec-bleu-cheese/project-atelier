@@ -33,7 +33,6 @@ const AnswerModal = ({ currentProduct, showModal, setShowModal, questionBody, qu
     const requirements = [name, email, answer];
 
     requirements.forEach((req, i) => {
-      console.log(!req.length)
       if (!req.length) {
         if (i === 0) {
           setErrorMessage('name');
@@ -54,7 +53,6 @@ const AnswerModal = ({ currentProduct, showModal, setShowModal, questionBody, qu
     event.preventDefault();
 
     checkMissingRequirements();
-    console.log(`email: ${email}, name: ${name}, answer: ${answer}`);
 
     if(email.length && name.length && answer.length) {
       axios.post(`/qa/questions/${questionID}/answers`, {

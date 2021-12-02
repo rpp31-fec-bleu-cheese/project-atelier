@@ -6,9 +6,10 @@ import sinon from 'sinon';
 import React from 'react';
 import jest from 'jest';
 import Enzyme from 'enzyme';
-import { shallow, mount, render } from 'enzyme';
-import {screen, fireEvent} from "@testing-library/react";
+import { shallow, mount } from 'enzyme';
+import { render, screen, fireEvent} from "@testing-library/react";
 import '@testing-library/jest-dom';
+import regeneratorRuntime from "regenerator-runtime";
 
 import Related_Outfit from '../../client/src/components/Related_Outfit/Related_Outfit.jsx';
 
