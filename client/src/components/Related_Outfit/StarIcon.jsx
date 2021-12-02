@@ -2,9 +2,9 @@
 import React from 'react';
 var StarIcon = (props) => {
   var fill="yellow";
-  return (
+  /*return (
     <i className="far fa-star" fill={fill} style={{"width":"70.0%"}}></i>
-  );
+  );*/
 
 }
 
