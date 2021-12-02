@@ -20,13 +20,13 @@ let StyleSelector = ({productStyles, indexes, handleStyleClick}) => {
         <div className="StyleSelectorIcons">
           {productStyles.results.map((style, i) => (
             indexes.style === i ?
-                <div key={i} index={i} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon" data-testid={`StyleThumbnail ${i}`}>
+                <div key={i} index={i} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon" data-testid={`StyleThumbnail ${i}`} alt="Small Style Image">
                 <div className="StyleIconCheck" data-testid="StyleCheck">
                 <FontAwesomeIcon icon={faCheckCircle}></FontAwesomeIcon>
                 </div>
                 </div>
                 :
-                <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon" data-testid={`StyleThumbnail ${i}`}></div>
+                <div key={i} index={i} onClick={handleStyleClick} style={{background: `center / contain no-repeat url(${style.photos[0].thumbnail_url})`}} className="StyleIcon" data-testid={`StyleThumbnail ${i}`} alt="Small Style Image"></div>
 
           ))}
         </div>

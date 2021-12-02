@@ -4,11 +4,11 @@ import ComparisonRow from './ComparisonRow.jsx';
 
 var Comparison = (props) => {
   if(props.popup) {
-      console.log('current product features:',props.currentProduct );
+      //console.log('current product features:',props.currentProduct );
      var featuresOfClickedProduct = props.toCompare.features;
      var featuresOfCurrentProduct = props.currentProduct.features
      var features = {};
-     console.log('featuresOfClickedProduct',featuresOfClickedProduct);
+     //console.log('featuresOfClickedProduct',featuresOfClickedProduct);
      for(var featureOfClicked of featuresOfClickedProduct) {
       //var obj = {};
       var nameOfFeature = featureOfClicked.feature;
@@ -17,7 +17,7 @@ var Comparison = (props) => {
       features[nameOfFeature].valueForCurrent = null;
       //features.push(obj);
      }
-     console.log('featuresOfCurrentProduct',featuresOfCurrentProduct);
+     //console.log('featuresOfCurrentProduct',featuresOfCurrentProduct);
      for(var featureOfCurrent of featuresOfCurrentProduct) {
 
       var nameOfFeature = featureOfCurrent.feature;
@@ -40,9 +40,9 @@ var Comparison = (props) => {
 
           <thead>
           <tr>
-            <td id="firstHeader">{props.toCompare.name}</td>
+            <td id="firstHeader">{props.currentProduct.name}</td>
              <td> </td>
-             <td id="secondHeader">{props.currentProduct.name}</td>
+             <td id="secondHeader">{props.toCompare.name}</td>
           </tr>
           </thead>
           <tbody>

@@ -31,7 +31,7 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
         </div>
         }
         <div className="ImageGalleryControls">
-        <button className="ThumbnailScrollUp"><FontAwesomeIcon icon={faChevronUp} /></button>
+        <button className="ThumbnailScrollUp"><FontAwesomeIcon icon={faChevronUp} alt="Scroll Gallery Up"/></button>
         <div data-testid="ImageGalleryThumbnails" className="ImageGalleryThumbnails">
         {productStyles.results[indexes.style].photos.map((currentStyle, i) => (
             indexes.photo === i ?
@@ -41,7 +41,7 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
             <div data-testid={`GalleryThumbnail ${i}`} key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
           ))}
         </div>
-        <button className="ThumbnailScrollDown"><FontAwesomeIcon icon={faChevronDown} /></button>
+        <button className="ThumbnailScrollDown"><FontAwesomeIcon icon={faChevronDown} alt="Scroll Gallery Down"/></button>
         </div>
         <div className="SlideGalleryLeft">
           <div data-testid="SlideGalleryLeftButtonTest" className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}><FontAwesomeIcon icon={faArrowCircleLeft} /></div>

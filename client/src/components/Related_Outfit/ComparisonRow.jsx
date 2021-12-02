@@ -17,15 +17,15 @@ var ComparisonRow = (props) => {
 
   return (
 
-    <tr>
-      <td>
-        {valueForClicked}
+    <tr className="ComparisonRow">
+      <td className="ValueForCurrent">
+        {valueForCurrent}
       </td>
-      <td>
+      <td className="Feature">
         {props.featureName}
       </td>
-      <td>
-        {valueForCurrent}
+      <td className="ValueForClicked">
+         {valueForClicked}
       </td>
     </tr>
   )

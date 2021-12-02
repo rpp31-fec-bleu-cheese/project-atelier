@@ -308,6 +308,37 @@ describe('Related_Outfit', () => {
         expect(component.find('.NextProd')).not.toBeUndefined();
         done();
       });
+
+      it('Can find the RelatedOutfit_ProductInfo component in the DOM', (done) => {
+
+        expect(component.find('RelatedOutfit_ProductInfo')).not.toBeUndefined();
+        done();
+      });
+      it('Can find the "Related Products" header in the DOM', (done) => {
+
+        expect(component.find('#Related_Header')).not.toBeUndefined();
+        done();
+      });
+      it('Can find the "Outfits" header in the DOM', (done) => {
+
+        expect(component.find('#Outfit_Header')).not.toBeUndefined();
+        done();
+      });
+
+      it('Can find function scroll', (done) => {
+
+        expect(typeof scroll).toBe('function');
+        done();
+      });
+      it('Can click on scroll button', (done) => {
+       // fireEvent.click(component.find('.PreviousProd.Related'));
+        //component.find('.PreviousProd.Related').simulate('click');
+        component.find('#leftScrollForRelated').simulate('click')
+        component.instance.scroll();
+        //expect( component.find('.PreviousProd.Related')).not.toBeUndefined();
+        //expect(component.find('.NextProd')).not.toBeUndefined();
+        done();
+      });
       /*it('Can find the AddTOOutfit button in the DOM', (done) => {
         fireEvent.click(component.find('#Related_Plus'));
         expect(component.state().outfits.contains(59555)).toBe(true)

@@ -1435,7 +1435,7 @@ div#Related_Outfit div#Comparison div#PopupTrue{
   position:  fixed;
   font-size: small;
    max-width: 400px;
-   max-height: 150px;
+   max-height: 200px;
    top: calc(50% - 50px);
    padding:30px;
    background-color:aliceblue;
@@ -1458,6 +1458,7 @@ div#Related_Outfit table#ComparingTable td  {
 div#Related_Outfit  div#Comparison div#PopupTrue thead{
   font-size: small;
   font-weight:bold;
+
 }
 div#Related_Outfit  div#Comparison div#PopupTrue thead #firstHeader,
 div#Related_Outfit  div#Comparison div#PopupTrue thead #secondHeader{
