@@ -78,6 +78,5 @@ describe('<QuestionModal />', () => {
     fireEvent.click(submitBtn);
 
     expect(component.getByTestId('q-modal')).toBeInTheDocument();
-  })
-
+  });
 })
