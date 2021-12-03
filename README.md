@@ -2,6 +2,9 @@
 
 ## About The Project
 
+### Questions and Answers
+![QandA](https://media.giphy.com/media/f0rRuHW3UUYm7xUjTY/giphy.gif)
+
 ### Built With
 
 * [React](https://reactjs.org/)
