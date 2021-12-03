@@ -4,6 +4,11 @@ import Comparison from './Comparison.jsx';
 import PropTypes from 'prop-types';
 import fetch from './fetchData';
 import React from 'react';
+import $ from 'jquery';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 class Related_Outfit extends React.Component {
 
@@ -19,7 +24,12 @@ class Related_Outfit extends React.Component {
       productIdToCompare: 0,
       productToCompare:{},
       popup: false,
-      popup_style:{"display":"none"}
+      popup_style:{"display":"none"},
+      scrollLeftRelated:0,
+      scrollLeftOutfit:0,
+      defaultStyle:{"display":"none"},
+      maxScrollLeftRelated:0,
+      maxScrollLeftOutfit:0
     };
     this.starButtonClick = this.starButtonClick.bind(this);
     this.crossButtonClick = this.crossButtonClick.bind(this);
@@ -74,37 +84,41 @@ class Related_Outfit extends React.Component {
       this.props.changeInOutfit(event, this.props.productId, "Add");
     }
   }
+
   /*****************************************************************/
   /**fetch outfit product details for an array of outfit products**/
   /****************************************************************/
   fetchOufitInfo(outfitIds, prevOutfitIds) {
     //localStorage.clear();
-    localStorage.removeItem('outfits:'+prevOutfitIds.toString());
+    //document.cookie="outfitIds="+JSON.stringify(outfitIds);
+    /*localStorage.removeItem('outfits:'+prevOutfitIds.toString());
     const keyForStorage = 'outfits:'+outfitIds.toString();
     let outfitDetailsInString = localStorage.getItem(keyForStorage);
-    console.log('key for storage', keyForStorage);
-    console.log('outfits in localStorage',  JSON.parse(outfitDetailsInString));
+    //console.log('key for storage', keyForStorage);
+    //console.log('outfits in localStorage',  JSON.parse(outfitDetailsInString));
     if(outfitDetailsInString) {
       var outfitProducts = JSON.parse(outfitDetailsInString);
+      var maxScrollLeftOutfit = (outfits.length-3) * 215;
       this.setState({
-        outfits: outfitProducts
+        outfits: outfitProducts,
+        scrollLeftRelated:0,
+        scrollLeftOutfit:0,
+        maxScrollLeftOutfit:maxScrollLeftOutfit
       })
-    }else {
+    }else {*/
       //const keyForStorage = 'outfits:'+outfitIds.toString();
-      console.log('OUTFIT IDS', outfitIds);
-      console.log('going to fetch data');
+      //console.log('OUTFIT IDS', outfitIds);
+      //console.log('going to fetch data');
+      var maxScrollLeftOutfit = (outfitIds.length-3) * 215;
         fetch.outfitProductDetails(outfitIds)
       .then((outfitProductDetails) => {
-        localStorage.setItem(keyForStorage, JSON.stringify(outfitProductDetails));
-        //if ('caches' in window) {
-          // Opening given cache and putting our data into it
-         // caches.open('outfits').then((cache) => {
-            //cache.put(keyForStorage, data);
-            //alert('Data Added into cache!')
-          //});
-        //}
+        //localStorage.setItem(keyForStorage, JSON.stringify(outfitProductDetails));
+
         this.setState({
-          outfits: outfitProductDetails
+          outfits: outfitProductDetails,
+          scrollLeftRelated:0,
+          scrollLeftOutfit:0,
+          maxScrollLeftOutfit:maxScrollLeftOutfit
         })
       })
       .catch((error) => {
@@ -112,7 +126,7 @@ class Related_Outfit extends React.Component {
           console.log("error ",error);
         })
       })
-    }
+    //}
 
   }
   /***************************************************************************/
@@ -138,9 +152,12 @@ class Related_Outfit extends React.Component {
             related.push(productId);
            }
         })
-
+        var maxScrollLeftRelated = (relatedProductIds.length - 4) * 215;
         this.setState({
-          relatedProductIds: related
+          relatedProductIds: related,
+          scrollLeftRelated:0,
+          scrollLeftOutfit:0,
+          maxScrollLeftRelated:maxScrollLeftRelated
         })
         return related;
       })
@@ -216,6 +233,9 @@ class Related_Outfit extends React.Component {
   }*/
   componentDidMount(){
     var productInfo = {};
+
+
+
     productInfo = this.props.currentProductDetails;
     productInfo.styles = this.props.currentProductStyles;
     this.setState({
@@ -230,6 +250,7 @@ class Related_Outfit extends React.Component {
 
 
   }
+
   componentDidUpdate(prevProps) {
     if (prevProps.productId !== this.props.productId) {
       this.fetchRelatedInfo(this.props.productId);
@@ -238,9 +259,9 @@ class Related_Outfit extends React.Component {
     }
     if(JSON.stringify(prevProps.currentProductDetails) !== JSON.stringify(this.props.currentProductDetails)
     || JSON.stringify(prevProps.currentProductStyles) !== JSON.stringify(this.props.currentProductStyles)) {
-      console.log('prevProps.currentProductStyles',prevProps.currentProductStyles);
+      //console.log('prevProps.currentProductStyles',prevProps.currentProductStyles);
 
-      console.log('this.props.currentProductStyles',this.props.currentProductStyles);
+      //console.log('this.props.currentProductStyles',this.props.currentProductStyles);
       var productInfo = {};
       productInfo = this.props.currentProductDetails;
       productInfo.styles = this.props.currentProductStyles;
@@ -259,18 +280,61 @@ class Related_Outfit extends React.Component {
   /***************************************/
   scroll(event, scrollOffset){
     var element = event;
+    var className = event.target.parentElement.parentElement.className;
+    console.log(event.target.parentElement.parentElement.className);
+    if(event.target.parentElement.parentElement.className.startsWith("PreviousProd")){
 
-    if(event.target.className === 'fa fa-angle-left') {
-      element = event.target.parentElement.nextElementSibling;
+      element = event.target.parentElement.parentElement.nextElementSibling;
     }else{
-      element = event.target.parentElement.previousElementSibling;
+      element = event.target.parentElement.parentElement.previousElementSibling;
     }
 
     element.scrollLeft= element.scrollLeft + scrollOffset;
+
+    if((className==="NextProd Related") || (className==="PreviousProd Related")){
+
+      this.setState ({
+        scrollLeftRelated:element.scrollLeft
+      })
+
+    }else if((className==="NextProd Outfit") || ((className==="PreviousProd Outfit"))){
+
+      this.setState ({
+        scrollLeftOutfit:element.scrollLeft
+      })
+    }
+
   }
 
   render() {
-
+   var scrollLeftRelatedStyle = this.state.defaultStyle;
+   var scrollRightRelatedStyle = this.state.defaultStyle;
+   var scrollLeftOutfitStyle = this.state.defaultStyle;
+   var scrollRightOutfitStyle = this.state.defaultStyle;
+   //console.log("scrollLeftRelatedStyle",scrollLeftRelatedStyle);
+   /*console.log(this.state.relatedProducts.length);
+   console.log(this.state.outfits.length );
+   console.log(this.state.scrollLeftRelated);
+   console.log(this.state.scrollLeftOutfit);*/
+   if(this.state.relatedProducts.length > 4) {
+    scrollRightRelatedStyle = {"visibility": "visible"}
+   }
+   if(this.state.outfits.length > 3) {
+    scrollRightOutfitStyle = {"visibility": "visible"}
+   }
+   if(this.state.scrollLeftRelated > 0) {
+    scrollLeftRelatedStyle = {"visibility": "visible"}
+   }
+   if(this.state.scrollLeftOutfit > 0) {
+    scrollLeftOutfitStyle = {"visibility": "visible"}
+   }
+   if(this.state.scrollLeftOutfit > this.state.maxScrollLeftOutfit) {
+    scrollRightOutfitStyle = this.state.defaultStyle;
+   }
+   if(this.state.scrollLeftRelated > this.state.maxScrollLeftRelated) {
+    scrollRightRelatedStyle = this.state.defaultStyle;
+   }
+   //console.log("scrollRightRelatedStyle",scrollRightRelatedStyle);
    if(this.state.relatedProducts.length === 0 && this.state.outfits.length === 0) {
      return (
        <div id='Related_Outfit'>
@@ -281,9 +345,9 @@ class Related_Outfit extends React.Component {
 
     return(
 
-      <div data-testid="Related_Outifit" id='Related_Outfit' onClick={() => this.props.trackUserClicks('Related Outfits', event)}>
+      <div data-testid="Related_Outfit" id='Related_Outfit' onClick={() => this.props.trackUserClicks('Related Outfits', event)}>
         <h1 id="Related_Header">Related Products</h1>
-          <button className="PreviousProd Related" ><i className="fa fa-angle-left" onClick={(event)=>this.scroll(event,-250)}></i></button>
+          <button className="PreviousProd Related"  style={scrollLeftRelatedStyle}><FontAwesomeIcon id="leftScrollForRelated" icon = {faAngleLeft}  onClick={(event)=>this.scroll(event,-250)}/></button>
             <div data-testid="Related" className="Related_products">
               {this.state.relatedProducts.map((product) => (
                 <RelatedOutfit_ProductInfo key={product.id} currentProductId={this.state.productId} rating={this.props.rating} product={product} component={'Related'} starButtonClick={this.starButtonClick} productClick={this.props.productClick}/>
@@ -291,17 +355,17 @@ class Related_Outfit extends React.Component {
 
             </div>
 
-            <button className="NextProd Related" ><i className="fa fa-angle-right" onClick={(event)=>this.scroll(event,+250)}></i></button>
+            <button className="NextProd Related" style = {scrollRightRelatedStyle}><FontAwesomeIcon icon = {faAngleRight} onClick={(event)=>this.scroll(event,+250)}/></button>
             <h1 id="Outfit_Header">Your Outfit</h1>
-          <button className="PreviousProd Outfit" ><i className="fa fa-angle-left" onClick={(event)=>this.scroll(event,-250)}></i></button>
+          <button className="PreviousProd Outfit" style={scrollLeftOutfitStyle}><FontAwesomeIcon icon = {faAngleLeft} onClick={(event)=>this.scroll(event,-250)}/></button>
 
             <div data-testid="Outfit" id="Outfit">
-              <button id="Related_Plus" onClick={()=>this.addToOutfit()}><i className="fa fa-plus"></i><div>Add to Outfit</div></button>
+              <button id="Related_Plus" className="rel" onClick={()=>this.addToOutfit()}><FontAwesomeIcon icon = {faPlus} id="PlusIcon"/><div>Add to Outfit</div></button>
               {this.state.outfits.map((product) => (
                 <RelatedOutfit_ProductInfo key={product.id} currentProductId={this.state.productId} rating={this.props.rating} product={product} component={'Outfit'} productClick={this.props.productClick} crossButtonClick={this.crossButtonClick}/>
               ))}
             </div>
-            <button className="NextProd Outfit" ><i className="fa fa-angle-right" onClick={(event)=>this.scroll(event,+250)}></i></button>
+            <button className="NextProd Outfit" style={scrollRightOutfitStyle}><FontAwesomeIcon icon = {faAngleRight} onClick={(event)=>this.scroll(event,+250)}/></button>
           <div id="Comparison">
              <Comparison popup={this.state.popup} style={this.state.popup_style} currentProduct={this.state.productInfo} toCompare={this.state.productToCompare}/>
             </div>

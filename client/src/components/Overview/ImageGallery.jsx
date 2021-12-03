@@ -6,6 +6,8 @@ import { faCameraRetro } from '@fortawesome/free-solid-svg-icons';
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 
 let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, indexes, productStyles}) => {
@@ -13,7 +15,6 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
   const [showModal, setShowModal] = useState(false);
 
   let handleModalClick = () => {
-    console.log('Modal clicked!');
     setShowModal(true);
   }
 
@@ -29,14 +30,18 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
         <FontAwesomeIcon icon={faCameraRetro} />
         </div>
         }
+        <div className="ImageGalleryControls">
+        <button className="ThumbnailScrollUp"><FontAwesomeIcon icon={faChevronUp} alt="Scroll Gallery Up"/></button>
         <div data-testid="ImageGalleryThumbnails" className="ImageGalleryThumbnails">
-          {productStyles.results[indexes.style].photos.map((currentStyle, i) => (
+        {productStyles.results[indexes.style].photos.map((currentStyle, i) => (
             indexes.photo === i ?
 
             <div data-testid={`GalleryThumbnail ${i}`} key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnailSelected" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
             :
             <div data-testid={`GalleryThumbnail ${i}`} key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
           ))}
+        </div>
+        <button className="ThumbnailScrollDown"><FontAwesomeIcon icon={faChevronDown} alt="Scroll Gallery Down"/></button>
         </div>
         <div className="SlideGalleryLeft">
           <div data-testid="SlideGalleryLeftButtonTest" className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}><FontAwesomeIcon icon={faArrowCircleLeft} /></div>

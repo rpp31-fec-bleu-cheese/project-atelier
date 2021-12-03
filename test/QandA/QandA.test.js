@@ -13,11 +13,13 @@ describe('<QandA />', () => {
   })
 
   it ('renders QandA component without crashing', () => {
+    console.log(component.debug());
     const qandA = component.getByTestId('question-answers');
     expect(qandA).toBeInTheDocument();
   });
 
   it ('renders a list of questions', () => {
+    console.log(component.debug());
     const list = component.getByTestId('question-li');
     expect(list).toBeInTheDocument();
   });

@@ -105,10 +105,10 @@ module.exports = {
           for(product of products) {
             fetchReviews.push(promisedFetchReviews(product.id, undefined))
           }
-          console.log('fetchReviews',fetchReviews);
+         // console.log('fetchReviews',fetchReviews);
           return Promise.all(fetchReviews)
           .then((productReviewsArray) => {
-            console.log('productReviewsArray',productReviewsArray);
+            //console.log('productReviewsArray',productReviewsArray);
             var ratingArray = [];
             for(product of productReviewsArray) {
               var obj = {};
@@ -122,7 +122,7 @@ module.exports = {
                 obj.rating = parseFloat(obj.rating/product.results.length);
                 //console.log('obj.rating', obj.rating);
               }
-              console.log('obj', obj);
+              //console.log('obj', obj);
               ratingArray.push(obj);
             }
 
@@ -134,7 +134,7 @@ module.exports = {
               }
 
             }
-            console.log('related products with reviews', products);
+            //console.log('related products with reviews', products);
             res.status(200).send(products);
           });
 

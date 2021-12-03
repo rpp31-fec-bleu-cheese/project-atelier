@@ -10,6 +10,7 @@ import RatingsReviews from './Reviews/Index.jsx';
 import config from '../../../config.js';
 import { useEffect } from 'react';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +29,8 @@ class App extends React.Component {
   /** clicking on outfit or raletd product makes that as the current product  **/
   /*****************************************************************************/
   relatedOutfitProductClick(event, productId){
-    if(event.target.id !== 'Overlay_Star' && event.target.id !== 'Overlay_Circle') {
+    console.log(event.target.parentElement.parentElement.id);
+    if(event.target.parentElement.parentElement.id !== 'Overlay_Star' && event.target.parentElement.parentElement.id  !== 'Overlay_Circle') {
 
       this.setState({
         productId:productId
@@ -67,13 +69,24 @@ class App extends React.Component {
   }
 
   componentDidMount(){
+
+    //alert(JSON.parse(document.cookie.split('=')[1]));
+    /*var outfitIds = [];
+    if(document.cookie) {
+      outfitIds=JSON.parse(document.cookie.split('=')[1]);
+    }
+
+    //alert(Array.isArray(outfits));
+    this.setState({
+      outfitIds:outfitIds
+    })*/
     axios({
       method: 'get',
       url: '/cookies'
     })
     .then((response) => {
       var outfitIds = JSON.parse(response.data.outfitData);
-      console.log('OUTFITIDS ')
+      //console.log('OUTFITIDS ')
       this.setState({
         outfitIds:outfitIds
       })
@@ -104,6 +117,7 @@ class App extends React.Component {
 
 
   trackUserInteractions(widget, event) {
+
     let date = new Date();
     let timeOfInteraction = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
@@ -112,7 +126,7 @@ class App extends React.Component {
       widget: widget,
       time: timeOfInteraction
     };
-    console.log(interactionToLog)
+    //console.log(interactionToLog)
 
     axios.post('/interactions', {
       element: event.target.outerHTML,
@@ -139,6 +153,7 @@ class App extends React.Component {
           productId={this.state.productId}
           changeInOutfit={this.changeInOutfit}
           outfitIds={this.state.outfitIds}
+          starRating={this.state.rating}
           trackUserClicks={this.trackUserInteractions}/>
         <Related_Outfit
           productId={this.state.productId}

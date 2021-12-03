@@ -11,14 +11,23 @@ var Rating = (props) => {
       </div>
     )
   }*/
-  return (
-    <div id='Related_Rating'>
-  <div className='Stars'>
-    <div className='empty-stars'></div>
-    <div className='full-stars' style={{width: ((props.rating / 5) * 100) + '%' }}></div>
+  if(props.rating == 0){
+    return (
+      <div className="NoStars">
+
+      </div>
+    )
+  }else {
+    return (
+      <div id='Related_Rating'>
+    <div className='Stars'>
+      <div className='empty-stars'></div>
+      <div className='full-stars' style={{width: ((props.rating / 5) * 100) + '%' }}></div>
+    </div>
   </div>
-</div>
-  )
+    )
+  }
+
 }
 Rating.propTypes = {
   rating:PropTypes.number

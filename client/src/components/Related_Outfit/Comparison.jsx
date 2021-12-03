@@ -4,27 +4,27 @@ import ComparisonRow from './ComparisonRow.jsx';
 
 var Comparison = (props) => {
   if(props.popup) {
-      console.log('current product features:',props.currentProduct );
+      //console.log('current product features:',props.currentProduct );
      var featuresOfClickedProduct = props.toCompare.features;
      var featuresOfCurrentProduct = props.currentProduct.features
      var features = {};
-     console.log('featuresOfClickedProduct',featuresOfClickedProduct);
+     //console.log('featuresOfClickedProduct',featuresOfClickedProduct);
      for(var featureOfClicked of featuresOfClickedProduct) {
       //var obj = {};
       var nameOfFeature = featureOfClicked.feature;
       features[nameOfFeature] = {};
       features[nameOfFeature].valueForClicked = featureOfClicked.value;
-      features[nameOfFeature].valueForCurrent = null;
+      features[nameOfFeature].valueForCurrent = undefined;
       //features.push(obj);
      }
-     console.log('featuresOfCurrentProduct',featuresOfCurrentProduct);
+     //console.log('featuresOfCurrentProduct',featuresOfCurrentProduct);
      for(var featureOfCurrent of featuresOfCurrentProduct) {
 
       var nameOfFeature = featureOfCurrent.feature;
       if(features[nameOfFeature] === undefined) {
         features[nameOfFeature] = {};
         features[nameOfFeature].valueForCurrent = featureOfCurrent.value;
-        features[nameOfFeature].valueForClicked = null;
+        features[nameOfFeature].valueForClicked = undefined;
       }else {
         features[nameOfFeature].valueForCurrent = featureOfCurrent.value;
       }
@@ -35,14 +35,19 @@ var Comparison = (props) => {
      //console.log('allFeatures:',allFeatures);
     return(
       <div  id="PopupTrue" style={props.popup_style}>
-      Comparing
+
         <table id="ComparingTable">
 
           <thead>
+            <tr>
+              <td id="topHeader">
+                Comparing
+              </td>
+            </tr>
           <tr>
-            <td id="firstHeader">{props.toCompare.name}</td>
+            <td id="firstHeader">{props.currentProduct.name}</td>
              <td> </td>
-             <td id="secondHeader">{props.currentProduct.name}</td>
+             <td id="secondHeader">{props.toCompare.name}</td>
           </tr>
           </thead>
           <tbody>
