@@ -309,11 +309,7 @@ class Related_Outfit extends React.Component {
    var scrollRightRelatedStyle = this.state.defaultStyle;
    var scrollLeftOutfitStyle = this.state.defaultStyle;
    var scrollRightOutfitStyle = this.state.defaultStyle;
-   //console.log("scrollLeftRelatedStyle",scrollLeftRelatedStyle);
-   /*console.log(this.state.relatedProducts.length);
-   console.log(this.state.outfits.length );
-   console.log(this.state.scrollLeftRelated);
-   console.log(this.state.scrollLeftOutfit);*/
+
    if(this.state.relatedProducts.length > 4) {
     scrollRightRelatedStyle = {"visibility": "visible"}
    }

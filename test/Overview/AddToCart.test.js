@@ -10,6 +10,27 @@ import handleAddToBag from '../../client/src/components/Overview/AddToCart.jsx';
 // fixtures
 const testIndexes = { product: 0, style: 0, photo: 0 };
 let testOutfitIds = [];
+let testHandleAddToBag = () => {
+    // get sku
+    let productSkuForBag;
+    for (let key in currentSkus) {
+      if (currentSize === currentSkus[key].size) {
+        productSkuForBag = key;
+      }
+    }
+    let optionsForCart = {
+      url: '/cart',
+      method: 'post',
+      data: {sku_id: productSkuForBag}
+    };
+    axios(optionsForCart)
+      .then(response => {
+        console.log('Response from Cart:', response.data);
+      })
+        .catch(error => {
+          console.log(error);
+        });
+  }
 let testChangeInOutfit = (event, productId, todo) => {
     // var outfitIds = this.state.outfitIds.slice(0)
     // if(todo === "Add") {
@@ -278,9 +299,13 @@ describe('<AddToCart />', () => {
       fireEvent.click(addToFavoriteButton);
       expect(addToFavoriteButton.textContent).toBe('⭐');
     })
-    // test('', () => {
-    //   let addToBagButton = component.getByTestId('AddToBagButton');
-    //   fireEvent.click(addToBagButton);
-    //   expect(handleAddToBag(jest.fn())).toHaveBeenCalled();
-    // })
+    test('Renders a button to select a product size', () => {
+      let selectSizeButton = screen.getByRole('option', { name: 'SELECT SIZE' });
+      expect(selectSizeButton).toBeInTheDocument();
+    })
+    test('Renders a button to select a product quantity', () => {
+      let selectQtyButton = screen.getByRole('option', { name: '-' });
+      expect(selectQtyButton).toBeInTheDocument();
+    })
+
   })

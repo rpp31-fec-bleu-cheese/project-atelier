@@ -37,13 +37,11 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
         let product = {
           details: response.data
         };
-        // setProductById(response.data);
         axios(productStylesOptions)
         .then(response => {
           product.styles = response.data;
           setIndexes({...indexes, style: 0, photo: 0})
           updateDetailsAndStyles(product.details, product.styles);
-          // setProductStyles(response.data);
             })
           })
             .catch(error => {

@@ -8,16 +8,14 @@ var Comparison = (props) => {
      var featuresOfClickedProduct = props.toCompare.features;
      var featuresOfCurrentProduct = props.currentProduct.features
      var features = {};
-     console.log('featuresOfClickedProduct',featuresOfClickedProduct);
      for(var featureOfClicked of featuresOfClickedProduct) {
       //var obj = {};
       var nameOfFeature = featureOfClicked.feature;
       features[nameOfFeature] = {};
       features[nameOfFeature].valueForClicked = featureOfClicked.value;
       features[nameOfFeature].valueForCurrent = null;
-      //features.push(obj);
      }
-     console.log('featuresOfCurrentProduct',featuresOfCurrentProduct);
+
      for(var featureOfCurrent of featuresOfCurrentProduct) {
 
       var nameOfFeature = featureOfCurrent.feature;
