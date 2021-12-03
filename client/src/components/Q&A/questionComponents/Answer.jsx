@@ -41,8 +41,8 @@ const Answer = ({ answer, questionAsker, getQuestions }) => {
         { answer.photos.map((photo, i) => <Photo key={i} photo={photo}/>)}
       </div>
       <div className="helpful-buttons user-info">
-        { answer.answerer_name === questionAsker
-          ? (<div className="user">by {answer.answerer_name} - <b>Seller</b> </div>) :
+        { answer.answerer_name === 'Seller'
+          ? (<div className="user">by <b style={{ fontWeight: 'bold'}}>{answer.answerer_name}</b></div>) :
             (<div className="user">by {answer.answerer_name}</div>)
         }
         <div className="answer-date">, {answerDate}</div>
