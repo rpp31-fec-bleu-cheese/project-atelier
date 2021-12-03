@@ -9,7 +9,7 @@ const PhotoModal = ({ showModal, setShowModal, photo }) => {
           <div className="modal-background">
             <div className="modal-content">
               <div className="thumbnail-image">
-                <img src={photo} alt="product-image" onClick={() => setShowModal(false)}/>
+                <img src={photo} alt="product-image" loading="lazy" onClick={() => setShowModal(false)}/>
               </div>
             </div>
           </div>

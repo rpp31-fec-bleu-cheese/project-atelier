@@ -13,7 +13,7 @@ var Rating = (props) => {
   }*/
   if(props.rating == 0){
     return (
-      <div>
+      <div className="NoStars">
 
       </div>
     )

@@ -6,9 +6,10 @@ import sinon from 'sinon';
 import React from 'react';
 import jest from 'jest';
 import Enzyme from 'enzyme';
-import { shallow, mount, render } from 'enzyme';
-import {screen, fireEvent} from "@testing-library/react";
+import { shallow, mount } from 'enzyme';
+import { render, screen, fireEvent} from "@testing-library/react";
 import '@testing-library/jest-dom';
+import regeneratorRuntime from "regenerator-runtime";
 
 import Related_Outfit from '../../client/src/components/Related_Outfit/Related_Outfit.jsx';
 
@@ -233,7 +234,7 @@ describe('Related_Outfit', () => {
               "campus": "hr-rpp",
               "name": "Heir Force Ones",
               "slogan": "A sneaker dynasty",
-              "description": "Now where da boxes where I keep mine? You should peep mine, maybe once or twice but never three times. I'm just a sneaker pro, I love Pumas and shell toes, but can't nothin compare to a fresh crispy white pearl",
+              "description": "Now wheret da boxes where I keep mine? You should peep mine, maybe once or twice but never three times. I'm just a sneaker pro, I love Pumas and shell toes, but can't nothin compare to a fresh crispy white pearl",
               "category": "Kicks",
               "default_price": "99.00",
               "created_at": "2021-10-18T22:50:41.839Z",
@@ -298,10 +299,51 @@ describe('Related_Outfit', () => {
         expect(component.find('#Related_Plus')).not.toBeUndefined();
         done();
       });
-      it('Can find the AddTOOutfit button in the DOM', (done) => {
+      it('Can find the leftScrollButton button in the DOM', (done) => {
+        //fireEvent.click(component.find('.PreviousProd'));
+        expect(component.find('.PreviousProd')).not.toBeUndefined();
+        done();
+      });
+      it('Can find the rightScrollButton button in the DOM', (done) => {
+        //fireEvent.click(component.find('.PreviousProd'));
+        expect(component.find('.NextProd')).not.toBeUndefined();
+        done();
+      });
+
+      it('Can find the RelatedOutfit_ProductInfo component in the DOM', (done) => {
+
+        expect(component.find('RelatedOutfit_ProductInfo')).not.toBeUndefined();
+        done();
+      });
+      it('Can find the "Related Products" header in the DOM', (done) => {
+
+        expect(component.find('#Related_Header')).not.toBeUndefined();
+        done();
+      });
+      it('Can find the "Outfits" header in the DOM', (done) => {
+
+        expect(component.find('#Outfit_Header')).not.toBeUndefined();
+        done();
+      });
+
+      it('Can find function scroll', (done) => {
+
+        expect(typeof scroll).toBe('function');
+        done();
+      });
+      it('Can click on scroll button', (done) => {
+       // fireEvent.click(component.find('.PreviousProd.Related'));
+        //component.find('.PreviousProd.Related').simulate('click');
+        component.find('#leftScrollForRelated').simulate('click')
+        component.instance.scroll();
+        //expect( component.find('.PreviousProd.Related')).not.toBeUndefined();
+        //expect(component.find('.NextProd')).not.toBeUndefined();
+        done();
+      });
+      /*it('Can find the AddTOOutfit button in the DOM', (done) => {
         fireEvent.click(component.find('#Related_Plus'));
         expect(component.state().outfits.contains(59555)).toBe(true)
         done();
-      });
+      });*/
 });
 
