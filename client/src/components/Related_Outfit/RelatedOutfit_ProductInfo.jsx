@@ -46,11 +46,11 @@ var RelatedOutfit_ProductInfo = (props) => {
       <div data-testid="RelatedOutfit_ProductInfo" className="RelatedOutfit_ProductInfo" onClick={(event) => {props.productClick(event, props.product.id)}}>
        {Object.keys(style).length > 0
           ?<div className="Related" style={style}>
-              <span id="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} ><FontAwesomeIcon icon = {faStar} /></span>
+              <span id="Overlay_Star" data-testid="Overlay_Star"onClick={(event) => props.starButtonClick(event, props.product.id)} ><FontAwesomeIcon icon = {faStar} /></span>
             </div>
           :<div className="Related" style={style}>
               <FontAwesomeIcon icon = {faCameraRetro} id="CameraIcon"/>
-              <span id="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} ><FontAwesomeIcon icon = {faStar} /></span>
+              <span id="Overlay_Star" data-testid="Overlay_Star" onClick={(event) => props.starButtonClick(event, props.product.id)} ><FontAwesomeIcon icon = {faStar} /></span>
           </div>
         }
 
@@ -76,11 +76,11 @@ var RelatedOutfit_ProductInfo = (props) => {
 
           {Object.keys(style).length > 0
           ?<div className="Outfit" style={style}>
-               <span id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} ><FontAwesomeIcon icon = {faTimes}/></span>
+               <span id="Overlay_Circle" data-testid="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} ><FontAwesomeIcon icon = {faTimes}/></span>
             </div>
           :<div className="Outfit" style={style}>
               <FontAwesomeIcon icon = {faCameraRetro} id="CameraIcon"/>
-              <span id="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} ><FontAwesomeIcon icon = {faTimes}/></span>
+              <span id="Overlay_Circle" data-testid="Overlay_Circle" onClick={(event) => {props.crossButtonClick(event, props.product.id)}} ><FontAwesomeIcon icon = {faTimes}/></span>
           </div>
         }
 

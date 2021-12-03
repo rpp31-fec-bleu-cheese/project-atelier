@@ -14,10 +14,10 @@ Enzyme.configure({adapter:new Adapter()});
 
 describe('RelatedOutfit_ProductInfo ', () => {
   let component;
-  let product;
-    beforeEach(() => {
+ // let product;
+
       const productId = 59555;
-      product = {
+     let product = {
         "id": 59555,
         "campus": "hr-rpp",
         "name": "Morning Joggers",
@@ -394,7 +394,7 @@ describe('RelatedOutfit_ProductInfo ', () => {
               }
             }
       ]
-
+    beforeEach(() => {
       component = mount(<RelatedOutfit_ProductInfo
         currentProductId={productId}
        rating={4} product={product}
@@ -418,4 +418,35 @@ describe('RelatedOutfit_ProductInfo ', () => {
       expect(component.find(".name").text()).toEqual('Morning Joggers');
       done();
     });
+    it('can find the star button', (done) => {
+      expect(component.find("#Overlay_Star")).not.toBeUndefined();
+      done();
+    })
+    it('can find the close button', (done) => {
+        component = mount(<RelatedOutfit_ProductInfo
+            currentProductId={productId}
+           rating={4} product={product}
+            component={'Outfit'}
+          />)
+        expect(component.find("#Overlay_Circle")).not.toBeUndefined();
+        done();
+      })
+      it('checks if the category Morning Joggers is displayed in outfit',(done) => {
+        component = mount(<RelatedOutfit_ProductInfo
+            currentProductId={productId}
+           rating={4} product={product}
+            component={'Outfit'}
+          />)
+        expect(component.find(".name").text()).toEqual('Morning Joggers');
+        done();
+      });
+
+    /*it('display comparing table when start button is clicked',(done) => {
+        const starButton = component.find('#Overlay_Star');
+        fireEvent.click(starButton);
+        expect(screen.find('#ComparingTable')).not.toBeUndefined();
+        done();
+    });*/
+
+
 });
