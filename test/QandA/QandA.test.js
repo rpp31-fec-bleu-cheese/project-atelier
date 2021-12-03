@@ -19,6 +19,7 @@ describe('<QandA />', () => {
   });
 
   it ('renders a list of questions', () => {
+    console.log(component.debug());
     const list = component.getByTestId('question-li');
     expect(list).toBeInTheDocument();
   });
