@@ -66,9 +66,9 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
         {thumbnailIndexes.slice(startIndex, endIndex).map((currentStyle, i) => (
             indexes.photo === productStyles.results[indexes.style].photos.indexOf(currentStyle) ?
 
-            <div data-testid={`GalleryThumbnail ${i}`} key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnailSelected" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
+            <div data-testid={`GalleryThumbnail ${i}`} key={i} index={productStyles.results[indexes.style].photos.indexOf(currentStyle)} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnailSelected" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
             :
-            <div data-testid={`GalleryThumbnail ${i}`} key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
+            <div data-testid={`GalleryThumbnail ${i}`} key={i} index={productStyles.results[indexes.style].photos.indexOf(currentStyle)} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
           ))}
         </div>
         {!(endIndex === productStyles.results[indexes.style].photos.length) && <button className="ThumbnailScrollDown" onClick={handleThumbnailDown} alt="Scroll Gallery Down"><FontAwesomeIcon icon={faChevronDown}/></button>}

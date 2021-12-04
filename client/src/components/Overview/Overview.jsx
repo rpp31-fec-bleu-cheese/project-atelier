@@ -64,6 +64,7 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
 
   let handleThumbnailClick = (event) => {
     event.persist();
+    console.log('EVENT:', event);
     let indexValue = Number(event.target.attributes.index.nodeValue);
     setIndexes({...indexes, photo: indexValue});
     event.preventDefault();
