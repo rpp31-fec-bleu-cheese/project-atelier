@@ -48,7 +48,6 @@ let Overview = ({updateDetailsAndStyles, productById, productStyles, productId, 
               console.log(error)});
   }, [productId]);
 
-
   let handleLeftArrowClick = () => {
     if (indexes.photo === 0) {
       let nextIndex = productStyles.results[indexes.style].photos.length - 1;

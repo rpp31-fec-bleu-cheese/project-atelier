@@ -13,9 +13,39 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnailClick, indexes, productStyles}) => {
 
   const [showModal, setShowModal] = useState(false);
+  const [thumbnailIndexes, setThumbnailIndexes] = useState([]);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(0);
+
+  useEffect(() => {
+    let endIndex = productStyles.results[indexes.style].photos.length < 6 ? productStyles.results[indexes.style].photos.length : 6;
+    setThumbnailIndexes(productStyles.results[indexes.style].photos);
+    setStartIndex(0);
+    setEndIndex(endIndex);
+  }, [productStyles, indexes.style]);
 
   let handleModalClick = () => {
     setShowModal(true);
+  }
+
+  let handleThumbnailUp = () => {
+    console.log('Thumbnail Up!');
+    if (productStyles.results[indexes.style].photos[startIndex - 1]) {
+      setStartIndex(startIndex - 1);
+      setEndIndex(endIndex - 1);
+    } else {
+      return;
+    }
+  }
+
+  let handleThumbnailDown = () => {
+    console.log('Thumbnail Down!');
+    if (productStyles.results[indexes.style].photos[endIndex + 1]) {
+      setStartIndex(startIndex + 1);
+      setEndIndex(endIndex + 1);
+    } else {
+      return;
+    }
   }
 
     if (Object.keys(productStyles).length) {
@@ -31,17 +61,17 @@ let ImageGallery = ({handleLeftArrowClick, handleRightArrowClick, handleThumbnai
         </div>
         }
         <div className="ImageGalleryControls">
-        <button className="ThumbnailScrollUp"><FontAwesomeIcon icon={faChevronUp} alt="Scroll Gallery Up"/></button>
+        {!(startIndex === 0) && <button className="ThumbnailScrollUp" onClick={handleThumbnailUp} alt="Scroll Gallery Up"><FontAwesomeIcon icon={faChevronUp}/></button>}
         <div data-testid="ImageGalleryThumbnails" className="ImageGalleryThumbnails">
-        {productStyles.results[indexes.style].photos.map((currentStyle, i) => (
-            indexes.photo === i ?
+        {thumbnailIndexes.slice(startIndex, endIndex).map((currentStyle, i) => (
+            indexes.photo === productStyles.results[indexes.style].photos.indexOf(currentStyle) ?
 
             <div data-testid={`GalleryThumbnail ${i}`} key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnailSelected" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
             :
             <div data-testid={`GalleryThumbnail ${i}`} key={i} index={i} style={{background: `center / contain no-repeat url(${currentStyle.thumbnail_url})`}} className="GalleryThumbnail" onClick={handleThumbnailClick} alt="Product Thumbnail Image"></div>
           ))}
         </div>
-        <button className="ThumbnailScrollDown"><FontAwesomeIcon icon={faChevronDown} alt="Scroll Gallery Down"/></button>
+        {!(endIndex === productStyles.results[indexes.style].photos.length) && <button className="ThumbnailScrollDown" onClick={handleThumbnailDown} alt="Scroll Gallery Down"><FontAwesomeIcon icon={faChevronDown}/></button>}
         </div>
         <div className="SlideGalleryLeft">
           <div data-testid="SlideGalleryLeftButtonTest" className="SlideGalleryLeftButton" onClick={handleLeftArrowClick}><FontAwesomeIcon icon={faArrowCircleLeft} /></div>

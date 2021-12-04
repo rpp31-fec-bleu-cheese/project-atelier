@@ -8,25 +8,16 @@ var Comparison = (props) => {
      var featuresOfClickedProduct = props.toCompare.features;
      var featuresOfCurrentProduct = props.currentProduct.features
      var features = {};
-<<<<<<< HEAD
-=======
      //console.log('featuresOfClickedProduct',featuresOfClickedProduct);
->>>>>>> d89abc8ec9dfae59e8458452951b377f5c92c3b1
      for(var featureOfClicked of featuresOfClickedProduct) {
       //var obj = {};
       var nameOfFeature = featureOfClicked.feature;
       features[nameOfFeature] = {};
       features[nameOfFeature].valueForClicked = featureOfClicked.value;
-<<<<<<< HEAD
-      features[nameOfFeature].valueForCurrent = null;
-     }
-
-=======
       features[nameOfFeature].valueForCurrent = undefined;
       //features.push(obj);
      }
      //console.log('featuresOfCurrentProduct',featuresOfCurrentProduct);
->>>>>>> d89abc8ec9dfae59e8458452951b377f5c92c3b1
      for(var featureOfCurrent of featuresOfCurrentProduct) {
 
       var nameOfFeature = featureOfCurrent.feature;
