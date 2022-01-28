@@ -1,7 +1,7 @@
 const axios = require('axios');
 const config = require('../../config.js');
 
-const server = 'http://13.59.162.227/qa/questions'
+const server = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions'
 
 const getQuestions = (productID, callback) => {
   let options = {
