@@ -192,5 +192,5 @@ Javascript, HTML, CSS, AWS
 
 **Performance**
 ![App Screenshot](./demos/Lighthouse_Performance.png)
-![App Screenshot](./demos/GPSI_Perfomance.png)
+![App Screenshot](./demos/GPSI_Performance.png)
 
