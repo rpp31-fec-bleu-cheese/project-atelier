@@ -1,7 +1,7 @@
 const axios = require('axios');
 const config = require('../../config.js');
 
-const server = 'http://18.224.3.30/qa/questions'
+const server = 'http://13.59.162.227/qa/questions'
 
 const getQuestions = (productID, callback) => {
   let options = {
