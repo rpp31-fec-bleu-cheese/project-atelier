@@ -190,3 +190,7 @@ Javascript, HTML, CSS, AWS
 ![App Screenshot](./demos/R&R.png)
 ![App Screenshot](./demos/R&RWrite.png)
 
+**Performance**
+![App Screenshot](./demos/Lighthouse_Performance.png)
+![App Screenshot](./demos/GPSI_Perfomance.png)
+
